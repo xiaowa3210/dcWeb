@@ -1,0 +1,54 @@
+body {
+    position: relative;
+}
+
+.logo-img {
+	width: 100px;
+	height: 100px;
+/*	margin: -10px 10px -10px 0px;*/
+}
+.logo-word {
+	font-size: 16px;
+	color: #fff;
+}
+.navbar-default {
+  background-color: #2c3e50;
+  border-color: transparent;
+  padding: 0 20px;
+
+}
+.navbar-default .navbar-nav {
+	margin: 0px;
+	padding: 10px 0;
+}
+
+.navbar-default .navbar-nav> li {
+	margin:0;
+	padding: 0;
+}
+
+.navbar-default .navbar-nav> li > a {
+  display: block;
+  color: #ffffff;
+  padding: 10px 40px;
+  margin: 0 5px;
+}
+
+
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > li > a:focus {
+  color:#18bc9c;
+}
+
+.navbar-default .navbar-nav > .active > a,
+.navbar-default .navbar-nav > .active > a:hover,
+.navbar-default .navbar-nav > .active > a:focus
+ {
+  color: #ffffff;
+  background-color: #18bc9c;
+}
+
+.flash-message{
+    width: 350px;
+    margin: 0 auto;
+}
