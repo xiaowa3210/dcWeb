@@ -4,8 +4,8 @@
 	<!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-	<link rel="stylesheet" href="../static/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/normalize.css')}}">
+	<link rel="stylesheet" href="{{ url_for('static',filename='bootstrap/css/bootstrap.min.css')}}">
 	<!--把上面那句注释掉，然后改下一句的href-->
     <!--<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='bootstrap/css/bootstrap.css/bootstrap.min.css') }}">-->
 
@@ -68,8 +68,8 @@
 
 
 
-<script src="../static/jquery/jquery-3.3.1.min.js"></script>
+<script src="{{ url_for('static',filename='jquery/jquery-3.3.1.min.js')}}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-<script src="../static/bootstrap/css/bootstrap.min.js"></script>
+<script src="{{ url_for('static',filename='bootstrap/js/bootstrap.min.js')}}"></script>
 </body>
 </html>

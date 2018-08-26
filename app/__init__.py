@@ -13,3 +13,4 @@ with app.test_request_context():
     db.create_all()  # 创建数据表
 
 from .view import views  # 导入视图，防止末尾，避免循环导入？
+from .view import projectview
