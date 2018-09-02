@@ -1,10 +1,8 @@
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileRequired, FileAllowed
-from tensorboard.backend.event_processing.event_accumulator import IMAGES
 from wtforms import StringField, SubmitField, BooleanField, PasswordField, SelectField, TextAreaField, HiddenField
 from wtforms.validators import DataRequired, Length, Email, Regexp, EqualTo
 from flask_uploads import UploadSet, IMAGES
-from flask_uploads import configure_uploads, patch_request_class
 
 photos = UploadSet('photos', IMAGES)
 class CfgNotifyForm(FlaskForm):

@@ -45,14 +45,14 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 from app.models import db
 db.init_app(app)
 db.app=app
-with app.test_request_context():
-    from app.models import *
-    # db.drop_all()
-    db.create_all()
+# with app.test_request_context():
+#     from app.models import *
+#     # db.drop_all()
+#     db.create_all()
 from app.models import SuperAdmin
-admin = SuperAdmin(username='admin',password='admin')
-db.session.add(admin)
-db.session.commit()
+# admin = SuperAdmin(username='admin',password='admin')
+# db.session.add(admin)
+# db.session.commit()
 
 @login_manager.user_loader
 def load_user(user_id):
