@@ -38,54 +38,54 @@
 </div>
 
 <div class="row" style="margin-top: 10px">
-<div class="col-md-6 table-left">
+    <div class="col-md-6 table-left">
 	<table class="table table-sm table-borderless" style="table-layout:fixed">
-  <thead>
-    <tr>
-      <th scope="col" width="5%"><img src="{{ url_for('static',filename='images/right.gif') }}"></th>
-      <th scope="col" width="75%" >最新公告</th>
-      <th scope="col" width="20%"></th>
-    </tr>
-  </thead>
-  <tbody>
-  {% for new in news %}
-    <tr>
-      <th scope="row"><img src="{{ url_for('static',filename='images/right.gif') }}"></th>
-      <td style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">
-          <a href="#">{{ new.title }}第一次第一次第一次第一次第一次第一次第一次</a>
-      </td>
-      <td>
-          {{ new.create_time }}
-      </td>
-    </tr>
-  {% endfor %}
-  </tbody>
-</table>
-</div>
-<div class="col-md-6 table-right">
-	<table class="table table-sm table-borderless">
-  <thead>
-    <tr>
-      <th scope="col" width="5%"><img src="{{ url_for('static',filename='images/right.gif') }}"></th>
-      <th scope="col" width="75%" >最新资料</th>
-      <th scope="col" width="20%"></th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for new in news %}
-    <tr>
-      <th scope="row"><img src="{{ url_for('static',filename='images/right.gif') }}"></th>
-      <td style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">
-          <a href="#">{{ new.title }}</a>
-      </td>
-      <td>
-          {{ new.create_time }}
-      </td>
-    </tr>
-  {% endfor %}
-  </tbody>
-</table>
-</div>
+          <thead>
+            <tr>
+              <th scope="col" width="5%"><img src="{{ url_for('static',filename='images/right.gif') }}"></th>
+              <th scope="col" width="75%" >最新公告</th>
+              <th scope="col" width="20%"><a  href="{{ url_for('news') }}">more>>></a></th>
+            </tr>
+          </thead>
+          <tbody>
+              {% for document in documents %}
+                <tr>
+                  <th scope="row"><img src="{{ url_for('static',filename='images/right.gif') }}"></th>
+                  <td style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">
+                      <a href="{{ url_for('new_details',document_id=document.id) }}">{{ document.title }}</a>
+                  </td>
+                  <td>
+                      {{ document.create_time }}
+                  </td>
+                </tr>
+              {% endfor %}
+          </tbody>
+    </table>
+    </div>
+    <div class="col-md-6 table-right" style="width: 2%">
+        <table class="table table-sm table-borderless">
+              <thead>
+                <tr>
+                  <th scope="col" width="5%"><img src="{{ url_for('static',filename='images/right.gif') }}"></th>
+                  <th scope="col" width="75%" >最新资料</th>
+                  <th scope="col" width="20%"><a  href="{{ url_for('projects') }}">more>>></a></th>
+                </tr>
+              </thead>
+          <tbody>
+            {% for project in projects %}
+            <tr>
+              <th scope="row"><img src="{{ url_for('static',filename='images/right.gif') }}"></th>
+              <td style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">
+                  <a href="{{ url_for('project_details',project_id=project.id) }}">{{ project.pname }}</a>
+              </td>
+              <td>
+                  {{ project.create_time }}
+              </td>
+            </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+    </div>
 </div>
 
 

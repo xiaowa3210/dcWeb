@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block static_files %}
+    <script src="{{ url_for('static', filename='tinymce/js/tinymce/tinymce.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/tinymce_setup.js') }}"></script>
+    <script>
+    .footer{
+        position:fixed;
+        bottom:0;
+
+    }
+    </script>
+{% endblock %}
+{% block body_part %}
+    <hr>
+    <div class="project-introduction">
+    {{ project.introduction | safe}}
+    </div>
+    <hr>
+    <br>
+    <ul >
+    {% for comment in comments %}
+        <hr>
+        <li>
+            <div>{{ comment.content | safe }}{{ comment.create_time }}</div>
+        </li>
+    {% endfor %}
+    </ul>
+    <hr>
+    <div  class="footer">
+    <hr>
+        <h4>发表评论:</h4>
+    <form method="POST" action="">
+        <div class="tinymce-group">
+            <textarea id="tinymce-content" rows="2" placeholder="请在此编辑评论" name="project_content"></textarea>
+        </div>
+        <div class="form-group" style="text-align: right;">
+            <button type="submit" class="btn btn-primary">提交</button>
+        </div>
+    </form>
+    </div>
+{% endblock %}

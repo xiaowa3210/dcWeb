@@ -11,6 +11,7 @@
         <img class="avatar" src="{{ url_for('static',filename=login_user.avatar_path) }}"/>
     </div>
     <div class="basic-infos">
+
         <h4>用户名：{{ login_user.username }}</h4>
         <h4>创建时间：{{ login_user.register_time }}</h4>
         <h4>发布问答数：{{ login_user.questions | length }}</h4>

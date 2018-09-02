@@ -2,7 +2,7 @@
 # -*- coding:utf-8 -*-
 
 from flask import render_template, request, flash, redirect, url_for, session, g
-from app.models import db, Users, Information
+from app.models import db, Users, Information,Documents,Project,Comments
 from werkzeug.security import generate_password_hash
 from exts import validate_login_register, validate_change_password
 from app import app
@@ -17,15 +17,10 @@ def my_context_processor():
 
 @app.route('/')
 def home():
-    news1=Information(title=u'first game',content='first game start',attachment='heheh')
-    db.session.add(news1)
-    db.session.commit()
-    news2=Information(title='second',content='second game start',attachment='hhh')
-    db.session.add(news2)
-    db.session.commit()
-    news = Information.query.order_by(Information.create_time.desc()).limit(6)
-    return render_template('home.html',news=news)
 
+    documents = Documents.query.order_by(Documents.create_time.desc()).limit(6)
+    projects = Project.query.order_by(Project.create_time.desc()).limit(6)
+    return render_template('home.html',documents=documents,news=news,projects=projects)
 
 @app.route('/register/', methods=['GET', 'POST'])
 def register():
@@ -92,6 +87,50 @@ def security():
             flash(message)
             return render_template('security.html')
 
+
+@app.route('/user/user_news/', methods=['GET', 'POST'])
+def user_news():
+    if request.method == 'GET':
+        return render_template('user_news.html')
+    else:
+        document_title = request.form.get('document_title')
+        document_content = request.form.get('document_content')
+        new_document = Documents(title=document_title, content=document_content)
+        db.session.add(new_document)
+        db.session.commit()
+        return redirect(url_for('news'))
+
+@app.route('/news/')
+def news():
+    documents = Documents.query.order_by(Documents.create_time.desc()).all()
+    return render_template('news.html',documents=documents)
+
+@app.route('/new_details/<document_id>/')
+def new_details(document_id):
+    document_obj = Documents.query.filter(Documents.id == document_id).first()
+    return render_template('new_details.html', document=document_obj)
+
+@app.route('/projects/')
+def projects():
+    projects = Project.query.order_by(Project.create_time.desc()).all()
+    return render_template('projects.html',projects=projects)
+
+@app.route('/project_details/<project_id>/',methods=['GET', 'POST'])
+def project_details(project_id):
+    project_obj = Project.query.filter(Project.id == project_id).first()
+
+    if request.method == 'GET':
+        comments = Comments.query.order_by(Comments.create_time.desc()).all()
+        return render_template('project_details.html', project=project_obj,comments=comments)
+    else:
+        project_comment = request.form.get('project_content')
+        new_comment = Comments(content=project_comment)
+        db.session.add(new_comment)
+        db.session.commit()
+        comments = Comments.query.order_by(Comments.create_time.desc()).all()
+        return render_template('project_details.html', project=project_obj,comments=comments)
+ #   project_obj = Project.query.filter(Project.id == project_id).first()
+ #   return render_template('project_details.html', project=project_obj)
 
 @app.before_request
 def my_before_request():
