@@ -1,23 +1,26 @@
-¸Ã°æ±¾ÔÚdcWeb_1_0µÄ»ù´¡ÉÏ£¬½«ÏîÄ¿Ä¿Â¼¸ü¸ÄÎªflask±ê×¼Ä¿Â¼¡£
+å­¦ç”Ÿ--
+æäº¤é¡¹ç›®
 
-dcWeb_2_0:
-app ¡ª¡ª flask³ÌÐò±£´æÔÚ´ËÎÄ¼þ¼ÐÏÂ
-     --static ¡ª¡ª ´æ·Å¹«¹²css\js\imagesµÈ¾²Ì¬ÎÄ¼þ
-     --templates ¡ª¡ª´æ·Åhtml\Jinja2Ä£°å
-     --__init__.py
-     --models.py ¡ª¡ª Êý¾Ý¿â´úÂë
-     --views.py ¡ª¡ª ÊÓÍ¼ÎÄ¼þ£¬Â·ÓÉ
-migrations ¡ª¡ª °üº¬Êý¾Ý¿âÇ¨ÒÆ½Å±¾£¨°²×°flask-migrateºó×Ô¶¯Éú³É£©
-tests ¡ª¡ª µ¥Ôª²âÊÔ´æ·ÅÔÚ´ËÎÄ¼þ¼ÐÏÂ
-venv ¡ª¡ª pythonÐéÄâ»·¾³
-config.py ¡ª¡ª ´æ´¢ÅäÖÃ±äÁ¿
-requirements.txt ¡ª¡ª ÁÐ³öÁËËùÓÐµÄÒÀÀµ°ü£¬ÒÔ±ãÓÚÔÚÆäËûµçÄÔÖÐÖØÐÂÉú³ÉÏàÍ¬µÄ»·¾³
-manage.py ¡ª¡ª Æô¶¯³ÌÐò»òÕßÆäËûÈÎÎñ
-run.py ¡ª¡ª ³ÌÐòÈë¿Ú
+è€å¸ˆ--å®¡æ ¸å­¦ç”Ÿæ·»åŠ çš„é¡¹ç›®ï¼Œæ·»åŠ é¡¹ç›®ï¼Œç¼–è¾‘é¡¹ç›®ï¼Œå‘å¸ƒèµ„æ–™
 
-ÔËÐÐ£º
-°²×°ËùÓÐµÄÒÀÀµ°ü£»
-½¨Á¢Ò»¸ömysqlÊý¾Ý¿â£¬ÐÞ¸Äconfig.pyÖÐµÄÏà¹Ø²ÎÊý£»
-ÔËÐÐrun.py
+ç®¡ç†å‘˜--æ·»åŠ è€å¸ˆï¼Œå®¡æ ¸é¡¹ç›®ï¼Œæ·»åŠ é¡¹ç›®ï¼Œç¼–è¾‘é¡¹ç›®ï¼Œå‘å¸ƒèµ„æ–™
 
-²âÊÔÒ»ÏÂÄÜ²»ÄÜÌá½»£¡£¡£¡hello,world
+æƒé™è¡¨
+é™„ä»¶è¡¨
+é¡¹ç›®äººå‘˜ä¿¡æ¯è¡¨
+
+
+1.ç™»å½•å‡ºè·³è½¬åˆ°ä¸ªäººä¸­å¿ƒ
+2.å°†åŽå°ç®¡ç†åˆå¹¶åˆ°ä¸€èµ·
+
+ä¸ªäººä¸­å¿ƒï¼š
+å­¦ç”Ÿï¼šæˆ‘çš„é¡¹ç›®ï¼ˆå¢žåˆ æ”¹æŸ¥ï¼‰
+è€å¸ˆï¼šé¡¹ç›®å®¡æ‰¹ã€‚æˆ‘çš„é¡¹ç›®,æ–°é—»èµ„æ–™ä¸Šä¼ ã€‚ï¼ˆå¢žåˆ æ”¹æŸ¥ï¼‰
+ç®¡ç†å‘˜ï¼šæ·»åŠ äººå‘˜ï¼Œé¡¹ç›®å®¡æ‰¹ã€‚æˆ‘çš„é¡¹ç›®,æ–°é—»èµ„æ–™ä¸Šä¼ ã€‚ï¼ˆå¢žåˆ æ”¹æŸ¥ï¼‰
+
+xinyuï¼šå¤§åˆ›ç½‘å‰ç«¯æ¨¡æ¿
+lixueï¼šåŽå°ç®¡ç†,å¯Œæ–‡æœ¬
+æˆ‘çš„é¡¹ç›®ï¼ˆå¢žåˆ æ”¹æŸ¥ï¼‰
+
+hubiaoï¼šåŽå°é€»è¾‘ï¼Œæµ‹è¯•çŽ¯å¢ƒ
+xiaokangï¼šèµ„æ–™ï¼Œæ–°é—»åˆ†é¡µã€‚

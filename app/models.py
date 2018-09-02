@@ -61,7 +61,7 @@ class Information(db.Model):
     content = db.Column(db.String(256),nullable=False)
     attachment = db.Column(db.String(256), nullable=False)
     create_time = db.Column(db.DateTime, nullable=False, default=datetime.now)
-'''
+
 #政策文件
 class Document(db.Model):
     __tablename__ = 'document'
@@ -69,7 +69,7 @@ class Document(db.Model):
     title = db.Column(db.String(256), nullable=False)
     link = db.Column(db.String(256), index=True,unique=True,nullable=False)
     create_time = db.Column(db.DateTime, nullable=False, default=datetime.now)
-'''
+
 
 class Comments(db.Model):
     __tablename__ = 'comments_info'
