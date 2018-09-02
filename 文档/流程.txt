@@ -24,12 +24,12 @@ attachments存一个json数组,数组中每一项为documentid
 必须：did,link,time
 
 项目展示(project)：由管理员上传？讨论
-pid,pname,picture,introduction
-
+pid,pname,picture,introduction，persons项目相关人员信息(json)。
 pic字段存放图片路径，json数组代表，
 数组中的每项代表一个图片路径
 
-项目留言板（messageboard）：
+
+项目留言板（messageboard）
 游客能查看所有留言，但是登录后才能留言。
 pid uid message time
 

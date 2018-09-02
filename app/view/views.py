@@ -17,15 +17,7 @@ def my_context_processor():
 
 @app.route('/')
 def home():
-    '''
-    news1=Information(title=u'',content='first game start',attachment='heheh')
-    db.session.add(news1)
-    db.session.commit()
-    news2=Information(title='secondfirst gamefirst gamefirst gamefirst gamefirst gamefirst gamefirst gamefirst game',content='second game start',attachment='hhh')
-    db.session.add(news2)
-    db.session.commit()
-    news = Information.query.order_by(Information.create_time.desc()).limit(6)
-    '''
+
     documents = Documents.query.order_by(Documents.create_time.desc()).limit(6)
     projects = Project.query.order_by(Project.create_time.desc()).limit(6)
     return render_template('home.html',documents=documents,news=news,projects=projects)
@@ -94,7 +86,6 @@ def security():
         else:
             flash(message)
             return render_template('security.html')
-
 
 
 @app.route('/user/user_news/', methods=['GET', 'POST'])
