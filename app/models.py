@@ -11,6 +11,26 @@ class SuperAdmin(db.Model):
     password = db.Column(db.String(128), nullable=False)
     register_time = db.Column(db.DateTime, nullable=False, default=datetime.now)
 
+    def __init__(self, username, password):
+        self.username = username
+        self.password = password
+
+    def get_id(self):
+        return str(self.id)
+
+    def __repr__(self):
+        return '<SuperAdmin %r>' % self.username
+
+    def is_authenticated(self):
+        return True
+
+    def is_active(self):
+        return True
+
+    def is_anonymous(self):
+        return False
+
+
 #管理员
 class Admin(db.Model):
     __tablename__ = 'admin'
