@@ -36,7 +36,7 @@ class Information(db.Model):
     content = db.Column(db.String(256),nullable=False)
     attachment = db.Column(db.String(256), nullable=False)
     create_time = db.Column(db.DateTime, nullable=False, default=datetime.now)
-
+'''
 #政策文件
 class Document(db.Model):
     __tablename__ = 'document'
@@ -44,7 +44,23 @@ class Document(db.Model):
     title = db.Column(db.String(256), nullable=False)
     link = db.Column(db.String(256), index=True,unique=True,nullable=False)
     create_time = db.Column(db.DateTime, nullable=False, default=datetime.now)
+'''
 
+class Comments(db.Model):
+    __tablename__ = 'comments_info'
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    content = db.Column(db.TEXT, nullable=False)
+    project_id = db.Column(db.Integer, db.ForeignKey('project.id'))
+    author_id = db.Column(db.Integer, db.ForeignKey('project.id'))
+    create_time = db.Column(db.DateTime, nullable=False, default=datetime.now)
+#    author = db.relationship('',backref=db.backref('comments'))
+#    author = db.relationship('',backref=db.backref('comments'))
+class Documents(db.Model):
+    __tablename__ = 'documents'
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    title = db.Column(db.String(256), nullable=False)
+    content = db.Column(db.TEXT, nullable=False)
+    create_time = db.Column(db.DateTime, nullable=False, default=datetime.now)
 #项目
 class Project(db.Model):
     __tablename__ = 'project'

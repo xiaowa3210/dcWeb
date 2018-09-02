@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='bootstrap/css/bootstrap.min.css') }}">
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/base.css') }}">
+    <script src="{{ url_for('static', filename='js/base.js') }}"></script>
+    {% block static_files %}{% endblock %}
+	<title>{% block page_name %}{% endblock %}</title>
+</head>
+<body data-spy="scroll" data-target="#navbar-header">
+<div class="container">
+	<div class="row header">
+		<div class="col-md-12" id="navbar-header">
+			<nav class="navbar  navbar-expand-lg navbar-default" style="margin-bottom: 5px;">
+  				<img class="logo-img" src="{{ url_for('static',filename='images/logo.png') }}">
+  					<span class="logo-word">大学生创新创业平台</span>
+  				</a>
+				<div class="collapse navbar-collapse" id="navbarSupportedContent">
+    				<ul class="navbar-nav mr-auto">
+      					<li class="nav-item"><a class="nav-link" href="{{ url_for('home') }}">首页<span class="sr-only">(current)</span></a></li>
+      					<li class="nav-item"><a class="nav-link" href="{{ url_for('news') }}">新闻公告</a></li>
+      					<li class="nav-item"><a class="nav-link" href="{{ url_for('projects') }}">资料下载</a></li>
+      					<li class="nav-item"><a class="nav-link" href="#">成果展示</a></li>
+      					<li class="nav-item"><a class="nav-link" href="#">心得交流</a></li>
+      			    </ul>
+      			    <ul class="navbar-nav justify-content-end">
+                        {% if login_user %}
+      			    	    <li class="nav-item"><a class="nav-link" href="{{ url_for('user_center') }}">用户：{{ login_user.username }}</a></li>
+      			    	    <li class="nav-item"><a class="nav-link" href="{{ url_for('logout') }}">注销</a></li>
+                        {% else %}
+                            <li class="nav-item"><a class="nav-link" href="{{ url_for('login') }}">登录</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{ url_for('register') }}">注册</a></li>
+                        {% endif %}
+      			    </ul>
+      			</div>
+			</nav>
+		</div>
+	</div>
+    <div class="body-container">
+        {% block body_part %}
+        {% endblock %}
+    </div>
+    <div style="">
+        <div class="flash-message">
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <ul>
+                        {% for message in messages %}
+                              {% if '成功' in message %}
+                                <li><div class="alert alert-info" role="alert">{{ message }}</div></li>
+                            {% else %}
+                                <li><div class="alert alert-danger" role="alert">{{ message }}</div></li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+            {% endwith %}
+        </div>
+    </div>
+</div>
+
+
+
+<script src="../static/jquery/jquery-3.3.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="../static/bootstrap/css/bootstrap.min.js"></script>
+</body>
+</html>
