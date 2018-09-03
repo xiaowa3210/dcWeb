@@ -27,6 +27,11 @@ class Users(db.Model):
     email = db.Column(db.String(128),nullable=True)
     register_time = db.Column(db.DateTime, nullable=False, default=datetime.now)
 
+# 让打印出来的数据更好看，可选的
+    def __repr__(self):
+        return "<User(id='%s',username='%s',password='%s',email='%s',register_time='%s')>" % \
+               (self.id,self.username,self.password,self.email,self.register_time)
+
 #发布信息
 
 class Information(db.Model):
@@ -55,3 +60,6 @@ class Project(db.Model):
     picture = db.Column(db.String(1024), nullable=True)
     vedio = db.Column(db.String(1024), nullable=True)
     create_time = db.Column(db.DateTime, nullable=False, default=datetime.now)
+    def __repr__(self):
+        return "<Project(id='%s',pname='%s',team_info='%s',introduction='%s',picture='%s',vedio='%s',create_time='%s')>" % \
+               (self.id,self.pname,self.team_info,self.introduction,self.picture,self.vedio,self.create_time)

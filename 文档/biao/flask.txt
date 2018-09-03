@@ -1,0 +1,22 @@
+数据库迁移产生的原因
+1.在开发过程中，需要修改数据库模型，而且还要在修改之后更新数据库。最直接的方式就是删除旧表，但这样会丢失数据。
+2.更好的解决办法是使用数据库迁移框架，它可以追踪数据库模式的变化，然后把变动应用到数据库中。
+
+具体操作
+为了导出数据库迁移命令，Flask-Migrate提供了一个MigrateCommand类，可以附加到flask-script的manager对象上。
+**************************运行manage.py。并且执行命令。*****************
+
+python manage.py db init
+这个命令会创建migrations文件夹，所有迁移文件都放在里面。
+
+给备份数据库取一个名字
+python manage.py db migrate -m 'initial migration'
+
+当更改数据库结构的时候，更新数据库。
+问题：更新数据库会将上一个版本的数据迁移吗？
+python database.py db upgrade
+
+返回以前的版本
+python manage.py db history
+python manage.py db downgrade 版本号
+
