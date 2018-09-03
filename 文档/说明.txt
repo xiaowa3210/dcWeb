@@ -1,23 +1,37 @@
-�ð汾��dcWeb_1_0�Ļ����ϣ�����ĿĿ¼����Ϊflask��׼Ŀ¼��
+20180903分支说明
+
+master正式版发布分支
+develop测试版发布分支
+codereview本地测试分支
+
+每个开发周期，将所有人员的开发分支合并到codereview，codereview分支修改无误后合并到develop分支，
+更新发布版本时，develop分支合并到master分支
+
+开始新功能开发时，从develop拉取分支，并命名为F（新功能）/B（bug修复）+日期+人名
+例如F0903huchao，B0903huchao等
+
+----
+
+该版本在dcWeb_1_0的基础上，将项目目录更改为flask标准目录。
 
 dcWeb_2_0:
-app ���� flask���򱣴��ڴ��ļ�����
-     --static ���� ��Ź���css\js\images�Ⱦ�̬�ļ�
-     --templates �������html\Jinja2ģ��
+app —— flask程序保存在此文件夹下
+     --static —— 存放公共css\js\images等静态文件
+     --templates ——存放html\Jinja2模板
      --__init__.py
-     --models.py ���� ���ݿ����
-     --views.py ���� ��ͼ�ļ���·��
-migrations ���� �������ݿ�Ǩ�ƽű�����װflask-migrate���Զ����ɣ�
-tests ���� ��Ԫ���Դ���ڴ��ļ�����
-venv ���� python���⻷��
-config.py ���� �洢���ñ���
-requirements.txt ���� �г������е����������Ա�������������������������ͬ�Ļ���
-manage.py ���� �������������������
-run.py ���� �������
+     --models.py —— 数据库代码
+     --views.py —— 视图文件，路由
+migrations —— 包含数据库迁移脚本（安装flask-migrate后自动生成）
+tests —— 单元测试存放在此文件夹下
+venv —— python虚拟环境
+config.py —— 存储配置变量
+requirements.txt —— 列出了所有的依赖包，以便于在其他电脑中重新生成相同的环境
+manage.py —— 启动程序或者其他任务
+run.py —— 程序入口
 
-���У�
-��װ���е���������
-����һ��mysql���ݿ⣬�޸�config.py�е���ز�����
-����run.py
+运行：
+安装所有的依赖包；
+建立一个mysql数据库，修改config.py中的相关参数；
+运行run.py
 
-����һ���ܲ����ύ������hello,world
+测试一下能不能提交！！！hello,world
