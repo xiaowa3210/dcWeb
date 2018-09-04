@@ -1,14 +1,3 @@
-20180903分支说明
-
-master正式版发布分支
-develop测试版发布分支
-codereview本地测试分支
-
-每个开发周期，将所有人员的开发分支合并到codereview，codereview分支修改无误后合并到develop分支，
-更新发布版本时，develop分支合并到master分支
-
-开始新功能开发时，从develop拉取分支，并命名为F（新功能）/B（bug修复）+日期+人名
-例如F0903huchao，B0903huchao等
 
 ----
 
