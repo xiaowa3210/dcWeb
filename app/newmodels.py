@@ -61,7 +61,7 @@ class Permission(db.Model):
     permissionName = db.Column(db.String(64), nullable=False)
     permissionLabel = db.Column(db.String(64), nullable=False)
     
-    roles = db.relationship('Roles',
+    roles = db.relationship('Role',
                          secondary = role_permission,
                          back_populates='permissions')
 

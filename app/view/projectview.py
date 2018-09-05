@@ -3,6 +3,7 @@ from app import app
 from app.service.ProjectService import *
 
 
+
 @app.route('/project/list', methods=['GET'])
 def plistView():
     #p代表页数从请求的查询字符串（request.args）中获取，默认为1
@@ -15,3 +16,7 @@ def pDetail():
     pid = request.args.get('pid',type=int)
     project = getProjectById(pid)
     return render_template('projectview/pdetail.html',project=project)
+
+@app.route('/project/test', methods=['GET'])
+def test():
+    return render_template('projectview/test.html')
