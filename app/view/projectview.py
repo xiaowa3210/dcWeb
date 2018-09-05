@@ -14,7 +14,3 @@ def pDetail():
     pid = request.args.get('pid',type=int)
     project = getProjectById(pid)
     return render_template('projectview/pdetail.html',project=project)
-
-@app.route('/project/test', methods=['GET'])
-def test():
-    return render_template('projectview/test.html')
