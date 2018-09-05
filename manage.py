@@ -14,7 +14,6 @@ from app import app
 from app import db
 from flask_script import Manager
 from flask_migrate import Migrate, MigrateCommand
-from app.models import SuperAdmin, Admin, Users, Information, Document, Project
 
 manager = Manager(app)
 

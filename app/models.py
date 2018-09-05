@@ -30,7 +30,6 @@ class SuperAdmin(db.Model):
     def is_anonymous(self):
         return False
 
-
 #管理员
 class Admin(db.Model):
     __tablename__ = 'admin'
@@ -80,13 +79,14 @@ class Comments(db.Model):
     create_time = db.Column(db.DateTime, nullable=False, default=datetime.now)
 #    author = db.relationship('',backref=db.backref('comments'))
 #    author = db.relationship('',backref=db.backref('comments'))
+
 class Documents(db.Model):
     __tablename__ = 'documents'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     title = db.Column(db.String(256), nullable=False)
     content = db.Column(db.TEXT, nullable=False)
     create_time = db.Column(db.DateTime, nullable=False, default=datetime.now)
-#项目
+
 class Project(db.Model):
     __tablename__ = 'project'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
