@@ -3,7 +3,7 @@
 
 from flask import Flask
 import config  # 导入配置参数
-from .newmodels import db  # 数据库
+from .models import db  # 数据库
 
 app = Flask(__name__)   # 新建一个flask应用
 app.config.from_object(config)  # 将配置文件导入应用中

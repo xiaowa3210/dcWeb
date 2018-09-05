@@ -1,4 +1,4 @@
-from ..newmodels import Project
+from ..models import Project
 
 def getProjectsByPage(page, *, key, year):
 
