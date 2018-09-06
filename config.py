@@ -3,7 +3,7 @@ basedir = os.path.abspath(os.path.dirname(__file__))  # 当前文件的绝对路
 
 HOST = "47.93.236.82"
 PORT = "3306"
-DB = "dachuang"
+DB = "dcwebdb"
 USER = "root"
 PASS = "hubiao"
 CHARSET = "utf8"
