@@ -1,3 +1,5 @@
+#!usr/bin/python
+# -*- coding: utf-8 -*-
 from flask import render_template,request
 from app import app
 from app.service.ProjectService import *
