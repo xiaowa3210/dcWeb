@@ -14,3 +14,10 @@ def pDetail():
     pid = request.args.get('pid',type=int)
     project = getProjectById(pid)
     return render_template('projectview/pdetail.html',project=project)
+
+
+@app.route('/test', methods=['GET'])
+def pTest():
+    app.logger.info('有人访问了本页面哟~')
+    app.logger.debug('有人访问了本页面哟~')
+    return '日志打印测试'

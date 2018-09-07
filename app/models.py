@@ -1,4 +1,3 @@
-
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import ForeignKey, DateTime
 from datetime import datetime
@@ -8,18 +7,18 @@ db = SQLAlchemy()
 
 #用户角色关联
 user_role = db.Table('t_user_role',
-                  db.Column('userId', ForeignKey('t_user.id'), primary_key=True),
-                  db.Column('roleId', ForeignKey('t_role.id'), primary_key=True))
+                  db.Column('userId', db.Integer,ForeignKey('t_user.id'), primary_key=True),
+                  db.Column('roleId', db.Integer,ForeignKey('t_role.id'), primary_key=True))
 
 #项目用户表关联表
 user_project = db.Table('t_user_project',
-                  db.Column('userId', ForeignKey('t_user.id'), primary_key=True),
-                  db.Column('projectId', ForeignKey('project.id'), primary_key=True))
+                  db.Column('userId', db.Integer,ForeignKey('t_user.id'), primary_key=True),
+                  db.Column('projectId', db.Integer,ForeignKey('project.id'), primary_key=True))
 
 #角色权限关联表
 role_permission = db.Table('t_role_permission',
-                  db.Column('roleId', ForeignKey('t_role.id'), primary_key=True),
-                  db.Column('permissionId', ForeignKey('t_permission.id'), primary_key=True))
+                  db.Column('roleId', db.Integer,ForeignKey('t_role.id'), primary_key=True),
+                  db.Column('permissionId', db.Integer,ForeignKey('t_permission.id'), primary_key=True))
 
 
 
@@ -41,15 +40,23 @@ class User(db.Model):
 
     modified_time = db.Column(DateTime, nullable=True, default=datetime.now)
 
+
+    def __init__(self, username, pwd):
+        self.username = username
+        self.password = pwd
+
 #角色表
 class Role(db.Model):
     __tablename__ = 't_role'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     roleName = db.Column(db.String(64), nullable=False)
+    type = db.Column(db.Integer,nullable=False)
     users = db.relationship('User',
                          secondary = user_role,
                          back_populates='roles')
-    
+    def __init__(self, rolename):
+        self.roleName = rolename
+
     permissions = db.relationship('Permission',
                          secondary = role_permission,
                          back_populates='roles')

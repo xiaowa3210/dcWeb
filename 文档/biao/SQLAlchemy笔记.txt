@@ -1,3 +1,9 @@
+python3 manage.py shell
+db.create_all()
+db.drop_all()
+
+## 构造函数可选，可以不定义构造函数，一般有需求时才定义，可以在构造函数中制定 字段的默认值等
+
 
 增
 session.add(fake_user)
