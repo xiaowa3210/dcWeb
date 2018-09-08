@@ -3,7 +3,7 @@
 设计一个存储项目相关选手的信息的表？
 id，studentCode,name,academy,pid,type,avatar
 
-
+9-2
 考虑：
 项目有研究领域
 项目有类型
@@ -13,3 +13,5 @@ id，studentCode,name,academy,pid,type,avatar
 项目有项目负责人,项目成员，指导老师。并且有相应的头像。
 
 项目展示要实现分页效果
+
+

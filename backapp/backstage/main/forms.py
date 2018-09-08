@@ -1,10 +1,8 @@
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileRequired, FileAllowed
-from tensorboard.backend.event_processing.event_accumulator import IMAGES
 from wtforms import StringField, SubmitField, BooleanField, PasswordField, SelectField, TextAreaField, HiddenField
 from wtforms.validators import DataRequired, Length, Email, Regexp, EqualTo
 from flask_uploads import UploadSet, IMAGES
-from flask_uploads import configure_uploads, patch_request_class
 
 photos = UploadSet('photos', IMAGES)
 class CfgNotifyForm(FlaskForm):
@@ -30,7 +28,7 @@ class AddDocumentForm(FlaskForm):
 
 class AddProjectForm(FlaskForm):
     name = StringField('项目名称', validators=[DataRequired(), Length(1, 64), ])
-    team_info = StringField('团队信息', validators=[DataRequired(), Length(1, 1024), ])
+    team_info = StringField('团队成员', validators=[DataRequired(), Length(1, 1024), ])
     introduction = TextAreaField('项目简介', validators=[DataRequired(), Length(1, 8*1024), ])
     photo = FileField(validators=[FileRequired(message='未选择文件'),
                                   FileAllowed(photos, message='只能上传图片')])

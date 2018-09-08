@@ -5,7 +5,7 @@ from flask_login import login_required, current_user
 # from backstage import utils
 # from backstage.models import CfgNotify
 # from backstage.main.forms import CfgNotifyForm
-from app.models import Information, Document, Project, Admin, Users
+from app.newmodels import Document, Project,User, db
 from backapp.backstage import utils
 from backapp.backstage.main.forms import AddinfoForm, AddDocumentForm, AddProjectForm, AddAdminForm
 
@@ -85,28 +85,27 @@ def root():
 @main.route('/index', methods=['GET'])
 @login_required
 def index():
-    return render_template('index.html', current_user=current_user)
+    return render_template('backapp/index.html', current_user=current_user)
 
 @main.route('/addadmin', methods=['GET','POST'])
-@login_required
+# @login_required
 def addadmin():
     form = AddAdminForm()
     if form.is_submitted():
-        from backapp.run_app_dev import db
         username = form.name.data
         psw1 = form.password.data
         psw2 = form.rep_password.data
-        admi = Admin.query.filter(Admin.username == username).first()
+        admi = User.query.filter(User.username == username).first()
         if admi:
             flash("用户名已经存在")
         elif psw1 != psw2:
             flash("两次密码不一致")
         else:
-            admin = Admin(username=form.name.data, password=form.password.data)
+            admin = User(username=form.name.data, password=form.password.data)
             db.session.add(admin)
             db.session.commit()
             flash("保存成功")
-    return render_template('addadmin.html', form=form)
+    return render_template('backapp/addadmin.html', form=form)
 
 
 
@@ -118,7 +117,7 @@ def addinfo():
     form = AddinfoForm()
     if form.is_submitted():
         print("2333332")
-        from backapp.run_app_dev import db
+
         if request.method == 'POST':
             print("555")
             f = request.files["attachment"]
@@ -127,19 +126,19 @@ def addinfo():
             print(upload_path)
             file_name = upload_path + secure_filename(f.filename)
             f.save(file_name)
-        info = Information(title = form.title.data,content = form.content.data,attachment=upload_path)
+        info = Document(title = form.title.data,content = form.content.data,attachment=upload_path)
         db.session.add(info)
         db.session.commit()
         flash("保存成功")
 
-    return render_template('addinfo.html', form=form)
+    return render_template('backapp/addinfo.html', form=form)
 
 @main.route('/addproject', methods=['GET','POST'])
 @login_required
 def addproject():
     form = AddProjectForm()
     if form.is_submitted():
-        from backapp.run_app_dev import db
+
         if request.method == 'POST':
             print("555")
             f1= request.files["photo"]
@@ -151,11 +150,52 @@ def addproject():
             f1.save(file_name1)
             file_name2 = upload_path + secure_filename(f2.filename)
             f2.save(file_name2)
-        project = Project(pname = form.name.data,team_info = form.team_info.data,introduction =form.introduction.data,picture=file_name1,vedio=file_name2)
+        project = Project(pname = form.name.data,introduction =form.introduction.data,picture=file_name1,vedio=file_name2)
         db.session.add(project)
         db.session.commit()
         flash("保存成功")
-    return render_template('addproject.html', form=form)
+    return render_template('backapp/addproject.html', form=form)
+@main.route('/query_projects', methods=['GET','POST'])
+@login_required
+def query_projects():
+
+    # cc = Project()
+    # cc.pname = ('hhh')
+    # cc.introduction = ('jj')
+    # db.session.add(cc)
+    # db.session.commit()
+
+    projects = Project.query.order_by(Project.create_time.desc()).all()
+    for project in projects:
+        print(project.pname)
+    if request.method== 'POST':
+        pid = request.form.get("")
+    print(projects)
+    return render_template('backapp/projects.html', projects=projects)
+@main.route('/query_projects/<project_id>/',methods=['GET', 'POST'])
+def operate(project_id):
+    if  request.form.get("operate") == "编辑":
+        print("3333")
+        project = Project.query.filter(Project.id == project_id).one()
+        form  =AddProjectForm()
+        return render_template('backapp/editproject.html', project=project,form=form)
+    if  request.form.get("operate") == "删除":
+        print("4444")
+        p = Project.query.filter_by(id=project_id).first()
+        db.session.delete(p)
+        db.session.commit()
+        flash("删除成功")
+    projects = Project.query.order_by(Project.create_time.desc()).all()
+    return render_template('backapp/projects.html', projects=projects)
+@main.route('/projects/<project_id>/',methods=['GET', 'POST'])
+def pdetail(project_id):
+    project = Project.query.filter(Project.id == project_id).one()
+    return render_template('projectview/pdetail.html', project=project)
+
+
+
+
+
 
 
 @main.route('/addpolicy', methods=['GET','POST'])
@@ -164,7 +204,7 @@ def addpolicy():
     print("35657")
     form = AddDocumentForm()
     if form.is_submitted():
-        from backapp.run_app_dev import db
+
         if request.method == 'POST':
             print("555")
             f = request.files["attachment"]
@@ -177,4 +217,4 @@ def addpolicy():
         db.session.add(document)
         db.session.commit()
         flash("保存成功")
-    return render_template('addpolicy.html', form=form)
+    return render_template('backapp/addpolicy.html', form=form)

@@ -4,7 +4,7 @@ from flask import render_template, redirect, request, url_for, flash, session
 
 # from dcWeb_2_0 import app
 # from dcWeb_2_0.app.newmodels import Admin, SuperAdmin, db
-from app.models import SuperAdmin, db
+from app.newmodels import User, db
 
 from . import auth
 from .forms import LoginForm
@@ -17,18 +17,18 @@ from .forms import LoginForm
 
 
 
-from flask_login import login_user, logout_user, login_required
+from flask_login import login_user, logout_user, login_required, login_manager
 
 
-@auth.route('/login', methods=['GET', 'POST'])
+@auth.route('/backlogin', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
     print(form.rememberme.data)
+
     if form.validate_on_submit():
-            user= db.session.query(SuperAdmin).filter_by(username=form.username.data).first()
+            user= db.session.query(User).filter_by(username=form.username.data).first()
             # user = SuperAdmin.query.filter_by(username=form.username.data).first()
             print(user)
-
             # return redirect(url_for('main.index'))
             if user is not None and user.password == form.password.data:
                 # session['username'] = user.username
@@ -52,3 +52,7 @@ def logout():
     # session.clear()
     flash('您已退出登录')
     return redirect(url_for('auth.login'))
+
+
+
+

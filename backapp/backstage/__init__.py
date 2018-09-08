@@ -49,7 +49,7 @@ config = {
 login_manager = LoginManager()
 login_manager.session_protection = 'strong'
 login_manager.login_view = 'auth.login'
-fileConfig(log_file_path)
+#fileConfig(log_file_path)
 
 def get_logger(name):
     return logging.getLogger(name)
