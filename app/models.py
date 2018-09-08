@@ -25,7 +25,7 @@ class User(db.Model):
     __tablename__ = 't_user'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     username = db.Column(db.String(64), index=True, unique=True, nullable=False)
-    password = db.Column(db.String(128), nullable=False)
+    password = db.Column(db.String(64), nullable=False)
     created_time = db.Column(DateTime, nullable=True, default=datetime.now)
 
     roles = db.relationship('Role',
@@ -44,7 +44,6 @@ class Role(db.Model):
     __tablename__ = 't_role'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     roleName = db.Column(db.String(64), nullable=False)
-    type = db.Column(db.Integer, nullable=False)
     users = db.relationship('User',
                             secondary=user_role,
                             back_populates='roles')
@@ -61,7 +60,7 @@ class Permission(db.Model):
     permissionName = db.Column(db.String(64), nullable=False)
     permissionLabel = db.Column(db.String(64), nullable=False)
 
-    roles = db.relationship('Role',
+    roles = db.relationship('Roles',
                             secondary=role_permission,
                             back_populates='permissions')
 
