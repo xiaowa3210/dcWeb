@@ -75,3 +75,12 @@ next_num :下一页页码数
 query :返回 创建这个Pagination对象的查询对象
 total :查询返回的记录总数
 iter_pages(left_edge=2, left_current=2, right_current=5, right_edge=2)
+
+
+
+关联（relationship）
+一对一
+一对多
+多对多
+
+lazy loading（懒加载）
