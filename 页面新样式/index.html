@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Serenity - Modern bootstrap website template</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <!-- styles -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400italic,400,600,700" rel="stylesheet">
+  <link href="assets/css/bootstrap.css" rel="stylesheet">
+  <link href="assets/css/bootstrap-responsive.css" rel="stylesheet">
+  <link href="assets/css/docs.css" rel="stylesheet">
+  <link href="assets/css/prettyPhoto.css" rel="stylesheet">
+  <link href="assets/js/google-code-prettify/prettify.css" rel="stylesheet">
+  <link href="assets/css/flexslider.css" rel="stylesheet">
+  <link href="assets/css/sequence.css" rel="stylesheet">
+  <link href="assets/css/style.css" rel="stylesheet">
+  <link href="assets/color/default.css" rel="stylesheet">
+
+  <!-- fav and touch icons -->
+  <link rel="shortcut icon" href="assets/ico/favicon.ico">
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="assets/ico/apple-touch-icon-144-precomposed.png">
+  <link rel="apple-touch-icon-precomposed" sizes="114x114" href="assets/ico/apple-touch-icon-114-precomposed.png">
+  <link rel="apple-touch-icon-precomposed" sizes="72x72" href="assets/ico/apple-touch-icon-72-precomposed.png">
+  <link rel="apple-touch-icon-precomposed" href="assets/ico/apple-touch-icon-57-precomposed.png">
+
+  <style type="text/css">
+    .navbar .nav > li >a {
+      font-size: 13px;
+    }
+
+    .navbar .nav{
+      margin: 5px 10px 0 100px;
+    }
+
+    .nav-tabs > li > a {
+      width: 160px;
+      text-align: center;
+    }
+
+    .nav-tabs > .active > a, .nav-tabs > .active > a:hover , .nav-tabs > .active > a:focus{
+      background-color: #94c045;
+      color: #fff;
+      border: 1px solid #ddd;
+      border-bottom-color: transparent;
+      cursor: default;
+    }
+    .table th, .table td {
+      border:0px;
+    }
+
+    @media (min-width: 1200px) {
+      [class*="span"] {
+        margin-left:20px;
+    }
+    }
+
+    .tagline {
+      padding: 0px;
+    }
+
+    .btn {
+      float: right;
+    }
+    .btn a{
+      color: #fff;
+    }
+
+    .btn a:hover {
+      text-decoration: none;
+    }
+
+    .table td, .table th{
+      border-top:0px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .table a{
+      display: block;
+      color: #666;
+    }
+
+    .table a:hover {
+      text-decoration: none;
+    }
+
+    #maincontent{
+      margin-top: 80px;
+    }
+
+  </style>
+
+
+  <!-- =======================================================
+    Theme Name: Serenity
+    Theme URL: https://bootstrapmade.com/serenity-bootstrap-corporate-template/
+    Author: BootstrapMade.com
+    Author URL: https://bootstrapmade.com
+  ======================================================= -->
+</head>
+
+<body>
+  <header>
+    <!-- Navbar
+    ================================================== -->
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <!-- logo -->
+          <a class="brand logo" href="index.html"><img src="assets/img/logo.png" alt=""></a>
+          <!-- end logo -->
+          <!-- top menu -->
+          <div class="navigation">
+            <nav>
+              <ul class="nav">
+                <li class="dropdown active">
+                  <a href="index.html">主页</a>
+                </li>
+                <li class="dropdown">
+                  <a href="news.html">新闻公告</a>
+                </li>
+                <li class="dropdown">
+                  <a href="news.html">资料下载</a>
+                </li>
+                <li class="dropdown">
+                  <a href="projects.html">项目展示</a>
+                </li>
+                <li class="dropdown">
+                  <a href="#">联系我们</a>
+                </li>
+              </ul>
+            </nav>
+            <nav>
+              <ul class="nav topnav">
+              <li class="dropdown">
+                <a href="#">登陆</a>
+                <ul class="dropdown-menu">
+                    <li><a href="#">学生</a></li>
+                    <li><a href="#">管理员</a></li>
+                </ul>
+              </li>
+              <li class="dropdown">
+                <a href="register.html">注册</a>
+              </li>
+            </ul>    
+            </nav>
+          </div>
+          <!-- end menu -->
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section id="maincontent">
+    <div class="jumbotron masthead">
+      <div class="container">
+        <!-- slider navigation -->
+        <div class="sequence-nav">
+          <div class="prev">
+            <span></span>
+          </div>
+          <div class="next">
+            <span></span>
+          </div>
+        </div>
+        <!-- end slider navigation -->
+        <div class="row">
+          <div class="span12">
+            <div id="slider_holder">
+              <div id="sequence">
+                <ul>
+                  <!-- Layer 1 -->
+                  <li>
+                    <img class="slider_img" src="assets/img/slides/sequence/img-1.png" alt="">
+                  </li>
+                  <!-- Layer 2 -->
+                  <li>
+
+                    <img class="slider_img" src="assets/img/slides/sequence/img-2.png" alt="">
+                  </li>
+                  <!-- Layer 3 -->
+                  <li>
+                    <img class="slider_img" src="assets/img/slides/sequence/img-3.png" alt="">
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <!-- Sequence Slider::END-->
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="lates">
+    <div class="container">
+      <div class="row">
+        <div class="span12">
+          <ul id="myTab" class="nav nav-tabs">
+            <li class="active"><a href="#news" data-toggle="tab">最新公告</a></li>
+            <li><a href="#projects" data-toggle="tab">项目展示</a></li>
+            <li><a href="#questions" data-toggle="tab">常见问题</a></li>
+          </ul>
+          <div id="myTabContent" class="tab-content">
+            <div class="tab-pane fade in active" id="news">
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th>标题</th>
+                    <th>发布时间</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td width="1%">1</td>
+                    <td width="81%"><a href="#">大学生大学生大学第大学第打电话是啊花刷对比</a></td>
+                    <td width="18%">Otto</td>
+                  </tr>
+                  <tr>
+                    <td width="2%">1</td>
+                    <td width="80%">Mark</td>
+                    <td width="18%">Otto</td>
+                  </tr>
+                  <tr>
+                    <td width="2%">1</td>
+                    <td width="80%">Mark</td>
+                    <td width="18%">Otto</td>
+                  </tr>
+                  <tr>
+                    <td width="2%">1</td>
+                    <td width="80%">Mark</td>
+                    <td width="18%">Otto</td>
+                  </tr>
+                  <tr>
+                    <td width="2%">1</td>
+                    <td width="80%">Mark</td>
+                    <td width="18%">Otto</td>
+                  </tr>                                                                                
+                </tbody>
+              </table>
+              <button type="buttom" class="btn btn-color"><a href="#">获取更多</a></button>
+            </div>
+            <div class="tab-pane fade" id="projects">
+              <div class="span4">
+                <div class="post-image">
+                  <a href="post_right_sidebar.html">
+                    <img src="assets/img/dummies/blog1.jpg" alt="">
+                  </a>
+                </div>
+                <div class="entry-meta">
+                  <a href="#"><i class="icon-square icon-48 icon-pencil left"></i></a>
+                  <span class="date">Sep 17 <br>
+                  2013</span>
+                </div>
+                <div class="entry-body">
+                  <a href="post_right_sidebar.html">
+                    <h5 class="title">This is a standard post</h5>
+                  </a>
+                  <p>Lorem ipsum dolor sit amet nec, consectetuer adipiscing elit. Aenean commodo ligula eget dolor aenean massa.</p>
+                </div>
+                <div class="clear">
+                </div>
+              </div>
+              <div class="span4">
+                <div class="post-image">
+                  <a href="post_right_sidebar.html">
+                    <img src="assets/img/dummies/blog1.jpg" alt="">
+                  </a>
+                </div>
+                <div class="entry-meta">
+                  <a href="#"><i class="icon-square icon-48 icon-pencil left"></i></a>
+                  <span class="date">Sep 17 <br>
+                  2013</span>
+                </div>
+                <div class="entry-body">
+                  <a href="post_right_sidebar.html">
+                    <h5 class="title">This is a standard post</h5>
+                  </a>
+                  <p>Lorem ipsum dolor sit amet nec, consectetuer adipiscing elit. Aenean commodo ligula eget dolor aenean massa.</p>
+                </div>
+                <div class="clear">
+                </div>
+              </div>
+              <div class="span4">
+                <div class="post-image">
+                  <a href="post_right_sidebar.html">
+                    <img src="assets/img/dummies/blog1.jpg" alt="">
+                  </a>
+                </div>
+                <div class="entry-meta">
+                  <a href="#"><i class="icon-square icon-48 icon-pencil left"></i></a>
+                  <span class="date">Sep 17 <br>
+                  2013</span>
+                </div>
+                <div class="entry-body">
+                  <a href="post_right_sidebar.html">
+                    <h5 class="title">This is a standard post</h5>
+                  </a>
+                  <p>Lorem ipsum dolor sit amet nec, consectetuer adipiscing elit. Aenean commodo ligula eget dolor aenean massa.</p>
+                </div>
+                <div class="clear">
+                </div>
+              </div>
+
+              <button type="buttom" class="btn btn-color"><a href="#">获取更多</a></button>
+
+            </div>
+            <div class="tab-pane fade" id="questions">
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th>标题</th>
+                    <th>发布时间</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td width="2%">1</td>
+                    <td width="80%"><a href="#">Mark</a></td>
+                    <td width="18%">Otto</td>
+                  </tr>
+                  <tr>
+                    <td width="2%">1</td>
+                    <td width="80%">Mark</td>
+                    <td width="18%">Otto</td>
+                  </tr>
+                  <tr>
+                    <td width="2%">1</td>
+                    <td width="80%">Mark</td>
+                    <td width="18%">Otto</td>
+                  </tr>
+                  <tr>
+                    <td width="2%">1</td>
+                    <td width="80%">Mark</td>
+                    <td width="18%">Otto</td>
+                  </tr>
+                  <tr>
+                    <td width="2%">1</td>
+                    <td width="80%">Mark</td>
+                    <td width="18%">Otto</td>
+                  </tr>                                                                                
+                </tbody>
+              </table>
+ 
+                <button type="buttom" class="btn btn-color"><a href="#">获取更多</a></button>
+
+            </div>            
+          </div>
+        </div>
+      </div>
+<!--       <div class="row">
+        <div class="tagline centered">
+        </div>
+      </div> -->
+      
+    </div>
+  </section>
+  <!-- Footer
+ ================================================== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="row">
+        <div class="span4">
+          <div class="widget">
+            <h5>Browse pages</h5>
+            <ul class="regular">
+              <li><a href="#">Work for us</a></li>
+              <li><a href="#">Creative process</a></li>
+              <li><a href="#">Case study</a></li>
+              <li><a href="#">Scaffold awwards</a></li>
+              <li><a href="#">Meet the team</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="span4">
+          <div class="widget">
+            <h5>Recent blog posts</h5>
+            <ul class="regular">
+              <li><a href="#">Lorem ipsum dolor sit amet</a></li>
+              <li><a href="#">Mea malis nominavi insolens ut</a></li>
+              <li><a href="#">Minim timeam has no aperiri sanctus ei mea per pertinax</a></li>
+              <li><a href="#">Te malorum dignissim eos quod sensibus</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="span4">
+          <div class="widget">
+            <!-- logo -->
+            <a class="brand logo" href="index.html">
+							<img src="assets/img/logo-dark.png" alt="">
+						</a>
+            <!-- end logo -->
+            <address>
+							<strong>Registered Companyname, Inc.</strong><br>
+							 8895 Somename Ave, Suite 600<br>
+							 San Francisco, CA 94107<br>
+							<abbr title="Phone">P:</abbr> (123) 456-7890
+						</address>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="verybottom">
+      <div class="container">
+        <div class="row">
+          <div class="span6">
+            <p>
+              &copy; Serenity - All right reserved
+            </p>
+          </div>
+          <div class="span6">
+            <div class="credits">
+              <!--
+                All the links in the footer should remain intact.
+                You can delete the links only if you purchased the pro version.
+                Licensing information: https://bootstrapmade.com/license/
+                Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=Serenity
+              -->
+              Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JavaScript Library Files -->
+  <script src="assets/js/jquery.min.js"></script>
+  <script src="assets/js/jquery.easing.js"></script>
+  <script src="assets/js/google-code-prettify/prettify.js"></script>
+  <script src="assets/js/modernizr.js"></script>
+  <script src="assets/js/bootstrap.js"></script>
+  <script src="assets/js/jquery.elastislide.js"></script>
+  <script src="assets/js/sequence/sequence.jquery-min.js"></script>
+  <script src="assets/js/sequence/setting.js"></script>
+  <script src="assets/js/jquery.prettyPhoto.js"></script>
+  <script src="assets/js/application.js"></script>
+  <script src="assets/js/jquery.flexslider.js"></script>
+  <script src="assets/js/hover/jquery-hover-effect.js"></script>
+  <script src="assets/js/hover/setting.js"></script>
+
+  <!-- Template Custom JavaScript File -->
+  <script src="assets/js/custom.js"></script>
+
+</body>
+</html>
