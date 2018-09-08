@@ -10,4 +10,3 @@ app.config.from_object(config)  # 将配置文件导入应用中
 db.init_app(app)
 
 from .view import views  # 导入视图，防止末尾，避免循环导入？
-from .view import projectview
