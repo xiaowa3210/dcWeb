@@ -2,7 +2,7 @@
 # -*- coding:utf-8 -*-
 
 from flask import render_template, request, flash, redirect, url_for, session, g
-from app.models import db, Users, Information,Documents,Project,Comments
+from app.models import db, User, Document,Project
 from werkzeug.security import generate_password_hash
 from exts import validate_login_register, validate_change_password
 from app import app
@@ -17,10 +17,8 @@ def my_context_processor():
 
 @app.route('/')
 def home():
-
-    documents = Documents.query.order_by(Documents.create_time.desc()).limit(6)
-    projects = Project.query.order_by(Project.create_time.desc()).limit(6)
-    return render_template('home.html',documents=documents,news=news,projects=projects)
+    documents = Document.query.order_by(Document.created_time.desc()).limit(6)
+    return render_template('home.html',documents=documents)
 
 @app.route('/register/', methods=['GET', 'POST'])
 def register():
@@ -33,7 +31,7 @@ def register():
         message = validate_login_register(username, password1, password2)
         flash(message)
         if '成功' in message:
-            new_user = Users(username=username, password=generate_password_hash(password1))
+            new_user = User(username=username, password=generate_password_hash(password1))
             db.session.add(new_user)
             db.session.commit()
             return redirect(url_for('login'))
@@ -95,19 +93,19 @@ def user_news():
     else:
         document_title = request.form.get('document_title')
         document_content = request.form.get('document_content')
-        new_document = Documents(title=document_title, content=document_content)
+        new_document = Document(title=document_title, content=document_content)
         db.session.add(new_document)
         db.session.commit()
         return redirect(url_for('news'))
 
 @app.route('/news/')
 def news():
-    documents = Documents.query.order_by(Documents.create_time.desc()).all()
+    documents = Document.query.order_by(Document.created_time.desc()).all()
     return render_template('news.html',documents=documents)
 
 @app.route('/new_details/<document_id>/')
 def new_details(document_id):
-    document_obj = Documents.query.filter(Documents.id == document_id).first()
+    document_obj = Document.query.filter(Document.id == document_id).first()
     return render_template('new_details.html', document=document_obj)
 
 @app.route('/projects/')
@@ -120,23 +118,24 @@ def project_details(project_id):
     project_obj = Project.query.filter(Project.id == project_id).first()
 
     if request.method == 'GET':
-        comments = Comments.query.order_by(Comments.create_time.desc()).all()
+        comments = Document.query.order_by(Document.created_time.desc()).all()
         return render_template('project_details.html', project=project_obj,comments=comments)
     else:
         project_comment = request.form.get('project_content')
-        new_comment = Comments(content=project_comment)
+        new_comment = Document(content=project_comment)
         db.session.add(new_comment)
         db.session.commit()
-        comments = Comments.query.order_by(Comments.create_time.desc()).all()
+        comments = Document.query.order_by(Document.created_time.desc()).all()
         return render_template('project_details.html', project=project_obj,comments=comments)
  #   project_obj = Project.query.filter(Project.id == project_id).first()
  #   return render_template('project_details.html', project=project_obj)
+
 
 @app.before_request
 def my_before_request():
     username = session.get('username')
     if username:
-        g.user = Users.query.filter(Users.username == username).first()
+        g.user = User.query.filter(User.username == username).first()
 
 
 @app.context_processor

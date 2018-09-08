@@ -10,12 +10,12 @@
 @time: 2018/1/15 0015 21:10 
 """
 
-from app.models import Users
+from app.models import User
 from werkzeug.security import check_password_hash
 
 
 def validate_login_register(username, password1, password2=None):
-    user = Users.query.filter(Users.username == username).first()
+    user = User.query.filter(User.username == username).first()
     if password2:                                                   #password2 != none说明是注册
         if user:
             return '用户名已经存在'

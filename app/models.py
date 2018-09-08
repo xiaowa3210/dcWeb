@@ -1,101 +1,113 @@
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import ForeignKey, DateTime
 from datetime import datetime
 
 db = SQLAlchemy()
 
-#超级管理员
-class SuperAdmin(db.Model):
-    __tablename__ = 'super_admin'
-    id = db.Column(db.Integer,primary_key=True, autoincrement=True)
-    username = db.Column(db.String(32),index=True,unique=True,nullable=False)
-    password = db.Column(db.String(128), nullable=False)
-    register_time = db.Column(db.DateTime, nullable=False, default=datetime.now)
+# 用户角色关联
+user_role = db.Table('t_user_role',
+                     db.Column('userId', ForeignKey('t_user.id'), primary_key=True),
+                     db.Column('roleId', ForeignKey('t_role.id'), primary_key=True))
 
-    def __init__(self, username, password):
-        self.username = username
-        self.password = password
+# 项目用户表关联表
+user_project = db.Table('t_user_project',
+                        db.Column('userId', ForeignKey('t_user.id'), primary_key=True),
+                        db.Column('projectId', ForeignKey('project.id'), primary_key=True))
 
-    def get_id(self):
-        return str(self.id)
-
-    def __repr__(self):
-        return '<SuperAdmin %r>' % self.username
-
-    def is_authenticated(self):
-        return True
-
-    def is_active(self):
-        return True
-
-    def is_anonymous(self):
-        return False
+# 角色权限关联表
+role_permission = db.Table('t_role_permission',
+                           db.Column('roleId', ForeignKey('t_role.id'), primary_key=True),
+                           db.Column('permissionId', ForeignKey('t_permission.id'), primary_key=True))
 
 
-#管理员
-class Admin(db.Model):
-    __tablename__ = 'admin'
-    id = db.Column(db.Integer,primary_key=True, autoincrement=True)
-    username = db.Column(db.String(32),index=True,unique=True,nullable=False)
-    password = db.Column(db.String(128), nullable=False)
-    register_time = db.Column(db.DateTime, nullable=False, default=datetime.now)
-#用户表对应的用户实体类
-class Users(db.Model):
-    __tablename__ = 'users_info'
+# 用户表
+class User(db.Model):
+    __tablename__ = 't_user'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    username = db.Column(db.String(32),index=True,unique=True,nullable=False)
+    username = db.Column(db.String(64), index=True, unique=True, nullable=False)
     password = db.Column(db.String(128), nullable=False)
-    email = db.Column(db.String(128),nullable=True)
-    register_time = db.Column(db.DateTime, nullable=False, default=datetime.now)
+    created_time = db.Column(DateTime, nullable=True, default=datetime.now)
 
-# 让打印出来的数据更好看，可选的
-    def __repr__(self):
-        return "<User(id='%s',username='%s',password='%s',email='%s',register_time='%s')>" % \
-               (self.id,self.username,self.password,self.email,self.register_time)
+    roles = db.relationship('Role',
+                            secondary=user_role,
+                            back_populates='users')
 
-#发布信息
+    projects = db.relationship('Project',
+                               secondary=user_project,
+                               back_populates='users')
 
-class Information(db.Model):
-    __tablename__ = 'site_info'
+    modified_time = db.Column(DateTime, nullable=True, default=datetime.now)
+
+
+# 角色表
+class Role(db.Model):
+    __tablename__ = 't_role'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    title = db.Column(db.String(256),nullable=False)
-    content = db.Column(db.String(256),nullable=False)
-    attachment = db.Column(db.String(256), nullable=False)
-    create_time = db.Column(db.DateTime, nullable=False, default=datetime.now)
-'''
-#政策文件
+    roleName = db.Column(db.String(64), nullable=False)
+    type = db.Column(db.Integer, nullable=False)
+    users = db.relationship('User',
+                            secondary=user_role,
+                            back_populates='roles')
+
+    permissions = db.relationship('Permission',
+                                  secondary=role_permission,
+                                  back_populates='roles')
+
+
+# 权限表
+class Permission(db.Model):
+    __tablename__ = 't_permission'
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    permissionName = db.Column(db.String(64), nullable=False)
+    permissionLabel = db.Column(db.String(64), nullable=False)
+
+    roles = db.relationship('Role',
+                            secondary=role_permission,
+                            back_populates='permissions')
+
+
+# 文档表（包括新闻公告和资料下载）
 class Document(db.Model):
     __tablename__ = 'document'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     title = db.Column(db.String(256), nullable=False)
-    link = db.Column(db.String(256), index=True,unique=True,nullable=False)
-    create_time = db.Column(db.DateTime, nullable=False, default=datetime.now)
-'''
+    content = db.Column(db.TEXT, nullable=True)
+    type = db.Column(db.Integer, nullable=False)
+    created_time = db.Column(db.DateTime, nullable=False, default=datetime.now)
+    modified_time = db.Column(db.DateTime, nullable=False, default=datetime.now)
 
-class Comments(db.Model):
-    __tablename__ = 'comments_info'
+    attachments = db.relationship('Attachment', back_populates='document')
+
+
+# 附件表
+class Attachment(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    content = db.Column(db.TEXT, nullable=False)
-    project_id = db.Column(db.Integer, db.ForeignKey('project.id'))
-    author_id = db.Column(db.Integer, db.ForeignKey('project.id'))
-    create_time = db.Column(db.DateTime, nullable=False, default=datetime.now)
-#    author = db.relationship('',backref=db.backref('comments'))
-#    author = db.relationship('',backref=db.backref('comments'))
-class Documents(db.Model):
-    __tablename__ = 'documents'
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    title = db.Column(db.String(256), nullable=False)
-    content = db.Column(db.TEXT, nullable=False)
-    create_time = db.Column(db.DateTime, nullable=False, default=datetime.now)
-#项目
+    link = db.Column(db.String(256), nullable=False)
+    documentId = db.Column(db.Integer, ForeignKey('document.id'))
+
+    document = db.relationship('Document', back_populates="attachments")
+
+
+# 项目表
 class Project(db.Model):
     __tablename__ = 'project'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     pname = db.Column(db.String(256), nullable=False)
-    team_info = db.Column(db.String(1024), nullable=True)
-    introduction = db.Column(db.String(8*1024), nullable=False)
+    users = db.relationship('User',
+                            secondary=user_project,
+                            back_populates='projects')
+
+    introduction = db.Column(db.TEXT, nullable=False)
     picture = db.Column(db.String(1024), nullable=True)
     vedio = db.Column(db.String(1024), nullable=True)
     create_time = db.Column(db.DateTime, nullable=False, default=datetime.now)
+
     def __repr__(self):
         return "<Project(id='%s',pname='%s',team_info='%s',introduction='%s',picture='%s',vedio='%s',create_time='%s')>" % \
-               (self.id,self.pname,self.team_info,self.introduction,self.picture,self.vedio,self.create_time)
+               (self.id, self.pname, self.team_info, self.introduction, self.picture, self.vedio, self.create_time)
+
+
+
+
+
+
