@@ -1,7 +1,7 @@
+
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import ForeignKey, DateTime
 from datetime import datetime
-
 
 db = SQLAlchemy()
 
@@ -19,7 +19,6 @@ user_project = db.Table('t_user_project',
 role_permission = db.Table('t_role_permission',
                   db.Column('roleId', db.Integer,ForeignKey('t_role.id'), primary_key=True),
                   db.Column('permissionId', db.Integer,ForeignKey('t_permission.id'), primary_key=True))
-
 
 
 #用户表
@@ -44,6 +43,12 @@ class User(db.Model):
     def __init__(self, username, pwd):
         self.username = username
         self.password = pwd
+
+    def get_id(self):
+            return str(self.id)
+
+    def __repr__(self):
+        return '<User %r>' % self.username
 
 #角色表
 class Role(db.Model):
@@ -84,8 +89,7 @@ class Document(db.Model):
     type = db.Column(db.Integer,nullable=False)
     created_time = db.Column(db.DateTime, nullable=False, default=datetime.now)
     modified_time = db.Column(db.DateTime, nullable=False, default=datetime.now)
-
-    attachments = db.relationship('Attachment', back_populates='document',)
+    attachments = db.relationship('Attachment', back_populates='document')
 
 #附件表
 class Attachment(db.Model):
@@ -108,8 +112,6 @@ class Project(db.Model):
     picture = db.Column(db.String(1024), nullable=True)
     vedio = db.Column(db.String(1024), nullable=True)
     create_time = db.Column(db.DateTime, nullable=False, default=datetime.now)
-
-
     def __repr__(self):
         return "<Project(id='%s',pname='%s',team_info='%s',introduction='%s',picture='%s',vedio='%s',create_time='%s')>" % \
                (self.id,self.pname,self.team_info,self.introduction,self.picture,self.vedio,self.create_time)
