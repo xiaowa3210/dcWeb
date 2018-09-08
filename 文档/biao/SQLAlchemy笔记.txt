@@ -90,3 +90,14 @@ iter_pages(left_edge=2, left_current=2, right_current=5, right_edge=2)
 多对多
 
 lazy loading（懒加载）
+
+
+MySQL外键起到约束作用，在数据库层面保证数据的完整性。
+例如使用外键的CASCADE类型，当子表(例如user_info)关联父表(例如user)时，父表更新或删除时，子表会更新或删除记录，这个过程是数据库层面完成的。
+早期企业系统数据库设计里面比较多，虽说帮程序员节省了delete、update操作，实际上增加了潜规则，也增加了软件复杂度，也会会减弱性能。
+
+不使用级联删除了
+
+
+
+

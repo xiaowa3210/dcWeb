@@ -27,7 +27,7 @@ class User(db.Model):
     __tablename__ = 't_user'
     id = db.Column(db.Integer,primary_key=True, autoincrement=True)
     username = db.Column(db.String(64),index=True,unique=True,nullable=False)
-    password = db.Column(db.String(64), nullable=False)
+    password = db.Column(db.String(128), nullable=False)
     created_time = db.Column(DateTime, nullable=True, default=datetime.now)
 
     roles = db.relationship('Role',
@@ -49,14 +49,12 @@ class User(db.Model):
 class Role(db.Model):
     __tablename__ = 't_role'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    roleName = db.Column(db.String(64), nullable=False)
-    type = db.Column(db.Integer,nullable=False)
+    roleName = db.Column(db.String(64),index=True,unique=True,nullable=False)
     users = db.relationship('User',
                          secondary = user_role,
                          back_populates='roles')
-    def __init__(self, rolename):
+    def __init__(self,rolename):
         self.roleName = rolename
-
     permissions = db.relationship('Permission',
                          secondary = role_permission,
                          back_populates='roles')
@@ -73,6 +71,9 @@ class Permission(db.Model):
                          back_populates='permissions')
 
 
+    def __init__(self, permissionName,permissionLabel):
+        self.permissionName = permissionName
+        self.permissionLabel = permissionLabel
 
 #文档表（包括新闻公告和资料下载）
 class Document(db.Model):
@@ -84,7 +85,7 @@ class Document(db.Model):
     created_time = db.Column(db.DateTime, nullable=False, default=datetime.now)
     modified_time = db.Column(db.DateTime, nullable=False, default=datetime.now)
 
-    attachments = db.relationship('Attachment', back_populates='document')
+    attachments = db.relationship('Attachment', back_populates='document',)
 
 #附件表
 class Attachment(db.Model):

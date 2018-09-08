@@ -1,5 +1,9 @@
 from app.service.UserService import *
 
 
-user = addUser('xiaoming','12345',1)
 
+
+
+
+if __name__ == '__main__':
+    addUser('xiaoming', '12345', 1)
