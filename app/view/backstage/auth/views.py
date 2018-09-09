@@ -28,6 +28,8 @@ def login():
     if form.validate_on_submit():
             user= db.session.query(User).filter_by(username=form.username.data).first()
             print(user)
+            print(user.password)
+            print(form.password.data)
             if user is not None and user.password == form.password.data:
                 login_user(user, form.rememberme.data)
                 flash("登录成功")

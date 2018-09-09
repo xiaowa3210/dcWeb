@@ -74,11 +74,11 @@ def common_edit(DynamicModel, form, view):
     return render_template(view, form=form, current_user=current_user)
 
 
-# 根目录跳转
-@main.route('/', methods=['GET'])
-@login_required
-def root():
-    return redirect(url_for('main.index'))
+# # 根目录跳转
+# @main.route('/', methods=['GET'])
+# @login_required
+# def root():
+#     return redirect(url_for('main.index'))
 
 
 # 首页

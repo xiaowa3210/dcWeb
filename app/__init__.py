@@ -15,18 +15,24 @@ db.init_app(app)
 # handler = logging.FileHandler('app.log', encoding='UTF-8')
 # app.logger.addHandler(handler)
 from .view import projectview
+
+#配置flask-login
 from flask_login import LoginManager
-from app.models import User, db, Role, Permission
-from app.view.backstage.main import main as main_blueprint
-app.register_blueprint(main_blueprint)
-from app.view.backstage.auth  import auth as auth_blueprint
-app.register_blueprint(auth_blueprint)
 login_manager = LoginManager()
 login_manager.session_protection = 'strong'
 login_manager.login_view = 'auth.login'
-
+login_manager.login_message = '请先登录'
 login_manager.init_app(app)
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
+
+
+from app.models import User
+from app.view.backstage.main import main as main_blueprint
+app.register_blueprint(main_blueprint)
+from app.view.backstage.auth  import auth as auth_blueprint
+app.register_blueprint(auth_blueprint)
+
+
 
