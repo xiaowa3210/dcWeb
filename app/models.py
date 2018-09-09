@@ -44,11 +44,21 @@ class User(db.Model):
         self.username = username
         self.password = pwd
 
+    def __repr__(self):
+        return '<User %r>' % self.username
+
     def get_id(self):
             return str(self.id)
 
-    def __repr__(self):
-        return '<User %r>' % self.username
+    def is_authenticated(self):
+        return True
+
+    def is_active(self):
+        return True
+
+    def is_anonymous(self):
+        return False
+
 
 #角色表
 class Role(db.Model):
