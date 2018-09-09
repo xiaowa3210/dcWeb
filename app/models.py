@@ -68,11 +68,11 @@ class Role(db.Model):
     users = db.relationship('User',
                          secondary = user_role,
                          back_populates='roles')
-    def __init__(self,rolename):
-        self.roleName = rolename
     permissions = db.relationship('Permission',
                          secondary = role_permission,
                          back_populates='roles')
+    def __init__(self, rolename):
+        self.roleName = rolename
 
 #权限表
 class Permission(db.Model):
