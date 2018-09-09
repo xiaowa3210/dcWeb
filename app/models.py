@@ -90,26 +90,32 @@ class Permission(db.Model):
         self.permissionName = permissionName
         self.permissionLabel = permissionLabel
 
-#文档表（包括新闻公告和资料下载）
+
+
+
+
+# 文档表（包括新闻公告和资料下载）
 class Document(db.Model):
     __tablename__ = 'document'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     title = db.Column(db.String(256), nullable=False)
     content = db.Column(db.TEXT, nullable=True)
-    type = db.Column(db.Integer,nullable=False)
+    type = db.Column(db.Integer, nullable=False)
     created_time = db.Column(db.DateTime, nullable=False, default=datetime.now)
     modified_time = db.Column(db.DateTime, nullable=False, default=datetime.now)
     attachments = db.relationship('Attachment', back_populates='document')
 
-#附件表
+
+# 附件表
 class Attachment(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     link = db.Column(db.String(256), nullable=False)
     documentId = db.Column(db.Integer, ForeignKey('document.id'))
 
-    document = db.relationship('Document',back_populates="attachments")
+    document = db.relationship('Document', back_populates="attachments")
 
-#项目表
+
+# 项目表
 class Project(db.Model):
     __tablename__ = 'project'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
@@ -122,6 +128,7 @@ class Project(db.Model):
     picture = db.Column(db.String(1024), nullable=True)
     vedio = db.Column(db.String(1024), nullable=True)
     create_time = db.Column(db.DateTime, nullable=False, default=datetime.now)
+
     def __repr__(self):
         return "<Project(id='%s',pname='%s',team_info='%s',introduction='%s',picture='%s',vedio='%s',create_time='%s')>" % \
                (self.id,self.pname,self.team_info,self.introduction,self.picture,self.vedio,self.create_time)
