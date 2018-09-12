@@ -35,3 +35,34 @@ def pTest():
 
     flag = addPermission('编辑','Edit')
     return "OK" + str(flag)
+
+
+
+###
+@app.route('/newtemplate/home', methods=['GET'])
+def newhome():
+    return render_template('newTemp/index.html')
+
+@app.route('/newtemplate/news', methods=['GET'])
+def newNews():
+    return render_template('newTemp/news.html')
+
+@app.route('/newtemplate/projects', methods=['GET'])
+def newProjects():
+    return render_template('newTemp/projects.html')
+
+@app.route('/newtemplate/projectDetail', methods=['GET'])
+def newProjectsDetail():
+    return render_template('newTemp/projects-detail.html')
+
+@app.route('/newtemplate/register', methods=['GET'])
+def newRegister():
+    return render_template('newTemp/register.html')
+
+
+@app.route('/newtemplate/usercenter', methods=['GET'])
+def newUserCenter():
+    return render_template('newTemp/user-center.html')
+
+
+

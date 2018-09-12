@@ -127,27 +127,27 @@
   <header>
     <!-- Navbar
     ================================================== -->
-    <div class="navbar navbar-fixed-top">
+     <div class="navbar navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container">
           <!-- logo -->
-          <a class="brand logo" href="index.html"><img src="../../static/assets/img/logo.png" alt=""></a>
+          <a class="brand logo" href="{{ url_for('newhome') }}"><img src="../../static/assets/img/logo.png" alt=""></a>
           <!-- end logo -->
           <!-- top menu -->
           <div class="navigation">
             <nav>
               <ul class="nav">
                 <li class="dropdown active">
-                  <a href="index.html">主页</a>
+                  <a href="{{ url_for('newhome') }}">主页</a>
                 </li>
                 <li class="dropdown">
-                  <a href="overview.html">新闻公告</a>
+                  <a href="{{ url_for('newNews') }}">新闻公告</a>
                 </li>
                 <li class="dropdown">
-                  <a href="#">资料下载</a>
+                  <a href="{{ url_for('newNews') }}">资料下载</a>
                 </li>
                 <li class="dropdown">
-                  <a href="#">项目展示</a>
+                  <a href="{{ url_for('newProjects') }}">项目展示</a>
                 </li>
                 <li class="dropdown">
                   <a href="#">联系我们</a>
@@ -164,7 +164,7 @@
                 </ul>
               </li>
               <li class="dropdown">
-                <a href="register.html">注册</a>
+                <a href="{{ url_for('newRegister') }}">注册</a>
               </li>
             </ul>    
             </nav>

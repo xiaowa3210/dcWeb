@@ -136,5 +136,3 @@ class Project(db.Model):
 
 
 
-
-

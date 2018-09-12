@@ -38,9 +38,9 @@
  				<div class="collapse navbar-collapse" id="navbarTogglerDemo02">
     			<ul class="navbar-nav mr-auto mt-2 mt-lg-0">
       				<li class="nav-item active"><a class="nav-link" href="{{ url_for('home') }}">主页<span class="sr-only">(current)</span></a></li>
-      				<li class="nav-item"><a class="nav-link" href="#">新闻公告</a></li>
-      				<li class="nav-item"><a class="nav-link" href="#">资料下载</a></li>
-      				<li class="nav-item"><a class="nav-link" href="#">项目展示</a></li>
+      				<li class="nav-item"><a class="nav-link" href="{{ url_for('user_news') }}">新闻公告</a></li>
+      				<li class="nav-item"><a class="nav-link" href="{{ url_for('user_news') }}">资料下载</a></li>
+      				<li class="nav-item"><a class="nav-link" href="{{ url_for('plistView') }}">项目展示</a></li>
       				<li class="nav-item"><a class="nav-link" href="#">心得交流</a></li>
     			</ul>
     			<ul class="navbar-nav justify-content-end">
@@ -63,6 +63,7 @@
           				    </div>
     				    </li>
     				<li class="nav-item"><a class="nav-link" href="{{ url_for('register') }}">注册</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('newhome') }}">新样式</a></li>
                     {% endif %}
     			</ul>
   				</div>

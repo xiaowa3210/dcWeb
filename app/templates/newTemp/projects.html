@@ -104,27 +104,27 @@
   <header>
     <!-- Navbar
     ================================================== -->
-    <div class="navbar navbar-fixed-top">
+     <div class="navbar navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container">
           <!-- logo -->
-          <a class="brand logo" href="index.html"><img src="../../static/assets/img/logo.png" alt=""></a>
+          <a class="brand logo" href="{{ url_for('newhome') }}"><img src="../../static/assets/img/logo.png" alt=""></a>
           <!-- end logo -->
           <!-- top menu -->
           <div class="navigation">
             <nav>
               <ul class="nav">
                 <li class="dropdown active">
-                  <a href="index.html">主页</a>
+                  <a href="{{ url_for('newhome') }}">主页</a>
                 </li>
                 <li class="dropdown">
-                  <a href="news.html">新闻公告</a>
+                  <a href="{{ url_for('newNews') }}">新闻公告</a>
                 </li>
                 <li class="dropdown">
-                  <a href="news.html">资料下载</a>
+                  <a href="{{ url_for('newNews') }}">资料下载</a>
                 </li>
                 <li class="dropdown">
-                  <a href="projects.html">项目展示</a>
+                  <a href="{{ url_for('newProjects') }}">项目展示</a>
                 </li>
                 <li class="dropdown">
                   <a href="#">联系我们</a>
@@ -141,7 +141,7 @@
                 </ul>
               </li>
               <li class="dropdown">
-                <a href="register.html">注册</a>
+                <a href="{{ url_for('newRegister') }}">注册</a>
               </li>
             </ul>    
             </nav>
@@ -165,11 +165,11 @@
             <div class="widget">
               <h4>类别</h4>
               <ul class="cat">
-                <li><a href="#">Web design (114)</a></li>
-                <li><a href="#">Internet news (15)</a></li>
-                <li><a href="#">Tutorial and tips (20)</a></li>
-                <li><a href="#">Design trends (15)</a></li>
-                <li><a href="#">Online business (10)</a></li>
+                <li><a href="{{ url_for('newProjectsDetail') }}">Web design (114)</a></li>
+                <li><a href="{{ url_for('newProjectsDetail') }}">Internet news (15)</a></li>
+                <li><a href="{{ url_for('newProjectsDetail') }}">Tutorial and tips (20)</a></li>
+                <li><a href="{{ url_for('newProjectsDetail') }}">Design trends (15)</a></li>
+                <li><a href="{{ url_for('newProjectsDetail') }}">Online business (10)</a></li>
               </ul>
             </div>
             <div class="widget">
