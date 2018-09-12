@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block static_files %}
+    <script src="{{ url_for('static', filename='tinymce/js/tinymce/tinymce.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/tinymce_setup.js') }}"></script>
+    <script>
+    .footer{
+        position:fixed;
+        bottom:0;
+
+    }
+    </script>
+{% endblock %}
+{% block body_part %}
+    <hr>
+    <div class="project-introduction">
+    {{ document.content | safe}}
+    </div>
+{% endblock %}
