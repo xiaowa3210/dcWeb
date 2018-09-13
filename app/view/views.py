@@ -90,14 +90,20 @@ def security():
 @app.route('/user/user_news/', methods=['GET', 'POST'])
 def user_news():
     if request.method == 'GET':
-        return render_template('user_news.html')
+        return render_template('addinfo.html')
     else:
-        document_title = request.form.get('document_title')
-        document_content = request.form.get('document_content')
-        new_document = Document(title=document_title, content=document_content)
+        # file = request.files['image_upload']
+        # base_path = path.abspath(path.dirname(path.dirname(__file__)))
+        # file_path = path.join(base_path, 'static', 'images', 'newsimages',file.filename)
+        # file.save(file_path)
+        #
+        # document_title = request.form.get('document_title')
+        document_content = request.form.get('content')
+        new_document = Document(title="aaa", content=document_content,type=1)
         db.session.add(new_document)
         db.session.commit()
-        return redirect(url_for('news'))
+        return jsonify({'code':200,'msg':'数据保存成功'})
+
 
 @app.route('/news/')
 def news():
