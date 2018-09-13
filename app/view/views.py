@@ -18,7 +18,8 @@ def my_context_processor():
 @app.route('/')
 def home():
     documents = Document.query.order_by(Document.created_time.desc()).limit(6)
-    return render_template('home.html',documents=documents)
+    projects = Document.query.order_by(Document.created_time.desc()).limit(6)
+    return render_template('home.html',documents=documents,projects=projects)
 
 @app.route('/register/', methods=['GET', 'POST'])
 def register():
@@ -100,8 +101,10 @@ def user_news():
 
 @app.route('/news/')
 def news():
-    documents = Document.query.order_by(Document.created_time.desc()).all()
-    return render_template('news.html',documents=documents)
+    page = request.args.get('page', 1, type=int)
+    pagination = Document.query.order_by(Document.created_time.desc()).paginate(page, per_page=15, error_out=False)
+    documents = pagination.items
+    return render_template('news.html', documents=documents, pagination=pagination)
 
 @app.route('/new_details/<document_id>/')
 def new_details(document_id):
@@ -110,26 +113,15 @@ def new_details(document_id):
 
 @app.route('/projects/')
 def projects():
-    projects = Project.query.order_by(Project.create_time.desc()).all()
-    return render_template('projects.html',projects=projects)
+    page = request.args.get('page', 1, type=int)
+    pagination = Document.query.order_by(Document.created_time.desc()).paginate(page, per_page=15, error_out=False)
+    documents = pagination.items
+    return render_template('projects.html', projects=documents, pagination=pagination)
 
-@app.route('/project_details/<project_id>/',methods=['GET', 'POST'])
-def project_details(project_id):
-    project_obj = Project.query.filter(Project.id == project_id).first()
-
-    if request.method == 'GET':
-        comments = Document.query.order_by(Document.created_time.desc()).all()
-        return render_template('project_details.html', project=project_obj,comments=comments)
-    else:
-        project_comment = request.form.get('project_content')
-        new_comment = Document(content=project_comment)
-        db.session.add(new_comment)
-        db.session.commit()
-        comments = Document.query.order_by(Document.created_time.desc()).all()
-        return render_template('project_details.html', project=project_obj,comments=comments)
- #   project_obj = Project.query.filter(Project.id == project_id).first()
- #   return render_template('project_details.html', project=project_obj)
-
+@app.route('/project_details/<document_id>/',methods=['GET', 'POST'])
+def project_details(document_id):
+    document_obj = Document.query.filter(Document.id == document_id).first()
+    return render_template('project_details.html', document=document_obj)
 
 @app.before_request
 def my_before_request():

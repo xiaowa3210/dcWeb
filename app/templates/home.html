@@ -55,7 +55,7 @@
                       <a href="{{ url_for('new_details',document_id=document.id) }}">{{ document.title }}</a>
                   </td>
                   <td>
-                      {{ document.create_time }}
+                      {{ document.created_time }}
                   </td>
                 </tr>
               {% endfor %}
@@ -63,7 +63,7 @@
     </table>
     </div>
     <div class="col-md-6 table-right" style="width: 2%">
-        <table class="table table-sm table-borderless">
+        <table class="table table-sm table-borderless" style="table-layout:fixed">
               <thead>
                 <tr>
                   <th scope="col" width="5%"><img src="{{ url_for('static',filename='images/right.gif') }}"></th>
@@ -76,10 +76,10 @@
             <tr>
               <th scope="row"><img src="{{ url_for('static',filename='images/right.gif') }}"></th>
               <td style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">
-                  <a href="{{ url_for('project_details',project_id=project.id) }}">{{ project.pname }}</a>
+                  <a href="{{ url_for('project_details',document_id=project.id) }}">{{ project.title }}</a>
               </td>
               <td>
-                  {{ project.create_time }}
+                  {{ project.created_time }}
               </td>
             </tr>
           {% endfor %}
