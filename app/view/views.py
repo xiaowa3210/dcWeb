@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 
-from flask import render_template, request, flash, redirect, url_for, session, g
+from flask import render_template, request, flash, redirect, url_for, session, g,jsonify
 from app.models import db, User, Document,Project
 from werkzeug.security import generate_password_hash
 from exts import validate_login_register, validate_change_password
@@ -97,9 +97,9 @@ def user_news():
         # file_path = path.join(base_path, 'static', 'images', 'newsimages',file.filename)
         # file.save(file_path)
         #
-        # document_title = request.form.get('document_title')
+        document_title = request.form.get('title')
         document_content = request.form.get('content')
-        new_document = Document(title="aaa", content=document_content,type=1)
+        new_document = Document(title=document_title, content=document_content,type=1)
         db.session.add(new_document)
         db.session.commit()
         return jsonify({'code':200,'msg':'数据保存成功'})

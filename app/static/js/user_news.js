@@ -7,13 +7,14 @@ $(function () {
     submitBtn.click(function (event) {
         event.preventDefault();
         // 获取input标签内容
-        // var title = $("input[name='title']).val();
+        var title = $("input[name='title']").val();
         // 获取富文本内容
         var content = ue.getContent();
         $.post({
             'url':'/user/user_news/',
             'data':{
                 "content":content,
+                "title":title,
             },
             'success':function (data) {
                 // console.log(data);
