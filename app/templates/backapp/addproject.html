@@ -20,33 +20,48 @@
         <div class="row cl">
             <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>项目名称：</label>
             <div class="formControls col-xs-8 col-sm-9">
-                {{form.name(class_="form-control",placeholder="请填写项目名称")}}
+                  {% if form.name.data != None and  form.name.data != ""%}
+                      {{form.name(class_="form-control",value=form.name.data)}}
+                  {% else %}
+                      {{form.name(class_="form-control",placeholder="请填写项目名称")}}
+                  {% endif %}
+
+
 {#                <input type="text"  class="input-text" value="" placeholder="" id="title" name="title"#}
 {#                       >#}
             </div>
         </div>
         <div class="row cl">
-            <label class="form-label col-xs-4 col-sm-2">团队成员：</label>
-            <div class="formControls col-xs-8 col-sm-9">
-                {{form.team_info(class_="form-control",placeholder="请输入团队信息")}}
+            <label class="form-label col-xs-4 col-sm-2">团队成员：</label>&nbsp;&nbsp;&nbsp;&nbsp;
+           <div class="formControls col-xs-8 col-sm-9">
+            {% for user in users %}
+                <div  class="btn"  style="display: inline;background-color:#3DA0DB">{{ user.username }}</div>&nbsp;
+
+            {% endfor %}
+             </div>
+              <div  class="btn" >
+                 {{form.adduser(class_="btn" ,style= "display: inline")}}</div>
+{#                <input  class="btn-color" style="color: black" type="submit" name="operate" value= "添加成员"></input>#}
+
+{#                {{form.team_info(class_="form-control",placeholder="请输入团队信息")}}#}
 {#                  <input type="text"  class="input-text" value="" placeholder="" id="link" name="link"#}
 {#                       >#}
 {#                <div class="uploader-thum-container">#}
 {#                    <input id="upfile" name="upfile" type="file" style="height: auto;"/>#}
 {#                    <img id="front_cover_img" src="" height="25" width="100" hidden="hidden"/>#}
 {#                </div>#}
-            </div>
         </div>
       <div class="row cl">
             <label class="form-label col-xs-4 col-sm-2">项目图片：</label>
             <div class="formControls col-xs-8 col-sm-9">
-                 {{form.photo(class_="form-control",placeholder="请输入项目简介" )}}
+{#                <input type="file",name="photo",multiple>#}
+                 {{form.photo(class_="form-control",placeholder="请输入项目简介",multiple="multiple" )}}
             </div>
         </div>
         <div class="row cl">
             <label class="form-label col-xs-4 col-sm-2">项目视频：</label>
             <div class="formControls col-xs-8 col-sm-9">
-                 {{form.video(class_="form-control",placeholder="请输入项目简介")}}
+                 {{form.video(class_="form-control",placeholder="请输入项目简介",multiple="multiple")}}
             </div>
         </div>
 

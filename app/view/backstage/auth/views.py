@@ -28,22 +28,27 @@ def login():
     if form.validate_on_submit():
             user= db.session.query(User).filter_by(username=form.username.data).first()
             print(user)
-            print(user.password)
+            # print(user.password)
             print(form.password.data)
             if user is not None and user.password == form.password.data:
+                print("1111")
                 login_user(user, form.rememberme.data)
-                flash("登录成功")
+                # flash("登录成功")
                 return redirect(request.args.get('next') or url_for('main.index'))
             else:
+                print("2222")
                 flash('用户名或密码错误')
     return  render_template('auth/login.html', form=form)
+    # return render_template('backmodels/page_login.html')
+    # return render_template('index0000000.html')
+    # flash("保存成功")
+    # return render_template('backapp/newmessage.html')
 
 
 @auth.route('/logout')
 @login_required
 def logout():
     logout_user()
-    # session.clear()
     flash('您已退出登录')
     return redirect(url_for('auth.login'))
 

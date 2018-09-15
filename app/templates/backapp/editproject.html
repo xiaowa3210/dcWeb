@@ -12,7 +12,7 @@
 {% endblock %}
 {% block content %}
     <div class="box box-primary">
-     <form action="{{ url_for('main.addproject') }}" method="post"  enctype="multipart/form-data"  >
+     <form action="{{ url_for('main.editproject',project_id=project.id) }}" method="post"  enctype="multipart/form-data"  >
        <div class="box-header with-border">
             {% include 'backapp/message.html' %}
         </div>
@@ -21,20 +21,12 @@
             <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>项目名称：</label>
             <div class="formControls col-xs-8 col-sm-9">
                 {{form.name(class_="form-control",value= project.pname)}}
-{#                <input type="text"  class="input-text" value="" placeholder="" id="title" name="title"#}
-{#                       >#}
             </div>
         </div>
         <div class="row cl">
             <label class="form-label col-xs-4 col-sm-2">团队成员：</label>
             <div class="formControls col-xs-8 col-sm-9">
-                {{form.team_info(class_="form-control",value= project.users)}}
-{#                  <input type="text"  class="input-text" value="" placeholder="" id="link" name="link"#}
-{#                       >#}
-{#                <div class="uploader-thum-container">#}
-{#                    <input id="upfile" name="upfile" type="file" style="height: auto;"/>#}
-{#                    <img id="front_cover_img" src="" height="25" width="100" hidden="hidden"/>#}
-{#                </div>#}
+                {{form.adduser(class_="form-control",value= project.users)}}
             </div>
         </div>
       <div class="row cl">

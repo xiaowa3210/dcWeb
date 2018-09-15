@@ -28,11 +28,10 @@ class AddDocumentForm(FlaskForm):
 
 class AddProjectForm(FlaskForm):
     name = StringField('项目名称', validators=[DataRequired(), Length(1, 64), ])
-    team_info = StringField('团队成员', validators=[DataRequired(), Length(1, 1024), ])
-    introduction = TextAreaField('项目简介', validators=[DataRequired(), Length(1, 8*1024), ])
-    photo = FileField(validators=[FileRequired(message='未选择文件'),
-                                  FileAllowed(photos, message='只能上传图片')])
-    video = FileField(validators=[FileRequired(message='未选择文件')])
+    introduction = TextAreaField('项目简介')
+    photo = FileField('项目图片')
+    video = FileField('项目视频')
+    adduser = SubmitField('添加成员')
     submit = SubmitField('提交')
 
 class AddAdminForm(FlaskForm):
