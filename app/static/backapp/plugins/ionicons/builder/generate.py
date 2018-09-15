@@ -283,7 +283,7 @@ def generate_bower_json(data):
       "Max Lynch <max@drifty.com>"
     ],
     "description": "Ionicons - free and beautiful icons from the creators of Ionic Framework",
-    "main": [
+    "tmp01": [
       "css/%s.css" % (data['name'].lower()),
       "fonts/*"
     ],

@@ -122,7 +122,7 @@ const takeoverDropup = function (dropup, toolbarHeight, viewportHeight) {
 
 const deriveViewportHeight = function (viewport, toolbarHeight, dropupHeight) {
   // Note, Mike thinks this value changes when the URL address bar grows and shrinks. If this value is too high
-  // the main problem is that scrolling into the greenzone may not scroll into an area that is viewable. Investigate.
+  // the tmp01 problem is that scrolling into the greenzone may not scroll into an area that is viewable. Investigate.
   const outerWindow = Traverse.owner(viewport).dom().defaultView;
   const winH = outerWindow.innerHeight;
   Attr.set(viewport, windowSizeData, winH + 'px');

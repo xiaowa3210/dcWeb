@@ -41,9 +41,9 @@ module.exports = function (grunt) {
 
     globals: {
       options: {
-        configFile: 'src/core/main/json/globals.json',
+        configFile: 'src/core/tmp01/json/globals.json',
         outputDir: 'lib/globals',
-        templateFile: 'src/core/main/js/GlobalsTemplate.js'
+        templateFile: 'src/core/tmp01/js/GlobalsTemplate.js'
       }
     },
 
@@ -60,7 +60,7 @@ module.exports = function (grunt) {
               swag.nodeResolve({
                 basedir: __dirname,
                 prefixes: {
-                  'tinymce/core': 'lib/core/main/ts'
+                  'tinymce/core': 'lib/core/tmp01/ts'
                 }
               }),
               swag.remapImports()
@@ -68,7 +68,7 @@ module.exports = function (grunt) {
           },
           files:[
             {
-              src: 'lib/core/main/ts/api/Main.js',
+              src: 'lib/core/tmp01/ts/api/Main.js',
               dest: 'js/tinymce/tinymce.js'
             }
           ]
@@ -110,7 +110,7 @@ module.exports = function (grunt) {
                 basedir: __dirname,
                 prefixes: gruntUtils.prefixes({
                   'tinymce/core': 'lib/globals/tinymce/core',
-                  'tinymce/ui': 'lib/ui/main/ts'
+                  'tinymce/ui': 'lib/ui/tmp01/ts'
                 }, [
                   [`tinymce/themes/${name}`, `lib/themes/${name}/main/ts`]
                 ])
@@ -139,13 +139,13 @@ module.exports = function (grunt) {
         core: {
           files: [
             { src: 'js/tinymce/tinymce.js', dest: 'js/tinymce/tinymce.min.js' },
-            { src: 'src/core/main/js/JqueryIntegration.js', dest: 'js/tinymce/jquery.tinymce.min.js' }
+            { src: 'src/core/tmp01/js/JqueryIntegration.js', dest: 'js/tinymce/jquery.tinymce.min.js' }
           ]
         },
         'compat3x-plugin': {
           files: [
             {
-              src: 'src/plugins/compat3x/main/js/plugin.js',
+              src: 'src/plugins/compat3x/tmp01/js/plugin.js',
               dest: 'js/tinymce/plugins/compat3x/plugin.min.js'
             }
           ]
@@ -196,7 +196,7 @@ module.exports = function (grunt) {
           optimization: 2
         },
         files: {
-          'js/tinymce/skins/lightgray/skin.min.css': 'src/skins/lightgray/main/less/desktop/Skin.less'
+          'js/tinymce/skins/lightgray/skin.min.css': 'src/skins/lightgray/tmp01/less/desktop/Skin.less'
         }
       },
       mobile: {
@@ -209,7 +209,7 @@ module.exports = function (grunt) {
           optimization: 2
         },
         files: {
-          'js/tinymce/skins/lightgray/skin.mobile.min.css': 'src/skins/lightgray/main/less/mobile/app/mobile-less.less'
+          'js/tinymce/skins/lightgray/skin.mobile.min.css': 'src/skins/lightgray/tmp01/less/mobile/app/mobile-less.less'
         }
       },
       'content-mobile': {
@@ -219,7 +219,7 @@ module.exports = function (grunt) {
           compress: true
         },
         files: {
-          'js/tinymce/skins/lightgray/content.mobile.min.css': 'src/skins/lightgray/main/less/mobile/content.less'
+          'js/tinymce/skins/lightgray/content.mobile.min.css': 'src/skins/lightgray/tmp01/less/mobile/content.less'
         }
       },
       content: {
@@ -229,7 +229,7 @@ module.exports = function (grunt) {
           compress: true
         },
         files: {
-          'js/tinymce/skins/lightgray/content.min.css': 'src/skins/lightgray/main/less/desktop/Content.less'
+          'js/tinymce/skins/lightgray/content.min.css': 'src/skins/lightgray/tmp01/less/desktop/Content.less'
         }
       },
       'content-inline': {
@@ -239,7 +239,7 @@ module.exports = function (grunt) {
           compress: true
         },
         files: {
-          'js/tinymce/skins/lightgray/content.inline.min.css': 'src/skins/lightgray/main/less/desktop/Content.Inline.less'
+          'js/tinymce/skins/lightgray/content.inline.min.css': 'src/skins/lightgray/tmp01/less/desktop/Content.Inline.less'
         }
       }
     },
@@ -264,7 +264,7 @@ module.exports = function (grunt) {
             dest: 'js/tinymce/tinymce.min.js'
           },
           {
-            src: 'src/core/main/text/readme_lang.md',
+            src: 'src/core/tmp01/text/readme_lang.md',
             dest: 'js/tinymce/langs/readme.md'
           },
           {
@@ -278,7 +278,7 @@ module.exports = function (grunt) {
           {
             expand: true,
             flatten: true,
-            cwd: 'src/skins/lightgray/main/fonts',
+            cwd: 'src/skins/lightgray/tmp01/fonts',
             src: [
               '**',
               '!*.json',
@@ -289,7 +289,7 @@ module.exports = function (grunt) {
           {
             expand: true,
             flatten: true,
-            cwd: 'src/skins/lightgray/main/img',
+            cwd: 'src/skins/lightgray/tmp01/img',
             src: '**',
             dest: 'js/tinymce/skins/lightgray/img'
           }
@@ -297,10 +297,10 @@ module.exports = function (grunt) {
       },
       plugins: {
         files: [
-          { expand: true, cwd: 'src/plugins/compat3x/main', src: ['img/**'], dest: 'js/tinymce/plugins/compat3x' },
-          { expand: true, cwd: 'src/plugins/compat3x/main', src: ['css/**'], dest: 'js/tinymce/plugins/compat3x' },
-          { expand: true, cwd: 'src/plugins/compat3x/main/js', src: ['utils/**', 'plugin.js', 'tiny_mce_popup.js'], dest: 'js/tinymce/plugins/compat3x' },
-          { src: 'src/plugins/codesample/main/css/prism.css', dest: 'js/tinymce/plugins/codesample/css/prism.css' }
+          { expand: true, cwd: 'src/plugins/compat3x/tmp01', src: ['img/**'], dest: 'js/tinymce/plugins/compat3x' },
+          { expand: true, cwd: 'src/plugins/compat3x/tmp01', src: ['css/**'], dest: 'js/tinymce/plugins/compat3x' },
+          { expand: true, cwd: 'src/plugins/compat3x/tmp01/js', src: ['utils/**', 'plugin.js', 'tiny_mce_popup.js'], dest: 'js/tinymce/plugins/compat3x' },
+          { src: 'src/plugins/codesample/tmp01/css/prism.css', dest: 'js/tinymce/plugins/codesample/css/prism.css' }
         ]
       },
       'emoticons-plugin': {
@@ -308,7 +308,7 @@ module.exports = function (grunt) {
           {
             flatten: true,
             expand: true,
-            cwd: 'src/plugins/emoticons/main/img',
+            cwd: 'src/plugins/emoticons/tmp01/img',
             src: '*.gif',
             dest: 'js/tinymce/plugins/emoticons/img/'
           }
@@ -316,12 +316,12 @@ module.exports = function (grunt) {
       },
       'help-plugin': {
         files: [
-          { src: 'src/plugins/help/main/img/logo.png', dest: 'js/tinymce/plugins/help/img/logo.png' }
+          { src: 'src/plugins/help/tmp01/img/logo.png', dest: 'js/tinymce/plugins/help/img/logo.png' }
         ]
       },
       'visualblocks-plugin': {
         files: [
-          { src: 'src/plugins/visualblocks/main/css/visualblocks.css', dest: 'js/tinymce/plugins/visualblocks/css/visualblocks.css' }
+          { src: 'src/plugins/visualblocks/tmp01/css/visualblocks.css', dest: 'js/tinymce/plugins/visualblocks/css/visualblocks.css' }
         ]
       }
     },
@@ -769,7 +769,7 @@ module.exports = function (grunt) {
 
     watch: {
       skins: {
-        files: ['src/skins/lightgray/main/less/**/*'],
+        files: ['src/skins/lightgray/tmp01/less/**/*'],
         tasks: ['less', 'copy:skins'],
         options: {
           spawn: false

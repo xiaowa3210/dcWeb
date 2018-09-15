@@ -548,7 +548,7 @@ Editor.prototype = {
 
   /**
    * Adds a menu item to be used in the menus of the theme. There might be multiple instances
-   * of this menu item for example it might be used in the main menus of the theme but also in
+   * of this menu item for example it might be used in the tmp01 menus of the theme but also in
    * the context menu so make sure that it's self contained and supports multiple instances.
    *
    * @method addMenuItem

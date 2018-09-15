@@ -1,6 +1,6 @@
-{% extends 'main/base.html'%}
+{% extends 'tmp01/base.html'%}
 
-{% block page_name %}资料下载{% endblock %}
+{% block page_name %}新闻公告{% endblock %}
 
 {% block body_part %}
 <section id="subintro">
@@ -8,12 +8,10 @@
       <div class="row">
         <div class="span3">
           <aside>
-          <!-- <div class="widget"> -->
             <form class="form-search">
               <input placeholder="输入关键字" type="text" class="input-medium search-query">
               <button type="submit" class="btn btn-flat btn-color">搜索</button>
             </form>
-          <!-- </div> -->
           </aside>
         </div>
 
@@ -28,16 +26,15 @@
                 <tbody>
                 {% for document in documents %}
                   <tr>
-                    <td width="82%"><a href="#">{{ document.title }}</a></td>
+                    <td width="82%"><a href="{{ url_for('tmp01.news_detail',news_id=document.id) }}">{{ document.title }}</a></td>
                     <td width="18%" style="text-align: center;">{{ document.created_time }}</td>
                   </tr>
                 {% endfor %}
                 </tbody>
               </table>
 
-        {% from 'main/macros.html' import pager %}
+        {% from 'tmp01/macros.html' import pager %}
         {{ pager(pagination) }}
-
         </div>
       </div>
     </div>

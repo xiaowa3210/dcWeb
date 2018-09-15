@@ -12,7 +12,7 @@ import PanelButton from './PanelButton';
 import DomUtils from 'tinymce/core/api/dom/DOMUtils';
 
 /**
- * This class creates a color button control. This is a split button in which the main
+ * This class creates a color button control. This is a split button in which the tmp01
  * button has a visual representation of the currently selected color. When clicked
  * the caret button displays a color picker, allowing the user to select a new color.
  *

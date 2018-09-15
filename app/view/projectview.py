@@ -6,14 +6,14 @@ from app.service.ProjectService import *
 def plistView():
     #p代表页数从请求的查询字符串（request.args）中获取，默认为1
     page = request.args.get('page', 1, type=int)
-    projects,pagination = getProjectsByPage(page, key="xxx", year=2018)
-    return render_template('projectview/plistview.html',projects=projects,pagination=pagination)
+    pagination,projects = getProjectsByPage(page, 9)
+    return render_template('tmp00/plistview.html',projects=projects,pagination=pagination)
 
 @app.route('/project/info', methods=['GET'])
 def pDetail():
     pid = request.args.get('pid',type=int)
     project = getProjectById(pid)
-    return render_template('projectview/pdetail.html',project=project)
+    return render_template('tmp00/pdetail.html',project=project)
 
 
 @app.route('/test', methods=['GET'])

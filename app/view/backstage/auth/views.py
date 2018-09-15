@@ -36,7 +36,7 @@ def login():
                 return redirect(request.args.get('next') or url_for('main.index'))
             else:
                 flash('用户名或密码错误')
-    return  render_template('auth/login.html', form=form)
+    return  render_template('backapp/auth/login.html', form=form)
 
 
 @auth.route('/logout')

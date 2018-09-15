@@ -42,7 +42,7 @@
       <div class="navbar-inner">
         <div class="container">
           <!-- logo -->
-          <a class="brand logo" href="base.html"><img src="../../static/assets/img/logo.png" alt=""></a>
+          <a class="brand logo" href="tmp01/base.html"><img src="../../static/assets/img/logo.png" alt=""></a>
           <!-- end logo -->
           <!-- top menu -->
           <div class="navigation">
@@ -82,6 +82,14 @@
                   </li>
                   <li class="dropdown disabled">
                     <a href="{{ url_for('tmp01.register') }}">注册</a>
+                  </li>
+
+                  <li class="dropdown">
+                    <a href="#">皮肤(皮肤2)</a>
+                      <ul class="dropdown-menu">
+                        <li><a href="{{ url_for('home') }}">皮肤1</a></li>
+                        <li><a href="{{ url_for('tmp01.home') }}">皮肤2</a></li>
+                      </ul>
                   </li>
                 {% endif %}
               </ul>
@@ -132,7 +140,7 @@
         <div class="span4">
           <div class="widget">
             <!-- logo -->
-            <a class="brand logo" href="base.html">
+            <a class="brand logo" href="tmp01/base.html">
 							<img src="../../static/assets/img/logo-dark.png" alt="">
 						</a>
             <!-- end logo -->

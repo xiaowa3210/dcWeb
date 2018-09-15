@@ -19,12 +19,12 @@ def my_context_processor():
 def home():
     documents = Document.query.order_by(Document.created_time.desc()).limit(6)
     projects = Document.query.order_by(Document.created_time.desc()).limit(6)
-    return render_template('home.html',documents=documents,projects=projects)
+    return render_template('tmp00/home.html',documents=documents,projects=projects)
 
 @app.route('/register/', methods=['GET', 'POST'])
 def register():
     if request.method == 'GET':
-        return render_template('register.html')
+        return render_template('tmp00/register.html')
     else:
         username = request.values.get('username')
         password1 = request.values.get('password1')
@@ -37,13 +37,13 @@ def register():
             db.session.commit()
             return redirect(url_for('login'))
         else:
-            return render_template('register.html')
+            return render_template('tmp00/register.html')
 
 
 @app.route('/login/', methods=['GET', 'POST'])
 def login():
     if request.method == 'GET':
-        return render_template('login.html')
+        return render_template('tmp00/login.html')
     else:
         username = request.form.get('username')
         password = request.form.get('password')
@@ -54,7 +54,7 @@ def login():
             return redirect(url_for('home'))
         else:
             flash(message)
-            return render_template('login.html')
+            return render_template('tmp00/login.html')
 
 
 @app.route('/logout/')
@@ -64,13 +64,13 @@ def logout():
 
 @app.route('/user/')
 def user_center():
-    return render_template('user.html')
+    return render_template('tmp00/user.html')
 
 
 @app.route('/user/security/', methods=['GET', 'POST'])
 def security():
     if request.method == 'GET':
-        return render_template('security.html')
+        return render_template('tmp00/security.html')
     else:
         o_password = request.form.get('o_password')
         password1 = request.form.get('password1')
@@ -84,13 +84,13 @@ def security():
             return redirect(url_for('login'))
         else:
             flash(message)
-            return render_template('security.html')
+            return render_template('tmp00/security.html')
 
 
 @app.route('/user/user_news/', methods=['GET', 'POST'])
 def user_news():
     if request.method == 'GET':
-        return render_template('user_news.html')
+        return render_template('tmp00/user_news.html')
     else:
         document_title = request.form.get('document_title')
         document_content = request.form.get('document_content')
@@ -104,24 +104,24 @@ def news():
     page = request.args.get('page', 1, type=int)
     pagination = Document.query.order_by(Document.created_time.desc()).paginate(page, per_page=15, error_out=False)
     documents = pagination.items
-    return render_template('news.html', documents=documents, pagination=pagination)
+    return render_template('tmp00/news.html', documents=documents, pagination=pagination)
 
 @app.route('/new_details/<document_id>/')
 def new_details(document_id):
     document_obj = Document.query.filter(Document.id == document_id).first()
-    return render_template('new_details.html', document=document_obj)
+    return render_template('tmp00/new_details.html', document=document_obj)
 
 @app.route('/projects/')
 def projects():
     page = request.args.get('page', 1, type=int)
     pagination = Document.query.order_by(Document.created_time.desc()).paginate(page, per_page=15, error_out=False)
     documents = pagination.items
-    return render_template('projects.html', projects=documents, pagination=pagination)
+    return render_template('tmp00/projects.html', projects=documents, pagination=pagination)
 
 @app.route('/project_details/<document_id>/',methods=['GET', 'POST'])
 def project_details(document_id):
     document_obj = Document.query.filter(Document.id == document_id).first()
-    return render_template('project_details.html', document=document_obj)
+    return render_template('tmp00/project_details.html', document=document_obj)
 
 @app.before_request
 def my_before_request():

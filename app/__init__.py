@@ -33,8 +33,7 @@ from app.view.backstage.main import main as main_blueprint
 app.register_blueprint(main_blueprint)
 from app.view.backstage.auth  import auth as auth_blueprint
 app.register_blueprint(auth_blueprint)
-
-from app.view.blueprints.main import tmp01 as tmp01_blueprint
+from app.view.blueprints import tmp01 as tmp01_blueprint
 app.register_blueprint(tmp01_blueprint)
 
 from .view import views  # 导入视图，防止末尾，避免循环导入？

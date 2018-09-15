@@ -132,7 +132,7 @@ export default MenuButton.extend({
       let node = e.target;
 
       if (e.control === this) {
-        // Find clicks that is on the main button
+        // Find clicks that is on the tmp01 button
         while (node) {
           if ((e.aria && e.aria.key !== 'down') || (node.nodeName === 'BUTTON' && node.className.indexOf('open') === -1)) {
             e.stopImmediatePropagation();

@@ -103,7 +103,7 @@ let all = (plugins, themes) => {
     allPluginDemos(plugins),
     allThemeDemos(themes),
     create(`src/core/demo/ts/demo/Demos.ts`, 'tsconfig.json', 'scratch/demos/core/', 'demo.js'),
-    create('src/core/main/ts/api/Main.ts', 'tsconfig.json', 'js/tinymce/', 'tinymce.js'),
+    create('src/core/tmp01/ts/api/Main.ts', 'tsconfig.json', 'js/tinymce/', 'tinymce.js'),
     create(buildEntries(plugins, 'plugins', 'Plugin.ts'), 'tsconfig.plugin.json', 'js/tinymce/plugins', 'plugin.js'),
     create(buildEntries(themes, 'themes', 'Theme.ts'), 'tsconfig.theme.json', 'js/tinymce/themes', 'theme.js')
   ];

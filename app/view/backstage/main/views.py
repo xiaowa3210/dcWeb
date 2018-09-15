@@ -4,7 +4,7 @@ from flask import render_template, redirect, url_for, flash, request
 from flask_login import login_required, current_user
 # from backstage import utils
 # from backstage.models import CfgNotify
-# from backstage.main.forms import CfgNotifyForm
+# from backstage.tmp01.forms import CfgNotifyForm
 from app.models import Document, Project,User, db
 from app.view.backstage import utils
 from app.view.backstage.main.forms import AddinfoForm, AddDocumentForm, AddProjectForm, AddAdminForm
@@ -75,10 +75,10 @@ def common_edit(DynamicModel, form, view):
 
 
 # # 根目录跳转
-# @main.route('/', methods=['GET'])
+# @tmp01.route('/', methods=['GET'])
 # @login_required
 # def root():
-#     return redirect(url_for('main.index'))
+#     return redirect(url_for('tmp01.index'))
 
 
 # 首页

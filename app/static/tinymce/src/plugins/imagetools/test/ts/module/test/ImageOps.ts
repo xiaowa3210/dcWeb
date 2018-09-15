@@ -1,5 +1,5 @@
 import { Chain, Guard, Mouse, Pipeline, Step, UiFinder } from '@ephox/agar';
-import * as Clicks from '@ephox/agar/lib/main/ts/ephox/agar/mouse/Clicks';
+import * as Clicks from '@ephox/agar/lib/tmp01/ts/ephox/agar/mouse/Clicks';
 import { Fun, Result } from '@ephox/katamari';
 import { TinyDom, TinyUi } from '@ephox/mcagar';
 import { Attr, DomEvent, PredicateFilter, Selectors, Visibility, Element } from '@ephox/sugar';
