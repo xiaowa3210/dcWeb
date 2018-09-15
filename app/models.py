@@ -130,8 +130,8 @@ class Project(db.Model):
     create_time = db.Column(db.DateTime, nullable=False, default=datetime.now)
 
     def __repr__(self):
-        return "<Project(id='%s',pname='%s',team_info='%s',introduction='%s',picture='%s',vedio='%s',create_time='%s')>" % \
-               (self.id,self.pname,self.team_info,self.introduction,self.picture,self.vedio,self.create_time)
+        return "<Project(id='%s',pname='%s',users='%s',introduction='%s',picture='%s',vedio='%s',create_time='%s')>" % \
+               (self.id,self.pname,self.users,self.introduction,self.picture,self.vedio,self.create_time)
 
 
 
