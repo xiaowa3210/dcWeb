@@ -10,27 +10,27 @@
   <meta name="author" content="">
   <!-- styles -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:400italic,400,600,700" rel="stylesheet">
-  <link href="../../static/assets/css/bootstrap.css" rel="stylesheet">
-  <link href="../../static/assets/css/bootstrap-responsive.css" rel="stylesheet">
-  <link href="../../static/assets/css/docs.css" rel="stylesheet">
-  <link href="../../static/assets/css/prettyPhoto.css" rel="stylesheet">
-  <link href="../../static/assets/js/google-code-prettify/prettify.css" rel="stylesheet">
-  <link href="../../static/assets/css/flexslider.css" rel="stylesheet">
-  <link href="../../static/assets/css/sequence.css" rel="stylesheet">
-  <link href="../../static/assets/css/style.css" rel="stylesheet">
-  <link href="../../static/assets/color/default.css" rel="stylesheet">
+  <link href="../../static/tmp01/css/bootstrap.css" rel="stylesheet">
+  <link href="../../static/tmp01/css/bootstrap-responsive.css" rel="stylesheet">
+  <link href="../../static/tmp01/css/docs.css" rel="stylesheet">
+  <link href="../../static/tmp01/css/prettyPhoto.css" rel="stylesheet">
+  <link href="../../static/tmp01/js/google-code-prettify/prettify.css" rel="stylesheet">
+  <link href="../../static/tmp01/css/flexslider.css" rel="stylesheet">
+  <link href="../../static/tmp01/css/sequence.css" rel="stylesheet">
+  <link href="../../static/tmp01/css/style.css" rel="stylesheet">
+  <link href="../../static/tmp01/color/default.css" rel="stylesheet">
 
   <!--自定义的css文件-->
-  <link href="../../static/assets/css/base.css" rel="stylesheet">
+  <link href="../../static/tmp01/css/base.css" rel="stylesheet">
 
   {% block static_files %}{% endblock %}
 
   <!-- fav and touch icons -->
-  <link rel="shortcut icon" href="../../static/assets/ico/favicon.ico">
-  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="../../static/assets/ico/apple-touch-icon-144-precomposed.png">
-  <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../../static/assets/ico/apple-touch-icon-114-precomposed.png">
-  <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../../static/assets/ico/apple-touch-icon-72-precomposed.png">
-  <link rel="apple-touch-icon-precomposed" href="../../static/assets/ico/apple-touch-icon-57-precomposed.png">
+  <link rel="shortcut icon" href="../../static/tmp01/ico/favicon.ico">
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="../../static/tmp01/ico/apple-touch-icon-144-precomposed.png">
+  <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../../static/tmp01/ico/apple-touch-icon-114-precomposed.png">
+  <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../../static/tmp01/ico/apple-touch-icon-72-precomposed.png">
+  <link rel="apple-touch-icon-precomposed" href="../../static/tmp01/ico/apple-touch-icon-57-precomposed.png">
 
 </head>
 
@@ -42,7 +42,7 @@
       <div class="navbar-inner">
         <div class="container">
           <!-- logo -->
-          <a class="brand logo" href="tmp01/base.html"><img src="../../static/assets/img/logo.png" alt=""></a>
+          <a class="brand logo" href="tmp01/base.html"><img src="../../static/tmp01/img/logo.png" alt=""></a>
           <!-- end logo -->
           <!-- top menu -->
           <div class="navigation">
@@ -77,7 +77,7 @@
                     <a href="#">登陆</a>
                       <ul class="dropdown-menu">
                         <li><a href="{{ url_for('tmp01.login') }}">学生</a></li>
-                        <li><a href="#">管理员</a></li>
+                        <li><a href="{{ url_for('auth.login') }}">管理员</a></li>
                       </ul>
                   </li>
                   <li class="dropdown disabled">
@@ -85,10 +85,11 @@
                   </li>
 
                   <li class="dropdown">
-                    <a href="#">皮肤(皮肤2)</a>
+                    <a href="#">皮肤(皮肤1)</a>
                       <ul class="dropdown-menu">
-                        <li><a href="{{ url_for('home') }}">皮肤1</a></li>
-                        <li><a href="{{ url_for('tmp01.home') }}">皮肤2</a></li>
+                        <li><a href="#">皮肤3</a></li>
+                        <li><a href="#">皮肤2</a></li>
+                        <li><a href="{{ url_for('tmp01.home') }}">皮肤1</a></li>
                       </ul>
                   </li>
                 {% endif %}
@@ -141,7 +142,7 @@
           <div class="widget">
             <!-- logo -->
             <a class="brand logo" href="tmp01/base.html">
-							<img src="../../static/assets/img/logo-dark.png" alt="">
+							<img src="../../static/tmp01/img/logo-dark.png" alt="">
 						</a>
             <!-- end logo -->
             <address>
@@ -179,23 +180,23 @@
   </footer>
 
   <!-- JavaScript Library Files -->
-  <script src="../../static/assets/js/jquery.min.js"></script>
-  <script src="../../static/assets/js/jquery.easing.js"></script>
-  <script src="../../static/assets/js/google-code-prettify/prettify.js"></script>
-  <script src="../../static/assets/js/modernizr.js"></script>
-  <script src="../../static/assets/js/bootstrap.js"></script>
-  <script src="../../static/assets/js/jquery.elastislide.js"></script>
-  <script src="../../static/assets/js/sequence/sequence.jquery-min.js"></script>
-  <script src="../../static/assets/js/sequence/setting.js"></script>
-  <script src="../../static/assets/js/jquery.prettyPhoto.js"></script>
-  <script src="../../static/assets/js/application.js"></script>
-  <script src="../../static/assets/js/jquery.flexslider.js"></script>
-  <script src="../../static/assets/js/hover/jquery-hover-effect.js"></script>
-  <script src="../../static/assets/js/hover/setting.js"></script>
-  <script src="../../static/assets/js/base.js"></script>
+  <script src="../../static/tmp01/js/jquery.min.js"></script>
+  <script src="../../static/tmp01/js/jquery.easing.js"></script>
+  <script src="../../static/tmp01/js/google-code-prettify/prettify.js"></script>
+  <script src="../../static/tmp01/js/modernizr.js"></script>
+  <script src="../../static/tmp01/js/bootstrap.js"></script>
+  <script src="../../static/tmp01/js/jquery.elastislide.js"></script>
+  <script src="../../static/tmp01/js/sequence/sequence.jquery-min.js"></script>
+  <script src="../../static/tmp01/js/sequence/setting.js"></script>
+  <script src="../../static/tmp01/js/jquery.prettyPhoto.js"></script>
+  <script src="../../static/tmp01/js/application.js"></script>
+  <script src="../../static/tmp01/js/jquery.flexslider.js"></script>
+  <script src="../../static/tmp01/js/hover/jquery-hover-effect.js"></script>
+  <script src="../../static/tmp01/js/hover/setting.js"></script>
+  <script src="../../static/tmp01/js/base.js"></script>
 
   <!-- Template Custom JavaScript File -->
-  <script src="../../static/assets/js/custom.js"></script>
+  <script src="../../static/tmp01/js/custom.js"></script>
 
 </body>
 </html>

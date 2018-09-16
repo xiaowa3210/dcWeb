@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
-import logging
 
 from flask import Flask
 import config  # 导入配置参数
@@ -14,7 +13,7 @@ db.init_app(app)
 # # 日志系统配置
 # handler = logging.FileHandler('app.log', encoding='UTF-8')
 # app.logger.addHandler(handler)
-from .view import projectview
+#from .view import projectview
 
 #配置flask-login
 from flask_login import LoginManager
@@ -29,11 +28,12 @@ def load_user(user_id):
 
 
 from app.models import User
-from app.view.backstage.main import main as main_blueprint
-app.register_blueprint(main_blueprint)
-from app.view.backstage.auth  import auth as auth_blueprint
+from app.admin import admin as admin_blueprint
+app.register_blueprint(admin_blueprint)
+from app.auth import auth as auth_blueprint
 app.register_blueprint(auth_blueprint)
-from app.view.blueprints import tmp01 as tmp01_blueprint
+from app.tmp01 import tmp01 as tmp01_blueprint
 app.register_blueprint(tmp01_blueprint)
+from app.tmp00 import tmp00 as tmp00_blueprint
+app.register_blueprint(tmp00_blueprint)
 
-from .view import views  # 导入视图，防止末尾，避免循环导入？

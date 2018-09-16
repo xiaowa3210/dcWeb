@@ -1,0 +1,61 @@
+{% extends 'admin/backbase.html' %}
+
+{% block title %}项目列表{% endblock %}
+
+{#{% block body_part %}#}
+{#    <hr>#}
+{#    <br>#}
+{#    <br>#}
+{% block navbar %}
+<section class="content-header">
+    <h1>项目列表</h1>
+    <ol class="breadcrumb">
+        <li><i class="fa fa-dashboard"></i> 当前位置</li>
+        <li class="active">项目管理</li>
+        <li class="active">项目列表</li>
+    </ol>
+</section>
+{% endblock %}
+{% block content %}
+          <div class="box-header with-border">
+            {% include 'admin/message.html' %}
+        </div>
+
+<ul >
+{% for project in projects %}
+    <li>
+        <div><a href="{{url_for('admin.pdetail',project_id = project.id)}}">{{ project.pname }}</a></div>
+        <div><form method="post" action="{{ url_for('admin.operate',project_id=project.id) }}">
+            <input  class="btn-color" style="color: black" type="submit" name="operate" value= "编辑"></input>
+{#            <input type="submit" name="operate" value= "通过"></input>#}
+           <a href="{{ url_for('admin.operate', project_id=project.id) }}" style="color: black"  onclick="{if(confirm('确定删除这条记录吗?')){this.document.formname.submit();return true;}return false;}"><input  class="btn-color" type="submit" name="operate" value= "删除"></input></a>
+        </form>
+        </div>
+    </li>
+
+{% endfor %}
+</ul>
+<br>
+    总页数：{{ paginate.pages }}
+    <br>
+    总共有{{ paginate.total }}条数据
+    <br>
+{#    当前页数：{{ paginate.page }}#}
+{#    <br>#}
+{#    # 如果存在上一页#}
+    {% if paginate.has_prev %}
+        <a href="{{ url_for('admin.query_projects',page = paginate.prev_num) }}">上一页:</a>
+    {% endif %}
+{##}
+    当前的页数：{{ paginate.page }}
+{#    # 如果存在下一页#}
+    {% if paginate.has_next %}
+          <a href="{{ url_for('admin.query_projects',page = paginate.next_num) }}">下一页:</a>
+    {% endif %}
+    <br>
+    页码：{%  for i in  paginate.iter_pages() %}
+    <a href="{{ url_for('admin.query_projects',page = i) }}">{{ i }}</a>
+    {% endfor %}
+
+
+{% endblock %}

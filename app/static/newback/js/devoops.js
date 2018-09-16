@@ -1787,8 +1787,8 @@ function FileUpload(){
 		},
 		thumbnails: {
 			placeholders: {
-				waitingPath: "assets/waiting-generic.png",
-				notAvailablePath: "assets/not_available-generic.png"
+				waitingPath: "tmp01/waiting-generic.png",
+				notAvailablePath: "tmp01/not_available-generic.png"
 			}
 		},
 		request: {
