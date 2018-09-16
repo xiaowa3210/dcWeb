@@ -5,4 +5,8 @@ INSERT INTO project (pname, introduction,create_time)
      ,CURRENT_DATE);
 
 
+数据库中新增一列
+alter TABLE project add teaminfo TEXT;
+
+
 

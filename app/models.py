@@ -111,7 +111,6 @@ class Attachment(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     link = db.Column(db.String(256), nullable=False)
     documentId = db.Column(db.Integer, ForeignKey('document.id'))
-
     document = db.relationship('Document', back_populates="attachments")
 
 
@@ -123,8 +122,9 @@ class Project(db.Model):
     users = db.relationship('User',
                          secondary=user_project,
                          back_populates='projects')
-
     introduction = db.Column(db.TEXT, nullable=False)
+    #队伍信息
+    teaminfo = db.Column(db.TEXT,nullable=True)
     picture = db.Column(db.String(1024), nullable=True)
     vedio = db.Column(db.String(1024), nullable=True)
     create_time = db.Column(db.DateTime, nullable=False, default=datetime.now)
@@ -134,5 +134,22 @@ class Project(db.Model):
                (self.id,self.pname,self.users,self.introduction,self.picture,self.vedio,self.create_time)
 
 
+#实验室介绍
+class Laboratory(db.Model):
+    __tablename__ = 'laboratory'
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    name = db.Column(db.String(256), nullable=False)
+    introduction = db.Column(db.TEXT, nullable=False)
+    activities = db.relationship('Activity', back_populates='document')
 
+    member = db.Column(db.String(256),nullable=True)
+    create_time = db.Column(db.DateTime, nullable=False, default=datetime.now)
 
+#实验室活动介绍(考虑富文本)
+class Activity(db.Model):
+    __tablename__ = 'activity'
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    content = db.Column(db.TEXT, nullable=False)
+    create_time = db.Column(db.DateTime, nullable=False, default=datetime.now)
+    lid = db.db.Column(db.Integer, ForeignKey(Laboratory.id))
+    laboratory = db.relationship('Laboratory', back_populates='activities')
