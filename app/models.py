@@ -140,7 +140,7 @@ class Laboratory(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String(256), nullable=False)
     introduction = db.Column(db.TEXT, nullable=False)
-    activities = db.relationship('Activity', back_populates='document')
+    activities = db.relationship('Activity', back_populates='laboratory')
 
     member = db.Column(db.String(256),nullable=True)
     create_time = db.Column(db.DateTime, nullable=False, default=datetime.now)
@@ -151,5 +151,6 @@ class Activity(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     content = db.Column(db.TEXT, nullable=False)
     create_time = db.Column(db.DateTime, nullable=False, default=datetime.now)
-    lid = db.db.Column(db.Integer, ForeignKey(Laboratory.id))
+    lid = db.Column(db.Integer, ForeignKey(Laboratory.id))
     laboratory = db.relationship('Laboratory', back_populates='activities')
+    create_time = db.Column(db.DateTime, nullable=False, default=datetime.now)
