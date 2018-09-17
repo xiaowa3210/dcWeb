@@ -3,14 +3,13 @@
 
 from flask import render_template, Blueprint
 
-from app.models import Document, Project
-from utils import getDoucumentByID, getDocumentByPage, getProjectsByPage, getProjectById
+from app.service.DocumentsService import *
+from app.service.ProjectService import *
 from app.tmp01 import tmp01
-#from app.service.ProjectService import *
 
 
 
-@tmp01.route('/tmp01')
+@tmp01.route('/')
 def home():
     documents = Document.query.order_by(Document.created_time.desc()).limit(6)
     projects = Project.query.order_by(Project.create_time.desc()).limit(3)
