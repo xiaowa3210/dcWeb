@@ -5,18 +5,17 @@
 import os
 from os import path
 
+from app.view.admin import admin
 from flask import flash
+from flask import request, render_template, redirect, url_for
 from flask_login import login_required, current_user
+from werkzeug.utils import secure_filename  # 使用这个是为了确保filename是安全的
+
 # from backstage import utils
 # from backstage.models import CfgNotify
 # from backstage.tmp01.forms import CfgNotifyForm
-from app.models import Document, Project,User, db
-from app.admin.forms import AddinfoForm, AddDocumentForm, AddProjectForm, AddAdminForm
-
-from app.admin import admin
-from flask import request, render_template, redirect, url_for
-from werkzeug.utils import secure_filename # 使用这个是为了确保filename是安全的
-
+from app.models import Document, Project, User, db
+from app.view.admin.forms import AddinfoForm, AddDocumentForm, AddProjectForm, AddAdminForm
 
 global a
 a=""

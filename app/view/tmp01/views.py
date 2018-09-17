@@ -1,12 +1,11 @@
 #!/user/bin/env python
 # -*- coding:utf-8 -*-
 
-from flask import render_template, Blueprint
+from flask import render_template
 
 from app.service.DocumentsService import *
 from app.service.ProjectService import *
-from app.tmp01 import tmp01
-
+from app.view.tmp01 import tmp01
 
 
 @tmp01.route('/')

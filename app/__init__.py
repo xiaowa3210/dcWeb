@@ -2,6 +2,7 @@
 # -*- coding:utf-8 -*-
 
 from flask import Flask
+
 import config  # 导入配置参数
 from .models import db  # 数据库
 
@@ -28,12 +29,12 @@ def load_user(user_id):
 
 
 from app.models import User
-from app.admin import admin as admin_blueprint
+from app.view.admin import admin as admin_blueprint
 app.register_blueprint(admin_blueprint)
-from app.auth import auth as auth_blueprint
+from app.view.auth import auth as auth_blueprint
 app.register_blueprint(auth_blueprint)
-from app.tmp01 import tmp01 as tmp01_blueprint
+from app.view.tmp01 import tmp01 as tmp01_blueprint
 app.register_blueprint(tmp01_blueprint)
-from app.tmp00 import tmp00 as tmp00_blueprint
+from app.view.tmp00 import tmp00 as tmp00_blueprint
 app.register_blueprint(tmp00_blueprint)
 
