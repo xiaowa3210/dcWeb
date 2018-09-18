@@ -6,7 +6,7 @@
     <div class="container">
         <article>
             <h2 style="text-align: center">{{ news.title }}</h2>
-            <p>{{ news.content}}</p>
+            <p>{{ news.content | safe}}</p>
         </article>
     </div>
 </section>

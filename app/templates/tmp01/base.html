@@ -9,28 +9,37 @@
   <meta name="description" content="">
   <meta name="author" content="">
   <!-- styles -->
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400italic,400,600,700" rel="stylesheet">
-  <link href="../../static/tmp01/css/bootstrap.css" rel="stylesheet">
-  <link href="../../static/tmp01/css/bootstrap-responsive.css" rel="stylesheet">
-  <link href="../../static/tmp01/css/docs.css" rel="stylesheet">
-  <link href="../../static/tmp01/css/prettyPhoto.css" rel="stylesheet">
-  <link href="../../static/tmp01/js/google-code-prettify/prettify.css" rel="stylesheet">
-  <link href="../../static/tmp01/css/flexslider.css" rel="stylesheet">
-  <link href="../../static/tmp01/css/sequence.css" rel="stylesheet">
-  <link href="../../static/tmp01/css/style.css" rel="stylesheet">
-  <link href="../../static/tmp01/color/default.css" rel="stylesheet">
-
+{#  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400italic,400,600,700" rel="stylesheet">#}
+{#  <link href="{{ url_for('static',filename='/tmp01/css/bootstrap.css rel="stylesheet">#}
+{#  <link href="../../static/tmp01/css/bootstrap-responsive.css" rel="stylesheet">#}
+{#  <link href="../../static/tmp01/css/docs.css" rel="stylesheet">#}
+{#  <link href="../../static/tmp01/css/prettyPhoto.css" rel="stylesheet">#}
+{#  <link href="../../static/tmp01/js/google-code-prettify/prettify.css" rel="stylesheet">#}
+{#  <link href="../../static/tmp01/css/flexslider.css" rel="stylesheet">#}
+{#  <link href="../../static/tmp01/css/sequence.css" rel="stylesheet">#}
+{#  <link href="../../static/tmp01/css/style.css" rel="stylesheet">#}
+{#  <link href="../../static/tmp01/color/default.css" rel="stylesheet">#}
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400italic,400,600,700" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='tmp01/css/bootstrap.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='tmp01/css/bootstrap-responsive.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='tmp01/css/docs.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='tmp01/css/prettyPhoto.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='tmp01/js/google-code-prettify/prettify.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='tmp01/css/lexslider.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='tmp01/css/sequence.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='tmp01/css/style.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='tmp01/color/default.css')}}">
   <!--自定义的css文件-->
-  <link href="../../static/tmp01/css/base.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='tmp01/css/base.css')}}">
 
   {% block static_files %}{% endblock %}
 
   <!-- fav and touch icons -->
-  <link rel="shortcut icon" href="../../static/tmp01/ico/favicon.ico">
-  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="../../static/tmp01/ico/apple-touch-icon-144-precomposed.png">
-  <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../../static/tmp01/ico/apple-touch-icon-114-precomposed.png">
-  <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../../static/tmp01/ico/apple-touch-icon-72-precomposed.png">
-  <link rel="apple-touch-icon-precomposed" href="../../static/tmp01/ico/apple-touch-icon-57-precomposed.png">
+{#  <link rel="shortcut icon" href="../../static/tmp01/ico/favicon.ico">#}
+{#  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="../../static/tmp01/ico/apple-touch-icon-144-precomposed.png">#}
+{#  <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../../static/tmp01/ico/apple-touch-icon-114-precomposed.png">#}
+{#  <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../../static/tmp01/ico/apple-touch-icon-72-precomposed.png">#}
+{#  <link rel="apple-touch-icon-precomposed" href="../../static/tmp01/ico/apple-touch-icon-57-precomposed.png">#}
 
 </head>
 
@@ -42,7 +51,7 @@
       <div class="navbar-inner">
         <div class="container">
           <!-- logo -->
-          <a class="brand logo" href="tmp01/base.html"><img src="../../static/tmp01/img/logo.png" alt=""></a>
+          <a class="brand logo" href="{{ url_for('tmp01.home') }}"><img src="{{ url_for('static',filename='tmp01/img/logo.png')}}" alt=""></a>
           <!-- end logo -->
           <!-- top menu -->
           <div class="navigation">
@@ -88,7 +97,7 @@
                     <a href="#">皮肤(皮肤1)</a>
                       <ul class="dropdown-menu">
                         <li><a href="#">皮肤3</a></li>
-                        <li><a href="#">皮肤2</a></li>
+                        <li><a href="{{ url_for('tmp02/base.html') }}">皮肤2</a></li>
                         <li><a href="{{ url_for('tmp01.home') }}">皮肤1</a></li>
                       </ul>
                   </li>
@@ -142,7 +151,7 @@
           <div class="widget">
             <!-- logo -->
             <a class="brand logo" href="tmp01/base.html">
-							<img src="../../static/tmp01/img/logo-dark.png" alt="">
+
 						</a>
             <!-- end logo -->
             <address>
