@@ -8,5 +8,8 @@ INSERT INTO project (pname, introduction,create_time)
 数据库中新增一列
 alter TABLE project add teaminfo TEXT;
 
+--清空一个表--
+DELETE FROM project;
+
 
 

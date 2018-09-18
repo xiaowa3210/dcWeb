@@ -1,60 +1,68 @@
+{
+  "teammates": [
+    {
+      "name": "刘政",
+      "faculty": "信息与通信工程学院 通信工程",
+      "grade": "2016级本科"
+    },
+    {
+      "name": "郑远鹏",
+      "faculty": "信息与通信工程学院 通信工程",
+      "grade": "2016级本科"
+    },
+    {
+      "name": "何姣",
+      "faculty": "信息与通信工程学院 通信工程",
+      "grade": "2016级本科"
+    }
+  ],
+  "honor": [
+  ]
+}
+
+
+
+
 //{
-//    "teammates":
+//  "pics":[
+//    {
+//      "title":"xxxxxx",
+//      "path" : "xxxxx/dcWeb/resource/xxxx.jpg"
+//    },
+//    {
+//      "title":"xxxxxx",
+//      "path" : "xxxxx/dcWeb/resource/xxxx.jpg"
+//    }
+//  ]
+//}
+
+
+//{
+//  "pics":[
+//    {
+//      "title":"xxxxxx",
+//      "path" : "xxxxx/dcWeb/resource/xxxx.jpg"
+//    },
+//    {
+//      "title":"xxxxxx",
+//      "path" : "xxxxx/dcWeb/resource/xxxx.jpg"
+//    }
+//  ]
+//}
+
+
+//{
+//    "numbers":
 //    [
 //      {
-//            "name":"小明",
-//            "faculty":"通信院xx专业",
-//            "grade":"2016级本科"
+//        "name":"xxx",
+//        "title":"xxxx",
+//        "introduction":"xxxxxxxx"
 //      },
 //      {
-//            "name":"小王",
-//            "faculty":"通信院xx专业",
-//            "grade":"2016级本科"
+//        "name":"xxx",
+//        "faculty":"xxxxx",
+//        "introduction":"xxxxxxxx"
 //      }
 //    ]
 //}
-
-
-//{
-//  "pics":[
-//    {
-//      "title":"xxxxxx",
-//      "path" : "xxxxx/dcWeb/resource/xxxx.jpg"
-//    },
-//    {
-//      "title":"xxxxxx",
-//      "path" : "xxxxx/dcWeb/resource/xxxx.jpg"
-//    }
-//  ]
-//}
-
-
-//{
-//  "pics":[
-//    {
-//      "title":"xxxxxx",
-//      "path" : "xxxxx/dcWeb/resource/xxxx.jpg"
-//    },
-//    {
-//      "title":"xxxxxx",
-//      "path" : "xxxxx/dcWeb/resource/xxxx.jpg"
-//    }
-//  ]
-//}
-
-
-{
-    "numbers":
-    [
-      {
-        "name":"xxx",
-        "title":"xxxx",
-        "introduction":"xxxxxxxx"
-      },
-      {
-        "name":"xxx",
-        "faculty":"xxxxx",
-        "introduction":"xxxxxxxx"
-      }
-    ]
-}
