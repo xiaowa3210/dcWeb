@@ -36,7 +36,7 @@ def user_center():
 @tmp05.route('/tmp05/news/<int:page>')
 def news(page):
     per_page = 10
-    pagination,documents = getDocumentByPage(page,per_page,0)
+    pagination,documents = getDocumentByPage(page,per_page,1)
     return render_template('tmp05/news.html', pagination=pagination, documents=documents)
 
 @tmp05.route('/tmp05/news/detail/<news_id>')
@@ -51,7 +51,7 @@ def downlink(page):
     pagination, documents = getDocumentByPage(page, per_page, 0)
     return render_template('tmp05/downlink.html', pagination=pagination, documents=documents)
 
-
+#文件下载
 @tmp05.route("/download/<filename>", methods=['GET'])
 def download_file(filename):
     # 需要知道2个参数, 第1个参数是本地目录的path, 第2个参数是文件名(带扩展名)

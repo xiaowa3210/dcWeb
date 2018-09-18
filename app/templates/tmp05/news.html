@@ -1,10 +1,9 @@
 {% extends 'tmp05/base.html' %}
 
-{% block page_name %}常见下载{% endblock %}
+{% block page_name %}新闻公告{% endblock %}
 
 {% block static_files %}
 {% endblock %}
-
 
 {% block body_part%}
 <div class="blog">
@@ -12,7 +11,7 @@
         <ul>
             {% for doc in documents %}
                 <li>
-                    <a href="{{url_for('tmp05.download_file', filename=doc.attachments[0].link)}}">{{doc.title}}</a>
+                    <a href="{{url_for('tmp05.news_detail',news_id=doc.id)}}">{{doc.title}}</a>
                     <label>{{doc.created_time}}</label>
                 </li>
             {% endfor %}
@@ -22,20 +21,19 @@
 <div class="blog-bottom">
     <ul>
         {% if pagination.has_prev %}
-            <li><a href="{{url_for('tmp05.downlink',page = pagination.page - 1)}}" class="active">PREV</a></li>
+            <li><a href="{{url_for('tmp05.news',page = pagination.page - 1)}}" class="active">PREV</a></li>
         {% endif %}
         {% for p in pagination.iter_pages() %}
             {% if p == pagination.page%}
-                <li><a href="{{url_for('tmp05.downlink',page = p)}}" class="active">{{loop.index}}</a></li>
+                <li><a href="{{url_for('tmp05.news',page = p)}}" class="active">{{loop.index}}</a></li>
             {% else %}
-                <li><a href="{{url_for('tmp05.downlink',page = p)}}">{{loop.index}}</a></li>
+                <li><a href="{{url_for('tmp05.news',page = p)}}">{{loop.index}}</a></li>
             {% endif %}
         {% endfor %}
 
         {% if pagination.has_next %}
-                <li><a href="{{url_for('tmp05.downlink',page = pagination.page + 1)}}" class="active">NEXT</a></li>
+                <li><a href="{{url_for('tmp05.news',page = pagination.page + 1)}}" class="active">NEXT</a></li>
         {% endif %}
     </ul>
 </div>
-
 {% endblock%}
