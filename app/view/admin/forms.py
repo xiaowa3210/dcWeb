@@ -34,7 +34,7 @@ class AddProjectForm(FlaskForm):
     introduction = TextAreaField('项目简介')
     photo = FileField('项目图片')
     video = FileField('项目视频')
-    adduser = SubmitField('添加成员')
+    adduser = SubmitField('+')
     submit = SubmitField('提交')
 
 class AddAdminForm(FlaskForm):
@@ -42,6 +42,25 @@ class AddAdminForm(FlaskForm):
     password =  StringField('用户密码', validators=[DataRequired(), Length(1, 64), ])
     rep_password =  StringField('请确认用户密码', validators=[DataRequired(), Length(1, 64), ])
     submit = SubmitField('提交')
+class AddLabForm(FlaskForm):
+    name = StringField('实验室名称', validators=[DataRequired(), Length(1, 64), ])
+    introduction =  TextAreaField('实验室简介', validators=[DataRequired(), Length(1, 1028), ])
+    adduser = SubmitField('+')
+    addactivity = SubmitField('+')
+    submit = SubmitField('提交')
+class AddActivityForm(FlaskForm):
+    name = StringField('活动名称', validators=[DataRequired(), Length(1, 64), ])
+    introduction =  TextAreaField('活动简介', validators=[DataRequired(), Length(1, 1028), ])
+    submit = SubmitField('提交')
+
+class AddMemberForm(FlaskForm):
+    name = StringField('姓名', validators=[DataRequired(), Length(1, 64), ])
+    pro = StringField('专业', validators=[DataRequired(), Length(1, 64), ])
+    introduction = StringField('简介')
+    submit = SubmitField('提交')
+
+
+
 
 
 

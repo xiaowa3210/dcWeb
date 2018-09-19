@@ -14,14 +14,24 @@ from werkzeug.utils import secure_filename  # 使用这个是为了确保filenam
 # from backstage import utils
 # from backstage.models import CfgNotify
 # from backstage.tmp01.forms import CfgNotifyForm
-from app.models import Document, Project, User, db
-from app.view.admin.forms import AddinfoForm, AddDocumentForm, AddProjectForm, AddAdminForm
+from app.models import Document, Project, User, db, Laboratory, Activity
+from app.view.admin.forms import AddinfoForm, AddDocumentForm, AddProjectForm, AddAdminForm, AddMemberForm, AddLabForm, \
+    AddActivityForm
 
 global a
 a=""
 
-global users
-users =[]
+global teammates
+teammates =[]
+global members
+members =[]
+
+global activities
+activities=[]
+
+
+
+
 # logger = get_logger(__name__)
 # cfg = get_config()
 
@@ -129,57 +139,63 @@ def addinfo():
 @login_required
 def addproject():
     form = AddProjectForm()
+
+        # print(request.form.get("adduser"))
+        # if request.form.get("adduser") == "+":
+        #     print("3e764354")
+        #     print(form.name.data)
+        #     global a
+        #     a = form.name.data
+        #     return render_template('admin/users.html')
+        # if request.form.get("submit") == "adduser":
+        #     username =request.form.get("username")
+        #     pro = request.form.get("pro")
+        #     grade = request.form.get("grade")
+        #     teammate = {"name":username,"faculty":pro,"grade":grade}
+        #     global  teammates
+        #     teammates.append(teammate)
+        #     flash("保存成功")
+        #     form.name.data = a
+        #     print(form.name.data)
+        #     return render_template('admin/addproject.html', form=form, users=teammates)
+        # if request.method == 'POST':
     if form.is_submitted():
-        print(request.form.get("adduser"))
-        if request.form.get("adduser") == "添加成员":
-            print("3e764354")
-            print(form.name.data)
-            global a
-            a = form.name.data
-            return render_template('admin/users.html')
-        if request.form.get("submit") == "adduser":
-            username =request.form.get("username")
-            password1 = '12345'
-            user = User(username=username, pwd=password1)
-            db.session.add(user)
-            db.session.commit()
-            global  users
-            users.append(user)
-            flash("保存成功")
-            print("3333333333333333333")
-            print(users)
-            form.name.data = a
-            print(form.name.data)
-            return render_template('admin/addproject.html', form=form, users=users)
-        if request.method == 'POST':
-            print("555")
-            # f1= request.files["photo"]
-            photos = request.files.getlist('photo')
-            # f2 = request.files["video"]
-            files = request.files.getlist('video')
-            base_path = path.abspath(path.dirname(__file__))
-            photo_db_paths = []
-            video_db_paths = []
-            for file in photos:
-                if allowed_photo(file.filename):
-                    filename = secure_filename(file.filename)
-                    upload_path = os.path.join(base_path, 'uploads', filename)
-                    photo_db_paths.append(upload_path)
-                    file.save(upload_path)
-                else:
-                    flash("您上传的文件不是图片类型！")
-                    return render_template('admin/addproject.html', form=form)
-            for file in files:
-                if  allowed_video(file.filename):
-                    filename = secure_filename(file.filename)
-                    upload_path = os.path.join(base_path, 'uploads', filename)
-                    video_db_paths.append(upload_path)
-                    file.save(upload_path)
-                else:
-                    flash("您上传的文件不是视频类型！")
-                    return render_template('admin/addproject.html', form=form)
-            photoPaths=";".join(photo_db_paths)
-            videoPaths=";".join(video_db_paths)
+        print("555")
+        # f1= request.files["photo"]
+        photos = request.files.getlist('photo')
+        # f2 = request.files["video"]
+        files = request.files.getlist('video')
+        base_path = path.abspath(path.dirname(__file__))
+        photoss = []
+        video_db_paths = []
+        for file in photos:
+            print("000000")
+            print(allowed_photo(file.filename))
+            if allowed_photo(file.filename):
+                filename = secure_filename(file.filename)
+                upload_path = os.path.join(base_path, 'uploads', filename)
+                photo= {"title":filename,"path":upload_path}
+                file.save(upload_path)
+                photoss.append(photo)
+            else:
+                flash("您上传的文件不是图片类型！")
+                return render_template('admin/addproject.html', form=form)
+        for file in files:
+            if  allowed_video(file.filename):
+                filename = secure_filename(file.filename)
+                upload_path = os.path.join(base_path, 'uploads', filename)
+                video_db_paths.append(upload_path)
+                file.save(upload_path)
+            else:
+                flash("您上传的文件不是视频类型！")
+                return render_template('admin/addproject.html', form=form)
+        # print("22222222" + photos)
+        photoPaths={"pics":photoss}
+        # print("33333" + photoPaths)
+
+
+        videoPaths=";".join(video_db_paths)
+        global teammates
 
             # upload_path = path.join(base_path, 'uploads/')
             # print(upload_path)
@@ -187,25 +203,35 @@ def addproject():
             # f1.save(file_name1)
             # file_name2 = upload_path + secure_filename(f2.filename)
             # f2.save(file_name2)
-        project = Project(pname = form.name.data,introduction =form.introduction.data,picture=photoPaths,vedio=videoPaths)
+        teaminfo = {"teammates":teammates}
+        print("34222222222")
+        print(teaminfo)
+        print(photoPaths)
+        project = Project(pname = form.name.data,introduction =form.introduction.data,teaminfo=str(teaminfo),picture= str(photoPaths),vedio=videoPaths)
         db.session.add(project)
         db.session.commit()
-#        global  users
-        users =[]
-        flash("保存成功")
-    return render_template('admin/addproject.html', form=form, users=users)
+        global teammates
+        teammates =[]
 
-# @admin.route('/addusr/<form>/', methods=['GET','POST'])
-# @login_required
-# def adduser(form):
-#     # form = AddProjectForm()
-#     username ="111"
-#     password1 = '12345'
-#     user = User(username=username,pwd=password1 )
-#     db.session.add(user)
-#     db.session.commit()
-#     flash("保存成功")
-#     return render_template('admin/addproject.html', form=form)
+        flash("保存成功")
+    return render_template('admin/addproject.html', form=form, users=teammates)
+
+@admin.route('/adduser', methods=['GET','POST'])
+@login_required
+def adduser():
+    form = AddProjectForm()
+    if form.is_submitted():
+        username =request.form.get("name")
+        faculty =request.form.get("faculty")
+        grade = request.form.get("grade")
+        teammate = {  "name": username,
+          "faculty": faculty,
+          "grade": grade}
+        teammates.append(teammate)
+        flash("保存成功")
+        return render_template('admin/addproject.html', form=AddProjectForm(), users=teammates)
+
+    return render_template('admin/users.html', form=form)
 
 @admin.route('/editproject/<project_id>/', methods=['GET','POST'])
 @login_required
@@ -263,6 +289,7 @@ def query_projects():
     return render_template('admin/projects.html', paginate=paginate, projects=projects)
 
 @admin.route('/query_projects/<project_id>/',methods=['GET', 'POST'])
+@login_required
 def operate(project_id):
     if  request.form.get("operate") == "编辑":
         print("3333")
@@ -301,8 +328,64 @@ def addpolicy():
         db.session.commit()
         flash("保存成功")
     return render_template('admin/addpolicy.html', form=form)
+@admin.route('/addmember', methods=['GET','POST'])
+@login_required
+def addmember():
+    mform = AddMemberForm()
+    form = AddLabForm()
+    # if request.method == 'POST':
+    #     form = request.form
+    #     print ("6666666")
+    #     print (form)
+    if mform.is_submitted():
+        username = request.form.get("username")
+        pro = request.form.get("pro")
+        intro = request.form.get("introduction")
+        member = {"name": username, "title": pro, "introductin": intro}
+        global members
+        members.append(member)
+        return render_template('admin/addlab.html',form = form,users=members)
+    return render_template('admin/addmember.html',form=mform)
 
-@admin.route('/skfh',methods=['GET', 'POST'])
-def skhf():
 
-    return render_template('backmodels/forms_elements.html')
+@admin.route('/addlab', methods=['GET','POST'])
+@login_required
+def addlab():
+    form = AddLabForm()
+    global members
+    m = {"members":members}
+    if form.is_submitted():
+        global activities
+        lab = Laboratory(name =form.name.data,introduction =form.introduction.data,member=str(m),activities=activities)
+        db.session.add(lab)
+        db.session.commit()
+        activities =[]
+        global members
+        members=[]
+        global teammates
+        teammates=[]
+        flash("保存成功")
+    return render_template('admin/addlab.html', form=form,users=members,activities=activities)
+
+
+@admin.route('/addactivity', methods=['GET','POST'])
+@login_required
+def addactivity():
+    aform = AddActivityForm()
+    if aform.is_submitted():
+        activity = Activity(title=aform.name.data,content=aform.introduction.data)
+        global activities
+        activities.append(activity)
+        return render_template('admin/addlab.html', form=AddLabForm(), users=members,activities=activities)
+    return render_template('admin/addactivity.html', form=aform)
+
+
+
+
+
+
+
+
+
+
+
