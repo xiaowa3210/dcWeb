@@ -1,0 +1,57 @@
+{% extends 'admin/backbase.html' %}
+
+{% block title %}添加实验室人员{% endblock %}
+{% block navbar %}
+<section class="content-header">
+    <h1>添加实验室</h1>
+    <ol class="breadcrumb">
+        <li><i class="fa fa-dashboard"></i> 当前位置</li>
+        <li class="active">实验室管理</li>
+        <li class="active">添加实验室</li>
+        <li class="active">添加实验室人员</li>
+    </ol>
+</section>
+
+{% endblock %}
+{% block content %}
+       <div class="box-header with-border">
+            {% include 'admin/message.html' %}
+        </div>
+<form class="form"  name = "users" action="{{ url_for('admin.addmember') }}" method="POST">
+  <div class="form-group row">
+    <label for="inputUser" class="col-sm-2 col-form-label">名字</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="inputUser" placeholder="请输入用户名" name="username">
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="inputPassword" class="col-sm-2 col-form-label">专业</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control"  placeholder="请输入专业" name="pro">
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="inputPassword" class="col-sm-2 col-form-label">简介</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="inputPassword" placeholder="请输入简介" name="introduction">
+    </div>
+  </div>
+    <div class="register-button">
+        <button type="submit" name="submit" value="adduser"  class="btn btn-default btn-lg btn-block">保存</button>
+    </div>
+</form>
+
+<script src="{{ url_for('static', filename='admin/plugins/jQuery/jquery-2.2.3.min.js') }}"></script>
+<script src="{{ url_for('static', filename='admin/plugins/bootstrap/js/bootstrap.min.js') }}"></script>
+<script src="{{ url_for('static', filename='admin/plugins/iCheck/icheck.min.js') }}"></script>
+<script src="{{ url_for('static', filename='admin/plugins/pace/pace.min.js') }}"></script>
+<script src="{{ url_for('static', filename='admin/js/global.js') }}"></script>
+<script>
+$(document).ready(function(){
+
+     var msg = $("#users").val();
+      $.post("/kjgdg", {"msg":msg}, function(data){
+        alert(data);
+    });})
+</script>
+{% endblock %}
