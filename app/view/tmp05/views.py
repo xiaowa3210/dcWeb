@@ -53,7 +53,7 @@ def downlink(page):
     return render_template('tmp05/downlink.html', pagination=pagination, documents=documents)
 
 #文件下载
-@tmp05.route("/download/<filename>", methods=['GET'])
+@tmp05.route('/tmp05/download/<string:filename>', methods=['GET'])
 def download_file(filename):
     # 需要知道2个参数, 第1个参数是本地目录的path, 第2个参数是文件名(带扩展名)
     directory = os.path.join(app.root_path, 'app/view/admin/uploads')
