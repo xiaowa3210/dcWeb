@@ -81,7 +81,7 @@
 	$.elastislide.defaults 		= {
 		speed		: 450,	// animation speed
 		easing		: '',	// animation easing effect
-		imageW		: 190,	// the images width
+		imageW		: 190,	// the imagenew width
 		margin		: 30,	// image margin right
 		border		: 0,	// image border
 		minItems	: 1,	// the minimum number of items to show. 
@@ -103,7 +103,7 @@
 			// <li>
 			this.$items			= this.$slider.children('li');
 			
-			// total number of elements / images
+			// total number of elements / imagenew
 			this.itemsCount		= this.$items.length;
 			
 			// cache the <ul>'s parent, since we will eventually need to recalculate its width on window resize

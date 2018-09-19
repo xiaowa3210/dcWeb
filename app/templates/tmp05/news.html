@@ -5,35 +5,73 @@
 {% block static_files %}
 {% endblock %}
 
+<!--<li>-->
+    <!--<a href="{{url_for('tmp05.news_detail',news_id=doc.id)}}">{{doc.title}}</a>-->
+    <!--<label>{{doc.created_time}}</label>-->
+<!--</li>-->
+
 {% block body_part%}
-<div class="blog">
-    <div>
-        <ul>
+<div class="engin_content engin_content_li">
+    <div class="container">
+        <div class="row">
+            <!--循环部分-->
             {% for doc in documents %}
-                <li>
-                    <a href="{{url_for('tmp05.news_detail',news_id=doc.id)}}">{{doc.title}}</a>
-                    <label>{{doc.created_time}}</label>
-                </li>
+                <div class="col-sm-12 companyDyanmicc_cot ">
+                    <div class="row">
+                        <a href="DetailPages.html">
+                            <div class="col-xs-3 col-sm-3 hidden-sm hidden-md hidden-lg Dyanmicc_pic">
+                                <img src="../../static/tmp05/imagenew/new_01.jpg" alt=""/>
+                            </div>
+                        </a>
+                        <div class="col-xs-9 col-sm-9">
+                            <a href="DetailPages.html">
+                                <!--热点类名-->
+                                <span class="rednew"></span>
+                                <h4>11水是我们赖以生存的物质11水是我们赖以生存的物质</h4>
+                            </a>
+                            <a href="DetailPages.html">
+                                <div class="cont_p">
+                                    水是我们赖以生存的物质，我们需要节约,同样干净的水资源有助于我们的身心健康,
+                                    水是我们赖以生存的物质，我们需要节约,同样干净的水资源有助于我们的身心健康,
+                                    水是我们赖以生存的物质，我们需要节约,同样干净的水资源有助于我们的身心健康......
+                                    <b class="hidden-xs">2016-12-15</b>
+                                </div>
+                            </a>
+                        </div>
+                        <a href="DetailPages.html">
+                            <div class="col-sm-3 hidden-xs"><img src="../../static/tmp05/imagenew/new_01.jpg" alt=""/></div>
+                        </a>
+                        <a href="DetailPages.html">
+                            <div class="col-xs-12 companyDyanmicc_mb  hidden-sm hidden-md hidden-lg"></div>
+                        </a>
+                    </div>
+                </div>
             {% endfor %}
-        </ul>
+            <!--分页-->
+            <div class="col-sm-12">
+                    <div class="blog-bottom">
+                        <ul>
+                            {% if pagination.has_prev %}
+                            <li><a href="{{url_for('tmp05.news',page = pagination.page - 1)}}" class="active">PREV</a>
+                            </li>
+                            {% endif %}
+                            {% for p in pagination.iter_pages() %}
+                            {% if p == pagination.page%}
+                            <li><a href="{{url_for('tmp05.news',page = p)}}" class="active">{{loop.index}}</a></li>
+                            {% else %}
+                            <li><a href="{{url_for('tmp05.news',page = p)}}">{{loop.index}}</a></li>
+                            {% endif %}
+                            {% endfor %}
+
+                            {% if pagination.has_next %}
+                            <li><a href="{{url_for('tmp05.news',page = pagination.page + 1)}}" class="active">NEXT</a>
+                            </li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
+        </div>
     </div>
 </div>
-<div class="blog-bottom">
-    <ul>
-        {% if pagination.has_prev %}
-            <li><a href="{{url_for('tmp05.news',page = pagination.page - 1)}}" class="active">PREV</a></li>
-        {% endif %}
-        {% for p in pagination.iter_pages() %}
-            {% if p == pagination.page%}
-                <li><a href="{{url_for('tmp05.news',page = p)}}" class="active">{{loop.index}}</a></li>
-            {% else %}
-                <li><a href="{{url_for('tmp05.news',page = p)}}">{{loop.index}}</a></li>
-            {% endif %}
-        {% endfor %}
 
-        {% if pagination.has_next %}
-                <li><a href="{{url_for('tmp05.news',page = pagination.page + 1)}}" class="active">NEXT</a></li>
-        {% endif %}
-    </ul>
-</div>
 {% endblock%}
