@@ -8,7 +8,7 @@ from app.service.ProjectService import *
 from app.view.tmp01 import tmp01
 
 
-@tmp01.route('/')
+@tmp01.route('/tmp01')
 def home():
     documents = Document.query.order_by(Document.created_time.desc()).limit(6)
     projects = Project.query.order_by(Project.create_time.desc()).limit(3)

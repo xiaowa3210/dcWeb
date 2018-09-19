@@ -51,3 +51,11 @@ def move(x, y, step, angle=0):
 x, y = move(100, 100, 60, math.pi / 6)
 其实这只是一种假象，Python函数返回的仍然是单一值
 Python的函数返回多值其实就是返回一个tuple，但写起来更方便，而多个变量可以同时接收一个tuple，按位置赋给对应的值
+
+
+
+生成requirements.txt文件
+pip freeze > requirements.txt
+
+安装requirements.txt依赖
+pip install -r requirements.txt

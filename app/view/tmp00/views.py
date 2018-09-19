@@ -95,7 +95,7 @@ def user_news():
     else:
         # file = request.files['image_upload']
         # base_path = path.abspath(path.dirname(path.dirname(__file__)))
-        # file_path = path.join(base_path, 'static', 'images', 'newsimages',file.filename)
+        # file_path = path.join(base_path, 'static', 'imagenew', 'newsimages',file.filename)
         # file.save(file_path)
         #
         document_title = request.form.get('title')

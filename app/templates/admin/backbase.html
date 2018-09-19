@@ -119,6 +119,17 @@
                         <li><a href="{{ url_for('admin.query_projects') }}"><i class="fa fa-circle-o"></i> 查询</a></li>
                     </ul>
                 </li>
+                      <li class="treeview">
+                    <a href="{{ url_for('admin.addlab') }}">
+                        <i class="fa fa-cog"></i>
+                        <span>实验室管理</span>
+                        <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="{{ url_for('admin.addlab') }}"><i class="fa fa-circle-o"></i> 编辑</a></li>
+                        <li><a href="{{ url_for('admin.addlab') }}"><i class="fa fa-circle-o"></i> 查询</a></li>
+                    </ul>
+                </li>
 
                 <li class="treeview">
                     <a href="{{ url_for('admin.addpolicy') }}">

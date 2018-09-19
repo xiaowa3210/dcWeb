@@ -410,7 +410,7 @@ if(!Array.prototype.indexOf){
 		}
 		svg.init();
 		
-		// images loaded
+		// imagenew loaded
 		svg.ImagesLoaded = function() { 
 			for (var i=0; i<svg.Images.length; i++) {
 				if (!svg.Images[i].loaded) return false;
