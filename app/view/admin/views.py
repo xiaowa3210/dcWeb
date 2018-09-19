@@ -210,7 +210,7 @@ def addproject():
         project = Project(pname = form.name.data,introduction =form.introduction.data,teaminfo=str(teaminfo),picture= str(photoPaths),vedio=videoPaths)
         db.session.add(project)
         db.session.commit()
-        global teammates
+        
         teammates =[]
 
         flash("保存成功")
