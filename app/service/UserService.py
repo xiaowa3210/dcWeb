@@ -1,3 +1,5 @@
+#!usr/bin/python
+# -*- coding: utf-8 -*-
 from ..models import User, Role, Permission
 from app import db
 
