@@ -82,7 +82,7 @@ def allowed_video(filename):
 @admin.route('/index', methods=['GET'])
 @login_required
 def index():
-    return render_template('admin/home.html', current_user=current_user)
+    return render_template('admin/index.html', current_user=current_user)
 
 
 @admin.route('/addadmin', methods=['GET','POST'])
