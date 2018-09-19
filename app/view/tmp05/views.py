@@ -82,12 +82,12 @@ def projects_detail(project_id):
 def laboratorys(page):
     per_page = 3
     pagination,labs = getLaboratoryByPage(page,per_page)
-    return render_template('tmp05/projects.html', pagination=pagination, labs=labs)
+    return render_template('tmp05/laboratory.html', pagination=pagination, labs=labs)
 
 @tmp05.route('/tmp05/labIntroduction/<lab_id>')
 def laboratoryIntroduction(lab_id):
-    lab = getLabById(lab_id)
-    return render_template('tmp05/laboratory_introduction.html',lab=lab)
+    #lab = getLabById(lab_id)
+    return render_template('tmp05/lab_introduction.html')
 
 @tmp05.route('/tmp05/contact')
 def contact():
