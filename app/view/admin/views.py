@@ -360,9 +360,9 @@ def addlab():
         db.session.add(lab)
         db.session.commit()
         activities =[]
-        global members
+     
         members=[]
-        global teammates
+        
         teammates=[]
         flash("保存成功")
     return render_template('admin/addlab.html', form=form,users=members,activities=activities)
