@@ -1,4 +1,5 @@
-
+#!usr/bin/python
+# -*- coding: utf-8 -*-
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import ForeignKey, DateTime
 from datetime import datetime
