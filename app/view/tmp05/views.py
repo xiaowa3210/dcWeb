@@ -11,7 +11,7 @@ from app.view.tmp05 import tmp05
 from app import app
 
 
-@tmp05.route('/')
+@tmp05.route('/tmp05')
 def home():
     # documents = Document.query.order_by(Document.created_time.desc()).limit(6)
     # projects = Project.query.order_by(Project.create_time.desc()).limit(3)
