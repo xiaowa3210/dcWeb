@@ -5,6 +5,7 @@ from flask import render_template, make_response, send_from_directory
 
 from app.service.DocumentsService import *
 from app.service.ProjectService import *
+from app.service.LaboratoryService import *
 from app.view.tmp05 import tmp05
 
 from app import app
@@ -75,6 +76,18 @@ def projects_detail(project_id):
                            project=project_obj,
                            teammates=teammates,
                            honors=honors)
+
+@tmp05.route('/tmp05/laboratorys', defaults={'page':1})
+@tmp05.route('/tmp05/laboratorys/<int:page>')
+def laboratorys(page):
+    per_page = 3
+    pagination,labs = getLaboratoryByPage(page,per_page)
+    return render_template('tmp05/projects.html', pagination=pagination, labs=labs)
+
+@tmp05.route('/tmp05/labIntroduction/<lab_id>')
+def laboratoryIntroduction(lab_id):
+    lab = getLabById(lab_id)
+    return render_template('tmp05/laboratory_introduction.html',lab=lab)
 
 @tmp05.route('/tmp05/contact')
 def contact():
