@@ -95,7 +95,7 @@ or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain Vie
 		});
 		
 		function startProcess(cont, images, settings){
-			//FadeOut the loading image and FadeIn the images after their loading
+			//FadeOut the loading image and FadeIn the imagenew after their loading
 			$(cont).find(".jg-loading").fadeOut(500, function(){
 				$(this).remove(); //remove the loading image
 				processesImages($, cont, images, 0, settings);
@@ -204,7 +204,7 @@ or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain Vie
 			}
 
 			//last row----------------------
-			//now we have all the images index loaded in the row arra
+			//now we have all the imagenew index loaded in the row arra
 			if(settings.justifyLastRow){
 				extraW = Math.ceil((rowWidth - partialRowWidth + 1) / row.length);	
 			}else{
@@ -227,7 +227,7 @@ or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain Vie
 			
 			$(cont).find(".jg-resizedImageNotFound").remove();
 			
-			//fade in the images that we have changed and need to be reloaded
+			//fade in the imagenew that we have changed and need to be reloaded
 			$(cont).find(".jg-image img").load(function(){
 					$(this).fadeTo(500, 1);
 			}).error(function(){

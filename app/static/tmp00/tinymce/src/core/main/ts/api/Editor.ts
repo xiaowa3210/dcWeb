@@ -1250,10 +1250,10 @@ Editor.prototype = {
   },
 
   /**
-   * Uploads all data uri/blob uri images in the editor contents to server.
+   * Uploads all data uri/blob uri imagenew in the editor contents to server.
    *
    * @method uploadImages
-   * @param {function} callback Optional callback with images and status for each image.
+   * @param {function} callback Optional callback with imagenew and status for each image.
    * @return {tinymce.util.Promise} Promise instance.
    */
   uploadImages (callback) {

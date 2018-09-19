@@ -5525,8 +5525,8 @@ qq.Templating = function(spec) {
     }
 
     // During initialization of the templating module we should cache any
-    // placeholder images so we can quickly swap them into the file list on demand.
-    // Any placeholder images that cannot be loaded/found are simply ignored.
+    // placeholder imagenew so we can quickly swap them into the file list on demand.
+    // Any placeholder imagenew that cannot be loaded/found are simply ignored.
     function cacheThumbnailPlaceholders() {
         var notAvailableUrl =  options.placeholders.thumbnailNotAvailable,
             waitingUrl = options.placeholders.waitingForThumbnail,
@@ -5580,7 +5580,7 @@ qq.Templating = function(spec) {
             }
         }, function() {
             // In some browsers (such as IE9 and older) an img w/out a src attribute
-            // are displayed as "broken" images, so we sohuld just hide the img tag
+            // are displayed as "broken" imagenew, so we sohuld just hide the img tag
             // if we aren't going to display the "waiting" placeholder.
             hide(thumbnail);
         });
@@ -7287,7 +7287,7 @@ qq.DeleteFileAjaxRequester = function(o) {
 
   /**
    * Detect subsampling in loaded image.
-   * In iOS, larger images than 2M pixels may be subsampled in rendering.
+   * In iOS, larger imagenew than 2M pixels may be subsampled in rendering.
    */
   function detectSubsampling(img) {
     var iw = img.naturalWidth, ih = img.naturalHeight;
@@ -7307,7 +7307,7 @@ qq.DeleteFileAjaxRequester = function(o) {
 
   /**
    * Detecting vertical squash in loaded image.
-   * Fixes a bug which squash image vertically while drawing into canvas for some images.
+   * Fixes a bug which squash image vertically while drawing into canvas for some imagenew.
    */
   function detectVerticalSquash(img, iw, ih) {
     var canvas = document.createElement('canvas');
@@ -7567,7 +7567,7 @@ qq.ImageGenerator = function(log) {
     }
 
     // This is only meant to determine the MIME type of a renderable image file.
-    // It is used to ensure images drawn from a URL that have transparent backgrounds
+    // It is used to ensure imagenew drawn from a URL that have transparent backgrounds
     // are rendered correctly, among other things.
     function determineMimeOfFileName(nameWithPath) {
         /*jshint -W015 */
@@ -7764,7 +7764,7 @@ qq.ImageGenerator = function(log) {
     // This will optionally scale the thumbnail as well.
     // It attempts to use <canvas> to scale, but will fall back
     // to max-width and max-height style properties if the UA
-    // doesn't support canvas or if the images is cross-domain and
+    // doesn't support canvas or if the imagenew is cross-domain and
     // the UA doesn't support the crossorigin attribute on img tags,
     // which is required to scale a cross-origin image using <canvas> &
     // then export it back to an <img>.

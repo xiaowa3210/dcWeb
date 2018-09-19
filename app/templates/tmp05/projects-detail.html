@@ -1,0 +1,78 @@
+{% extends 'tmp05/base.html' %}
+
+{% block page_name %}项目介绍{% endblock %}
+
+{% block static_files %}
+{% endblock %}
+
+{% block body_part%}
+<div class="blog">
+    <div class="container">
+        <div class="blog-main">
+            <div class="col-md-10 blog-main-left">
+                <h3>{{project.pname}}</h3>
+                <div class="blg">
+                    <div class="reply">
+                       <h4>基本介绍</h4>
+                        <p class="para1">{{project.introduction}}</p>
+                    </div>
+                    <div class="reply">
+                        <h4>所获奖项</h4>
+                    </div>
+                    <div class="comments">
+                        <h4>项目成员</h4>
+                        {% for teammate in teammates %}
+                            <div class="comments-main">
+                            <div class="col-md-2 cmts-main-left">
+                                <img src="../../../static/tmp05/images/boy-1.jpg" alt="">
+                            </div>
+                            <div class="col-md-10 cmts-main-right">
+                                <ul>
+                                    <li>姓名:{{teammate.name}}</li>
+                                    <li>专业:{{teammate.faculty}}</li>
+                                    <li>年级:{{teammate.grade}}</li>
+                                </ul>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        {% endfor%}
+                    </div>
+                    <div class="reply">
+                       <h4>图片展示</h4>
+                    </div>
+                </div>
+            </div>
+            <!--<div class="col-md-4 blog-main-left">-->
+                <!--<h3>CATEGORIES</h3>-->
+                <!--<div class="ctgry">-->
+                    <!--<ul>-->
+                        <!--<li><a href="#">Nulla consectetur adipiscing metus</a></li>-->
+                        <!--<li><a href="#">purus vitae varius sagittis</a></li>-->
+                        <!--<li><a href="#">Epsum factorial non deposit quid</a></li>-->
+                        <!--<li><a href="#">Donec eu elit in nisi placerat</a></li>-->
+                        <!--<li><a href="#">Curabitur congue eros ac turpis</a></li>-->
+                    <!--</ul>-->
+                <!--</div>-->
+                <!--<div class="archives">-->
+                    <!--<h3>ARCHIVES</h3>-->
+                    <!--<ul>-->
+                        <!--<li><a href="#">November,2013</a></li>-->
+                        <!--<li><a href="#">May,2013</a></li>-->
+                        <!--<li><a href="#">April,2013</a></li>-->
+                        <!--<li><a href="#">June,2013</a></li>-->
+                        <!--<li><a href="#">August,2013</a></li>-->
+                        <!--<li><a href="#">January,2013</a></li>-->
+                    <!--</ul>-->
+                <!--</div>-->
+                <!--<div class="search">-->
+                    <!--<h3>SEARCH</h3>-->
+                    <!--<input type="text" value="Search" onfocus="this.value = '';"-->
+                           <!--onblur="if (this.value == '') {this.value = 'Email';}"/>-->
+                    <!--<input type="submit" value="Search"/>-->
+                <!--</div>-->
+            <!--</div>-->
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+{% endblock%}

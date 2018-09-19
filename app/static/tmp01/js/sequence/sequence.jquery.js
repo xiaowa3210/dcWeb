@@ -159,28 +159,28 @@ Sequence also relies on the following open source scripts:
 		}
 
 		var preloadTheseFramesLength = self.settings.preloadTheseFrames.length; //how many frames to preload?
-		var preloadTheseImagesLength = self.settings.preloadTheseImages.length; //how many single images to load?
+		var preloadTheseImagesLength = self.settings.preloadTheseImages.length; //how many single imagenew to load?
 
-		if(self.settings.preloader && (preloadTheseFramesLength !== 0 || preloadTheseImagesLength !== 0)) { //if using the preloader and the dev has specified some images should preload...
+		if(self.settings.preloader && (preloadTheseFramesLength !== 0 || preloadTheseImagesLength !== 0)) { //if using the preloader and the dev has specified some imagenew should preload...
 		    function saveImagesToArray(length, srcOnly) {
-		    	var imagesToPreload = []; //saves the images that are to be preloaded
+		    	var imagesToPreload = []; //saves the imagenew that are to be preloaded
 			    	if(!srcOnly){
 			    		for(var i = length; i > 0; i--){ //for each frame to be preloaded...
 			    			self.sequence.children("li:nth-child("+self.settings.preloadTheseFrames[i-1]+")").find("img").each(function() { //find <img>'s in specific frames, and for each found...
-			    				imagesToPreload.push($(this)[0]); //add it to the array of images to be preloaded
+			    				imagesToPreload.push($(this)[0]); //add it to the array of imagenew to be preloaded
 			    			});
 		            	}
 			    	}else{
 			    		for(var i = length; i > 0; i--) { //for each frame to be preloaded...
-		            		imagesToPreload.push($("body").find('img[src="'+self.settings.preloadTheseImages[i-1]+'"]')[0]); //find any <img> with the given source and add it to the array of images to be preloaded
+		            		imagesToPreload.push($("body").find('img[src="'+self.settings.preloadTheseImages[i-1]+'"]')[0]); //find any <img> with the given source and add it to the array of imagenew to be preloaded
 			    		}
 			    	}			    
 		        return imagesToPreload;
 		    }
 	
-            var frameImagesToPreload = saveImagesToArray(preloadTheseFramesLength); //get images from particular Sequence frames to be preloaded
-           	var individualImagesToPreload = saveImagesToArray(preloadTheseImagesLength, true); //get images with specific source values to be preloaded
-            var imagesToPreload = $(frameImagesToPreload.concat(individualImagesToPreload)); //combine frame images and individual images
+            var frameImagesToPreload = saveImagesToArray(preloadTheseFramesLength); //get imagenew from particular Sequence frames to be preloaded
+           	var individualImagesToPreload = saveImagesToArray(preloadTheseImagesLength, true); //get imagenew with specific source values to be preloaded
+            var imagesToPreload = $(frameImagesToPreload.concat(individualImagesToPreload)); //combine frame imagenew and individual imagenew
 			var imagesToPreloadLength = imagesToPreload.length;
 
 			imagesLoaded(imagesToPreload, oncePreloaded);
@@ -235,9 +235,9 @@ Sequence also relies on the following open source scripts:
 					return;
 				}
 				
-				loaded.push(img); // store element in loaded images array
+				loaded.push(img); // store element in loaded imagenew array
 
-				if(isBroken) { // keep track of broken and properly loaded images
+				if(isBroken) { // keep track of broken and properly loaded imagenew
 					broken.push(img);
 				}else{
 					proper.push(img);
@@ -249,13 +249,13 @@ Sequence also relies on the following open source scripts:
 					deferred.notifyWith($(img), [isBroken, $images, $(proper), $(broken)]);
 				}
 
-				if($images.length === loaded.length) { // call doneLoading and clean listeners if all images are loaded
+				if($images.length === loaded.length) { // call doneLoading and clean listeners if all imagenew are loaded
 					setTimeout(doneLoading);
 					$images.unbind('.imagesLoaded');
 				}
 			}
 
-			if(!$images.length) { // if no images, trigger immediately
+			if(!$images.length) { // if no imagenew, trigger immediately
 				doneLoading();
 			}else{
 				$images.bind('load.imagesLoaded error.imagesLoaded', function(event) {
@@ -273,7 +273,7 @@ Sequence also relies on the following open source scripts:
 						return;
 					}
 
-					// cached images don't fire load sometimes, so we reset src, but only when dealing with IE, or image is complete (loaded) and failed manual check webkit hack from http://groups.google.com/group/jquery-dev/browse_thread/thread/eee6ab7b2da50e1f
+					// cached imagenew don't fire load sometimes, so we reset src, but only when dealing with IE, or image is complete (loaded) and failed manual check webkit hack from http://groups.google.com/group/jquery-dev/browse_thread/thread/eee6ab7b2da50e1f
 					if(el.readyState || el.complete) {
 						el.src = BLANK;
 						el.src = src;
@@ -1007,14 +1007,14 @@ Sequence also relies on the following open source scripts:
 		
 		//Preloader Settings
 		preloader: false,
-		preloadTheseFrames: [1], //all images in these frames will load before Sequence initiates
-		preloadTheseImages: [ //specify particular images to load before Sequence initiates
+		preloadTheseFrames: [1], //all imagenew in these frames will load before Sequence initiates
+		preloadTheseImages: [ //specify particular imagenew to load before Sequence initiates
 		    /* Example usage
-		    "images/catEatingSalad.jpg",
-		    "images/meDressedAsBatman.png"
+		    "imagenew/catEatingSalad.jpg",
+		    "imagenew/meDressedAsBatman.png"
 		    */
 		],
-		/*Note: You can use preloadTheseFrames and preloadTheseImages together. You might want to load all images in frame 1 and just one big image from frame 2 for example*/
+		/*Note: You can use preloadTheseFrames and preloadTheseImages together. You might want to load all imagenew in frame 1 and just one big image from frame 2 for example*/
 		hideFramesUntilPreloaded: true,
 		prependPreloadingComplete: true,
 		hidePreloaderUsingCSS: true,

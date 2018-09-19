@@ -1,0 +1,14 @@
+{% extends 'tmp05/base.html' %}
+
+{% block page_name %}新闻公告{% endblock %}
+
+{% block static_files %}
+{% endblock %}
+
+
+{% block body_part%}
+<hr>
+    <div class="document-content">
+    {{ news.content | safe}}
+    </div>
+{% endblock%}
