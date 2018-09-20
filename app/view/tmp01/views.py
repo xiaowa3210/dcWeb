@@ -46,7 +46,7 @@ def news_detail(news_id):
 @tmp01.route('/tmp01/downlink/<int:page>')
 def downlink(page):
     per_page = 10
-    pagination, documents = getDocumentByPage(page, per_page, 1)
+    pagination, documents = getDocumentByPage(page, per_page, 0)
     return render_template('tmp01/downlink.html', pagination=pagination, documents=documents)
 
 @tmp01.route('/tmp01/projects', defaults={'page':1})
@@ -63,4 +63,4 @@ def projects_detail(project_id):
 
 @tmp01.route('/tmp01/contact')
 def contact():
-    pass
+    return render_template('tmp01/contact.html')
