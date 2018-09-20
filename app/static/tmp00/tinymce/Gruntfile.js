@@ -316,7 +316,7 @@ module.exports = function (grunt) {
       },
       'help-plugin': {
         files: [
-          { src: 'src/plugins/help/tmp01/img/logo.png', dest: 'js/tinymce/plugins/help/img/logo.png' }
+          { src: 'src/plugins/help/tmp01/img/logo1.png', dest: 'js/tinymce/plugins/help/img/logo1.png' }
         ]
       },
       'visualblocks-plugin': {
