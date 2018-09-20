@@ -40,7 +40,7 @@ def news(page):
     pagination,documents = getDocumentByPage(page,per_page,1)
     return render_template('tmp05/news.html', pagination=pagination, documents=documents)
 
-@tmp05.route('/tmp05/news/detail/<news_id>')
+@tmp05.route('/tmp05/newsDetail/<news_id>')
 def news_detail(news_id):
     news_obj = getDoucumentByID(news_id)
     return render_template('tmp05/news-detail.html', news=news_obj)
@@ -55,8 +55,8 @@ def downlink(page):
 #文件下载
 @tmp05.route('/tmp05/download/<string:filename>', methods=['GET'])
 def download_file(filename):
-    # 需要知道2个参数, 第1个参数是本地目录的path, 第2个参数是文件名(带扩展名)
-    directory = os.path.join(app.root_path, 'app/view/admin/uploads')
+    #需要知道2个参数, 第1个参数是本地目录的path, 第2个参数是文件名(带扩展名)
+    directory = os.path.join(app.root_path, 'view/admin/uploads')
     response = make_response(send_from_directory(directory, filename, as_attachment=True))
     response.headers["Content-Disposition"] = "attachment; filename={}".format(filename.encode().decode('latin-1'))
     return response
