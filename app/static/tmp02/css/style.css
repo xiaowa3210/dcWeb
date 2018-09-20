@@ -170,7 +170,7 @@ header .navbar-inverse .navbar-inner {
 header .navbar .brand.logo {
   padding: 0;
   margin-left:0;
-  margin-top:20px;
+  margin-top:1px;
 }
 
 
@@ -1359,7 +1359,7 @@ a.commentlink {
 /* footer */
 
 footer {
-	padding-top:30px;
+	padding-top:0px;
 	color:#f8f8f8;
 }
 

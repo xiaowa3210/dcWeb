@@ -3,7 +3,7 @@
 
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <title>Scaffold responsive website template</title>
+  <title>基地风采</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
   <meta name="author" content="">
@@ -32,6 +32,12 @@
     Author: BootstrapMade.com
     Author URL: https://bootstrapmade.com
   ======================================================= -->
+
+    <style>
+        #file-structure img{
+            width: 400px;
+        }
+    </style>
 </head>
 
 <body data-spy="scroll" data-target=".bs-docs-sidebar">
@@ -87,8 +93,11 @@
       <div class="span3 bs-docs-sidebar">
         <ul class="nav nav-list bs-docs-sidenav">
           <li><a href="#general-template"><i class="icon-chevron-right"></i> 基地简介</a></li>
+          <li><a href="#teacher"><i class="icon-chevron-right"></i> 基地负责人</a></li>
+          <li><a href="#reward"><i class="icon-chevron-right"></i> 获奖情况</a></li>  
           <li><a href="#file-structure"><i class="icon-chevron-right"></i> 基地风采</a></li>
           <li><a href="#contents"><i class="icon-chevron-right"></i> 最新活动</a></li>
+            
         </ul>
       </div>
 
@@ -98,10 +107,10 @@
         ================================================== -->
         <section id="general-template" class="doc">
           <div class="page-header first">
-            <h3>基地简介</h3>
+            <h3><strong>基地简介</strong></h3>
           </div>
             <article>
-               <h4>北京邮电大学I3创新实践基地简介</h4>
+               <h4><strong>北京邮电大学I3创新实践基地简介</strong></h4>
                <br>
                <p>
                    北邮教务处所属的I3创新实践基地，也被称为北京邮电大学“电路与电子技术创新实践基地（三）”，依托于北京邮电大学信息与通信工程学院展开基地建设。I3这个名字，取自以字母“I”为开头的英文单词，即Innovation，Information，Intelligence，Inspiration, Insight, Impact， Interesting, International, Infinite。该基地名字表明了基地的基本特质，即：
@@ -119,19 +128,72 @@
             </article>
 
         </section>
+        <section id="teacher" class="doc">
+          <div class="page-header first">
+            <h3><strong>基地负责人</strong></h3>
+          </div>
+          <div class="row">
+              <div class="span3">
+                  <img src="img/lib/teacher.jpg">
+              </div>
+              <div class="span6">
+                  <ul>
+                      <li><h5>姓名：望育梅</h5></li>
+                      <li><h5>职位：讲师</h5></li>
+                  </ul>
+              </div>
+          </div>
+        </section>
+        <section id="reward" class="doc">
+          <div class="page-header first">
+            <h3><strong>获奖情况</strong></h3>
+          </div>
+          <table class="table">
+                            <thead>
+                            <tr>
+                                <th>项目名称</th>
+                                <th>项目完成人</th>
+                                <th>指导老师</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>VR游戏设计与开发</td>
+                                <td>李东根,王天宇,郭悦,李文蔚</td>
+                                <td>苏菲</td>
+                            </tr>
+                            <tr>
+                                <td>自组网智能定位边防报警系统</td>
+                                <td>贺一山,魏欣然,李孟辉,蒙嘉颖,陈伟哲,张一杰</td>
+                                <td>刘培植</td>
+                            </tr>
+                            <tr>
+                                <td>基于深度视觉的交互式盲人辅助系统</td>
+                                <td>方舟,刘祥,盛强,涂丰旭,赵子轩</td>
+                                <td>陈文成</td>
+                            </tr>
+                            <tr>
+                                <td>无人机飞行声纹识别报警系统</td>
+                                <td>马昊，魏思杰,张一杰,梁文彬,张少廷,王向归</td>
+                                <td>尉志青</td>
+                            </tr>
+                            </tbody>
+                        </table>
+        </section>
         <section id="file-structure" class="doc">
           <div class="page-header first">
-            <h3>基地风采</h3>
+            <h3><strong>基地风采</strong></h3>
           </div>
           <p style="text-align: center">
               <img src="img/lib/logo.jpg" style="margin-bottom: 10px;">
               <img src="img/lib/room.jpg" style="margin-bottom: 10px;">
-              <img src="img/lib/in.jpg">
+              <img src="img/lib/reward.jpg" style="margin-bottom: 10px;">
+              <img src="img/lib/work.jpg">
           </p>
         </section>
         <section id="contents" class="doc">
           <div class="page-header first">
-            <h3>最新活动</h3>
+            <h3><strong>最新活动</strong></h3>
           </div>
           <p>
               基地招募新成员啦！！有想法有创意的你看过来！！！
@@ -146,64 +208,6 @@
   <!-- Footer
  ================================================== -->
    <footer class="footer">
-    <div class="container">
-      <div class="row">
-        <div class="span4">
-          <div class="widget">
-            <h4>About us</h4>
-            <address>
-          <strong>Scaffold company, Inc.</strong><br>
-          445 Mypark Ave, Suite 800<br>
-          Jakarta, Indonesia 14210<br>
-          <abbr title="Phone">P:</abbr> (123) 456-7890
-          </address>
-
-            <address>
-          <strong>Contact us</strong><br>
-          <a href="mailto:#">hello@websitename.com</a>
-          </address>
-          </div>
-        </div>
-        <div class="span4">
-          <div class="widget">
-            <h4>Browse pages</h4>
-            <ul class="nav nav-list regular">
-              <li class="nav-header">More from us</li>
-              <li><a href="#">Work for us</a></li>
-              <li><a href="#">Creative process</a></li>
-              <li><a href="#">Case study</a></li>
-              <li class="nav-header">Quick links</li>
-              <li><a href="#">Scaffold awwards</a></li>
-              <li><a href="#">Meet the team</a></li>
-            </ul>
-          </div>
-        </div>
-        <div class="span4">
-          <div class="widget">
-            <h4>Get email updates</h4>
-            <form class="form-horizontal" action="#" method="post">
-              <fieldset>
-                <p>
-                  Sign up for email updates and we'll plant a tree for you through Trees for the Future.
-                </p>
-
-                <div class="input-prepend input-append">
-                  <input class="span2" id="appendedPrependedInput" type="text" placeholder="Email">
-                  <button class="btn btn-inverse" type="submit">Subscribe!</button>
-                </div>
-              </fieldset>
-            </form>
-            <ul class="social_small">
-              <li class="facebook first"><a href="#" title="Facebook">Facebook</a></li>
-              <li class="twitt"><a href="#" title="Twitter">Twitter</a></li>
-              <li class="googleplus"><a href="#" title="google plus">Google plus</a></li>
-              <li class="flickr"><a href="#" title="flickr">Flickr</a></li>
-              <li class="dribbble"><a href="#" title="Dribbble">Dribbble</a></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
 
     <div class="verybottom">
       <div class="container">
