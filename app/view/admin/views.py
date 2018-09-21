@@ -7,7 +7,7 @@ from os import path
 
 from app.view.admin import admin
 from flask import flash
-from flask import request, render_template, redirect, url_for
+from flask import request, render_template, redirect, url_for,jsonify
 from flask_login import login_required, current_user
 from werkzeug.utils import secure_filename  # 使用这个是为了确保filename是安全的
 
@@ -134,6 +134,35 @@ def addinfo():
         flash("保存成功")
 
     return render_template('admin/addinfo.html', form=form)
+
+
+
+"""
+*********************************************************
+*********************************************************
+"""
+
+@admin.route('/upload_news',methods=['GET','POST'])
+@login_required
+def upload_news():
+    if request.method == 'GET':
+        return render_template('admin/addinfo.html')
+    else:
+        title = request.form.get('title')
+        content = request.form.get('content')
+        new_info = Document(title=title,content=content,type=1)
+        db.session.add(new_info)
+        db.session.commit()
+        return jsonify({'code': 200, 'msg': '数据保存成功'})
+
+
+@admin.route('/backnews')
+@login_required
+def backnews():
+    page = request.args.get('page',1,type = int)
+    pagination = Document.query.order_by(Document.created_time.desc()).paginate(page,per_page=15,error_out=False)
+    documents = pagination.items
+    return render_template('admin/backnews.html',documents=documents,pagination=pagination)
 
 @admin.route('/addproject', methods=['GET','POST'])
 @login_required
