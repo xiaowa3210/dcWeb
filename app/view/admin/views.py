@@ -150,6 +150,9 @@ def upload_news():
     else:
         title = request.form.get('title')
         content = request.form.get('content')
+        print("*"*40)
+        print(title)
+        print(content)
         new_info = Document(title=title,content=content,type=1)
         db.session.add(new_info)
         db.session.commit()
@@ -163,6 +166,35 @@ def backnews():
     pagination = Document.query.order_by(Document.created_time.desc()).paginate(page,per_page=15,error_out=False)
     documents = pagination.items
     return render_template('admin/backnews.html',documents=documents,pagination=pagination)
+
+@admin.route('/backnews_detail/<document_id>')
+@login_required
+def backnews_detail(document_id):
+    documents = Document.query.filter(Document.id == document_id).first()
+    return render_template('tmp01/news-detail.html',news = documents)
+
+@admin.route('/editinfo/<news_id>',methods=['GET','POST'])
+@login_required
+def editinfo(news_id):
+    if request.method ==  'GET':
+        news_obj = Document.query.get(news_id)
+    return render_template('admin/editinfo.html',news=news_obj)
+
+@admin.route('/delete_news',methods=['POST'])
+@login_required
+def delete_news():
+    id = request.form.get("id")
+    document = Document.query.get(id)
+    db.session.delete(document)
+    db.session.commit()
+    return jsonify({'code':200,'message':'删除成功！'})
+
+
+
+
+
+
+
 
 @admin.route('/addproject', methods=['GET','POST'])
 @login_required
@@ -322,9 +354,9 @@ def query_projects():
 def operate(project_id):
     if  request.form.get("operate") == "编辑":
         print("3333")
-        project = Project.query.filter(Project.id == project_id).one()
+        project = Project.query.filter(Project.id==project_id).one()
         form  =AddProjectForm()
-        return render_template('admin/editproject.html', project=project, form=form)
+        return render_template('admin/editproject.html',project=project,form=form)
     if  request.form.get("operate") == "删除":
         print("4444")
         p = Project.query.filter_by(id=project_id).first()
@@ -333,11 +365,13 @@ def operate(project_id):
         flash("删除成功")
     projects = Project.query.order_by(Project.create_time.desc()).all()
     return redirect(url_for('admin.query_projects'))
+
 @admin.route('/projects/<project_id>/',methods=['GET', 'POST'])
 @login_required
 def pdetail(project_id):
     project = Project.query.filter(Project.id == project_id).one()
     return render_template('main/../templates/tmp00/pdetail.html', project=project)
+
 @admin.route('/addpolicy', methods=['GET','POST'])
 @login_required
 def addpolicy():
@@ -376,7 +410,6 @@ def addmember():
         return render_template('admin/addlab.html',form = form,users=members)
     return render_template('admin/addmember.html',form=mform)
 
-
 @admin.route('/addlab', methods=['GET','POST'])
 @login_required
 def addlab():
@@ -391,7 +424,7 @@ def addlab():
         activities =[]
      
         members=[]
-        
+
         teammates=[]
         flash("保存成功")
     return render_template('admin/addlab.html', form=form,users=members,activities=activities)

@@ -1,6 +1,6 @@
 $(function () {
-    var ue = UE.getEditor('editor');
-            //{"serverUrl":'/ueditor/upload/'});
+    var ue = UE.getEditor('editor',
+            {"serverUrl":'/ueditor/upload/'});
     window.ue = ue;
 });
 $(function () {
@@ -11,6 +11,9 @@ $(function () {
         var title = $("input[name='title']").val();
         // 获取富文本内容
         var content = ue.getContent();
+        // console.log("************************");
+        // console.log(title);
+        // console.log(content);
         $.post({
             'url':'/upload_news',
             'data':{

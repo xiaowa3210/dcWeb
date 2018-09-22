@@ -27,7 +27,6 @@ login_manager.init_app(app)
 def load_user(user_id):
     return User.query.get(int(user_id))
 
-
 from app.models import User
 from app.view.admin import admin as admin_blueprint
 app.register_blueprint(admin_blueprint)
@@ -39,6 +38,9 @@ from app.view.tmp00 import tmp00 as tmp00_blueprint
 app.register_blueprint(tmp00_blueprint)
 from app.view.tmp05 import tmp05 as tmp05_blueprint
 app.register_blueprint(tmp05_blueprint)
+from app.ueditor import bp as bp_blueprint
+app.register_blueprint(bp_blueprint)
+
 
 
 

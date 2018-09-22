@@ -30,13 +30,13 @@
                 <tr data-id="{{ document.id }}" data-title="{{ document.title }}" data-content="{{ document.content }}">
                   <td scope="row" width="1%"><img src="{{ url_for('static',filename='admin/images/right.gif') }}"></td>
                   <td style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis;" width="50%">
-                      <a href="#">{{ document.title }}</a>
+                      <a href="{{ url_for('admin.backnews_detail',document_id=document.id) }}">{{ document.title }}</a>
                   </td>
                   <td  width="10%">
                       {{ document.created_time }}
                   </td>
                   <td width="3%">
-                      <a href="#"><button>编辑</button></a>
+                      <a href="{{ url_for('admin.editinfo',news_id=document.id) }}"><button>编辑</button></a>
                   </td>
                   <td width="3%">
                       <button class="del-btn">删除</button>
