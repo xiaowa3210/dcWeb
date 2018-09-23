@@ -4,7 +4,7 @@ $(function () {
     var origin_content = $("#data-content").attr("data-content");
     console.log("xxxxx")
     ue.ready(function () {      //为什么要ready？
-        ue.setContent("sjhisvsdjkju");
+        ue.setContent(origin_content);
     });
     window.ue = ue;
 });
