@@ -164,7 +164,7 @@
 }
 .slider_img {
 	max-height: 100%;
-	width: auto;
+	width:100% ;
 	right: 0%;
 	top: 0px;
     filter: alpha(opacity=0); 

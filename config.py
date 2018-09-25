@@ -3,7 +3,7 @@
 import os
 basedir = os.path.abspath(os.path.dirname(__file__))  # 当前文件的绝对路径
 
-HOST = "127.0.0.1"
+HOST = "47.107.103.134"
 PORT = "3306"
 DB = "dcwebdb"
 USER = "root"

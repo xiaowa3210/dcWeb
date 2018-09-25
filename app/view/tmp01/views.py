@@ -10,7 +10,7 @@ from app.view.tmp01 import tmp01
 
 @tmp01.route('/tmp01')
 def home():
-    documents = Document.query.order_by(Document.created_time.desc()).limit(6)
+    documents = Document.query.filter(Document.type == 1).order_by(Document.created_time.desc()).limit(6)
     projects = Project.query.order_by(Project.create_time.desc()).limit(3)
     return render_template('tmp01/home.html', documents=documents, projects=projects)
 
@@ -34,7 +34,7 @@ def user_center():
 @tmp01.route('/tmp01/news/<int:page>')
 def news(page):
     per_page = 10
-    pagination,documents = getDocumentByPage(page,per_page,0)
+    pagination,documents = getDocumentByPage(page,per_page,1)
     return render_template('tmp01/news.html', pagination=pagination, documents=documents)
 
 @tmp01.route('/tmp01/news/detail/<news_id>')
@@ -64,3 +64,6 @@ def projects_detail(project_id):
 @tmp01.route('/tmp01/contact')
 def contact():
     return render_template('tmp01/contact.html')
+@tmp01.route('/tmp01/lib')
+def lib():
+    return render_template('tmp01/lib.html')

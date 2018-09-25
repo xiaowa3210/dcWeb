@@ -90,6 +90,9 @@
                 <li class="dropdown active">
                   <a href="{{ url_for('tmp01.home') }}">主页</a>
                 </li>
+                  <li class="dropdown">
+                  <a href="{{ url_for('tmp01.lib') }}">基地介绍</a>
+                </li>
                 <li class="dropdown">
                   <a href="{{ url_for('tmp01.news') }}">新闻公告</a>
                 </li>
@@ -99,9 +102,9 @@
                 <li class="dropdown">
                   <a href="{{ url_for('tmp01.projects') }}">项目展示</a>
                 </li>
-                <li class="dropdown">
-                  <a href="{{ url_for('tmp01.contact') }}">联系我们</a>
-                </li>
+{#                <li class="dropdown">#}
+{#                  <a href="{{ url_for('tmp01.contact') }}">联系我们</a>#}
+{#                </li>#}
               </ul>
               <ul class="nav topnav">
                 {% if login_user %}
@@ -184,7 +187,7 @@
 {#  <script src="../../static/tmp02/js/application.js"></script>#}
 {#  <script src="../../static/tmp02/js/hover/jquery-hover-effect.js"></script>#}
 {#  <script src="../../static/tmp02/js/hover/setting.js"></script>#}
-  <script src="../../static/tmp02/js/camera/camera.min.js"></script>
+  <script src="../../static/tmp02/js/camera/camera.min1.js"></script>
   <script src="../../static/tmp02/js/camera/setting.js"></script>
 
   <!-- Template Custom JavaScript File -->
