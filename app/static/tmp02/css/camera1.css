@@ -34,6 +34,7 @@
 	position: relative;
 	width: 100%;
 	z-index: 1;
+	display: none;
 }
 .camera_wrap {
 	width: 100%;
@@ -324,7 +325,6 @@
 	overflow: hidden;
 	position: relative;
 	width: 100%;
-	display: none;
 }
 .camera_commands_emboss .camera_thumbs_cont {
 	-moz-box-shadow:
