@@ -23,7 +23,15 @@
     <link href='https://fonts.googleapis.com/css?family=Arimo:400,700,400italic,700italic' rel='stylesheet'
           type='text/css'>
 
+    <style>
+        .open > .dropdown-menu{
+            background: #31353e;
+        }
 
+        .dropdown-menu > li > a :hover {
+             background-color: #31353e;
+        }
+    </style>
 
 
 </head>
@@ -93,7 +101,7 @@
         });
     </script>
     <!--End-header-->
-    <div class="navgation">
+    <div class="navgation" style="padding: 10px 0px;">
         <div class="menu">
             <a class="toggleMenu" href="#"><img src="../../static/tmp05/images/menu-icon.png" alt=""/> </a>
             <ul class="nav" id="nav">
@@ -102,6 +110,15 @@
                 <li><a href="{{url_for('tmp05.news')}}">新闻公告</a></li>
                 <li><a href="{{url_for('tmp05.downlink')}}">常用资料</a></li>
                 <li><a href="{{url_for('tmp05.projects')}}">项目展示</a></li>
+                <li class="dropdown">
+                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">新样式 <b class="caret"></b></a>
+                      <ul class="dropdown-menu">
+                        <li><a href="{{ url_for('tmp01.home') }}">样式3</a></li>
+                        <li><a href="{{ url_for('tmp03.home') }}">样式2</a></li>
+                        <li><a href="{{ url_for('tmp05.home') }}">样式1</a></li>
+                         <li><a href="{{ url_for('auth.login') }}">管理员界面</a></li>
+                      </ul>
+                </li>
             </ul>
             <!----start-top-nav-script---->
             <script type="text/javascript" src="../../static/tmp05/js/responsive-nav.js"></script>
