@@ -3,6 +3,6 @@
 
 from flask import Blueprint
 
-tmp02= Blueprint('tmp02', __name__)
+tmp03= Blueprint('tmp03', __name__)
 
 from . import views

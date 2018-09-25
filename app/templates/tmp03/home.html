@@ -1,4 +1,4 @@
-{% extends 'tmp02/base.html' %}
+{% extends 'tmp03/base.html' %}
 
 {% block page_name %}主页{% endblock %}
 
@@ -77,7 +77,7 @@
             <p>
               {{project.introduction}}
             </p>
-            <a href="{{url_for('tmp02.projects_detail',project_id = project.id)}}">获取更多</a>
+            <a href="{{url_for('tmp03.projects_detail',project_id = project.id)}}">获取更多</a>
           </div>
         </div>
           {% endfor %}

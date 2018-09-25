@@ -1,6 +1,6 @@
-{% extends 'tmp02/base.html' %}
+{% extends 'tmp03/base.html' %}
 
-{% block page_name %}常用下载{% endblock %}
+{% block page_name %}新闻{% endblock %}
 
 {% block static_files %}
       <style>
@@ -44,7 +44,7 @@
                 <tbody>
                 {% for document in documents %}
                    <tr>
-                    <td width="82%"><a href="{{url_for('tmp02.news_detail',news_id=document.id)}}">{{ document.title }}【附件】</a></td>
+                    <td width="82%"><a href="{{url_for('tmp03.news_detail',news_id=document.id)}}">{{ document.title }}</a></td>
                     <td width="18%" style="text-align: center;">2018/09/18</td>
                   </tr>
                 {% endfor %}
@@ -56,7 +56,7 @@
         <div class="row">
         <div class="span12">
           <div style="float: right">
-        {% from 'tmp02/macros.html' import pager %}
+        {% from 'tmp03/macros.html' import pager %}
         {{ pager(pagination) }}
           </div>
         </div>

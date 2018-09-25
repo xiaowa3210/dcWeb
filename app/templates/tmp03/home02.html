@@ -1,4 +1,4 @@
-{% extends 'tmp02/base.html' %}
+{% extends 'tmp03/base.html' %}
 
 {% block page_name %}主页{% endblock %}
 
@@ -23,7 +23,7 @@
                 <tbody>
                 {% for document in documents %}
                    <tr>
-                    <td width="82%"><a href="{{url_for('tmp02.news_detail',news_id=document.id)}}" style="color: #333">{{ document.title }}</a></td>
+                    <td width="82%"><a href="{{url_for('tmp03.news_detail',news_id=document.id)}}" style="color: #333">{{ document.title }}</a></td>
                     <td width="18%" style="text-align: center;">2018/09/18</td>
                   </tr>
                 {% endfor %}
@@ -58,7 +58,7 @@
             <p>
               {{project.introduction}}
             </p>
-            <a href="{{url_for('tmp02.projects_detail',project_id = project.id)}}">获取更多</a>
+            <a href="{{url_for('tmp03.projects_detail',project_id = project.id)}}">获取更多</a>
           </div>
         </div>
           {% endfor %}

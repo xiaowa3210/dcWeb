@@ -1,4 +1,4 @@
-{% extends 'tmp02/base.html' %}
+{% extends 'tmp03/base.html' %}
 
 {% block page_name %}项目展示{% endblock %}
 
@@ -78,7 +78,7 @@
                 <div class="clearfix">
                 </div>
                 <p>{{ project.introduction }}</p>
-                <button class="btn btn-small btn-success" type="button"><a href="{{url_for('tmp02.projects_detail',project_id=project.id)}}">更多</a></button>
+                <button class="btn btn-small btn-success" type="button"><a href="{{url_for('tmp03.projects_detail',project_id=project.id)}}">更多</a></button>
               </div>
             </div>
           </article>
