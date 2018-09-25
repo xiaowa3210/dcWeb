@@ -1,0 +1,66 @@
+{% extends 'tmp03/base.html' %}
+
+{% block page_name %}新闻{% endblock %}
+
+{% block static_files %}
+      <style>
+      .table td, .table th {
+    border-top: 0px;
+    border-bottom: 1px solid #ddd;
+}
+
+.table a{
+    display: block;
+    color: #666;
+}
+
+.table a:hover , .table a:focus{
+    text-decoration: none;
+}
+  </style>
+{% endblock %}
+
+{% block body_part %}
+    <section id="maincontent" style="margin-top: 80px;">
+    <div class="container">
+        <div class="row">
+        <div class="span3">
+          <aside>
+            <form class="form-search">
+              <input placeholder="输入关键字" type="text" class="input-medium search-query">
+              <button type="submit" class="btn btn-flat btn-color">搜索</button>
+            </form>
+          </aside>
+        </div>
+
+        <div class="span9">
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th>标题</th>
+                    <th style="text-align: center">发布时间</th>
+                  </tr>
+                </thead>
+                <tbody>
+                {% for document in documents %}
+                   <tr>
+                    <td width="82%"><a href="{{url_for('tmp03.news_detail',news_id=document.id)}}">{{ document.title }}</a></td>
+                    <td width="18%" style="text-align: center;">2018/09/18</td>
+                  </tr>
+                {% endfor %}
+                </tbody>
+              </table>
+        </div>
+      </div>
+
+        <div class="row">
+        <div class="span12">
+          <div style="float: right">
+        {% from 'tmp03/macros.html' import pager %}
+        {{ pager(pagination) }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock %}
