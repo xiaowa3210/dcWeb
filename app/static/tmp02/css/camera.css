@@ -58,6 +58,7 @@
 .cameraContent {
 	bottom: 0;
 	display: none;
+	visibility: hidden;
 	left: 0;
 	position: absolute;
 	right: 0;
