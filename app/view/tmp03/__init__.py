@@ -1,8 +1,8 @@
-#!usr/bin/python
-# -*- coding: utf-8 -*-
+#!/usr/bin/env python 
+# _*_ coding: utf-8 _*_
 
 from flask import Blueprint
 
-tmp03= Blueprint('tmp03', __name__)
+tmp03 = Blueprint('tmp03', __name__)
 
 from . import views
