@@ -11,7 +11,7 @@ from app.view.tmp03 import tmp03
 @tmp03.route('/tmp03')
 def home():
     documents = Document.query.order_by(Document.created_time.desc()).limit(10)
-    projects = Project.query.order_by(Project.create_time.desc()).limit(4)
+    projects = Project.query.order_by(Project.create_time.desc()).limit(3)
     return render_template('tmp03/home02.html', projects=projects, documents=documents)
 
 @tmp03.route('/tmp03/login')
