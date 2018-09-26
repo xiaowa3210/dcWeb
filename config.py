@@ -13,3 +13,5 @@ DB_URI = "mysql+pymysql://{}:{}@{}:{}/{}?charset={}".format(USER, PASS, HOST, PO
 SQLALCHEMY_DATABASE_URI = DB_URI
 SQLALCHEMY_TRACK_MODIFICATIONS = True
 SECRET_KEY = "THIS-A-SECRET-KEY"
+
+UEDITOR_UPLOAD_PATH = os.path.join(os.path.dirname(__file__),'images') #图片上传配置

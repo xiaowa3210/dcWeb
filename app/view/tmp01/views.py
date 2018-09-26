@@ -1,7 +1,7 @@
 #!/user/bin/env python
 # -*- coding:utf-8 -*-
 
-from flask import render_template
+from flask import render_template,request
 
 from app.service.DocumentsService import *
 from app.service.ProjectService import *
@@ -37,6 +37,13 @@ def news(page):
     pagination,documents = getDocumentByPage(page,per_page,1)
     return render_template('tmp01/news.html', pagination=pagination, documents=documents)
 
+@tmp01.route('/tmp01/search')
+def search():
+    page = request.args.get('page',1,type=int)
+    q = request.args.get('q')
+    pagination = Document.query.filter(Document.title.contains(q)).order_by(Document.created_time.desc()).paginate(page,per_page=15,error_out=False)
+    documents = pagination.items
+    return render_template('tmp01/news.html',documents = documents,pagination = pagination )
 @tmp01.route('/tmp01/news/detail/<news_id>')
 def news_detail(news_id):
     news_obj = getDoucumentByID(news_id)

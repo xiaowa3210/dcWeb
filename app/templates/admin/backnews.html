@@ -1,0 +1,82 @@
+{% extends "admin/backbase.html" %}
+{% block head %}
+
+    <script type="text/javascript" charset="utf-8" src="{{ url_for('static', filename='admin/ueditor/ueditor.config.js') }}"></script>
+    <script type="text/javascript" charset="utf-8" src="{{ url_for('static', filename='admin/ueditor/ueditor.all.min.js') }}"> </script>
+    <script type="text/javascript" charset="utf-8" src="{{ url_for('static', filename='admin/js/query_3.3.1.min.js') }}"></script>
+    <script type="text/javascript" charset="utf-8" src="{{ url_for('static', filename='admin/js/backnews.js') }}"> </script>
+
+<!--建议手动加在语言，避免在ie下有时因为加载语言失败导致编辑器加载失败-->
+<!--这里加载的语言文件会覆盖你在配置项目里添加的语言类型，比如你在配置项目里配置的是英文，这里加载的中文，那最后就是中文-->
+    <script type="text/javascript" charset="utf-8" src="{{ url_for('static', filename='admin/ueditor/lang/zh-cn/zh-cn.js') }}"></script>
+
+{% endblock %}
+{% block title %}添加信息{% endblock %}
+
+{% block navbar %}
+<section class="content-header">
+    <h1>添加信息</h1>
+    <ol class="breadcrumb">
+        <li><i class="fa fa-dashboard"></i> 当前位置</li>
+        <li class="active">信息管理</li>
+        <li class="active">编辑信息</li>
+    </ol>
+</section>
+{% endblock %}
+{% block content %}
+{% for document in documents %}
+    <ul>
+        <table >
+                <tr data-id="{{ document.id }}" data-title="{{ document.title }}" data-content="{{ document.content }}">
+                  <td scope="row" width="1%"><img src="{{ url_for('static',filename='admin/images/right.gif') }}"></td>
+                  <td style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis;" width="50%">
+                      <a href="{{ url_for('admin.backnews_detail',document_id=document.id) }}">{{ document.title }}</a>
+                  </td>
+                  <td  width="10%">
+                      {{ document.created_time }}
+                  </td>
+                  <td width="3%">
+                      <a href="{{ url_for('admin.editinfo',news_id=document.id) }}"><button>编辑</button></a>
+                  </td>
+                  <td width="3%">
+                      <button class="del-btn">删除</button>
+                  </td>
+                </tr>
+        </table>
+    </ul>
+{% endfor %}
+
+    <div>
+        <nav aria-label="Page navigation">
+            <ul class="pagination">
+                {% if pagination.has_prev %}
+                    <li class="page-item">
+                        <a class="page-link"
+                           href="{{ url_for('admin.backnews',page=pagination.page-1) }}">上一页</a>
+                    </li>
+                {% endif %}
+
+
+                {% for p in pagination.iter_pages() %}
+
+                    {% if p == pagination.page %}
+                        <li class="page-item active">
+                            <a class="page-link" href="{{ url_for('admin.backnews', page = p) }}">{{ loop.index }}</a>
+                        </li>
+                    {% else %}
+                        <li class="page-item">
+                            <a class="page-link" href="{{ url_for('admin.backnews',page = p) }}">{{ loop.index }}</a>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+
+                {% if pagination.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="{{ url_for('admin.backnews',page=pagination.page+1)}}">下一页</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+
+{% endblock %}
