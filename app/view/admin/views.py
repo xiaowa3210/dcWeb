@@ -227,6 +227,9 @@ def addproject():
         # f2 = request.files["video"]
         files = request.files.getlist('video')
         base_path = path.abspath(path.dirname(__file__))
+        print(path.dirname(__file__))
+        print(base_path.split("app")[-2] + "upload")
+        base_path = base_path.split("app")[-2]
         photoss = []
         video_db_paths = []
         for file in photos:
