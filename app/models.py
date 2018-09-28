@@ -102,6 +102,7 @@ class Document(db.Model):
     title = db.Column(db.String(256), nullable=False)
     content = db.Column(db.TEXT, nullable=True)
     type = db.Column(db.Integer, nullable=False)
+    released_time = db.Column(db.DateTime, nullable=False, default=datetime.now)
     created_time = db.Column(db.DateTime, nullable=False, default=datetime.now)
     modified_time = db.Column(db.DateTime, nullable=False, default=datetime.now)
     attachments = db.relationship('Attachment', back_populates='document')
@@ -154,3 +155,162 @@ class Activity(db.Model):
     create_time = db.Column(db.DateTime, nullable=False, default=datetime.now)
     lid = db.Column(db.Integer, ForeignKey(Laboratory.id))
     laboratory = db.relationship('Laboratory', back_populates='activities')
+
+
+
+
+#文稿类
+class Article(db.Model):
+    __tablename__ = 't_article'
+
+    article_id = db.Column(db.String(30), primary_key=True)
+
+    #'稿件类型：1图文，2图集，3视频，4外部稿件（录入url）, 5音频,6VR视频'
+    article_type = db.Column(db.DECIMAL(2,0), nullable=False)
+
+    #标题
+    title = name = db.Column(db.String(256), nullable=True)
+
+    #副标题
+    sub_title = db.Column(db.String(256), nullable=True)
+
+    #标题颜色
+    title_color = db.Column(db.String(20), nullable=True)
+
+    #摘要
+    brief = db.Column(db.TEXT, nullable=True)
+
+    #关键字
+    key_worlds = db.Column(db.String(256),nullable=True)
+
+    #来源ID
+    source_id = db.Column(db.String(30),nullable=True)
+
+    #权重
+    weight = db.Column(db.DECIMAL(3,0),nullable=True)
+
+    #内容
+    connent = db.Column(db.TEXT,nullable=True)
+
+    #创建人ID
+    creator_id = db.Column(db.String(30),nullable=False)
+
+
+    #创建时间
+    create_time = db.Column(db.DateTime, nullable=False)
+
+    #发布标志
+    publish_sign = db.Column(db.DECIMAL(1,0), nullable=False, default=0)
+
+    #发布人ID
+    publish_id = db.Column(db.String(30),nullable=False)
+
+    #发布时间
+    publish_time = db.Column(db.DateTime, nullable=False)
+
+    #最后修改人ID
+    last_modifyer_id = db.Column(db.String(30),nullable=False)
+
+    #最后修改时间
+    last_modifyer_time = db.Column(db.String(30),nullable=False)
+
+    #是否有附件
+    is_attachment = db.Column(db.DECIMAL(1,0),nullable=True)
+
+    #标签
+    tags = db.Column(db.String(256),nullable=True)
+
+    #删除标志：0未删除，1已删除
+    delete_flag = db.Column(db.DECIMAL(1,0),nullable=False)
+
+    #删除人ID
+    deleter_id = db.Column(db.DECIMAL(1,0),nullable=False)
+
+    #真实发布时间
+    true_publish_time = db.Column(db.DateTime, nullable=False)
+
+#附件类
+class Files(db.Model):
+    __tablename__ = 't_files'
+
+    #稿件附件id
+    file_id = db.Column(db.String(30), primary_key=True)
+
+    #'稿件id
+    article_id = db.Column(db.String(30), ForeignKey('t_article.article_id'))
+
+    #类型
+    type  = db.Column(db.DECIMAL(2,0), nullable=False)
+
+    #图片附属信息
+    img_info = db.Column(db.String(256), nullable=True)
+
+    #序号
+    sn = db.Column(db.DECIMAL(5,0), nullable=True)
+
+    #外网url
+    url = db.Column(db.String(256), nullable=True)
+
+    #本地相对路径
+    local_path = db.Column(db.String(256), nullable=True)
+
+    #本地文件名
+    local_name = db.Column(db.String(256), nullable=True)
+
+    #本地预览url
+    local_url = db.Column(db.String(256), nullable=True)
+
+    #发布标志：0未发布，1 已发布
+    publish_flag = db.Column(db.DECIMAL(1,0), nullable=True)
+
+    #标题
+    title = db.Column(db.String(256), nullable=True)
+
+    #简介
+    brief = db.Column(db.String(256), nullable=True)
+
+class nProject(db.Model):
+    __tablename__ = 't_project'
+
+    # 项目ID
+    project_id = db.Column(db.String(30), primary_key=True)
+
+    #项目名称
+    title = db.Column(db.String(256), nullable=True)
+
+    #项目简介
+    brief = db.Column(db.String(1024), nullable=True)
+
+    #项目建立时间
+    broad_time = db.Column(db.DateTime, nullable=False)
+
+    #项目宣传多图，相对路径，json串方式存储
+    ban_url = db.Column(db.String(512), nullable=True)
+
+    #删除标志：0未删除，1已删除
+    delete_flag = db.Column(db.DECIMAL(1,0), nullable=False)
+
+    #发布标志：0未发布，1已发布
+    publish_flag = db.Column(db.DECIMAL(1, 0), nullable=False)
+
+    #修改标志：0未修改，1已修改
+    modified_flag = db.Column(db.DECIMAL(1, 0), nullable=False)
+
+    # 创建人ID
+    creator_id = db.Column(db.String(30), nullable=False)
+
+    #指导老师ID
+    manager_id = db.Column(db.String(30), nullable=True)
+
+    #成员信息
+    member_info = db.Column(db.String(1024), nullable=True)
+
+    # 创建时间
+    create_time = db.Column(db.DateTime, nullable=False)
+
+    # 发布时间
+    publish_time = db.Column(db.DateTime, nullable=False)
+
+    # 关键字
+    key_worlds = db.Column(db.String(256), nullable=True)
+

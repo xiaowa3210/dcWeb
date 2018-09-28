@@ -45,5 +45,8 @@ app.register_blueprint(bp_blueprint)
 from app.view.tmp03 import tmp03 as tmp03_blueprint
 app.register_blueprint(tmp03_blueprint)
 
+from app.view.back01 import back01 as back01_blueprint
+app.register_blueprint(back01_blueprint)
+
 
 

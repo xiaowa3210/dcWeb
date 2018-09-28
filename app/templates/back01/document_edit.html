@@ -1,0 +1,105 @@
+{% extends 'back01/base.html' %}
+
+{% block static_files %}
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://cdn.bootcss.com/moment.js/2.18.1/moment-with-locales.min.js"></script>
+<link href="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+<script src="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+
+{% endblock %}
+
+{% block body_part %}
+
+<section id="main-content">
+    <section class="wrapper">
+        <div class="row">
+            <div class="col-lg-12">
+                <h3 class="page-header"><i class="fa fa-files-o"></i>添加项目</h3>
+                <ol class="breadcrumb">
+                    <li><i class="fa fa-home"></i><a href="index.html">主页</a></li>
+                    <li><i class="icon_document_alt"></i>项目管理</li>
+                    <li><i class="fa fa-files-o"></i>添加项目</li>
+                </ol>
+            </div>
+        </div>
+        <!-- Form validations -->
+        <div class="row">
+            <div class="col-lg-12">
+                <section class="panel">
+                    <header class="panel-heading">
+                        添加项目
+                    </header>
+                    <div class="panel-body">
+                        <div class="form">
+                            <form class="form-validate form-horizontal" id="feedback_form" method="get" action="">
+                                <div class="form-group ">
+                                    <label for="cname" class="control-label col-lg-2">标题<span
+                                            class="required">*</span></label>
+                                    <div class="col-lg-10">
+                                        <input class="form-control" id="cname" name="fullname" minlength="5"
+                                               type="text" required/>
+                                    </div>
+                                </div>
+
+                                <div class="form-group ">
+                                    <label for="content" class="control-label col-lg-2">编辑内容<span
+                                            class="required">*</span></label>
+                                    <div class="col-lg-10">
+                                        <textarea class="form-control ckeditor" name="editor1" rows="6"
+                                                  id="content"></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="form-group ">
+                                    <label for="releaseTime" class="control-label col-lg-2">发布时间<span
+                                            class="required">*</span></label>
+                                    <div class="col-lg-10">
+                                        <div class='input-group date' id='datetimepicker'>
+                                            <input id="releaseTime" type='text' class="form-control"/>
+                                            <span class="input-group-addon">
+                                                <i class="glyphicon glyphicon-calendar"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-lg-offset-2 col-lg-10">
+                                        <button class="btn btn-primary" type="submit">保存</button>
+                                        <button class="btn btn-default" type="button">取消</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </section>
+            </div>
+        </div>
+    </section>
+</section>
+
+<script>
+
+    var MAIN = {};
+
+
+    MAIN.init =
+
+    $(function () {
+        $('#datetimepicker').datetimepicker({
+            format: 'YYYY-MM-DD',
+            locale: moment.locale('zh-cn')
+        });
+    });
+
+
+
+
+
+</script>
+
+
+{% endblock %}
