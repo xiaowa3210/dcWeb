@@ -76,11 +76,11 @@ Af.httpErrHandler = function()
 // serviceUri 服务名, req 请求参象 , dataHandler 应答数据处理函数
 Af.rest = function (serviceUri, req, dataHandler,restErrHandler)
 {
-	jQuery.ajax({				
+	jQuery.ajax({
 		url: serviceUri, 			
-		method: "POST", 
+		type: "POST",
 		processData: false,	
-		data: JSON.stringify(req), 
+		data: JSON.stringify(req),
 		dataType: 'json',
 		success: function(ans){
 			if(ans.error != 0)

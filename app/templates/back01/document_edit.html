@@ -1,12 +1,7 @@
 {% extends 'back01/base.html' %}
 
 {% block static_files %}
-<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
-<link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script src="https://cdn.bootcss.com/moment.js/2.18.1/moment-with-locales.min.js"></script>
-<link href="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
-<script src="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+
 
 {% endblock %}
 
@@ -32,14 +27,45 @@
                         添加项目
                     </header>
                     <div class="panel-body">
-                        <div class="form">
-                            <form class="form-validate form-horizontal" id="feedback_form" method="get" action="">
+                        <div class="form article">
+                            <form class="form-horizontal" onsubmit="return false" action="##" method="post">
                                 <div class="form-group ">
-                                    <label for="cname" class="control-label col-lg-2">标题<span
+                                    <label for="title" class="control-label col-lg-2">标题<span
                                             class="required">*</span></label>
                                     <div class="col-lg-10">
-                                        <input class="form-control" id="cname" name="fullname" minlength="5"
+                                        <input class="form-control title" id="title" name="title"
                                                type="text" required/>
+                                    </div>
+                                </div>
+
+                                <div class="form-group ">
+                                    <label for="subtitle" class="control-label col-lg-2">副标题<span
+                                            class="required">*</span></label>
+                                    <div class="col-lg-10">
+                                        <input class="form-control subtitle" id="subtitle" name="subtitle"
+                                               type="text" required/>
+                                    </div>
+                                </div>
+
+                                <div class="form-group ">
+                                    <label for="brief" class="control-label col-lg-2">摘要<span
+                                            class="required">*</span></label>
+                                    <div class="col-lg-10">
+                                        <textarea class="form-control ckeditor brief" name="brief" rows="6"
+                                                  id="brief"></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="form-group ">
+                                    <label class="control-label col-lg-2">关键字<span
+                                            class="required">*</span></label>
+                                    <div class="col-lg-4 kw">
+                                        <input class="form-control keyword" name="keyword"
+                                               type="text" required/>
+                                    </div>
+                                    <div class="col-lg-1 addkeyword">
+                                        <button id="addkeyword" class="btn btn-primary" onclick="MAIN.addkeyword()">添加
+                                        </button>
                                     </div>
                                 </div>
 
@@ -47,28 +73,24 @@
                                     <label for="content" class="control-label col-lg-2">编辑内容<span
                                             class="required">*</span></label>
                                     <div class="col-lg-10">
-                                        <textarea class="form-control ckeditor" name="editor1" rows="6"
+                                        <textarea class="form-control ckeditor content" name="editor1" rows="6"
                                                   id="content"></textarea>
                                     </div>
                                 </div>
 
-                                <div class="form-group ">
-                                    <label for="releaseTime" class="control-label col-lg-2">发布时间<span
-                                            class="required">*</span></label>
-                                    <div class="col-lg-10">
-                                        <div class='input-group date' id='datetimepicker'>
-                                            <input id="releaseTime" type='text' class="form-control"/>
-                                            <span class="input-group-addon">
-                                                <i class="glyphicon glyphicon-calendar"></i>
-                                            </span>
-                                        </div>
-                                    </div>
+                                <div class="form-group">
+                                    <label for="InputFile" class="control-label col-lg-2">上传附件</label>
+                                    <input type="file" id="InputFile">
+                                    <p class="help-block">上传附件</p>
                                 </div>
 
                                 <div class="form-group">
-                                    <div class="col-lg-offset-2 col-lg-10">
-                                        <button class="btn btn-primary" type="submit">保存</button>
+                                    <div class="col-lg-offset-2 col-lg-8">
+                                        <button class="btn btn-primary" onclick="MAIN.onSave(0)">保存</button>
                                         <button class="btn btn-default" type="button">取消</button>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <button class="btn btn-primary" onclick="MAIN.onSave(1)">保存并发布</button>
                                     </div>
                                 </div>
                             </form>
@@ -85,18 +107,41 @@
 
     var MAIN = {};
 
+    MAIN.init = function () {
 
-    MAIN.init =
+    }
 
-    $(function () {
-        $('#datetimepicker').datetimepicker({
-            format: 'YYYY-MM-DD',
-            locale: moment.locale('zh-cn')
-        });
-    });
+    MAIN.addkeyword = function () {
+        var kw = $(".kw:first")
+        $(".addkeyword").before(kw.clone())
+    }
+
+    MAIN.onSave = function (type) {
+        var req = {};
+        req.title = $('.title').val().trim();
+        req.subtitle = $('.subtitle').val().trim();
+        req.brief = $('.brief').val().trim();
+        req.keyword = $('.keyword').val().trim();
+        req.content = $('.content').val().trim();
+        req.type = type
+        Af.rest("/back01/addArticle",req,function (data) {
+            alert(data);
+            $("input").value("");
+        })
+    }
 
 
+//    $(document).ready(function () {
+//        MAIN.init();
+//    });
 
+
+    //    $(function () {
+    //        $('#datetimepicker').datetimepicker({
+    //            format: 'YYYY-MM-DD',
+    //            locale: moment.locale('zh-cn')
+    //        });
+    //    });
 
 
 </script>

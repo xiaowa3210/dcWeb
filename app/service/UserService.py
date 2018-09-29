@@ -1,6 +1,6 @@
 #!usr/bin/python
 # -*- coding: utf-8 -*-
-from ..models import User, Role, Permission
+from app.models import User, Role, Permission
 from app import db
 
 #添加用户,添加用户的时候需要注明用户的类型。
@@ -76,3 +76,6 @@ def addPermission(name,label):
         print(e)
         return False
     return True
+
+if __name__ == '__main__':
+    addUser('dhjal','dakkda',1)
