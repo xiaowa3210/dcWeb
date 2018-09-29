@@ -1,19 +1,18 @@
 
 from datetime import datetime
-from  app.models import db, User
+from  app.models import db
 
 #添加文章
 from app.models import Article
 
 
 def addArticle(article):
-    # try:
+     try:
         db.session.add(article)
         db.session.commit()
-    # except:
-    #     sys.exc_info()[0], sys.exc_info()[1]
-    #     return False
-    # return True
+     except:
+         return False
+     return True
 
 
 if __name__ == '__main__':
@@ -23,7 +22,7 @@ if __name__ == '__main__':
     article.title = "dadada"
     article.sub_title = "dadada"
     article.brief = "dadada"
-    article.key_worlds = "dadada"
+    article.key_words = "dadada"
     article.content = "dadada"
     article.last_modifyer_time = datetime.now  # 最后修改时间设置为当前时间
     article.creator_id = "32578453825483"  # 先随便设一个字段
@@ -39,8 +38,8 @@ if __name__ == '__main__':
 
     article.is_attachment = 0;
 
-    #addArticle(article)
+    addArticle(article)
 
-    admin = User(username='21', pwd='21211')
-    db.session.add(admin)
-    db.session.commit()
+    # admin = User(username='21', pwd='21211')
+    # db.session.add(admin)
+    # db.session.commit()

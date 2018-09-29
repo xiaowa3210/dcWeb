@@ -180,7 +180,7 @@ class Article(db.Model):
     brief = db.Column(db.TEXT, nullable=True)
 
     #关键字
-    key_worlds = db.Column(db.String(256),nullable=True)
+    key_words = db.Column(db.String(256), nullable=True)
 
     #来源ID
     source_id = db.Column(db.String(30),nullable=True)
@@ -189,7 +189,7 @@ class Article(db.Model):
     weight = db.Column(db.DECIMAL(3,0),nullable=True)
 
     #内容
-    content = db.Column(db.TEXT,nullable=True)
+    content = db.Column(db.Text(length=(2**32)-1),nullable=True)
 
     #创建人ID
     creator_id = db.Column(db.String(30),nullable=False)

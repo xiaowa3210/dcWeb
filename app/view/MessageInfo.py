@@ -5,10 +5,10 @@ class MessageInfo:
     def __init__(self,error,reason,data):
         self.error = error
         self.reason = reason
-        self.data = data                #0出错，非O不出错
+        self.data = data                #0成功，非O失败。
     @staticmethod
     def success(msg='OK',data=''):
-        msgInfo = MessageInfo(200,msg,data)
+        msgInfo = MessageInfo(0,msg,data)
         return msgInfo
     @staticmethod
     def fail(errorCode=0,data='FAIL'):
