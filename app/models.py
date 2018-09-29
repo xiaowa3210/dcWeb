@@ -102,7 +102,6 @@ class Document(db.Model):
     title = db.Column(db.String(256), nullable=False)
     content = db.Column(db.TEXT, nullable=True)
     type = db.Column(db.Integer, nullable=False)
-    released_time = db.Column(db.DateTime, nullable=False, default=datetime.now)
     created_time = db.Column(db.DateTime, nullable=False, default=datetime.now)
     modified_time = db.Column(db.DateTime, nullable=False, default=datetime.now)
     attachments = db.relationship('Attachment', back_populates='document')
@@ -169,13 +168,13 @@ class Article(db.Model):
     article_type = db.Column(db.DECIMAL(2,0), nullable=False)
 
     #标题
-    title = name = db.Column(db.String(256), nullable=True)
+    title = db.Column(db.String(256), nullable=True)
 
     #副标题
     sub_title = db.Column(db.String(256), nullable=True)
 
     #标题颜色
-    title_color = db.Column(db.String(20), nullable=True)
+    title_color = db.Column(db.String(20), nullable=True,default="black")
 
     #摘要
     brief = db.Column(db.TEXT, nullable=True)
@@ -190,44 +189,44 @@ class Article(db.Model):
     weight = db.Column(db.DECIMAL(3,0),nullable=True)
 
     #内容
-    connent = db.Column(db.TEXT,nullable=True)
+    content = db.Column(db.TEXT,nullable=True)
 
     #创建人ID
     creator_id = db.Column(db.String(30),nullable=False)
 
 
     #创建时间
-    create_time = db.Column(db.DateTime, nullable=False)
+    create_time = db.Column(db.DateTime, nullable=False,default=datetime.now)
 
-    #发布标志
+    #发布标志,0未发布，1已发布,2已发布正编辑
     publish_sign = db.Column(db.DECIMAL(1,0), nullable=False, default=0)
 
     #发布人ID
-    publish_id = db.Column(db.String(30),nullable=False)
+    publish_id = db.Column(db.String(30),nullable=True)
 
     #发布时间
-    publish_time = db.Column(db.DateTime, nullable=False)
+    publish_time = db.Column(db.DateTime, nullable=True)
 
     #最后修改人ID
-    last_modifyer_id = db.Column(db.String(30),nullable=False)
+    last_modifyer_id = db.Column(db.String(30),nullable=True)
 
     #最后修改时间
-    last_modifyer_time = db.Column(db.String(30),nullable=False)
+    last_modifyer_time = db.Column(db.String(30),nullable=True)
 
-    #是否有附件
-    is_attachment = db.Column(db.DECIMAL(1,0),nullable=True)
+    #是否有附件,0代表有，1代表没有
+    is_attachment = db.Column(db.DECIMAL(1,0),nullable=False)
 
     #标签
     tags = db.Column(db.String(256),nullable=True)
 
     #删除标志：0未删除，1已删除
-    delete_flag = db.Column(db.DECIMAL(1,0),nullable=False)
+    delete_flag = db.Column(db.DECIMAL(1,0),nullable=False,default=0)
 
     #删除人ID
-    deleter_id = db.Column(db.DECIMAL(1,0),nullable=False)
+    deleter_id = db.Column(db.DECIMAL(1,0),nullable=True)
 
     #真实发布时间
-    true_publish_time = db.Column(db.DateTime, nullable=False)
+    true_publish_time = db.Column(db.DateTime, nullable=True)
 
 #附件类
 class Files(db.Model):
