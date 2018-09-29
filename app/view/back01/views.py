@@ -1,3 +1,6 @@
+import datetime
+import time
+
 from flask import render_template
 from flask_login import current_user
 
@@ -11,7 +14,7 @@ from flask_login import current_user, login_required
 from werkzeug.utils import secure_filename, redirect
 
 from app import User, db
-from app.models import Project
+from app.models import Project, nProject
 from app.service.ProjectService import getProjectById, getTeamInfo
 from app.view.admin.forms import AddAdminForm, AddProjectForm
 from app.view.back01 import back01
@@ -78,9 +81,9 @@ def addadmin():
     return render_template('back01/addadmin.html',form=form)
 
 
-@back01.route('/addproject01', methods=['GET', 'POST'])
+@back01.route('/addproject00', methods=['GET', 'POST'])
 # @login_required
-def addproject():
+def addt_project():
     form = AddProjectForm()
 
     # print(request.form.get("adduser"))
@@ -171,12 +174,12 @@ def adduser():
                     "faculty": faculty,
                     "grade": grade}
         teammates.append(teammate)
-        flash("保存成功")
+        # flash("保存成功")
         return render_template('back01/addproject.html', form=AddProjectForm(), users=teammates)
 
     return render_template('back01/users.html', form=form)
 @back01.route('/query_projects01', methods=['GET','POST'])
-@login_required
+# @login_required
 def query_projects():
     # projects = Project.query.order_by(Project.create_time.desc()).all()
     # return render_template('admin/projects.html', projects=projects)
@@ -237,5 +240,70 @@ def edit(project_id):
     form  =AddProjectForm()
     return render_template('back01/editproject.html', project=project, form=form)
 
+@back01.route('/addproject01', methods=['GET', 'POST'])
+# @login_required
+def addproject():
+    form = AddProjectForm()
+    if form.is_submitted():
+        print("555")
+        # f1= request.files["photo"]
+        photos = request.files.getlist('photo')
+        # f2 = request.files["video"]
+        files = request.files.getlist('video')
+        base_path = path.abspath(path.dirname(__file__))
+        photoss = []
+        video_db_paths = []
+        for file in photos:
+            if allowed_photo(file.filename):
+                filename = secure_filename(file.filename)
+                upload_path = os.path.join(base_path, 'uploads', filename)
+                photo = {"title": filename, "path": upload_path}
+                file.save(upload_path)
+                photoss.append(photo)
+            else:
+                flash("您上传的文件不是图片类型！")
+                return render_template('admin/addproject.html', form=form)
+        for file in files:
+            if allowed_video(file.filename):
+                filename = secure_filename(file.filename)
+                upload_path = os.path.join(base_path, 'uploads', filename)
+                video_db_paths.append(upload_path)
+                file.save(upload_path)
+            else:
+                flash("您上传的文件不是视频类型！")
+                return render_template('admin/addproject.html', form=form)
 
+        photoPaths = {"pics": photoss}
+
+        videoPaths = ";".join(video_db_paths)
+        global teammates
+
+        teaminfo = {"teammates": teammates}
+        t = time.time()
+        print(t)  # 原始时间数据
+        print(int(t))  # 秒级时间戳
+        tr = int(round((t*1000)))
+        print(tr)  # 毫秒级时间戳
+
+        nowTime = lambda: int(round(t * 1000))
+        print(nowTime());  # 毫秒级时间戳，基于lambda
+
+        print("2222222")
+        print(form.isPublish.data)
+        print(type(form.isPublish.data))
+        if(form.isPublish.data):
+            publish_flag = 1
+        else:
+            publish_flag = 0
+
+
+        nowTime = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')  # 现在
+        project = nProject(project_id = str(tr),title=form.name.data, brief=form.introduction.data, member_info=str(teaminfo),
+                           ban_url=str(photoPaths),delete_flag=0,publish_flag=publish_flag,modified_flag=0,create_time=nowTime,publish_time=nowTime,broad_time=nowTime,creator_id=1)
+        db.session.add(project)
+        db.session.commit()
+
+        teammates = []
+        flash("保存成功")
+    return render_template('back01/addproject.html', form=form, users=teammates)
 

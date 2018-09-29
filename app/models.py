@@ -309,7 +309,7 @@ class nProject(db.Model):
     create_time = db.Column(db.DateTime, nullable=False)
 
     # 发布时间
-    publish_time = db.Column(db.DateTime, nullable=False)
+    publish_time = db.Column(db.DateTime, nullable=True)
 
     # 关键字
     key_worlds = db.Column(db.String(256), nullable=True)

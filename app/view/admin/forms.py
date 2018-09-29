@@ -35,6 +35,7 @@ class AddProjectForm(FlaskForm):
     photo = FileField('项目图片')
     video = FileField('项目视频')
     adduser = SubmitField('+')
+    isPublish=BooleanField('是否现在发布')
     submit = SubmitField('提交')
 
 class AddAdminForm(FlaskForm):
