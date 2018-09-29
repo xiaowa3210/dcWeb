@@ -18,6 +18,7 @@ import json
 
 from flask import render_template, request
 
+from app.models import Laboratory
 
 from app.models import *
 from app.service.ArticleService import addArticle
@@ -39,6 +40,9 @@ def doucmentEdit():
 def doucmentEdit01():
     return render_template('back01/form_component.html')
 
+@back01.route('/back01/addlab')
+def addlab():
+    return render_template('back01/addlab.html')
 
 global a
 a=""
@@ -363,6 +367,21 @@ def saveArticle():
 
 
 
+#保存实验室
+@back01.route('/back01/addLab', methods=['POST'])
+def addLab():
+
+    #解析前端传过来的json数据s
+    data = json.loads(request.get_data("utf-8"))
+    title = data['title']
+    brief = data['brief']
+
+    lab = Laboratory(name=title,introduction=brief)
+
+    db.session.add(lab)
+    db.session.commit()
+
+    return json.dumps(MessageInfo.success(data='添加成功').__dict__)
 
 
 
