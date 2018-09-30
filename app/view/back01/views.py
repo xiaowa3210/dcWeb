@@ -7,8 +7,8 @@ import time
 import os
 from os import path
 
-from flask import render_template, flash, request, url_for
-from flask_login import current_user, login_required
+from flask import flash, url_for
+from flask_login import login_required
 from werkzeug.utils import secure_filename, redirect
 
 
@@ -18,14 +18,12 @@ import json
 
 from flask import render_template, request
 
-from app.models import Laboratory
-
-from app.models import *
+from app.model.models import *
 from app.service.ArticleService import addArticle
 from app.view.MessageInfo import MessageInfo
 from app.view.back01 import back01
 from datetime import datetime
-from app.models import db
+from app.model.models import db
 @back01.route('/back01', methods=['GET'])
 
 def index():

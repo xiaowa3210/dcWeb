@@ -1,6 +1,6 @@
 #!usr/bin/python
 # -*- coding: utf-8 -*-
-from app.models import Laboratory
+from app.model.models import Laboratory
 
 
 def getLaboratoryByPage(page_index,per_page):

@@ -1,6 +1,6 @@
 #!usr/bin/python
 # -*- coding: utf-8 -*-
-from app.models import User, Role, Permission
+from app.model.models import User, Role, Permission
 from app import db
 
 #添加用户,添加用户的时候需要注明用户的类型。

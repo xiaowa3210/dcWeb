@@ -3,8 +3,8 @@
 
 from flask import Flask
 
-import config  # 导入配置参数
-from app.models import db  # 数据库
+from app.model import config
+from app.model.models import db  # 数据库
 
 app = Flask(__name__)   # 新建一个flask应用
 app.config.from_object(config)  # 将配置文件导入应用中
@@ -27,7 +27,7 @@ login_manager.init_app(app)
 def load_user(user_id):
     return User.query.get(int(user_id))
 
-from app.models import User
+from app.model.models import User
 from app.view.admin import admin as admin_blueprint
 app.register_blueprint(admin_blueprint)
 from app.view.auth import auth as auth_blueprint

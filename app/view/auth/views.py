@@ -1,13 +1,11 @@
 #!usr/bin/python
 # -*- coding: utf-8 -*-
 
-import sys
-
-from flask import render_template, redirect, request, url_for, flash, session
+from flask import render_template, redirect, request, url_for, flash
 
 # from dcWeb_2_0 import app
 # from dcWeb_2_0.app.newmodels import Admin, SuperAdmin, db
-from app.models import User, db
+from app.model.models import User, db
 
 from . import auth
 from .forms import LoginForm
@@ -20,7 +18,7 @@ from .forms import LoginForm
 
 
 
-from flask_login import login_user, logout_user, login_required, login_manager
+from flask_login import login_user, logout_user, login_required
 
 
 @auth.route('/login', methods=['GET', 'POST'])

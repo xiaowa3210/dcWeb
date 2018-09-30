@@ -4,9 +4,9 @@
 from flask import render_template, request, flash, redirect, url_for, session, g, jsonify
 from werkzeug.security import generate_password_hash
 
-from app.models import db, User, Document
+from app.model.models import db, User, Document
 from app.view.tmp00 import tmp00
-from exts import validate_login_register, validate_change_password
+from app.view.exts import validate_login_register, validate_change_password
 
 
 @tmp00.context_processor

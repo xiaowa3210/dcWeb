@@ -1,9 +1,9 @@
 
 from datetime import datetime
-from  app.models import db
+from app.model.models import db
 
 #添加文章
-from app.models import Article
+from app.model.models import Article
 
 
 def addArticle(article):

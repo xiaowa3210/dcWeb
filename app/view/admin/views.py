@@ -14,7 +14,7 @@ from werkzeug.utils import secure_filename  # 使用这个是为了确保filenam
 # from backstage import utils
 # from backstage.models import CfgNotify
 # from backstage.tmp01.forms import CfgNotifyForm
-from app.models import Document, Project, User, db, Laboratory, Activity
+from app.model.models import Document, Project, User, db, Laboratory, Activity
 from app.view.admin.forms import AddinfoForm, AddDocumentForm, AddProjectForm, AddAdminForm, AddMemberForm, AddLabForm, \
     AddActivityForm
 
