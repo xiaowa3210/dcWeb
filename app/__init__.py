@@ -6,7 +6,7 @@ from flask import Flask
 from app.model import config
 from app.model.models import db  # 数据库
 
-app = Flask(__name__)   # 新建一个flask应用
+app = Flask(__name__, static_folder='../static', static_url_path='/static')   # 新建一个flask应用
 app.config.from_object(config)  # 将配置文件导入应用中
 
 app.config["SQLALCHEMY_ECHO"] = True
