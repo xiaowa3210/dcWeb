@@ -1,7 +1,9 @@
 #!usr/bin/python
 # -*- coding: utf-8 -*-
 
-from flask import render_template, redirect, request, url_for, flash
+import sys
+
+from flask import render_template, redirect, request, url_for, flash, session
 
 # from dcWeb_2_0 import app
 # from dcWeb_2_0.app.newmodels import Admin, SuperAdmin, db
@@ -18,7 +20,7 @@ from .forms import LoginForm
 
 
 
-from flask_login import login_user, logout_user, login_required
+from flask_login import login_user, logout_user, login_required, login_manager
 
 
 @auth.route('/login', methods=['GET', 'POST'])
@@ -35,7 +37,7 @@ def login():
                 print("1111")
                 login_user(user, form.rememberme.data)
                 # flash("登录成功")
-                return redirect(request.args.get('next') or url_for('admin.index'))
+                return redirect(request.args.get('next') or url_for('back01.Lab'))
             else:
                 print("2222")
                 flash('用户名或密码错误')

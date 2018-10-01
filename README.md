@@ -19,7 +19,8 @@ files
 所有数据库关联的文件上传到这里
 
 migrations
-数据库迁移工具
+数据库工具
+Generic single-database configuration.
 
 static
 静态文件

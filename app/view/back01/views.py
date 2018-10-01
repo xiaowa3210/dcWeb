@@ -7,8 +7,8 @@ import time
 import os
 from os import path
 
-from flask import flash, url_for
-from flask_login import login_required
+from flask import render_template, flash, request, url_for, jsonify
+from flask_login import current_user, login_required
 from werkzeug.utils import secure_filename, redirect
 
 
@@ -18,27 +18,34 @@ import json
 
 from flask import render_template, request
 
+from app.model.models import Laboratory
+
 from app.model.models import *
-from app.service.ArticleService import addArticle
+from app.service.ArticleService import *
+from app.utils.timeutils import *
 from app.view.MessageInfo import MessageInfo
 from app.view.back01 import back01
 from datetime import datetime
-from app.model.models import db
-@back01.route('/back01', methods=['GET'])
 
+
+@back01.route('/back01', methods=['GET'])
+@login_required
 def index():
     return render_template('back01/index01.html')
 
 @back01.route('/back01/doucment', methods=['GET'])
+@login_required
 def doucmentEdit():
-    return render_template('back01/document_edit.html')
+    return render_template('back01/document_add.html')
 
 
 @back01.route('/back01/doucment01', methods=['GET'])
+@login_required
 def doucmentEdit01():
     return render_template('back01/form_component.html')
 
 @back01.route('/back01/addlab')
+@login_required
 def addlab():
     return render_template('back01/addlab.html')
 
@@ -88,6 +95,30 @@ def addadmin():
             # return render_template('index0000000.html')
     # return render_template('index0000000.html')
     return render_template('back01/addadmin.html',form=form)
+"""
+**********************************
+"""
+@back01.route('/userlist01')
+@login_required
+def userlist():
+    page = request.args.get('page',1,type = int)
+    pagination = User.query.order_by(User.created_time.desc()).paginate(page,per_page=15,error_out=False)
+    users = pagination.items
+    return render_template('admin/edit_user.html',users=users,pagination=pagination)
+
+
+@back01.route('/delete_user01',methods=['POST'])
+@login_required
+def delete_user():
+    id = request.form.get("id")
+    user = User.query.get(id)
+    db.session.delete(user)
+    db.session.commit()
+    return jsonify({'code':200,'message':'删除成功！'})
+
+
+
+
 
 
 @back01.route('/addproject00', methods=['GET', 'POST'])
@@ -197,7 +228,8 @@ def query_projects():
     page = int(request.args.get('page',1))
     # 获取get请求传过来的以多少条数据分页的参数，默认为5
     per_page = int(request.args.get('per_page',7))
-    paginate = Project.query.order_by(Project.create_time.desc()).paginate(page, per_page, error_out=False)
+    paginate = nProject.query.order_by(nProject.create_time.desc()).paginate(page, per_page, error_out=False)
+    # paginate = Project.query.order_by(Project.create_time.desc()).paginate(page, per_page, error_out=False)
     # 获得数据
     projects = paginate.items
     # 返回给前端
@@ -317,12 +349,18 @@ def addproject():
     return render_template('back01/addproject.html', form=form, users=teammates)
 
 
+#文章列表
+@back01.route('/back01/articleList', methods=['GET'],defaults={'page':1})
+@back01.route('/back01/articleList/<int:page>',methods=['GET'])
+def articleList(page):
+    articles,pagination = getArticlesByPage(page,10)
+    return render_template('back01/article_list.html',articles=articles,pagination=pagination)
 
 #保存文章
-@back01.route('/back01/addArticle', methods=['POST'])
+@back01.route('/back01/saveArticle', methods=['POST'])
 def saveArticle():
 
-    #解析前端传过来的json数据s
+    #解析前端传过来的json数据
     data = json.loads(request.get_data("utf-8"))
     title = data['title']
     subtitle = data['subtitle']
@@ -330,40 +368,61 @@ def saveArticle():
 
     keyword = data['keyword']
     content = data['content']
-    type = data['type']             #0代表保存，1代表保存并且发布
+    is_add = data['is_add']
+    #添加文章
+    if is_add == 0:
+        type = data['type']                 #0代表保存，1代表保存并且发布
 
+        article = Article()
+        article.article_id = 'Ariticle' + str(current_timestamp_now())
+        article.article_type = 1  # 代表图文
+        article.title = title
+        article.sub_title = subtitle
+        article.brief = brief
+        article.key_words = keyword
+        article.content = content
+        article.creator_id = "32578453825483"  # 先随便设一个字段，创建时间有默认值了
+        article.last_modified_id = article.creator_id  # 先随便设一个字段
+        article.last_modified_time = datetime.now()  # 最后修改时间设置为当前时间
 
-    article = Article()
-    article.article_type = 1            #代表图文
-    article.title = title
-    article.sub_title = subtitle
-    article.brief = brief
-    article.key_words = keyword
-    article.content = content
-    article.last_modifyer_time = datetime.now()       #最后修改时间设置为当前时间
-    article.creator_id = "32578453825483"           #先随便设一个字段
-    if type == 1:
-        article.publish_sign = 1                    #设置为已发布
-        article.publish_id = article.creator_id     #发布人id就是创建人id
-        article.publish_time = datetime.now()
-        article.true_publish_time = datetime.now()
+        if type == 1:
+            article.publish_sign = 1  # 设置为已发布
+            article.publish_id = article.creator_id  # 发布人id就是创建人id
+            article.publish_time = datetime.now()
+            article.true_publish_time = datetime.now()
 
+        # 这些ID先随便设置，会设计到外键约束的问题。需额外建表
+        article.creator_id = '64893264982'
+        article.is_attachment = 0;
 
-    #这些ID先随便设置，会设计到外键约束的问题。需额外建表
-    article.creator_id = '64893264982'
-    article.article_id = '6438926555555555555555'
-
-    article.is_attachment = 0;
-
-
-    # db.session.add(article)
-    # db.session.commit()
-    if addArticle(article):
-        return json.dumps(MessageInfo.success(data='添加成功').__dict__)
+        if addArticle(article):
+            return json.dumps(MessageInfo.success(data='保存成功').__dict__)
+        else:
+            return json.dumps(MessageInfo.fail(data="保存失败").__dict__)
     else:
-        return json.dumps(MessageInfo.fail(data="添加失败").__dict__)
+        #修改文章
+        article = Article()
+        article.article_id = data['article_id']
+        article.title = title
+        article.sub_title = subtitle
+        article.brief = brief
+        article.key_words = keyword
+        article.content = content
+        if updateArticleByID(article):
+            return json.dumps(MessageInfo.success(data='修改成功').__dict__)
+        else:
+            return json.dumps(MessageInfo.fail(data="修改失败").__dict__)
 
 
+
+@back01.route('/back01/deleteArticle', methods=['GET'])
+def deleteArticleById():
+    article_id = request.values.get("articleId")
+    if deleteArticleByID(article_id):
+        return json.dumps(MessageInfo.success(data='删除成功').__dict__)
+    else:
+        return json.dumps(MessageInfo.fail(data="删除失败").__dict__)
+    return
 
 #保存实验室
 @back01.route('/back01/addLab', methods=['POST'])
@@ -380,7 +439,28 @@ def addLab():
     db.session.commit()
 
     return json.dumps(MessageInfo.success(data='添加成功').__dict__)
+@back01.route('/back01/updateArticle/<string:article_id>', methods=['GET'])
+def updateArticle(article_id):
+    article = getArticleByID(article_id)
+    return render_template('back01/article_update.html',article=article)
 
+
+@back01.route('/back01/lab', methods=['POST','GET'])
+def Lab():
+    return render_template('back01/lab.html')
+
+@back01.route('/api/lab', methods=['POST','GET'])
+def lab():
+
+    #解析前端传过来的json数据s
+    data = json.loads(request.get_data("utf-8"))
+    keyword = data['keyword']
+    lab = Laboratory.query.filter_by(name=keyword).first()
+
+    id=lab.id
+    title = lab.name
+
+    return jsonify({'id':id, 'title':title})
 
 
 

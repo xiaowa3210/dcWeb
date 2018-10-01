@@ -145,6 +145,18 @@ class Laboratory(db.Model):
     member = db.Column(db.String(256),nullable=True)
     create_time = db.Column(db.DateTime, nullable=False, default=datetime.now)
 
+    def to_json(self):
+        json_lab = {
+            'id': self.id,
+            'name': self.name,
+            'introduction': self.introduction,
+            'activities': self.activities,
+            'member': self.member,
+            'create_time': self.create_time
+        }
+
+        return json_lab
+
 #实验室活动介绍(考虑富文本)
 class Activity(db.Model):
     __tablename__ = 'activity'
@@ -208,10 +220,10 @@ class Article(db.Model):
     publish_time = db.Column(db.DateTime, nullable=True)
 
     #最后修改人ID
-    last_modifyer_id = db.Column(db.String(30),nullable=True)
+    last_modified_id = db.Column(db.String(30),nullable=True)
 
     #最后修改时间
-    last_modifyer_time = db.Column(db.String(30),nullable=True)
+    last_modified_time = db.Column(db.DateTime, nullable=True)
 
     #是否有附件,0代表有，1代表没有
     is_attachment = db.Column(db.DECIMAL(1,0),nullable=False)
@@ -223,7 +235,10 @@ class Article(db.Model):
     delete_flag = db.Column(db.DECIMAL(1,0),nullable=False,default=0)
 
     #删除人ID
-    deleter_id = db.Column(db.DECIMAL(1,0),nullable=True)
+    deleter_id = db.Column(db.String(30),nullable=True)
+
+    # 删除时间
+    delete_time = db.Column(db.DateTime, nullable=True)
 
     #真实发布时间
     true_publish_time = db.Column(db.DateTime, nullable=True)

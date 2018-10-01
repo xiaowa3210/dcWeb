@@ -5,10 +5,10 @@
   Author URL: https://bootstrapmade.com
 */
 
-@import url('font-awesome.css');
+@import url('../../css/font-awesome.css');
 /* ==== overwrite bootstrap standard ==== */
 
-@import url('overwrite.css');
+@import url('../../css/overwrite.css');
 /* ====================================== */
 
 .clear {

@@ -12,18 +12,23 @@
                   <tr>
                     <th><i class="icon_profile"></i>项目标题</th>
                     <th><i class="icon_calendar"></i> 上次修改时间</th>
-                    <th><i class="icon_mail_alt"></i> 是否发布</th>
+                    <th><i class="icon_mail_alt"></i> 是否已发布</th>
                     <th><i class="icon_cogs"></i> 操作</th>
                   </tr>
             {% for project in projects %}
                  <tr>
-                    <td><a href="{{url_for('back01.pdetail',project_id = project.id)}}">{{ project.pname }}</a></td>
+                    <td><a href="{{url_for('back01.pdetail',project_id = project.id)}}">{{ project.title }}</a></td>
                     <td>{{ project.create_time }}</td>
-                    <td>是</td>
+                         {% if project.publish_flag%}
+                        <td>是</td>
+                      {% else %}
+                     <td>否</td>
+                      {% endif %}
                     <td>
                       <div class="btn-group">
-                          <button type="button"   class="btn btn-primary"  onclick="{if(confirm('确定删除这条记录吗?')){window.location.href='{{ url_for("back01.delete",project_id=project.id) }}';return true;}return false;}"><i class="icon_plus_alt2"></i></button>
-                        <a class="btn btn-success" href="#"><i class="icon_check_alt2"></i></a>
+                          <button type="button"   class="btn btn-primary"  onclick="{if(confirm('确定修改这条记录吗?')){window.location.href='{{ url_for("back01.delete",project_id=project.id) }}';return true;}return false;}"><i class="icon_plus_alt2"></i></button>
+                           <button type="button"   class="btn btn-success"  onclick="{if(confirm('确定现在发布这条记录吗?')){window.location.href='{{ url_for("back01.delete",project_id=project.id) }}';return true;}return false;}"><i class="icon_check_alt2"></i></button>
+{#                        <a class="btn btn-success" href="#"><i class="icon_check_alt2"></i></a>#}
                           <button type="button"   class="btn btn-danger"  onclick="{if(confirm('确定删除这条记录吗?')){window.location.href='{{ url_for("back01.delete",project_id=project.id) }}';return true;}return false;}"><i class="icon_close_alt2"></i></button>
 {#                        <a class="btn btn-danger" href="{{ url_for('admin.operate', project_id=project.id) }}"  onclick="{if(confirm('确定删除这条记录吗?')){this.document.formname.submit();return true;}return false;}"><i class="icon_close_alt2"></i></a>#}
                       </div>

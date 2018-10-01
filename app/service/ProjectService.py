@@ -1,8 +1,8 @@
 #!usr/bin/python
 # -*- coding: utf-8 -*-
-from app.utils.utils import str_to_dict
-from app.model.models import Project
-
+from ..utils.utils import str_to_dict
+from ..model.models import Project
+import json
 
 def getProjectsByPage(page_index,per_page):
     # 这个地方要用到分页查询，每次查询12页

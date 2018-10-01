@@ -1,6 +1,6 @@
 #!usr/bin/python
 # -*- coding: utf-8 -*-
-from app.model.models import Document
+from ..model.models import Document
 from app import db
 #type=0 代表常用下载 type=1 代表新闻公告
 

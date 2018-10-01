@@ -1,0 +1,148 @@
+{% extends 'back01/base.html' %}
+
+{% block static_files %}
+
+
+{% endblock %}
+
+{% block body_part %}
+
+<section id="main-content">
+    <section class="wrapper">
+        <div class="row">
+            <div class="col-lg-12">
+                <h3 class="page-header"><i class="fa fa-files-o"></i>修改文章</h3>
+                <ol class="breadcrumb">
+                    <li><i class="fa fa-home"></i><a href="index.html">主页</a></li>
+                    <li><i class="icon_document_alt"></i>文章管理</li>
+                    <li><i class="fa fa-files-o"></i>修改文章</li>
+                </ol>
+            </div>
+        </div>
+        <!-- Form validations -->
+        <div class="row" id="article_id" article_id="{{article.article_id}}">
+            <div class="col-lg-12">
+                <section class="panel">
+                    <header class="panel-heading">
+                        添加项目
+                    </header>
+                    <div class="panel-body">
+                        <div class="form article">
+                            <form class="form-horizontal" onsubmit="return false" action="##" method="post">
+                                <div class="form-group ">
+                                    <label for="title" class="control-label col-lg-2">标题<span
+                                            class="required">*</span></label>
+                                    <div class="col-lg-10">
+                                        <input class="form-control title" id="title" name="title"
+                                               type="text" value="{{article.title}}" required />
+                                    </div>
+                                </div>
+
+                                <div class="form-group ">
+                                    <label for="subtitle" class="control-label col-lg-2">副标题<span
+                                            class="required">*</span></label>
+                                    <div class="col-lg-10">
+                                        <input class="form-control subtitle" id="subtitle" name="subtitle"
+                                               type="text" value="{{article.sub_title}}" required/>
+                                    </div>
+                                </div>
+
+                                <div class="form-group ">
+                                    <label for="brief" class="control-label col-lg-2">摘要<span
+                                            class="required">*</span></label>
+                                    <div class="col-lg-10">
+                                        <textarea class="form-control ckeditor brief" name="brief" rows="6"
+                                                  id="brief" value="{{article.brief}}"></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="form-group ">
+                                    <label class="control-label col-lg-2">关键字<span
+                                            class="required">*</span></label>
+                                    <div class="col-lg-4 kw">
+                                        <input class="form-control keyword" name="keyword"
+                                               type="text" value="{{article.content}}"required/>
+                                    </div>
+                                    <div class="col-lg-1 addkeyword">
+                                        <button id="addkeyword" class="btn btn-primary" onclick="MAIN.addkeyword()">添加
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="form-group ">
+                                    <label for="content" class="control-label col-lg-2">编辑内容<span
+                                            class="required">*</span></label>
+                                    <div class="col-lg-10">
+                                        <textarea class="form-control ckeditor content" name="editor1" rows="6"
+                                                  id="content" value="{{article.content}}" ></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="InputFile" class="control-label col-lg-2">上传附件</label>
+                                    <input type="file" id="InputFile">
+                                    <p class="help-block">上传附件</p>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-lg-offset-2 col-lg-8">
+                                        <button class="btn btn-primary" onclick="MAIN.onSave(0)">保存</button>
+                                        <button class="btn btn-default" type="button">取消</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </section>
+            </div>
+        </div>
+    </section>
+</section>
+
+<script>
+
+    var MAIN = {};
+
+    MAIN.init = function () {
+
+    }
+
+    MAIN.addkeyword = function () {
+        var kw = $(".kw:first")
+        $(".addkeyword").before(kw.clone())
+    }
+
+    MAIN.onSave = function (type) {
+        var req = {};
+        req.title = $('.title').val().trim();
+        req.subtitle = $('.subtitle').val().trim();
+        req.brief = $('.brief').val().trim();
+        req.keyword = $('.keyword').val().trim();
+        req.content = $('.content').val().trim();
+        req.is_add = 1;
+        req.article_id = $('#article_id').attr('article_id')
+        Af.rest("/back01/saveArticle",req,function (data) {
+            alert(data);
+            $("input").value("");
+        })
+    }
+
+
+//    $(document).ready(function () {
+//        MAIN.init();
+//    });
+
+
+    //    $(function () {
+    //        $('#datetimepicker').datetimepicker({
+    //            format: 'YYYY-MM-DD',
+    //            locale: moment.locale('zh-cn')
+    //        });
+    //    });
+
+
+</script>
+
+
+{% endblock %}
