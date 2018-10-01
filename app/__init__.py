@@ -46,5 +46,9 @@ app.register_blueprint(tmp03_blueprint)
 from app.view.back01 import back01 as back01_blueprint
 app.register_blueprint(back01_blueprint)
 
+#api接口
+
+from app.view.api import api
+app.register_blueprint(api)
 
 

@@ -10,7 +10,7 @@
     <meta name="keyword" content="Cremal">
     <link rel="shortcut icon" href="img/favicon.png">
 
-    <title>Creative - Bootstrap Admin Template</title>
+    <title>管理界面</title>
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/bootstrap.css')}}">
@@ -40,12 +40,7 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='back01/css/style-responsive.css')}}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/xcharts.min.css')}}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/jquery-ui-1.10.4.min.css')}}">
-    <!-- =======================================================
-      Theme Name: NiceAdmin
-      Theme URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
-      Author: BootstrapMade
-      Author URL: https://bootstrapmade.com
-    ======================================================= -->
+
 </head>
 
 <body>
@@ -55,23 +50,22 @@
 
     <header class="header dark-bg">
         <div class="toggle-nav">
-            <div class="icon-reorder tooltips" data-original-title="Toggle Navigation" data-placement="bottom"><i
-                    class="icon_menu"></i></div>
+            <div class="icon-reorder tooltips" data-original-title="Toggle Navigation" data-placement="bottom"></div>
         </div>
 
         <!--logo start-->
-        <a href="index.html" class="logo">Nice <span class="lite">Admin</span></a>
+        <a href="/back01/articleList" class="logo">管理<span class="lite">界面</span></a>
         <!--logo end-->
 
         <div class="nav search-row" id="top_menu">
             <!--  search form start -->
-            <ul class="nav top-menu">
-                <li>
-                    <form class="navbar-form">
-                        <input class="form-control" placeholder="Search" type="text">
-                    </form>
-                </li>
-            </ul>
+            <!--<ul class="nav top-menu">-->
+                <!--<li>-->
+                    <!--<form class="navbar-form">-->
+                        <!--<input class="form-control" placeholder="Search" type="text">-->
+                    <!--</form>-->
+                <!--</li>-->
+            <!--</ul>-->
             <!--  search form end -->
         </div>
 
@@ -183,7 +177,7 @@
 {#                        <li>#}
 {#                            <a href="#">#}
 {#                                <span class="photo"><img alt="avatar"#}
-{#                                                         src="{{ url_for('static',filename='back01/img/avatar-mini1.jpg')}}"></span>#}
+{#                                                         src="{{ url_for('static',filename='img/avatar-mini1.jpg')}}"></span>#}
 {#                                <span class="subject">#}
 {#                                    <span class="from">Greg  Martin</span>#}
 {#                                    <span class="time">1 min</span>#}
@@ -196,7 +190,7 @@
 {#                        <li>#}
 {#                            <a href="#">#}
 {#                                <span class="photo"><img alt="avatar"#}
-{#                                                         src="{{ url_for('static',filename='back01/img/avatar-mini2.jpg')}}"></span>#}
+{#                                                         src="{{ url_for('static',filename='img/avatar-mini2.jpg')}}"></span>#}
 {#                                <span class="subject">#}
 {#                                    <span class="from">Bob   Mckenzie</span>#}
 {#                                    <span class="time">5 mins</span>#}
@@ -209,7 +203,7 @@
 {#                        <li>#}
 {#                            <a href="#">#}
 {#                                <span class="photo"><img alt="avatar"#}
-{#                                                         src="{{ url_for('static',filename='back01/img/avatar-mini3.jpg')}}"></span>#}
+{#                                                         src="{{ url_for('static',filename='img/avatar-mini3.jpg')}}"></span>#}
 {#                                <span class="subject">#}
 {#                                    <span class="from">Phillip   Park</span>#}
 {#                                    <span class="time">2 hrs</span>#}
@@ -222,7 +216,7 @@
 {#                        <li>#}
 {#                            <a href="#">#}
 {#                                <span class="photo"><img alt="avatar"#}
-{#                                                         src="{{ url_for('static',filename='back01/img/avatar-mini4.jpg')}}"></span>#}
+{#                                                         src="{{ url_for('static',filename='img/avatar-mini4.jpg')}}"></span>#}
 {#                                <span class="subject">#}
 {#                                    <span class="from">Ray   Munoz</span>#}
 {#                                    <span class="time">1 day</span>#}
@@ -330,12 +324,6 @@
         <div id="sidebar" class="nav-collapse ">
             <!-- sidebar menu start-->
             <ul class="sidebar-menu">
-                <li class="active">
-                    <a class="" href="index.html">
-                        <i class="icon_house_alt"></i>
-                        <span>首页</span>
-                    </a>
-                </li>
                 <li class="sub-menu">
                     <a href="javascript:;" class="">
                         <i class="icon_document_alt"></i>
@@ -392,22 +380,6 @@
                         <li><a class="" href="buttons.html">编辑</a></li>
                     </ul>
                 </li>
-
-                <li class="sub-menu">
-                    <a href="javascript:;" class="">
-                        <i class="icon_documents_alt"></i>
-                        <span>Pages</span>
-                        <span class="menu-arrow arrow_carrot-right"></span>
-                    </a>
-                    <ul class="sub">
-                        <li><a class="" href="profile.html">Profile</a></li>
-                        <li><a class="" href="login.html"><span>Login Page</span></a></li>
-                        <li><a class="" href="contact.html"><span>Contact Page</span></a></li>
-                        <li><a class="" href="blank.html">Blank Page</a></li>
-                        <li><a class="" href="404.html">404 Error</a></li>
-                    </ul>
-                </li>
-
             </ul>
             <!-- sidebar menu end-->
         </div>
