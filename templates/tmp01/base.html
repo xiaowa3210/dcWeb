@@ -10,21 +10,13 @@
   <meta name="author" content="">
   <!-- styles -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:400italic,400,600,700" rel="stylesheet">
-  <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/bootstrap2.2.2.css')}}">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/bootstrap2/bootstrap2.2.2.css')}}">
   <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='tmp01/css/bootstrap-responsive.css')}}">
-  <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='tmp01/css/docs.css')}}">
-  <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='tmp01/css/prettyPhoto.css')}}">
-  <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='js/google-code-prettify/prettify.css')}}">
-  <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='tmp01/css/flexslider.css')}}">
-  <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='tmp01/css/sequence.css')}}">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='tmp03/css/camera.css')}}">
   <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='tmp01/css/style.css')}}">
   <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='tmp01/color/default.css')}}">
-<!--自定义的css文件-->
   <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='tmp01/css/base.css')}}">
 
-  <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='tmp03/css/camera.css')}}">
-
-  <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='tmp03/color/success.css')}}">
   {% block static_files %}{% endblock %}
 
 
@@ -108,33 +100,43 @@
 
   <!-- Footer
  ================================================== -->
+  <div class="clear" style="clear: both;"></div>
+  <footer class="footer">
+      <div class="container">
+        <div class="row">
+          <div class="span6">
+            <p>&copy; 北京邮电大学</p>
+          </div>
+          <div class="span6">
+            <div class="pull-right">
+              <div class="credits">
+                <!--
+                  All the links in the footer should remain intact.
+                  You can delete the links only if you purchased the pro version.
+                  Licensing information: https://bootstrapmade.com/license/
+                  Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=Scaffold
+                -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  </footer>
 
 </body>
 
 
   <!-- JavaScript Library Files -->
-  <script src="static/js/jquery-2.1.0.min.js"></script>
-  <script src="static/js/jquery.easing.js"></script>
-  <script src="static/js/google-code-prettify/prettify.js"></script>
-  <script src="static/js/modernizr.js"></script>
-  <script src="static/js/bootstrap.js"></script>
-  <script src="static/js/jquery.elastislide.js"></script>
-  <script src="static/js/sequence/sequence.jquery-min.js"></script>
-  <script src="static/js/sequence/setting.js"></script>
-  <script src="static/js/jquery.prettyPhoto.js"></script>
-  <script src="static/js/application.js"></script>
-  <script src="static/js/jquery.flexslider.js"></script>
-  <script src="static/js/hover/jquery-hover-effect.js"></script>
-  <script src="static/js/hover/setting.js"></script>
-  <script src="static/js/base.js"></script>
-
-  <!-- Template Custom JavaScript File -->
-  <script src="static/js/custom.js"></script>
-<!-- Template Custom JavaScript File -->
-
-  <script src="static/js/camera/camera.min.js"></script>
-  <script src="static/js/camera/setting.js"></script>
-
+  <script src="/static/js/jquery-1.8.2.min.js"></script>
+  <script src="/static/js/bootstrap2/bootstrap2.3.0.js"></script>
+  <script src="/static/js/jquery.prettyPhoto.js"></script>
+  <script src="/static/js/hover/jquery-hover-effect.js"></script>
+  <script src="/static/js/hover/setting.js"></script>
+  <script src="/static/js/application.js"></script>
+  <script src="/static/js/camera/camera.min.js"></script>
+  <script src="/static/js/camera/setting.js"></script>
+  <script src="/static/js/base.js"></script>
+  <script src="/static/js/custom.js"></script>
   <!-- Template Custom JavaScript File -->
 
 </html>

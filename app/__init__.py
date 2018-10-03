@@ -34,21 +34,17 @@ from app.view.auth import auth as auth_blueprint
 app.register_blueprint(auth_blueprint)
 from app.view.tmp01 import tmp01 as tmp01_blueprint
 app.register_blueprint(tmp01_blueprint)
-from app.view.tmp05 import tmp05 as tmp05_blueprint
-app.register_blueprint(tmp05_blueprint)
-from app.ueditor import bp as bp_blueprint
-app.register_blueprint(bp_blueprint)
-
-
 from app.view.tmp03 import tmp03 as tmp03_blueprint
 app.register_blueprint(tmp03_blueprint)
+from app.view.tmp05 import tmp05 as tmp05_blueprint
+app.register_blueprint(tmp05_blueprint)
 
-from app.view.back01 import back01 as back01_blueprint
-app.register_blueprint(back01_blueprint)
-
-#api接口
-
-from app.view.api import api
+'''ueditor配置接口'''
+#from app.ueditor import bp as bp_blueprint
+#app.register_blueprint(bp_blueprint)
+from app.view.ueditor import ueditor#editor后台配置接口，用于获取配置
+app.register_blueprint(ueditor)
+from app.view.back01 import back01#back01注册蓝图
+app.register_blueprint(back01)
+from app.view.api import api#api接口
 app.register_blueprint(api)
-
-

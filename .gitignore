@@ -1,5 +1,5 @@
 /venv/
-/uploads/
+/static/files/
 /.idea/
 __pycache__/
 *.pyc

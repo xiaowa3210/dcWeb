@@ -13,7 +13,7 @@ from werkzeug.utils import secure_filename, redirect
 from app.view.admin.forms import AddAdminForm, AddProjectForm
 
 import json
-
+from app.utils.fileUploadUtils import ftp_upload
 from flask import render_template, request
 
 from app.model.models import Laboratory
