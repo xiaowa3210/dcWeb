@@ -1,39 +1,45 @@
-----
-项目文件结构介绍-20180930增加
+--------
+## 项目文件结构介绍-20180930增加
 
 
 app
+
 -model
 数据库相关代码
+
 -service
 业务层代码
+
 -utils
 工具类
+
 -view
 视图控制层
 
-doc
+-doc
 相关文档和配置，
 
-files
+-files
 所有数据库关联的文件上传到这里
 
-migrations
+-migrations
 数据库工具
 Generic single-database configuration.
 
-static
+-static
 静态文件
 
-templates
+-templates
 html模板文件夹
 
 
 ----
-该版本在dcWeb_1_0的基础上，将项目目录更改为flask标准目录。
+## 该版本
+在dcWeb_1_0的基础上，将项目目录更改为flask标准目录。
 
 dcWeb_2_0:
 app —— flask程序保存在此文件夹下
+
      --static —— 存放公共css\js\images等静态文件
      --templates ——存放html\Jinja2模板
      --__init__.py

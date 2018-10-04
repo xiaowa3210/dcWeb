@@ -40,6 +40,9 @@ def news(page):
     pagination,documents = getDocumentByPage(page,per_page,1)
     return render_template('tmp05/news.html', pagination=pagination, documents=documents)
 
+@tmp05.route('/tmp05/newsapi')
+def newsapi(): return render_template('tmp05/newsAPI.html')
+
 @tmp05.route('/tmp05/newsDetail/<news_id>')
 def news_detail(news_id):
     news_obj = getDoucumentByID(news_id)

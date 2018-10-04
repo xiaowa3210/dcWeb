@@ -1,0 +1,73 @@
+{% extends 'tmp05/base.html' %}{% block page_name %}新闻公告{% endblock %}{% block static_files %}{% endblock %}
+{% block body_part%}
+<div class="container" style="margin-top: 15px">
+    <div class="row">
+        <div class="col-md-12 col-sm-12">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>标题</th>
+                    <th style="text-align: center">发布时间</th>
+                </tr>
+                </thead>
+                <tbody id="newsRows">
+                    <tr>
+                        <td width="82%"><a href="}">ddd</a></td>
+                        <td width="18%" style="text-align: center;">ddd}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-12 col-sm-12">
+                <div class="blog-bottom" style="margin-top: auto">
+                    <ul>
+                        <li><a href="}" class="active">PREV</a>
+                        </li>
+                     </ul>
+                </div>
+            </div>
+    </div>
+</div>
+<script>
+    var htmlArr = new Array();
+    var rowNum = 10;
+    function dd(){
+        $.ajax({
+            url:"/api/doc",
+            type:'POST',
+            dataType: "json",
+            data:{
+                "rows":rowNum,
+                "pageNum":"1",
+                "type":"1"
+            },
+            success:function(data){
+                if(data.message == 'success'){
+                    console.log(data.data);console.log(data.data.length);
+                    for(var i = 0;i<rowNum;i++){
+                        row = data.data[i];
+                        console.log(row)
+                        htmlArr[i] = [];
+                        htmlArr[i].push('<tr>' +
+                            '<td width="82%"><a href="}">'+
+                            row.title+
+                            '</a></td>' +
+                            '<td width="18%" style="text-align: center;">ddd</td>' +
+                            '</tr>');
+                    }
+                    console.log(htmlArr)
+                    $("#newsRows").html = "";
+                    $("#newsRows").append(htmlArr.join(''))
+
+                }else{
+                    $("#newsRows").append('错误')
+                }
+            }
+        })
+    }
+
+    dd();
+
+
+</script>
+{% endblock%}
