@@ -33,8 +33,22 @@ from app.view.back01 import back01
 from datetime import datetime
 
 from flask import Blueprint
-
+from app.utils.utils import object2json
 api = Blueprint('api', __name__, template_folder='../../../templates')
+
+'''获取新闻文档的接口，传递参数:article id'''
+@api.route('/api/getArticleById', methods=['POST','GET'])
+def articleByKey():
+    if(request.json == None):        json_data = request.form
+    else:        json_data = json.loads(json.dumps(request.json))#解析前端传过来的json数据
+    articleId = str(json_data['articleId'])
+    article = getArticleByID(articleId)
+    if(article == [] or article == None):
+        return {'message': 'fail'}#为空返回fail
+    '''python居然没有一个对象转json的可用方法！！！还得自己现编一个！！！'''
+    objson = object2json(article)
+    print(objson)
+    return jsonify({'message':'success','data': objson})
 
 @api.route('/api/lab', methods=['POST','GET'])
 def lab():
@@ -54,7 +68,7 @@ def lab():
     return jsonify({'id':id, 'title':title})
 
 '''
-获取新闻文档的接口
+旧版，获取新闻文档的接口
 传递参数:时间，条数，页数
 全部为int类型
 '''

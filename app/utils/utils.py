@@ -118,3 +118,9 @@ def flash_errors(form):
                 getattr(form, field).label.text,
                 error
             ))
+
+#对象转json
+def object2json(obj):
+    objson = {}
+    for k,v in obj.__dict__.items(): objson[k] = str(v)
+    return objson
