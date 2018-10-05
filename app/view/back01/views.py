@@ -27,10 +27,6 @@ from app.view.MessageInfo import MessageInfo
 from app.view.back01 import back01
 from datetime import datetime
 
-@back01.route('/back01/addlab')
-@login_required
-def addlab():
-    return render_template('back01/addlab.html')
 
 global a
 a=""
@@ -327,29 +323,67 @@ def addproject():
     return render_template('back01/addproject.html', form=form, users=teammates)
 
 
-#保存实验室
-@back01.route('/back01/addLab', methods=['POST'])
-def addLab():
-
-    #解析前端传过来的json数据s
-    data = json.loads(request.get_data("utf-8"))
-    title = data['title']
-    brief = data['brief']
-
-    lab = Laboratory(name=title,introduction=brief)
-
-    db.session.add(lab)
-    db.session.commit()
-
-    return json.dumps(MessageInfo.success(data='添加成功').__dict__)
 @back01.route('/back01/updateArticle/<string:article_id>', methods=['GET'])
 def updateArticle(article_id):
     article = getArticleByID(article_id)
     return render_template('back01/article_update.html',article=article)
 
 
-@back01.route('/back01/lab', methods=['POST','GET'])
-def Lab():
-    return render_template('back01/lab.html')
+@back01.route('/back01/lab')
+def lab():
+    labs = Laboratory.query.order_by(Document.created_time.desc()).all()
+    return render_template('back01/lab.html', labs=labs)
+
+@back01.route('/back01/lab/create')
+def lab_create():
+    return render_template('back01/lab_create.html')
+
+@back01.route('/api/lab/create',methods=['GET','POST'])
+def api_create():
+    data = json.loads(request.get_data("utf-8"))
+    name = data['name']
+    intros = data['intros']
+
+    lab = Laboratory(name=name, introduction=intros)
+    db.session.add(lab)
+    db.session.commit()
+
+    return jsonify({"info": "添加成功"})
+
+@back01.route('/back01/lab/<lab_id>')
+def lab_detail(lab_id):
+    lab = db.session.query(Laboratory).filter(Laboratory.id == lab_id).one()
+    return render_template('back01/lab_detail.html', lab=lab)
+
+@back01.route('/back01/update/<lab_id>')
+def lab_update(lab_id):
+    lab = db.session.query(Laboratory).filter(Laboratory.id == lab_id).one()
+    return render_template('back01/lab_update.html',lab=lab)
+
+@back01.route('/api/lab/update', methods=['POST'])
+def api_update():
+    data = json.loads(request.get_data("utf-8"))
+    id = data['id']
+    name = data['name']
+    intros = data['intros']
+
+    lab = db.session.query(Laboratory).filter(Laboratory.id == id).one()
+    Laboratory.name = name
+    Laboratory.introduction = intros
+    db.session.add(lab)
+    db.session.commit()
+
+    return jsonify({"info": "修改成功"})
+
+@back01.route('/api/lab/delete',methods=['POST'])
+def api_delete():
+    data = json.loads(request.get_data("utf-8"))
+    id = data['id']
+    lab = db.session.query(Laboratory).filter(Laboratory.id == id).one()
+    db.session.delete(lab)
+    db.session.commit()
+
+    return jsonify({"info": "删除成功"})
+
 
 
