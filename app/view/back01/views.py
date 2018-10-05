@@ -331,7 +331,7 @@ def updateArticle(article_id):
 
 @back01.route('/back01/lab')
 def lab():
-    labs = Laboratory.query.order_by(Document.created_time.desc()).all()
+    labs = Laboratory.query.order_by(Laboratory.create_time.desc()).all()
     return render_template('back01/lab.html', labs=labs)
 
 @back01.route('/back01/lab/create')
