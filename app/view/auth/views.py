@@ -37,7 +37,7 @@ def login():
                 print("1111")
                 login_user(user, form.rememberme.data)
                 # flash("登录成功")
-                return redirect(request.args.get('next') or url_for('back01.Lab'))
+                return redirect(request.args.get('next') or url_for('back01.lab'))
             else:
                 print("2222")
                 flash('用户名或密码错误')
