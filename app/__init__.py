@@ -45,6 +45,6 @@ app.register_blueprint(tmp05_blueprint)
 from app.view.ueditor import ueditor#editor后台配置接口，用于获取配置
 app.register_blueprint(ueditor)
 from app.view.back01 import back01#back01注册蓝图
-app.register_blueprint(back01)
-from app.view.api import api#api接口
-app.register_blueprint(api)
+app.register_blueprint(back01, url_prefix='/back01')
+from app.view.API import api#api接口
+app.register_blueprint(api, url_prefix='/api')

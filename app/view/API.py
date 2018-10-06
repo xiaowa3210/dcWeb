@@ -37,7 +37,7 @@ from app.utils.utils import object2json
 api = Blueprint('api', __name__, template_folder='../../../templates')
 
 '''获取新闻文档的接口，传递参数:article id'''
-@api.route('/api/getArticleById', methods=['POST','GET'])
+@api.route('/getArticleById', methods=['POST', 'GET'])
 def articleByKey():
     if(request.json == None):        json_data = request.form
     else:        json_data = json.loads(json.dumps(request.json))#解析前端传过来的json数据
@@ -49,8 +49,11 @@ def articleByKey():
     objson = object2json(article)
     print(objson)
     return jsonify({'message':'success','data': objson})
-
-@api.route('/api/lab', methods=['POST','GET'])
+'''
+查询实验室？
+此条不是alex写的
+'''
+@api.route('/lab', methods=['POST','GET'])
 def lab():
     print(request.json)
 
@@ -68,11 +71,12 @@ def lab():
     return jsonify({'id':id, 'title':title})
 
 '''
-旧版，获取新闻文档的接口
+此条已废弃
+获取新闻文档的接口
 传递参数:时间，条数，页数
 全部为int类型
 '''
-@api.route('/api/doc', methods=['POST','GET'])
+@api.route('/doc', methods=['POST','GET'])
 def doc():
     print(request.json)
     if(request.json == None):
@@ -95,4 +99,5 @@ def doc():
         i += 1
 
     return json.dumps({'message':'success','data': docs})
+
 

@@ -5,7 +5,6 @@ import time
 
 import os
 from os import path
-
 from flask import render_template, flash, request, url_for, jsonify
 from flask_login import current_user, login_required
 from werkzeug.utils import secure_filename, redirect
@@ -24,30 +23,34 @@ from app.utils.timeutils import *
 from app.view.MessageInfo import MessageInfo
 from app.view.back01 import back01
 from datetime import datetime
+from flask import Blueprint, redirect
 
-@back01.route('/back01/doucment', methods=['GET'])
+@back01.route('/article', methods=['GET'])
+@login_required
+def articleAdd():
+    return render_template('back01/article/article_add.html')
+
+
+@back01.route('/doucment01', methods=['GET'])
 @login_required
 def doucmentEdit():
-    return render_template('back01/doc/document_add.html')
+    return render_template('back01/form_component.html')
 
-
-@back01.route('/back01/doucment01', methods=['GET'])
+@back01.route('/doucment', methods=['GET'])
 @login_required
 def doucmentEdit01():
     return render_template('back01/form_component.html')
 
 
 #文章列表
-@back01.route('/back01/articleList', methods=['GET'],defaults={'page':1})
-@back01.route('/back01/articleList/<int:page>',methods=['GET'])
+@back01.route('/articleList', methods=['GET'],defaults={'page':1})
+@back01.route('/articleList/<int:page>',methods=['GET'])
 def articleList(page):
     articles,pagination = getArticlesByPage(page,10)
     return render_template('back01/article_list.html',articles=articles,pagination=pagination)
 
-
-
 #保存文章
-@back01.route('/back01/saveArticle', methods=['POST'])
+@back01.route('/saveArticle', methods=['POST'])
 def saveArticle():
 
     #解析前端传过来的json数据
@@ -105,7 +108,7 @@ def saveArticle():
 
 
 
-@back01.route('/back01/deleteArticle', methods=['GET'])
+@back01.route('/deleteArticle', methods=['GET'])
 def deleteArticleById():
     article_id = request.values.get("articleId")
     if deleteArticleByID(article_id):

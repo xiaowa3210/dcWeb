@@ -2,8 +2,6 @@
 # _*_ coding: utf-8 _*_
 import ftplib # FTP操作
 
-FTP_SERVER_PATH = '/pub/' #服务器files文件夹
-GFILE_URL = 'http://dc.blfly.com/files/' #返回的文件最终url
 
 host = '47.107.103.134' #ftp 地址用户名密码
 username = 'ftpu'
@@ -15,6 +13,7 @@ f.login(username, password)  # 登录
 f.set_pasv(0)
 
 '''
+从服务器路径上传到ftp
 local_path 文件本地路径 d:/files
 file_name 文件名 例如 1.jpg
 remote_pre_url 上传成功后拼接url的前缀 如 http://dc.blfly.com/files
@@ -24,12 +23,12 @@ def ftp_upload( local_path, file_name, remote_pre_url, ftp_mid):
     try:
         f.cwd(ftp_mid)  # 改变路径
     except:
-        f.mkd(ftp_mid)
+        f.mkd(ftp_mid)# 如果没有此路径则创建路径
     finally:
-        f.cwd(ftp_mid)  # 改变路径
+        f.cwd(ftp_mid)  # 再改变路径
 
     print("FTP当前路径:", f.pwd())
-    print(f.nlst())
+    print(f.nlst())#列出当前路径下所有文件
     file_url = ''
     try:
         bufsize = 1024  # 设置缓冲器大小
