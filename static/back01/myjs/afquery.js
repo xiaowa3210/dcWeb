@@ -107,7 +107,7 @@ Af.jsonp = function(URI, req, resultHanlder)
 	jQuery.ajax({				
 			url: URI,	
 			method: "GET", // get方式
-			dataType: "jsonp", // 1: jsonp 
+			dataType: "json", // 1: jsonp
 			//jsonpCallback: "callback",
 			data: req, // 参数
 			success: resultHanlder

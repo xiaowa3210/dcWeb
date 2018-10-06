@@ -59,7 +59,6 @@
                                 <div class="form-group ">
                                     <label class="control-label col-lg-2">关键字<span
                                             class="required">*</span></label>
-
                                     <div class="col-lg-10">
                                         <div class="col-lg-2 kw">
                                             <input class="form-control keyword" name="keyword" style="margin-bottom: 10px"
@@ -148,8 +147,7 @@
             kws += kw + "||"
 
         });
-        form.append("kws",kws)
-
+        form.append("kws",kws.substr(0,kws.length-2))
         $.ajax({
                 url:"/back01/saveArticle",
                 type:"post",

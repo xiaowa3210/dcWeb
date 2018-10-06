@@ -1,6 +1,5 @@
-
+from ..models import Document
 from app import db
-from app.model.models import Document
 
 
 def getDoucumentByID(did):

@@ -270,7 +270,7 @@ class Files(db.Model):
     #外网url
     url = db.Column(db.String(256), nullable=True)
 
-    #本地相对路径
+    #本地绝对路径
     local_path = db.Column(db.String(256), nullable=True)
 
     #本地文件名

@@ -101,8 +101,8 @@
         req.articleId = trow.attr('articleId')
         Af.jsonp("/back01/deleteArticle",req,
             function (data) {
-            $(e).parents('tr:first').remove();
             alert(data)
+            $(e).parents('tr:first').remove();
         })
     }
 </script>

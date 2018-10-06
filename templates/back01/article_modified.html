@@ -51,21 +51,27 @@
                                     <label for="brief" class="control-label col-lg-2">摘要<span
                                             class="required">*</span></label>
                                     <div class="col-lg-10">
-                                        <textarea class="form-control ckeditor brief" name="brief"
-                                                  id="brief" value="{{article.brief}}"></textarea>
+                                        <textarea class="form-control ckeditor brief" name="brief" rows="6"
+                                                  id="brief" required>{{article.brief}}</textarea>
                                     </div>
                                 </div>
 
                                 <div class="form-group ">
                                     <label class="control-label col-lg-2">关键字<span
                                             class="required">*</span></label>
-                                    <div class="col-lg-4 kw">
-                                        <input class="form-control keyword" name="keyword"
-                                               type="text" value="{{article.key_words}}"required/>
-                                    </div>
-                                    <div class="col-lg-1 addkeyword">
-                                        <button id="addkeyword" class="btn btn-primary" onclick="MAIN.addkeyword()">添加
-                                        </button>
+
+                                    <div class="col-lg-10">
+                                        {% for kw in kws %}
+                                            <div class="col-lg-2 kw">
+                                                <input class="form-control keyword" name="keyword" style="margin-bottom: 10px"
+                                                    type="text" value="{{kw}}" required/>
+                                            </div>
+                                        {% endfor %}
+
+                                        <div class="col-lg-1 addkeyword">
+                                            <button id="addkeyword" class="btn btn-primary" onclick="MAIN.addkeyword()">添加
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -74,16 +80,24 @@
                                             class="required">*</span></label>
                                     <div class="col-lg-10">
                                         <textarea class="form-control ckeditor content" name="editor1" rows="6"
-                                                  id="content" value="{{article.content}}" ></textarea>
+                                                  id="content" required>{{article.content}}</textarea>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="InputFile" class="control-label col-lg-2">上传附件</label>
-                                    <input type="file" id="InputFile">
-                                    <p class="help-block">上传附件</p>
+                                    <label class="control-label col-lg-2">上传附件</label>
+                                    <div class="col-lg-10">
+                                        {% for file in article.files%}
+                                            <div class="col-lg-2" style="margin-bottom: 10px">
+                                                <a file_id="{{file.file_id}}" class="btn btn-danger" onclick="MAIN.deletefile(this)">{{file.local_name}}<i class="icon_close_alt2"></i></a>
+                                            </div>
+                                        {% endfor %}
+                                        <div class="col-lg-9">
+                                            <input type="file" id="InputFile">
+                                            <p class="help-block">上传附件</p>
+                                        </div>
+                                    </div>
                                 </div>
-
                                 <div class="form-group">
                                     <div class="col-lg-offset-2 col-lg-8">
                                         <button class="btn btn-primary" onclick="MAIN.onSave(0)">保存</button>
@@ -125,6 +139,17 @@
         Af.rest("/back01/saveArticle",req,function (data) {
             alert(data);
             $("input").value("");
+        })
+    }
+
+
+    MAIN.deletefile = function (e) {
+        var file_id = $(e).attr('file_id');
+        var req = {};
+        req.file_id = file_id
+        Af.rest("/back01/deleteFile",req,function (data) {
+            $(e).parent('div:first').remove();
+            alert(data)
         })
     }
 

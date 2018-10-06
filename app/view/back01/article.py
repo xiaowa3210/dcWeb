@@ -1,6 +1,7 @@
 #!/usr/bin/env python 
 # _*_ coding: utf-8 _*_
 import datetime
+import string
 import time
 
 import os
@@ -37,7 +38,9 @@ def articleAdd():
 def articleModified():
     article_id = request.values.get("article_id")
     article = getArticleByID(article_id)
-    return render_template('back01/article_modified.html', article=article)
+    kwsStr = str(article.key_words)
+    kws = kwsStr.split("||")
+    return render_template('back01/article_modified.html', article=article,kws=kws)
 
 
 #文章列表
@@ -68,6 +71,7 @@ def saveArticle():
             file.file_id = 'File' + str(current_timestamp_now())
             local_path = path + attachment.filename
             attachment.save(local_path)
+            file.local_name = attachment.filename
             file.local_path = local_path
             file.url = HOST + ""
             files.append(file)
@@ -134,4 +138,15 @@ def deleteArticleById():
         return json.dumps(MessageInfo.success(data='删除成功').__dict__)
     else:
         return json.dumps(MessageInfo.fail(data="删除失败").__dict__)
+
+
+@back01.route('/deleteFile', methods=['GET'])
+def deleteFileById():
+     #解析前端传过来的json数据
+    data = json.loads(request.get_data("utf-8"))
+    file_id = data["file_id"]
+    if deleteFileByID(file_id):
+        return json.dumps(MessageInfo.success(data='附件删除成功').__dict__)
+    else:
+        return json.dumps(MessageInfo.fail(data="附件删除失败").__dict__)
 
