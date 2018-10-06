@@ -28,7 +28,7 @@
                     </header>
                     <div class="panel-body">
                         <div class="form article">
-                            <form class="form-horizontal" onsubmit="return false" action="##" method="post">
+                            <form id="articleform" class="form-horizontal" onsubmit="return false" action="##" method="post">
                                 <div class="form-group ">
                                     <label for="title" class="control-label col-lg-2">标题<span
                                             class="required">*</span></label>
@@ -80,17 +80,17 @@
 
                                 <div class="form-group">
                                     <label for="InputFile" class="control-label col-lg-2">上传附件</label>
-                                    <input type="file" id="InputFile">
+                                    <input type="file" id="InputFile" name="attachment">
                                     <p class="help-block">上传附件</p>
                                 </div>
 
                                 <div class="form-group">
                                     <div class="col-lg-offset-2 col-lg-8">
-                                        <button class="btn btn-primary" onclick="MAIN.onSave(0)">保存</button>
+                                        <button class="btn btn-primary" onclick="MAIN.onSave01(0)">保存</button>
                                         <button class="btn btn-default" type="button">取消</button>
                                     </div>
                                     <div class="col-lg-2">
-                                        <button class="btn btn-primary" onclick="MAIN.onSave(1)">保存并发布</button>
+                                        <button class="btn btn-primary" onclick="MAIN.onSave01(1)">保存并发布</button>
                                     </div>
                                 </div>
                             </form>
@@ -129,6 +129,26 @@
             alert(data);
             $("input").value("");
         })
+    }
+
+
+    MAIN.onSave01 = function (type) {
+        var form = new FormData(document.getElementById("articleform"));
+        form.append("is_add",0);
+        form.append("type",type);
+        $.ajax({
+                url:"/back01/saveArticle",
+                type:"post",
+                data:form,
+                processData:false,
+                contentType:false,
+                success:function(data){
+                    alert("success")
+                },
+                error:function(e){
+                    alert("fail");
+                }
+            });
     }
 
 

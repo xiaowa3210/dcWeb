@@ -243,6 +243,9 @@ class Article(db.Model):
     #真实发布时间
     true_publish_time = db.Column(db.DateTime, nullable=True)
 
+
+    files = db.relationship('Files', back_populates='article')
+
 #附件类
 class Files(db.Model):
     __tablename__ = 't_files'
@@ -253,8 +256,10 @@ class Files(db.Model):
     #'稿件id
     article_id = db.Column(db.String(30), ForeignKey('t_article.article_id'))
 
+    article = db.relationship('Article', back_populates='files')
+
     #类型
-    type  = db.Column(db.DECIMAL(2,0), nullable=False)
+    type  = db.Column(db.DECIMAL(2,0), nullable=True)
 
     #图片附属信息
     img_info = db.Column(db.String(256), nullable=True)
