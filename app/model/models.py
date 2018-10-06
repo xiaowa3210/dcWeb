@@ -251,7 +251,7 @@ class Files(db.Model):
     __tablename__ = 't_files'
 
     #稿件附件id
-    file_id = db.Column(db.String(30), primary_key=True)
+    file_id = db.Column(db.String(32), primary_key=True)
 
     #'稿件id
     article_id = db.Column(db.String(30), ForeignKey('t_article.article_id'))

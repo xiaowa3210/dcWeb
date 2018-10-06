@@ -12,6 +12,7 @@ def addFile(file):
         db.session.add(file)
         db.session.commit()
     except:
+        traceback.print_exc()
         return False
     return True
 
@@ -29,4 +30,3 @@ def deleteFileByID(file_id):
     except Exception as e:
         return False
     return True
-

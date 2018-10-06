@@ -28,7 +28,7 @@
                     </header>
                     <div class="panel-body">
                         <div class="form article">
-                            <form class="form-horizontal" onsubmit="return false" action="##" method="post">
+                            <form id="articleform" class="form-horizontal" onsubmit="return false" action="##" method="post">
                                 <div class="form-group ">
                                     <label for="title" class="control-label col-lg-2">标题<span
                                             class="required">*</span></label>
@@ -92,8 +92,8 @@
                                                 <a file_id="{{file.file_id}}" class="btn btn-danger" onclick="MAIN.deletefile(this)">{{file.local_name}}<i class="icon_close_alt2"></i></a>
                                             </div>
                                         {% endfor %}
-                                        <div class="col-lg-9">
-                                            <input type="file" id="InputFile">
+                                        <div class="col-lg-12">
+                                            <input type="file" id="InputFile" multiple="multiple" name="attachment" >
                                             <p class="help-block">上传附件</p>
                                         </div>
                                     </div>
@@ -128,18 +128,31 @@
     }
 
     MAIN.onSave = function (type) {
-        var req = {};
-        req.title = $('.title').val().trim();
-        req.subtitle = $('.subtitle').val().trim();
-        req.brief = $('.brief').val().trim();
-        req.keyword = $('.keyword').val().trim();
-        req.content = $('.content').val().trim();
-        req.is_add = 1;
-        req.article_id = $('#article_id').attr('article_id')
-        Af.rest("/back01/saveArticle",req,function (data) {
-            alert(data);
-            $("input").value("");
-        })
+        var form = new FormData(document.getElementById("articleform"));
+        form.append("is_add",1);
+        form.append("type",type);
+        form.append("article_id",$("#article_id").attr("article_id"));
+        var kws = "";
+        $(".keyword").each(function () {
+            var kw = $(this).val().trim();
+            kws += kw + "||"
+
+        });
+        form.append("kws",kws.substr(0,kws.length-2))
+        $.ajax({
+                url:"/back01/saveArticle",
+                type:"post",
+                data:form,
+                processData:false,
+                contentType:false,
+                success:function(data){
+                    alert("success")
+                    window.location.reload()
+                },
+                error:function(e){
+                    alert("fail");
+                }
+            });
     }
 
 

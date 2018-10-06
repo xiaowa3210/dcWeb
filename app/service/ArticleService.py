@@ -2,8 +2,10 @@ import traceback
 from datetime import datetime
 from  app.model.models import db
 
+
 #添加文章
 from app.model.models import Article
+
 
 def getArticleByID(article_id):
     return db.session.query(Article).filter(Article.article_id == article_id).one()
@@ -13,6 +15,7 @@ def addArticle(article):
         db.session.add(article)
         db.session.commit()
      except:
+         traceback.print_exc()
          return False
      return True
 def getArticlesByPage(page_index,per_page):
@@ -38,26 +41,29 @@ def deleteArticleByID(article_id):
 
 
 #修改文章
-def updateArticleByID(article):
-    update_content = dict()
-    update_content[Article.title] = article.title
-    update_content[Article.sub_title] = article.sub_title
-    update_content[Article.brief] = article.brief
-    update_content[Article.key_words] = article.key_words
-    update_content[Article.content] = article.content
+def updateArticleByID(article,files):
+    newArticle = db.session.query(Article).filter(Article.article_id == article.article_id).one()
 
-    #TODO:这个先随便设置,这个后面要改
-    update_content[Article.last_modified_id] = "43824893274983"
-    update_content[Article.last_modified_time] = datetime.now()
+    if article:
+        try:
+            newArticle.title = article.title
+            newArticle.sub_title = article.sub_title
+            newArticle.brief = article.brief
+            newArticle.key_words = article.key_words
+            newArticle.content = article.content
 
-    try:
-        db.session.query(Article).\
-            filter(Article.article_id == article.article_id).update(update_content)
-        db.session.commit()
-    except Exception as e:
-        traceback.print_exc()
-        return False
-    return True
+            if files:
+                filelist = newArticle.files
+                filelist += files
+            # TODO:这个先随便设置,这个后面要改
+            newArticle.last_modified_id = article.last_modified_id
+            newArticle.last_modified_time = datetime.now()
+            db.session.commit()
+        except Exception as e:
+            traceback.print_exc()
+            return False
+        return True
+    return False
 
 #修改文章
 def updateArticleSelcettive(article_id,update_content):

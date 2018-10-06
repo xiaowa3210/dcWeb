@@ -5,6 +5,8 @@ import string
 import time
 
 import os
+import uuid
+
 from flask_login import login_required
 
 from app.model.config import UEDITOR_UPLOAD_PATH, HOST
@@ -68,8 +70,9 @@ def saveArticle():
             os.mkdir(path)
         for attachment in attachments:
             file = Files()
-            file.file_id = 'File' + str(current_timestamp_now())
-            local_path = path + attachment.filename
+            file.file_id = str(uuid.uuid1()).replace("-","")
+            filename = str(uuid.uuid1()).replace("-","") + attachment.filename
+            local_path = path + filename
             attachment.save(local_path)
             file.local_name = attachment.filename
             file.local_path = local_path
@@ -119,13 +122,13 @@ def saveArticle():
     else:
         # 修改文章
         article = Article()
-        article.article_id = request.form.get['article_id']
+        article.article_id = request.form.get('article_id')
         article.title = title
         article.sub_title = subtitle
         article.brief = brief
         article.key_words = keywords
         article.content = content
-        if updateArticleByID(article):
+        if updateArticleByID(article,files):
             return json.dumps(MessageInfo.success(data='修改成功').__dict__)
         else:
             return json.dumps(MessageInfo.fail(data="修改失败").__dict__)
@@ -140,7 +143,7 @@ def deleteArticleById():
         return json.dumps(MessageInfo.fail(data="删除失败").__dict__)
 
 
-@back01.route('/deleteFile', methods=['GET'])
+@back01.route('/deleteFile', methods=['GET','POST'])
 def deleteFileById():
      #解析前端传过来的json数据
     data = json.loads(request.get_data("utf-8"))
