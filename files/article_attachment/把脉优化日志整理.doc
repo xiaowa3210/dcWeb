@@ -1,0 +1,819 @@
+Message-ID: <973931118.756.1537412694200.JavaMail.confluence@ep-wiki-web01.gz01.diditaxi.com>
+Subject: Exported From Confluence
+MIME-Version: 1.0
+Content-Type: multipart/related; 
+	boundary="----=_Part_755_1668019923.1537412694198"
+
+------=_Part_755_1668019923.1537412694198
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+Content-Location: file:///C:/exported.html
+
+<html xmlns:o=3D'urn:schemas-microsoft-com:office:office'
+      xmlns:w=3D'urn:schemas-microsoft-com:office:word'
+      xmlns:v=3D'urn:schemas-microsoft-com:vml'
+      xmlns=3D'urn:w3-org-ns:HTML'>
+<head>
+    <meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dutf-8=
+">
+    <title>=E6=8A=8A=E8=84=89=E4=BC=98=E5=8C=96=E6=97=A5=E5=BF=97=E6=95=B4=
+=E7=90=86</title>
+    <!--[if gte mso 9]>
+    <xml>
+        <o:OfficeDocumentSettings>
+            <o:TargetScreenSize>1024x640</o:TargetScreenSize>
+            <o:PixelsPerInch>72</o:PixelsPerInch>
+            <o:AllowPNG/>
+        </o:OfficeDocumentSettings>
+        <w:WordDocument>
+            <w:View>Print</w:View>
+            <w:Zoom>90</w:Zoom>
+            <w:DoNotOptimizeForBrowser/>
+        </w:WordDocument>
+    </xml>
+    <![endif]-->
+    <style>
+                <!--
+        @page Section1 {
+            size: 8.5in 11.0in;
+            margin: 1.0in;
+            mso-header-margin: .5in;
+            mso-footer-margin: .5in;
+            mso-paper-source: 0;
+        }
+
+        td {
+            page-break-inside: avoid;
+        }
+
+        tr {
+            page-break-after: avoid;
+        }
+
+        div.Section1 {
+            page: Section1;
+        }
+
+        /* Confluence print stylesheet. Common to all themes for print medi=
+a */
+/* Full of !important until we improve batching for print CSS */
+
+@media print {
+    #main {
+        padding-bottom: 1em !important; /* The default padding of 6em is to=
+o much for printouts */
+    }
+
+    body {
+        font-family: Arial, Helvetica, FreeSans, sans-serif;
+        font-size: 10pt;
+        line-height: 1.2;
+    }
+
+    body, #full-height-container, #main, #page, #content, .has-personal-sid=
+ebar #content {
+        background: #fff !important;
+        color: #000 !important;
+        border: 0 !important;
+        width: 100% !important;
+        height: auto !important;
+        min-height: auto !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        display: block !important;
+    }
+
+    a, a:link, a:visited, a:focus, a:hover, a:active {
+        color: #000;
+    }
+
+    #content h1,
+    #content h2,
+    #content h3,
+    #content h4,
+    #content h5,
+    #content h6 {
+        font-family: Arial, Helvetica, FreeSans, sans-serif;
+        page-break-after: avoid;
+    }
+
+    pre {
+        font-family: Monaco, "Courier New", monospace;
+    }
+
+    #header,
+    .aui-header-inner,
+    #navigation,
+    #sidebar,
+    .sidebar,
+    #personal-info-sidebar,
+    .ia-fixed-sidebar,
+    .page-actions,
+    .navmenu,
+    .ajs-menu-bar,
+    .noprint,
+    .inline-control-link,
+    .inline-control-link a,
+    a.show-labels-editor,
+    .global-comment-actions,
+    .comment-actions,
+    .quick-comment-container,
+    #addcomment {
+        display: none !important;
+    }
+
+    /* CONF-28544 cannot print multiple pages in IE */
+    #splitter-content {
+        position: relative !important;
+    }
+
+    .comment .date::before {
+        content: none !important; /* remove middot for print view */
+    }
+
+    h1.pagetitle img {
+        height: auto;
+        width: auto;
+    }
+
+    .print-only {
+        display: block;
+    }
+
+    #footer {
+        position: relative !important; /* CONF-17506 Place the footer at en=
+d of the content */
+        margin: 0;
+        padding: 0;
+        background: none;
+        clear: both;
+    }
+
+    #poweredby {
+        border-top: none;
+        background: none;
+    }
+
+    #poweredby li.print-only {
+        display: list-item;
+        font-style: italic;
+    }
+
+    #poweredby li.noprint {
+        display: none;
+    }
+
+    /* no width controls in print */
+    .wiki-content .table-wrap,
+    .wiki-content p,
+    .panel .codeContent,
+    .panel .codeContent pre,
+    .image-wrap {
+        overflow: visible !important;
+    }
+
+    /* TODO - should this work? */
+    #children-section,
+    #comments-section .comment,
+    #comments-section .comment .comment-body,
+    #comments-section .comment .comment-content,
+    #comments-section .comment p {
+        page-break-inside: avoid;
+    }
+
+    #page-children a {
+        text-decoration: none;
+    }
+
+    /**
+     hide twixies
+
+     the specificity here is a hack because print styles
+     are getting loaded before the base styles. */
+    #comments-section.pageSection .section-header,
+    #comments-section.pageSection .section-title,
+    #children-section.pageSection .section-header,
+    #children-section.pageSection .section-title,
+    .children-show-hide {
+        padding-left: 0;
+        margin-left: 0;
+    }
+
+    .children-show-hide.icon {
+        display: none;
+    }
+
+    /* personal sidebar */
+    .has-personal-sidebar #content {
+        margin-right: 0px;
+    }
+
+    .has-personal-sidebar #content .pageSection {
+        margin-right: 0px;
+    }
+}
+-->
+    </style>
+</head>
+<body>
+    <h1>=E6=8A=8A=E8=84=89=E4=BC=98=E5=8C=96=E6=97=A5=E5=BF=97=E6=95=B4=E7=
+=90=86</h1>
+    <div class=3D"Section1">
+        <div class=3D"table-wrap">
+<table class=3D"confluenceTable">
+<tbody>
+<tr>
+<th class=3D"confluenceTh">=E6=97=A5=E5=BF=97=E6=8F=8F=E8=BF=B0</th>
+<th colspan=3D"1" class=3D"confluenceTh">=E6=9C=8D=E5=8A=A1</th>
+<th class=3D"confluenceTh">=E6=97=A5=E5=BF=97demo(request_in)</th>
+<th class=3D"confluenceTh">=E6=97=A5=E5=BF=97demo(request_out)</th>
+</tr>
+<tr>
+<td rowspan=3D"5" class=3D"confluenceTd">=E5=88=86=E5=8D=95</td>
+<td colspan=3D"1" class=3D"confluenceTd">d-api</td>
+<td class=3D"confluenceTd">[INFO][2018-09-12T10:43:28.863+0800][line=3D/hom=
+e/xiaoju/webroot/d-api/vendor/soda-framework/php-common/src/Common/Plugin/P=
+luginInit.php:41 class=3D"Common"\Plugin\PluginInit function=3DCommon\Plugi=
+n\PluginInit::_logRequest] _com_request_in||traceid=3D0a567a175b987d5000008=
+4e033083fda||spanid=3D51f3c5586bb369fc||request_id=3Df_5b987d50d286d||hint_=
+code=3D0||uri=3D/iapi/mq/dispatch||url=3D/iapi/mq/dispatch||from=3D10.86.98=
+.23||post=3D{"params":"{&amp;quot;no&amp;quot;:0,&amp;quot;ct&amp;quot;:153=
+6720208860,&amp;quot;data&amp;quot;:{&amp;quot;deliveryList&amp;quot;:{&amp=
+;quot;3458765240588927979&amp;quot;:{&amp;quot;action&amp;quot;:1,&amp;quot=
+;ID&amp;quot;:3458765240588927979,&amp;quot;status&amp;quot;:120}},&amp;quo=
+t;riderID&amp;quot;:1152921559313154149,&amp;quot;bizType&amp;quot;:275,&am=
+p;quot;areaID&amp;quot;:1152921570135310348,&amp;quot;cabinetID&amp;quot;:1=
+152921644994854948,&amp;quot;channel&amp;quot;:0,&amp;quot;tripID&amp;quot;=
+:3458764688043970304,&amp;quot;cityID&amp;quot;:47,&amp;quot;nodeList&amp;q=
+uot;:[{&amp;quot;poiLng&amp;quot;:120.44651005822979,&amp;quot;deliveryOrde=
+rList&amp;quot;:{&amp;quot;3458765240588927979&amp;quot;:{&amp;quot;action&=
+amp;quot;:0,&amp;quot;ID&amp;quot;:3458765240588927979,&amp;quot;status&amp=
+;quot;:120}},&amp;quot;action&amp;quot;:0,&amp;quot;poiID&amp;quot;:1152921=
+674246258705,&amp;quot;poiLat&amp;quot;:31.543589885178957},{&amp;quot;poiL=
+ng&amp;quot;:120.44696,&amp;quot;deliveryOrderList&amp;quot;:{&amp;quot;345=
+8765240588927979&amp;quot;:{&amp;quot;action&amp;quot;:1,&amp;quot;ID&amp;q=
+uot;:3458765240588927979,&amp;quot;status&amp;quot;:120}},&amp;quot;action&=
+amp;quot;:1,&amp;quot;poiID&amp;quot;:1615854192376624546,&amp;quot;poiLat&=
+amp;quot;:31.54344}]},&amp;quot;type&amp;quot;:800003}","carrera_topic":"d_=
+dispatch_delivery","carrera_group":"cg_d_dispatch_delivery","carrera_offset=
+":"1637037","carrera_qid":"R_py_soda_py_soda-02_0","carrera_source":"RMQ","=
+carrera_msg_key":"a1300e8c-b635-11e8-bc1e-48df372710f0","carrera_token":"4b=
+fbe69d1e3ed6cbdd667e486fd14148","carrera_properties":"{&amp;quot;traceId&am=
+p;quot;:&amp;quot;0a567a175b987d50000084e033083fda&amp;quot;,&amp;quot;span=
+Id&amp;quot;:&amp;quot;51ce0747317482d3&amp;quot;,&amp;quot;service-group-c=
+ityid&amp;quot;:&amp;quot;0&amp;quot;,&amp;quot;service-group&amp;quot;:&am=
+p;quot;default&amp;quot;}","carrera_req_cnt":"0"}||get=3D{"\/iapi\/mq\/disp=
+atch":""}</td>
+<td class=3D"confluenceTd">[INFO][2018-09-12T10:43:28.889+0800][line=3D/hom=
+e/xiaoju/webroot/d-api/app/Classes/Controller/Base.php:254 class=3D"Rider"\=
+Controller\Base function=3DRider\Controller\Base::response] _com_request_ou=
+t||traceid=3D0a567a175b987d50000084e033083fda||spanid=3D51f3c5586bb369fc||r=
+equest_id=3Df_5b987d50d286d||hint_code=3D0||errno=3D0||errmsg=3D=E6=93=8D=
+=E4=BD=9C=E6=88=90=E5=8A=9F||h5Url=3D||url=3D/iapi/mq/dispatch||uri=3D/iapi=
+/mq/dispatch||phone=3D||tripID=3D0||time=3D1536720208||requestId=3Df_5b987d=
+50d286d||callback=3D||exit=3Dfalse</td>
+</tr>
+<tr>
+<td colspan=3D"1" class=3D"confluenceTd">delivery</td>
+<td colspan=3D"1" class=3D"confluenceTd">[INFO][2018-09-13T10:47:49.029+080=
+0][update.go:47@<a href=3D"http://git.xiaojukeji.com/soda-server/delivery/s=
+ervice.(*Service).AssignDeliveryV2" class=3D"external-link" rel=3D"nofollow=
+">git.xiaojukeji.com/soda-server/delivery/service.(*Service).AssignDelivery=
+V2</a>] _com_request_in||traceid=3D0a56630e5b99cfd40000652c99eb76da||spanid=
+=3D51cc20721a2b3ebe||logid=3D1553d5b47ce20fe6||commonParam=3D{"cityID":17}|=
+|deliveryID=3D3458765091657581629||cabinetInfo=3D{"cabinetID":1152921682118=
+639685,"riderID":1152921520570368167}</td>
+<td colspan=3D"1" class=3D"confluenceTd">[INFO][2018-09-13T10:47:49.033+080=
+0][update.go:50@<a href=3D"http://git.xiaojukeji.com/soda-server/delivery/s=
+ervice.(*Service).AssignDeliveryV2.func1" class=3D"external-link" rel=3D"no=
+follow">git.xiaojukeji.com/soda-server/delivery/service.(*Service).AssignDe=
+liveryV2.func1</a>] _com_request_out||traceid=3D0a56630e5b99cfd40000652c99e=
+b76da||spanid=3D51cc21923dbf8c0c||logid=3D1553d5b47ce70cd6||response=3D{"he=
+ader":{"errno":0,"msg":"OK","trace":{"elapsed_time":"3705616","logid":"1553=
+d5b47ce70cd6","now":"1536806869033523180","spanid":"51cc21923dbf8c0c","time=
+out":"3000000000","traceid":"0a56630e5b99cfd40000652c99eb76da"}}}</td>
+</tr>
+<tr>
+<td colspan=3D"1" class=3D"confluenceTd">trip</td>
+<td colspan=3D"1" class=3D"confluenceTd">&nbsp;</td>
+<td colspan=3D"1" class=3D"confluenceTd">&nbsp;</td>
+</tr>
+<tr>
+<td colspan=3D"1" class=3D"confluenceTd">&nbsp;</td>
+<td colspan=3D"1" class=3D"confluenceTd">&nbsp;</td>
+<td colspan=3D"1" class=3D"confluenceTd">&nbsp;</td>
+</tr>
+<tr>
+<td colspan=3D"1" class=3D"confluenceTd">&nbsp;</td>
+<td colspan=3D"1" class=3D"confluenceTd">&nbsp;</td>
+<td colspan=3D"1" class=3D"confluenceTd">&nbsp;</td>
+</tr>
+<tr>
+<td rowspan=3D"5" class=3D"confluenceTd">=E5=88=B0=E5=BA=97</td>
+<td colspan=3D"1" class=3D"confluenceTd">d-api</td>
+<td colspan=3D"1" class=3D"confluenceTd">[INFO][2018-09-12T10:43:39.421+080=
+0][line=3D/home/xiaoju/webroot/d-api/vendor/soda-framework/php-common/src/C=
+ommon/Plugin/PluginInit.php:41 class=3D"Common"\Plugin\PluginInit function=
+=3DCommon\Plugin\PluginInit::_logRequest] _com_request_in||traceid=3D0690e4=
+1d5b987d5b000032d2236c9cca||spanid=3D215ee7ab1f00d49b||request_id=3Df_5b987=
+d5b66ab9||hint_code=3D0||uri=3D/trip/delivery/status||url=3D/trip/delivery/=
+status||from=3D122.192.14.24||post=3D{"tripId":"3458764688043970304","deliv=
+eryId":"3458765240588927979","status":"130","advance":"0","token":"c_jUPwbd=
+Bbx1TpLKGiE08I_tXmQ15D1TfjJuvP2jBcMkzDmuwkAQANG7VNyyepnxeDr9-b8Di1mSQQIRWdw=
+dIUeVlN7GUJKYdFKEYaQJw8mqai6MIFUYZU8l-ftHOJAgHMni0Zs1ja4eoU04kz2Eldx4Pd7P00=
+rqR7iQVqPMzazPwpXEllrdilssCLcdvf_2bwAAAP__","phone":"18552142138","appVersi=
+on":"2.2.1","versionCode":"20201","clientType":"1","bizId":"381","uid":"423=
+9717039023307","osVersion":"8.1.0:27","osType":"2","deviceType":"OPPO:PADM0=
+0","cityId":"47","suuid":"","deviceId":"869311038709938","omegaId":"bmJpSm5=
+XRFigEPVFwzjZSg","channel":"","mapType":"","networkType":"4G","lang":"zh","=
+timestamp":"1536720219070","requestId":"1536720219070","ip":"10.125.68.222"=
+,"operatorName":"\u4e2d\u56fd\u8054\u901a","wifiName":"&amp;lt;unknown ssid=
+&amp;gt;","wifiMac":"02:00:00:00:00:00","lat":"31.543885542392086","lng":"1=
+20.44660788903506"}||get=3D{"\/trip\/delivery\/status":""}</td>
+<td colspan=3D"1" class=3D"confluenceTd">[INFO][2018-09-12T10:43:39.463+080=
+0][line=3D/home/xiaoju/webroot/d-api/app/Classes/Controller/Base.php:254 cl=
+ass=3D"Rider"\Controller\Base function=3DRider\Controller\Base::response] _=
+com_request_out||traceid=3D0690e41d5b987d5b000032d2236c9cca||spanid=3D215ee=
+7ab1f00d49b||request_id=3Df_5b987d5b66ab9||hint_code=3D0||errno=3D0||errmsg=
+=3D=E6=93=8D=E4=BD=9C=E6=88=90=E5=8A=9F||h5Url=3D||url=3D/trip/delivery/sta=
+tus||uri=3D/trip/delivery/status||phone=3D18552142138||tripID=3D0||time=3D1=
+536720219||requestId=3Df_5b987d5b66ab9||callback=3D||exit=3Dfalse</td>
+</tr>
+<tr>
+<td colspan=3D"1" class=3D"confluenceTd">delivery</td>
+<td colspan=3D"1" class=3D"confluenceTd">[INFO][2018-09-13T10:33:00.014+080=
+0][update.go:16@<a href=3D"http://git.xiaojukeji.com/soda-server/delivery/s=
+ervice.(*Service).BatchUpdateDeliveryStatusV2" class=3D"external-link" rel=
+=3D"nofollow">git.xiaojukeji.com/soda-server/delivery/service.(*Service).Ba=
+tchUpdateDeliveryStatusV2</a>] _com_request_in||traceid=3Dacdbe2fd5b99cc5b0=
+000198fb8801557||spanid=3D2e12476a0418cf88||logid=3D1553d4e57f7a2c05||commo=
+nParam=3D{"cityID":47}||deliveryIDs=3D[3458765207592338494]||currentRiderID=
+=3D1152921583484928044||status=3DARRIVED_AT_B</td>
+<td colspan=3D"1" class=3D"confluenceTd">[INFO][2018-09-13T10:33:00.046+080=
+0][get.go:40@<a href=3D"http://git.xiaojukeji.com/soda-server/delivery/serv=
+ice.(*Service).GetDeliveryByIDsV2.func1" class=3D"external-link" rel=3D"nof=
+ollow">git.xiaojukeji.com/soda-server/delivery/service.(*Service).GetDelive=
+ryByIDsV2.func1</a>] _com_request_out||traceid=3Dacdbe2fd5b99cc5b0000198fb8=
+801557||spanid=3D2e123fc13e3e4884||logid=3D1553d4e581501e02||response=3D{"h=
+eader":{"errno":0,"msg":"OK","trace":{"elapsed_time":"1323129","hintContent=
+":"{\"router_timestamp\":1536805980003}","logid":"1553d4e581501e02","now":"=
+1536805980046904949","spanid":"2e123fc13e3e4884","timeout":"3000000000","tr=
+aceid":"acdbe2fd5b99cc5b0000198fb8801557"}},"data":{"3458765207592338494":{=
+"deliveryID":3458765207592338494,"type":"TAKEOUT","channel":"PRODUCT","stat=
+us":"ARRIVED_AT_B","subStatus":0,"createTime":1536805915,"updateTime":15368=
+05980,"orderID":3458765098628221438,"orderIndex":2,"orderTime":1536805885,"=
+capacity":1,"shopID":1152921620345257991,"uID":283652028301325,"cityID":47,=
+"areaID":0,"fromAddress":"=E6=B1=9F=E8=8B=8F=E7=9C=81=E6=97=A0=E9=94=A1=E5=
+=B8=82=E6=83=A0=E5=B1=B1=E5=8C=BA=E7=8E=89=E7=A5=81=E9=95=87=E7=BE=8E=E7=89=
+=B9=E8=B4=AD=E7=89=A9=E5=B9=BF=E5=9C=BA=E6=AD=A6=E7=8E=89=E8=B7=AF","fromLn=
+g":120.181765,"fromLat":31.715068,"fromPoi":886307503539748865,"fromPoiName=
+":"=E6=B1=9F=E8=8B=8F=E7=9C=81=E6=97=A0=E9=94=A1=E5=B8=82=E6=83=A0=E5=B1=B1=
+=E5=8C=BA=E7=8E=89=E7=A5=81=E7=A4=BE=E5=8C=BA=E6=AD=A6=E7=8E=89=E8=B7=AF=E7=
+=9B=88=E7=A7=91=E8=8A=B1=E5=9B=AD=E7=BE=8E=E7=89=B9=E8=B4=AD=E7=89=A9=E5=B9=
+=BF=E5=9C=BA","toAddress":"=E7=8E=89=E7=A5=81=E9=95=87=E8=93=89=E4=B8=AD=E6=
+=9D=91=E6=97=A0=E9=94=A1=E5=B8=82=E4=B8=AD=E4=BA=9A=E5=87=8F=E9=9C=87=E5=99=
+=A8=E6=9C=89=E9=99=90=E5=85=AC=E5=8F=B8","toLng":120.17563,"toLat":31.72576=
+,"toPoi":805286443176951808,"toPoiName":"=E6=97=A0=E9=94=A1=E4=B8=AD=E7=AD=
+=96=E5=87=8F=E9=9C=87=E5=99=A8=E6=9C=89=E9=99=90=E5=85=AC=E5=8F=B8","remark=
+":"=E5=8A=A0=E7=82=B9=E8=BE=A3=E7=B2=89","promiseEta":1536807433,"refundEta=
+":1536809233,"delayTime":0,"realEta":"{\"areaID\":1152921537872723985,\"cit=
+yID\":47,\"deliveryID\":3458765207592338494,\"riderID\":1152921583484928044=
+,\"shopLatestArrivalTime\":1536806180,\"shopLatestDoFoodTime\":1536806721,\=
+"shopLatestLeaveTime\":1536806945,\"userEstimatedDeliveryTime\":1536806980,=
+\"userEstimatedLeaveTime\":1536807169,\"userLatestDeliveryTime\":1536807084=
+,\"userLatestLeaveTime\":1536807393}","reason":"","currCabinetID":115292157=
+5914668079,"currRiderID":1152921583484928044,"preCabinetID":0,"assignType":=
+"SHOP","reassignCount":0,"basePromiseEta":1536807433,"fromAreaID":115292153=
+7872723985,"toAreaID":0,"fromPoiStr":"886307503539748865","toPoiStr":"80528=
+6443176951808","expectedCookEta":1536807115,"riderShopSessionInfo":"","resc=
+heduleCount":0}}}</td>
+</tr>
+<tr>
+<td colspan=3D"1" class=3D"confluenceTd">&nbsp;</td>
+<td colspan=3D"1" class=3D"confluenceTd">&nbsp;</td>
+<td colspan=3D"1" class=3D"confluenceTd">&nbsp;</td>
+</tr>
+<tr>
+<td colspan=3D"1" class=3D"confluenceTd">&nbsp;</td>
+<td colspan=3D"1" class=3D"confluenceTd">&nbsp;</td>
+<td colspan=3D"1" class=3D"confluenceTd">&nbsp;</td>
+</tr>
+<tr>
+<td colspan=3D"1" class=3D"confluenceTd">&nbsp;</td>
+<td colspan=3D"1" class=3D"confluenceTd">&nbsp;</td>
+<td colspan=3D"1" class=3D"confluenceTd">&nbsp;</td>
+</tr>
+<tr>
+<td rowspan=3D"6" class=3D"confluenceTd"><span>=E5=8F=96=E9=A4=90</span></t=
+d>
+<td colspan=3D"1" class=3D"confluenceTd">d-api</td>
+<td colspan=3D"1" class=3D"confluenceTd">[INFO][2018-09-12T10:45:08.472+080=
+0][line=3D/home/xiaoju/webroot/d-api/vendor/soda-framework/php-common/src/C=
+ommon/Plugin/PluginInit.php:41 class=3D"Common"\Plugin\PluginInit function=
+=3DCommon\Plugin\PluginInit::_logRequest] _com_request_in||traceid=3Dfc5001=
+265b987db3000032d2236c9cef||spanid=3D215fbfd004aa635e||request_id=3Df_5b987=
+db4732c9||hint_code=3D0||uri=3D/trip/delivery/status||url=3D/trip/delivery/=
+status||from=3D122.192.14.24||post=3D{"tripId":"3458764688043970304","deliv=
+eryId":"3458765240588927979","status":"140","advance":"0","token":"c_jUPwbd=
+Bbx1TpLKGiE08I_tXmQ15D1TfjJuvP2jBcMkzDmuwkAQANG7VNyyepnxeDr9-b8Di1mSQQIRWdw=
+dIUeVlN7GUJKYdFKEYaQJw8mqai6MIFUYZU8l-ftHOJAgHMni0Zs1ja4eoU04kz2Eldx4Pd7P00=
+rqR7iQVqPMzazPwpXEllrdilssCLcdvf_2bwAAAP__","phone":"18552142138","appVersi=
+on":"2.2.1","versionCode":"20201","clientType":"1","bizId":"381","uid":"423=
+9717039023307","osVersion":"8.1.0:27","osType":"2","deviceType":"OPPO:PADM0=
+0","cityId":"47","suuid":"","deviceId":"869311038709938","omegaId":"bmJpSm5=
+XRFigEPVFwzjZSg","channel":"","mapType":"","networkType":"4G","lang":"zh","=
+timestamp":"1536720307485","requestId":"1536720307485","ip":"10.125.68.222"=
+,"operatorName":"\u4e2d\u56fd\u8054\u901a","wifiName":"&amp;lt;unknown ssid=
+&amp;gt;","wifiMac":"02:00:00:00:00:00","lat":"31.54381391794919","lng":"12=
+0.44657962098412"}||get=3D{"\/trip\/delivery\/status":""}</td>
+<td colspan=3D"1" class=3D"confluenceTd">[INFO][2018-09-12T10:45:13.838+080=
+0][line=3D/home/xiaoju/webroot/d-api/app/Classes/Controller/Base.php:254 cl=
+ass=3D"Rider"\Controller\Base function=3DRider\Controller\Base::response] _=
+com_request_out||traceid=3D685fa5e15b987db8000032d2236c9cfb||spanid=3D21646=
+3c669cc752d||request_id=3Df_5b987db9bee2b||hint_code=3D0||errno=3D0||errmsg=
+=3D=E6=93=8D=E4=BD=9C=E6=88=90=E5=8A=9F||h5Url=3D||url=3D/trip/delivery/sta=
+tus||uri=3D/trip/delivery/status||phone=3D18552142138||tripID=3D0||time=3D1=
+536720313||requestId=3Df_5b987db9bee2b||callback=3D||exit=3Dfalse</td>
+</tr>
+<tr>
+<td colspan=3D"1" class=3D"confluenceTd">delivery</td>
+<td colspan=3D"1" class=3D"confluenceTd">[INFO][2018-09-13T10:34:02.074+080=
+0][update.go:16@<a href=3D"http://git.xiaojukeji.com/soda-server/delivery/s=
+ervice.(*Service).BatchUpdateDeliveryStatusV2" class=3D"external-link" rel=
+=3D"nofollow">git.xiaojukeji.com/soda-server/delivery/service.(*Service).Ba=
+tchUpdateDeliveryStatusV2</a>] _com_request_in||traceid=3D68c701885b99cc9a0=
+0004c90aef37b0c||spanid=3D21fac7c2622d8df8||logid=3D1553d4f3f28689ff||commo=
+nParam=3D{"cityID":11}||deliveryIDs=3D[3458765165204702270]||currentRiderID=
+=3D1152922213423251520||status=3DTAKEN</td>
+<td colspan=3D"1" class=3D"confluenceTd">[INFO][2018-09-13T10:34:02.100+080=
+0][update.go:19@<a href=3D"http://git.xiaojukeji.com/soda-server/delivery/s=
+ervice.(*Service).BatchUpdateDeliveryStatusV2.func1" class=3D"external-link=
+" rel=3D"nofollow">git.xiaojukeji.com/soda-server/delivery/service.(*Servic=
+e).BatchUpdateDeliveryStatusV2.func1</a>] _com_request_out||traceid=3D68c70=
+1885b99cc9a00004c90aef37b0c||spanid=3D21fac7c2622d8df8||logid=3D1553d4f3f28=
+689ff||response=3D{"header":{"errno":0,"msg":"OK","trace":{"elapsed_time":"=
+26193570","hintContent":"{\"router_timestamp\":1536806042063}","logid":"155=
+3d4f3f28689ff","now":"1536806042100709545","spanid":"21fac7c2622d8df8","tim=
+eout":"3000000000","traceid":"68c701885b99cc9a00004c90aef37b0c"}}}</td>
+</tr>
+<tr>
+<td colspan=3D"1" class=3D"confluenceTd">&nbsp;</td>
+<td colspan=3D"1" class=3D"confluenceTd">&nbsp;</td>
+<td colspan=3D"1" class=3D"confluenceTd">&nbsp;</td>
+</tr>
+<tr>
+<td colspan=3D"1" class=3D"confluenceTd">&nbsp;</td>
+<td colspan=3D"1" class=3D"confluenceTd">&nbsp;</td>
+<td colspan=3D"1" class=3D"confluenceTd">&nbsp;</td>
+</tr>
+<tr>
+<td colspan=3D"1" class=3D"confluenceTd">&nbsp;</td>
+<td colspan=3D"1" class=3D"confluenceTd">&nbsp;</td>
+<td colspan=3D"1" class=3D"confluenceTd">&nbsp;</td>
+</tr>
+<tr>
+<td colspan=3D"1" class=3D"confluenceTd">&nbsp;</td>
+<td colspan=3D"1" class=3D"confluenceTd">&nbsp;</td>
+<td colspan=3D"1" class=3D"confluenceTd">&nbsp;</td>
+</tr>
+<tr>
+<td rowspan=3D"6" class=3D"confluenceTd"><span>=E5=88=B0=E6=88=B7</span></t=
+d>
+<td colspan=3D"1" class=3D"confluenceTd">d-api</td>
+<td colspan=3D"1" class=3D"confluenceTd">[INFO][2018-09-12T10:45:13.782+080=
+0][line=3D/home/xiaoju/webroot/d-api/vendor/soda-framework/php-common/src/C=
+ommon/Plugin/PluginInit.php:41 class=3D"Common"\Plugin\PluginInit function=
+=3DCommon\Plugin\PluginInit::_logRequest] _com_request_in||traceid=3D685fa5=
+e15b987db8000032d2236c9cfb||spanid=3D216463c669cc752d||request_id=3Df_5b987=
+db9bee2b||hint_code=3D0||uri=3D/trip/delivery/status||url=3D/trip/delivery/=
+status||from=3D122.192.14.24||post=3D{"tripId":"3458764688043970304","deliv=
+eryId":"3458765240588927979","status":"150","advance":"0","token":"c_jUPwbd=
+Bbx1TpLKGiE08I_tXmQ15D1TfjJuvP2jBcMkzDmuwkAQANG7VNyyepnxeDr9-b8Di1mSQQIRWdw=
+dIUeVlN7GUJKYdFKEYaQJw8mqai6MIFUYZU8l-ftHOJAgHMni0Zs1ja4eoU04kz2Eldx4Pd7P00=
+rqR7iQVqPMzazPwpXEllrdilssCLcdvf_2bwAAAP__","phone":"18552142138","appVersi=
+on":"2.2.1","versionCode":"20201","clientType":"1","bizId":"381","uid":"423=
+9717039023307","osVersion":"8.1.0:27","osType":"2","deviceType":"OPPO:PADM0=
+0","cityId":"47","suuid":"","deviceId":"869311038709938","omegaId":"bmJpSm5=
+XRFigEPVFwzjZSg","channel":"","mapType":"","networkType":"4G","lang":"zh","=
+timestamp":"1536720312794","requestId":"1536720312794","ip":"10.125.68.222"=
+,"operatorName":"\u4e2d\u56fd\u8054\u901a","wifiName":"&amp;lt;unknown ssid=
+&amp;gt;","wifiMac":"02:00:00:00:00:00","lat":"31.5438072044964","lng":"120=
+.44660621977798"}||get=3D{"\/trip\/delivery\/status":""}</td>
+<td colspan=3D"1" class=3D"confluenceTd">[INFO][2018-09-12T10:45:13.838+080=
+0][line=3D/home/xiaoju/webroot/d-api/app/Classes/Controller/Base.php:254 cl=
+ass=3D"Rider"\Controller\Base function=3DRider\Controller\Base::response] _=
+com_request_out||traceid=3D685fa5e15b987db8000032d2236c9cfb||spanid=3D21646=
+3c669cc752d||request_id=3Df_5b987db9bee2b||hint_code=3D0||errno=3D0||errmsg=
+=3D=E6=93=8D=E4=BD=9C=E6=88=90=E5=8A=9F||h5Url=3D||url=3D/trip/delivery/sta=
+tus||uri=3D/trip/delivery/status||phone=3D18552142138||tripID=3D0||time=3D1=
+536720313||requestId=3Df_5b987db9bee2b||callback=3D||exit=3Dfalse</td>
+</tr>
+<tr>
+<td colspan=3D"1" class=3D"confluenceTd">delivery</td>
+<td colspan=3D"1" class=3D"confluenceTd">[INFO][2018-09-13T10:12:35.602+080=
+0][get.go:109@<a href=3D"http://git.xiaojukeji.com/soda-server/delivery/ser=
+vice.(*Service).GetDeliveryLogByStatusV2" class=3D"external-link" rel=3D"no=
+follow">git.xiaojukeji.com/soda-server/delivery/service.(*Service).GetDeliv=
+eryLogByStatusV2</a>] _com_request_in||traceid=3D0a5667235b99c793b5f022a304=
+403d02||spanid=3D51f4979d6cf92543||logid=3D1553d3c86acf67b8||commonParam=3D=
+{"cityID":9}||deliveryID=3D3458765230912668733||status=3DARRIVED_AT_C</td>
+<td colspan=3D"1" class=3D"confluenceTd">[INFO][2018-09-13T10:12:35.603+080=
+0][get.go:112@<a href=3D"http://git.xiaojukeji.com/soda-server/delivery/ser=
+vice.(*Service).GetDeliveryLogByStatusV2.func1" class=3D"external-link" rel=
+=3D"nofollow">git.xiaojukeji.com/soda-server/delivery/service.(*Service).Ge=
+tDeliveryLogByStatusV2.func1</a>] _com_request_out||traceid=3D0a5667235b99c=
+793b5f022a304403d02||spanid=3D51f4979d6cf92543||logid=3D1553d3c86acf67b8||r=
+esponse=3D{"header":{"errno":0,"msg":"OK","trace":{"elapsed_time":"1114124"=
+,"hintContent":"{\"router_timestamp\":1536804755579,\"Cityid\":9}","logid":=
+"1553d3c86acf67b8","now":"1536804755603482564","spanid":"51f4979d6cf92543",=
+"timeout":"3000000000","traceid":"0a5667235b99c793b5f022a304403d02"}},"data=
+":[{"logID":59395326,"type":"TAKEOUT","channel":"PRODUCT","deliveryID":3458=
+765230912668733,"status":"ARRIVED_AT_C","subStatus":0,"currCabinetID":34587=
+64768855654468,"currRiderID":3458765189371921201,"reason":"","ext":"","crea=
+teTime":1536803326,"realEta":"{\"areaID\":3458764605290774594,\"cityID\":9,=
+\"deliveryID\":3458765230912668733,\"riderID\":3458765189371921201,\"shopLa=
+testArrivalTime\":1536803242,\"shopLatestDoFoodTime\":1536802893,\"shopLate=
+stLeaveTime\":1536803422,\"userEstimatedDeliveryTime\":1536803459,\"userEst=
+imatedLeaveTime\":1536803757,\"userLatestDeliveryTime\":1536803959,\"userLa=
+testLeaveTime\":1536804257}"}]}</td>
+</tr>
+<tr>
+<td colspan=3D"1" class=3D"confluenceTd">&nbsp;</td>
+<td colspan=3D"1" class=3D"confluenceTd">&nbsp;</td>
+<td colspan=3D"1" class=3D"confluenceTd">&nbsp;</td>
+</tr>
+<tr>
+<td colspan=3D"1" class=3D"confluenceTd">&nbsp;</td>
+<td colspan=3D"1" class=3D"confluenceTd">&nbsp;</td>
+<td colspan=3D"1" class=3D"confluenceTd">&nbsp;</td>
+</tr>
+<tr>
+<td colspan=3D"1" class=3D"confluenceTd">&nbsp;</td>
+<td colspan=3D"1" class=3D"confluenceTd">&nbsp;</td>
+<td colspan=3D"1" class=3D"confluenceTd">&nbsp;</td>
+</tr>
+<tr>
+<td colspan=3D"1" class=3D"confluenceTd">&nbsp;</td>
+<td colspan=3D"1" class=3D"confluenceTd">&nbsp;</td>
+<td colspan=3D"1" class=3D"confluenceTd">&nbsp;</td>
+</tr>
+<tr>
+<td rowspan=3D"6" class=3D"confluenceTd"><span>=E9=80=81=E8=BE=BE</span></t=
+d>
+<td colspan=3D"1" class=3D"confluenceTd">d-api</td>
+<td colspan=3D"1" class=3D"confluenceTd">[INFO][2018-09-12T10:45:15.977+080=
+0][line=3D/home/xiaoju/webroot/d-api/vendor/soda-framework/php-common/src/C=
+ommon/Plugin/PluginInit.php:41 class=3D"Common"\Plugin\PluginInit function=
+=3DCommon\Plugin\PluginInit::_logRequest] _com_request_in||traceid=3D642c7f=
+105b987dba000032d2236c9d00||spanid=3D216769757847f86d||request_id=3Df_5b987=
+dbbee7a4||hint_code=3D0||uri=3D/trip/delivery/status||url=3D/trip/delivery/=
+status||from=3D122.192.14.24||post=3D{"tripId":"3458764688043970304","deliv=
+eryId":"3458765240588927979","status":"160","advance":"0","token":"c_jUPwbd=
+Bbx1TpLKGiE08I_tXmQ15D1TfjJuvP2jBcMkzDmuwkAQANG7VNyyepnxeDr9-b8Di1mSQQIRWdw=
+dIUeVlN7GUJKYdFKEYaQJw8mqai6MIFUYZU8l-ftHOJAgHMni0Zs1ja4eoU04kz2Eldx4Pd7P00=
+rqR7iQVqPMzazPwpXEllrdilssCLcdvf_2bwAAAP__","phone":"18552142138","appVersi=
+on":"2.2.1","versionCode":"20201","clientType":"1","bizId":"381","uid":"423=
+9717039023307","osVersion":"8.1.0:27","osType":"2","deviceType":"OPPO:PADM0=
+0","cityId":"47","suuid":"","deviceId":"869311038709938","omegaId":"bmJpSm5=
+XRFigEPVFwzjZSg","channel":"","mapType":"","networkType":"4G","lang":"zh","=
+timestamp":"1536720314991","requestId":"1536720314991","ip":"10.125.68.222"=
+,"operatorName":"\u4e2d\u56fd\u8054\u901a","wifiName":"&amp;lt;unknown ssid=
+&amp;gt;","wifiMac":"02:00:00:00:00:00","lat":"31.5438072044964","lng":"120=
+.44660621977798"}||get=3D{"\/trip\/delivery\/status":""}</td>
+<td colspan=3D"1" class=3D"confluenceTd">[INFO][2018-09-12T10:45:16.034+080=
+0][line=3D/home/xiaoju/webroot/d-api/app/Classes/Controller/Base.php:254 cl=
+ass=3D"Rider"\Controller\Base function=3DRider\Controller\Base::response] _=
+com_request_out||traceid=3D642c7f105b987dba000032d2236c9d00||spanid=3D21676=
+9757847f86d||request_id=3Df_5b987dbbee7a4||hint_code=3D0||errno=3D0||errmsg=
+=3D=E6=93=8D=E4=BD=9C=E6=88=90=E5=8A=9F||h5Url=3D||url=3D/trip/delivery/sta=
+tus||uri=3D/trip/delivery/status||phone=3D18552142138||tripID=3D0||time=3D1=
+536720316||requestId=3Df_5b987dbbee7a4||callback=3D||exit=3Dfalse</td>
+</tr>
+<tr>
+<td colspan=3D"1" class=3D"confluenceTd">delivery</td>
+<td colspan=3D"1" class=3D"confluenceTd">[INFO][2018-09-13T11:02:09.888+080=
+0][update.go:16@<a href=3D"http://git.xiaojukeji.com/soda-server/delivery/s=
+ervice.(*Service).BatchUpdateDeliveryStatusV2" class=3D"external-link" rel=
+=3D"nofollow">git.xiaojukeji.com/soda-server/delivery/service.(*Service).Ba=
+tchUpdateDeliveryStatusV2</a>] _com_request_in||traceid=3D1aaccf01be2ce109c=
+60bc09d10470403||spanid=3D2e2f4c6d00231041||logid=3D1553d67cec12a757||commo=
+nParam=3D{"cityID":9}||deliveryIDs=3D[3458765146942702655]||currentRiderID=
+=3D1152921626279411845||status=3DFINISH</td>
+<td colspan=3D"1" class=3D"confluenceTd">[INFO][2018-09-13T11:02:14.257+080=
+0][get.go:40@<a href=3D"http://git.xiaojukeji.com/soda-server/delivery/serv=
+ice.(*Service).GetDeliveryByIDsV2.func1" class=3D"external-link" rel=3D"nof=
+ollow">git.xiaojukeji.com/soda-server/delivery/service.(*Service).GetDelive=
+ryByIDsV2.func1</a>] _com_request_out||traceid=3D1aaccf01be2ce109c60bc09d10=
+470403||spanid=3D51cf940e8d6eaa58||logid=3D1553d67df064df7d||response=3D{"h=
+eader":{"errno":0,"msg":"OK","trace":{"logid":"1553d67df064df7d","spanid":"=
+51cf940e8d6eaa58","traceid":"1aaccf01be2ce109c60bc09d10470403"}},"data":{"3=
+458765146942702655":{"deliveryID":3458765146942702655,"type":"TAKEOUT","cha=
+nnel":"PRODUCT","status":"FINISH","subStatus":0,"createTime":1536806854,"up=
+dateTime":1536807729,"orderID":3458765064004241919,"orderIndex":2,"orderTim=
+e":1536806840,"capacity":1,"shopID":3458764664740773966,"uID":2814750779773=
+21,"cityID":9,"areaID":0,"fromAddress":"=E6=B2=B3=E5=8D=97=E7=9C=81=E9=83=
+=91=E5=B7=9E=E5=B8=82=E6=83=A0=E6=B5=8E=E5=8C=BA=E4=B8=B0=E4=B9=90=E8=B7=AF=
+=E5=8D=9A=E9=A2=82=E8=B7=AF=E4=BA=A4=E5=8F=89=E5=8F=A3=E5=90=91=E5=8C=9710=
+=E7=B1=B3","fromLng":113.629905,"fromLat":34.809635,"fromPoi":8052854381671=
+87459,"fromPoiName":"=E6=B2=B3=E5=8D=97=E7=9C=81=E9=83=91=E5=B7=9E=E5=B8=82=
+=E6=83=A0=E6=B5=8E=E5=8C=BA=E5=88=98=E5=AF=A8=E8=A1=97=E9=81=93=E4=B8=B0=E4=
+=B9=90=E8=B7=AF=E6=80=9D=E8=BE=BE=C2=B7=E5=A4=A7=E6=B2=B3=E6=98=A5=E5=A4=A9=
+=E9=99=84=E8=BF=91","toAddress":"=E6=97=81=E8=BE=B9=E8=AF=97=E4=B8=BD=E5=A0=
+=82=E7=BE=8E=E5=AE=B9=E7=BE=8E=E4=BD=93","toLng":113.628517,"toLat":34.8064=
+54,"toPoi":200000000053831608,"toPoiName":"=E5=8D=B0=E8=B1=A1=E5=A4=A9=E6=
+=82=A6=E5=85=BB=E7=94=9F=E4=BC=9A=E6=89=80(=E9=83=91=E5=B7=9E=E5=8D=97=E9=
+=98=B3=E8=B7=AF=E5=BA=97)","remark":"=E4=B8=8D=E8=A6=81=E5=B1=B1=E6=A5=82=
+=E7=BA=A2=E8=B1=86=E9=A6=99=E8=95=89","promiseEta":1536808285,"refundEta":1=
+536810085,"delayTime":0,"realEta":"{\"areaID\":3458764637171679298,\"cityID=
+\":9,\"deliveryID\":3458765146942702655,\"riderID\":1152921626279411845,\"s=
+hopLatestArrivalTime\":1536808178,\"shopLatestDoFoodTime\":1536807717,\"sho=
+pLatestLeaveTime\":1536808358,\"userEstimatedDeliveryTime\":1536807896,\"us=
+erEstimatedLeaveTime\":1536808194,\"userLatestDeliveryTime\":1536808196,\"u=
+serLatestLeaveTime\":1536808494}","reason":"","currCabinetID":1152921712820=
+944955,"currRiderID":1152921626279411845,"preCabinetID":0,"assignType":"SHO=
+P","reassignCount":0,"basePromiseEta":1536808285,"fromAreaID":3458764637171=
+679298,"toAreaID":3458764637171679298,"fromPoiStr":"805285438167187459","to=
+PoiStr":"2000000000053831608","expectedCookEta":1536807634,"riderShopSessio=
+nInfo":"","rescheduleCount":0}}}</td>
+</tr>
+<tr>
+<td colspan=3D"1" class=3D"confluenceTd">&nbsp;</td>
+<td colspan=3D"1" class=3D"confluenceTd">&nbsp;</td>
+<td colspan=3D"1" class=3D"confluenceTd">&nbsp;</td>
+</tr>
+<tr>
+<td colspan=3D"1" class=3D"confluenceTd">&nbsp;</td>
+<td colspan=3D"1" class=3D"confluenceTd">&nbsp;</td>
+<td colspan=3D"1" class=3D"confluenceTd">&nbsp;</td>
+</tr>
+<tr>
+<td colspan=3D"1" class=3D"confluenceTd">&nbsp;</td>
+<td colspan=3D"1" class=3D"confluenceTd">&nbsp;</td>
+<td colspan=3D"1" class=3D"confluenceTd">&nbsp;</td>
+</tr>
+<tr>
+<td colspan=3D"1" class=3D"confluenceTd">&nbsp;</td>
+<td colspan=3D"1" class=3D"confluenceTd">&nbsp;</td>
+<td colspan=3D"1" class=3D"confluenceTd">&nbsp;</td>
+</tr>
+<tr>
+<td rowspan=3D"5" class=3D"confluenceTd"><span>=E5=8F=96=E6=B6=88</span></t=
+d>
+<td colspan=3D"1" class=3D"confluenceTd">d-api</td>
+<td colspan=3D"1" class=3D"confluenceTd">[INFO][2018-09-12T11:04:50.075+080=
+0][line=3D/home/xiaoju/webroot/d-api/vendor/soda-framework/php-common/src/C=
+ommon/Plugin/PluginInit.php:41 class=3D"Common"\Plugin\PluginInit function=
+=3DCommon\Plugin\PluginInit::_logRequest] _com_request_in||traceid=3D0a566f=
+155b988252000084f10004b3da||spanid=3D51ceed479a8c3b36||request_id=3Df_5b988=
+252123b8||hint_code=3D0||uri=3D/iapi/delivery/cancel||url=3D/iapi/delivery/=
+cancel||from=3D10.86.111.21||post=3D{"cityID":"11","orderId":"3458765145264=
+687525","reason":"\u5ba2\u670d\u53d6\u6d88\u8ba2\u5355"}||get=3D{"\/iapi\/d=
+elivery\/cancel":""}</td>
+<td colspan=3D"1" class=3D"confluenceTd">[INFO][2018-09-12T11:04:50.109+080=
+0][line=3D/home/xiaoju/webroot/d-api/app/Classes/Controller/Base.php:254 cl=
+ass=3D"Rider"\Controller\Base function=3DRider\Controller\Base::response] _=
+com_request_out||traceid=3D0a566f155b988252000084f10004b3da||spanid=3D51cee=
+d479a8c3b36||request_id=3Df_5b988252123b8||hint_code=3D0||errno=3D0||errmsg=
+=3D=E6=93=8D=E4=BD=9C=E6=88=90=E5=8A=9F||h5Url=3D||url=3D/iapi/delivery/can=
+cel||uri=3D/iapi/delivery/cancel||phone=3D||tripID=3D0||data=3Dtrue||time=
+=3D1536721490||requestId=3Df_5b988252123b8||callback=3D||exit=3Dfalse</td>
+</tr>
+<tr>
+<td class=3D"confluenceTd">delivery</td>
+<td colspan=3D"1" class=3D"confluenceTd">[INFO][2018-09-12T12:00:27.269+080=
+0][cancel.go:38@<a href=3D"http://git.xiaojukeji.com/soda-server/delivery/s=
+ervice.(*Service).CancelDeliveryByOrderIDV2" class=3D"external-link" rel=3D=
+"nofollow">git.xiaojukeji.com/soda-server/delivery/service.(*Service).Cance=
+lDeliveryByOrderIDV2</a>] _com_request_in||traceid=3D0a56702c5b988f5b00000c=
+d30004efda||spanid=3D51cad8497236dde5||logid=3D15538b16a6eb1f54||commonPara=
+m=3D{"cityID":17}||orderID=3D3458765200730163643||currentRiderID=3D34587647=
+18016039647||currentStatus=3DCANCEL||reason=3D=E5=AE=A2=E6=9C=8D=E5=8F=96=
+=E6=B6=88=E8=AE=A2=E5=8D=95</td>
+<td colspan=3D"1" class=3D"confluenceTd">[INFO][2018-09-12T12:00:27.306+080=
+0][cancel.go:41@<a href=3D"http://git.xiaojukeji.com/soda-server/delivery/s=
+ervice.(*Service).CancelDeliveryByOrderIDV2.func1" class=3D"external-link" =
+rel=3D"nofollow">git.xiaojukeji.com/soda-server/delivery/service.(*Service)=
+.CancelDeliveryByOrderIDV2.func1</a>] _com_request_out||traceid=3D0a56702c5=
+b988f5b00000cd30004efda||spanid=3D51cad8497236dde5||logid=3D15538b16a6eb1f5=
+4||response=3D{"header":{"errno":0,"msg":"OK","trace":{"elapsed_time":"3686=
+1090","logid":"15538b16a6eb1f54","now":"1536724827306300402","spanid":"51ca=
+d8497236dde5","timeout":"3000000000","traceid":"0a56702c5b988f5b00000cd3000=
+4efda"}}}</td>
+</tr>
+<tr>
+<td colspan=3D"1" class=3D"confluenceTd">&nbsp;</td>
+<td colspan=3D"1" class=3D"confluenceTd">&nbsp;</td>
+<td colspan=3D"1" class=3D"confluenceTd">&nbsp;</td>
+</tr>
+<tr>
+<td colspan=3D"1" class=3D"confluenceTd">&nbsp;</td>
+<td colspan=3D"1" class=3D"confluenceTd">&nbsp;</td>
+<td colspan=3D"1" class=3D"confluenceTd">&nbsp;</td>
+</tr>
+<tr>
+<td colspan=3D"1" class=3D"confluenceTd">&nbsp;</td>
+<td colspan=3D"1" class=3D"confluenceTd">&nbsp;</td>
+<td colspan=3D"1" class=3D"confluenceTd">&nbsp;</td>
+</tr>
+<tr>
+<td rowspan=3D"6" class=3D"confluenceTd"><span>=E5=85=B3=E5=8D=95</span><br=
+><br><br></td>
+<td colspan=3D"1" class=3D"confluenceTd">d-api</td>
+<td colspan=3D"1" class=3D"confluenceTd">[INFO][2018-09-12T14:03:01.085+080=
+0][line=3D/home/xiaoju/webroot/d-api/vendor/soda-framework/php-common/src/C=
+ommon/Plugin/PluginInit.php:41 class=3D"Common"\Plugin\PluginInit function=
+=3DCommon\Plugin\PluginInit::_logRequest] _com_request_in||traceid=3D0a5622=
+2e5b98ac152cd920c703998a02||spanid=3D6ac675ff01a080b3||request_id=3Df_5b98a=
+c1514a63||hint_code=3D0||uri=3D/trip/delivery/problem||url=3D/trip/delivery=
+/problem||from=3D49.95.130.77||post=3D{"phone":"18014819306","token":"tgArn=
+c4UtbcdItP14hcux22KN2gRb9sqU7fiCc_odddMxzkOwkAMheGroL924RdPmNi3YQlLgZAYUUW5=
+Oy3lt3GiwDhTbYrs6h5zNm8RxpWSjJXaDoz393NZKTfGa1CaQ5P3rtyN27-NO4UWV1uU4UeMB4V=
+jPCntvwAAAP__","riderId":"1152921542754041932","appVersion":"2.2.1","versio=
+nCode":"20201","clientType":"1","bizId":"381","osVersion":"8.1.0:27","osTyp=
+e":"2","deviceType":"OPPO:PADT00","cityId":"11","suuid":"","deviceId":"8693=
+69038259338","channel":"","mapType":"","networkType":"","lang":"zh","timest=
+amp":"1536732180509","requestId":"1536732180509","lat":"32.03520078203925",=
+"lng":"118.78876675247723","type":"14001","resourceKey":""}||get=3D{"\/trip=
+\/delivery\/problem":""}</td>
+<td colspan=3D"1" class=3D"confluenceTd">[INFO][2018-09-12T14:03:01.141+080=
+0][line=3D/home/xiaoju/webroot/d-api/app/Classes/Controller/Base.php:254 cl=
+ass=3D"Rider"\Controller\Base function=3DRider\Controller\Base::response] _=
+com_request_out||traceid=3D0a56222e5b98ac152cd920c703998a02||spanid=3D6ac67=
+5ff01a080b3||request_id=3Df_5b98ac1514a63||hint_code=3D0||errno=3D0||errmsg=
+=3D=E6=93=8D=E4=BD=9C=E6=88=90=E5=8A=9F||h5Url=3D||url=3D/trip/delivery/pro=
+blem||uri=3D/trip/delivery/problem||phone=3D18014819306||tripID=3D0||time=
+=3D1536732181||requestId=3Df_5b98ac1514a63||callback=3D||exit=3Dfalse</td>
+</tr>
+<tr>
+<td colspan=3D"1" class=3D"confluenceTd">delivery</td>
+<td colspan=3D"1" class=3D"confluenceTd">[INFO][2018-09-12T12:13:14.253+080=
+0][abort.go:14@<a href=3D"http://git.xiaojukeji.com/soda-server/delivery/se=
+rvice.(*Service).AbortDeliveryV2" class=3D"external-link" rel=3D"nofollow">=
+git.xiaojukeji.com/soda-server/delivery/service.(*Service).AbortDeliveryV2<=
+/a>] _com_request_in||traceid=3Dec3372c45b98925800003750872cbf21||spanid=3D=
+84f4b712692a8f1e||logid=3D15538bc93ab8f761||commonParam=3D{"cityID":17}||de=
+liveryID=3D3458765189191926779||currentRiderID=3D3458764955367506462||curre=
+ntStatus=3DABORTED||subStatus=3D12||reason=3D=E9=A1=BE=E5=AE=A2=E5=8F=96=E9=
+=A4=90=E8=B6=85=E6=97=B6-=E9=A1=BE=E5=AE=A2=E8=BF=98=E6=B2=A1=E6=9D=A5=E5=
+=8F=96=E9=A4=90</td>
+<td colspan=3D"1" class=3D"confluenceTd">[INFO][2018-09-12T12:13:19.320+080=
+0][get.go:40@<a href=3D"http://git.xiaojukeji.com/soda-server/delivery/serv=
+ice.(*Service).GetDeliveryByIDsV2.func1" class=3D"external-link" rel=3D"nof=
+ollow">git.xiaojukeji.com/soda-server/delivery/service.(*Service).GetDelive=
+ryByIDsV2.func1</a>] _com_request_out||traceid=3Dec3372c45b9892580000375087=
+2cbf21||spanid=3D51cec069f5f72f81||logid=3D15538bca68ad615f||response=3D{"h=
+eader":{"errno":0,"msg":"OK","trace":{"logid":"15538bca68ad615f","spanid":"=
+51cec069f5f72f81","traceid":"ec3372c45b98925800003750872cbf21"}},"data":{"3=
+458765068597298169":{"deliveryID":3458765068597298169,"type":"TAKEOUT","cha=
+nnel":"PRODUCT","status":"FINISH","subStatus":0,"createTime":1536722684,"up=
+dateTime":1536725594,"orderID":3458765302400092591,"orderIndex":6,"orderTim=
+e":1536722670,"capacity":3,"shopID":1152921526409625637,"uID":2824290082488=
+35,"cityID":17,"areaID":0,"fromAddress":"=E6=88=90=E9=83=BD=E5=B8=82=E6=88=
+=90=E5=8D=8E=E5=8C=BA=E6=9C=9B=E5=B9=B3=E8=B7=AF11=E5=8F=B7","fromLng":104.=
+09012138844,"fromLat":30.653136232339,"fromPoi":948603473870454784,"fromPoi=
+Name":"=E5=9B=9B=E5=B7=9D=E7=9C=81=E6=88=90=E9=83=BD=E5=B8=82=E6=88=90=E5=
+=8D=8E=E5=8C=BA=E6=9C=9B=E5=B9=B3=E8=A1=972=E5=8F=B7=E9=99=841=E5=8F=B7","t=
+oAddress":"5&nbsp; =E6=A5=BC554&nbsp; k;=E8=A7=82=E5=85=89=E7=94=B5=E6=A2=
+=AF=E6=97=81=EF=BC=8C=E4=B8=AD=E5=B2=9B=E6=9F=9C=E5=8C=97=E6=9E=81=E7=8B=90=
+=E5=8C=85=E5=8C=85=E6=9F=9CFJALLRAVEN","toLng":104.08141326904,"toLat":30.6=
+54844284058,"toPoi":200000000061092894,"toPoiName":"IFS=E5=9B=BD=E9=99=85=
+=E9=87=91=E8=9E=8D=E4=B8=AD=E5=BF=83","remark":"","promiseEta":1536725348,"=
+refundEta":1536727148,"delayTime":0,"realEta":"{\"areaID\":1152921590322495=
+499,\"cityID\":17,\"deliveryID\":3458765068597298169,\"riderID\":3458764955=
+367506462,\"shopLatestArrivalTime\":1536723822,\"shopLatestDoFoodTime\":153=
+6723428,\"shopLatestLeaveTime\":1536724064,\"userEstimatedDeliveryTime\":15=
+36724744,\"userEstimatedLeaveTime\":1536725594,\"userLatestDeliveryTime\":1=
+536724984,\"userLatestLeaveTime\":1536725410}","reason":"","currCabinetID":=
+3458764763478556727,"currRiderID":3458764955367506462,"preCabinetID":0,"ass=
+ignType":"SHOP","reassignCount":0,"basePromiseEta":1536725348,"fromAreaID":=
+1152921590322495499,"toAreaID":1152921544172568597,"fromPoiStr":"9486034738=
+70454784","toPoiStr":"2000000000061092894","expectedCookEta":1536723884,"ri=
+derShopSessionInfo":"","rescheduleCount":0}}}</td>
+</tr>
+<tr>
+<td colspan=3D"1" class=3D"confluenceTd">&nbsp;</td>
+<td colspan=3D"1" class=3D"confluenceTd">&nbsp;</td>
+<td colspan=3D"1" class=3D"confluenceTd">&nbsp;</td>
+</tr>
+<tr>
+<td colspan=3D"1" class=3D"confluenceTd">&nbsp;</td>
+<td colspan=3D"1" class=3D"confluenceTd">&nbsp;</td>
+<td colspan=3D"1" class=3D"confluenceTd">&nbsp;</td>
+</tr>
+<tr>
+<td colspan=3D"1" class=3D"confluenceTd">&nbsp;</td>
+<td class=3D"confluenceTd">&nbsp;</td>
+<td class=3D"confluenceTd">&nbsp;</td>
+</tr>
+<tr>
+<td colspan=3D"1" class=3D"confluenceTd">&nbsp;</td>
+<td class=3D"confluenceTd">&nbsp;</td>
+<td class=3D"confluenceTd">&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</div>
+    </div>
+</body>
+</html>
+------=_Part_755_1668019923.1537412694198--

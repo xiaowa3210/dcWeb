@@ -6,7 +6,7 @@ import time
 import os
 from flask_login import login_required
 
-from app.model.config import UEDITOR_UPLOAD_PATH
+from app.model.config import UEDITOR_UPLOAD_PATH, HOST
 
 import json
 from flask import render_template, request
@@ -21,21 +21,23 @@ from app.view.MessageInfo import MessageInfo
 from app.view.back01 import back01
 from datetime import datetime
 
-@back01.route('/article', methods=['GET'])
+# @back01.route('/article', methods=['GET'])
+# @login_required
+# def articleAdd():
+#     return render_template('back01/article_add.html')
+
+
+@back01.route('/articleAdd', methods=['GET'])
 @login_required
 def articleAdd():
-    return render_template('back01/article/article_add.html')
+    return render_template('back01/article_add.html')
 
-
-@back01.route('/doucment01', methods=['GET'])
+@back01.route('/articleModified', methods=['GET'])
 @login_required
-def doucmentEdit():
-    return render_template('back01/document_add.html')
-
-@back01.route('/doucment', methods=['GET'])
-@login_required
-def doucmentEdit01():
-    return render_template('back01/document_edit.html')
+def articleModified():
+    article_id = request.values.get("article_id")
+    article = getArticleByID(article_id)
+    return render_template('back01/article_modified.html', article=article)
 
 
 #文章列表
@@ -51,24 +53,29 @@ def saveArticle():
     # 解析前端传过来的json数据
     # data = json.loads(request.get_data("utf-8"))
 
-    attachment = request.files.get("attachment")
+    #attachment = request.files.get("attachment")
 
+    attachments = request.files.getlist("attachment")
     is_attachment = 1
-    files = Files()
-    if attachment is not None:
+    files = []
+    if len(attachments) > 0:
         is_attachment = 0
         path = UEDITOR_UPLOAD_PATH + "/article_attachment/"
-
-        files.file_id = 'File' + str(current_timestamp_now())
         if not os.path.exists(path):
             os.mkdir(path)
-        attachment.save(path + attachment.filename)
-
+        for attachment in attachments:
+            file = Files()
+            file.file_id = 'File' + str(current_timestamp_now())
+            local_path = path + attachment.filename
+            attachment.save(local_path)
+            file.local_path = local_path
+            file.url = HOST + ""
+            files.append(file)
     title = request.form.get("title")
     subtitle = request.form.get('subtitle')
     brief = request.form.get('brief')
 
-    keyword = request.form.get('keyword')
+    keywords = request.form.get('kws')
     content = request.form.get('content')
     is_add = request.form.get('is_add')
     # 添加文章
@@ -81,7 +88,7 @@ def saveArticle():
         article.title = title
         article.sub_title = subtitle
         article.brief = brief
-        article.key_words = keyword
+        article.key_words = keywords
         article.content = content
         article.creator_id = "32578453825483"  # 先随便设一个字段，创建时间有默认值了
         article.last_modified_id = article.creator_id  # 先随便设一个字段
@@ -100,9 +107,8 @@ def saveArticle():
 
         #如果有附件
         if is_attachment == 0:
-            files.article_id = article.article_id
+            article.files = files
         if addArticle(article):
-            addFile(files)
             return json.dumps(MessageInfo.success(data='保存成功').__dict__)
         else:
             return json.dumps(MessageInfo.fail(data="保存失败").__dict__)
@@ -113,7 +119,7 @@ def saveArticle():
         article.title = title
         article.sub_title = subtitle
         article.brief = brief
-        article.key_words = keyword
+        article.key_words = keywords
         article.content = content
         if updateArticleByID(article):
             return json.dumps(MessageInfo.success(data='修改成功').__dict__)
