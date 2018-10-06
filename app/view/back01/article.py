@@ -34,12 +34,12 @@ def articleAdd():
 @back01.route('/doucment01', methods=['GET'])
 @login_required
 def doucmentEdit():
-    return render_template('back01/form_component.html')
+    return render_template('back01/document_add.html')
 
 @back01.route('/doucment', methods=['GET'])
 @login_required
 def doucmentEdit01():
-    return render_template('back01/form_component.html')
+    return render_template('back01/document_edit.html')
 
 
 #文章列表
