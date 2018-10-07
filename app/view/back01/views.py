@@ -336,7 +336,7 @@ def lab(page):
     pagination, labs = getLaboratoryByPage(page, 10)
     return render_template('back01/lab.html', labs=labs, pagination=pagination)
 
-@back01.route('/lab/create', methods=['GET'])
+@back01.route('/lab/create')
 def lab_create():
     return render_template('back01/lab_create.html')
 
@@ -352,12 +352,12 @@ def api_create():
 
     return jsonify({"info": "添加成功"})
 
-@back01.route('/lab/<lab_id>')
+@back01.route('/lab/detail/<lab_id>')
 def lab_detail(lab_id):
     lab = db.session.query(Laboratory).filter(Laboratory.id == lab_id).one()
     return render_template('back01/lab_detail.html', lab=lab)
 
-@back01.route('/update/<lab_id>')
+@back01.route('/update/<int:lab_id>')
 def lab_update(lab_id):
     lab = db.session.query(Laboratory).filter(Laboratory.id == lab_id).one()
     return render_template('back01/lab_update.html',lab=lab)
