@@ -57,7 +57,7 @@ s
                     <th><i class="icon_mail_alt"></i> 年级</th>
                     <th><i class="icon_pin_alt"></i> 城市</th>
                     <th><i class="icon_mobile"></i> 电话</th>
-                    <th><i class="icon_cogs"></i> 操作</th>
+                    <!--<th><i class="icon_cogs"></i> 操作</th>-->
                   </tr>
             {% for user in users %}
                  <tr>
@@ -66,13 +66,13 @@ s
                     <td>{{ user["grade"] }}</td>
                     <td>Rosser</td>
                     <td>176-026-5992</td>
-                    <td>
-                      <div class="btn-group">
-                        <a class="btn btn-primary" href="#"><i class="icon_plus_alt2"></i></a>
-                        <a class="btn btn-success" href="#"><i class="icon_check_alt2"></i></a>
-                        <a class="btn btn-danger" href="#"><i class="icon_close_alt2"></i></a>
-                      </div>
-                    </td>
+                    <!--<td>-->
+                      <!--<div class="btn-group">-->
+                        <!--<a class="btn btn-primary" href="#"><i class="icon_plus_alt2">修改</i></a>-->
+                        <!--&lt;!&ndash;<a class="btn btn-success" href="#"><i class="icon_check_alt2"></i></a>&ndash;&gt;-->
+                        <!--<a class="btn btn-danger" href="#"><i class="icon_close_alt2">删除</i></a>-->
+                      <!--</div>-->
+                    <!--</td>-->
                   </tr>
             {% endfor %}
           </tbody>

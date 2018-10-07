@@ -320,10 +320,19 @@ def edit(project_id):
             publish_flag = 0
 
 
-        nowTime = datetime.now().strftime('%Y-%m-%d %H:%M:%S')  # 现在
-        project = nProject(project_id = str(tr),title=form.name.data, brief=form.introduction.data, member_info=str(teaminfo),
-                           ban_url=str(photoPaths),delete_flag=0,publish_flag=publish_flag,modified_flag=0,create_time=nowTime,publish_time=nowTime,broad_time=nowTime,creator_id=1)
-        db.session.add(project)
+        # nowTime = datetime.now().strftime('%Y-%m-%d %H:%M:%S')  # 现在
+        # project = nProject(project_id = str(tr),title=form.name.data, brief=form.introduction.data, member_info=str(teaminfo),
+        #                    ban_url=str(photoPaths),delete_flag=0,publish_flag=publish_flag,modified_flag=0,create_time=nowTime,publish_time=nowTime,broad_time=nowTime,creator_id=1)
+        # db.session.add(project)
+        # db.session.commit()
+        project= nProject.query.filter(nProject.project_id == project_id).one()
+        print(project)
+        print(type(project))
+        project.title = form.name.data
+        project.brief = form.introduction.data
+        project.member_info = str(teaminfo)
+        # project = Project(pname = form.name.data,introduction =form.introduction.data,picture=photoPaths,vedio=videoPaths)
+        # db.session.add(project)
         db.session.commit()
 
         teammates = []
