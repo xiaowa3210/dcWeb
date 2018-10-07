@@ -238,22 +238,107 @@ def pdetail(project_id):
     # project = Project.query.filter(Project.id == project_id).one()
     # return render_template('tmp00/pdetail.html', project=project)
 
-@back01.route('/delete/<project_id>/',methods=['GET', 'POST'])
+@back01.route('/delete01/<project_id>/',methods=['GET', 'POST'])
 @login_required
 def delete(project_id):
     print("4444")
-    p = Project.query.filter_by(id=project_id).first()
+    p = nProject.query.filter_by(project_id=project_id).first()
+    # p = Project.query.filter_by(id=project_id).first()
     db.session.delete(p)
     db.session.commit()
     flash("删除成功")
-    projects = Project.query.order_by(Project.create_time.desc()).all()
-    return redirect(url_for('back01.query_projects'))
-@back01.route('/edit/<project_id>/',methods=['GET', 'POST'])
+    # 获取get请求传过来的页数,没有传参数，默认为1
+    page = int(request.args.get('page', 1))
+    # 获取get请求传过来的以多少条数据分页的参数，默认为5
+    per_page = int(request.args.get('per_page', 7))
+    paginate = nProject.query.order_by(nProject.create_time.desc()).paginate(page, per_page, error_out=False)
+    # paginate = Project.query.order_by(Project.create_time.desc()).paginate(page, per_page, error_out=False)
+    # 获得数据
+    projects = paginate.items
+    # 返回给前端
+    return render_template('back01/projects.html', paginate=paginate, projects=projects)
+
+@back01.route('/edit01/<project_id>/',methods=['GET', 'POST'])
 @login_required
 def edit(project_id):
     print("3333")
-    project = Project.query.filter(Project.id == project_id).one()
+    project = nProject.query.filter(nProject.project_id == project_id).one()
     form  =AddProjectForm()
+    print(project.member_info)
+    # users =project.member_info["teammates"].split(',')
+
+    if form.is_submitted():
+        print("555")
+        # f1= request.files["photo"]
+        photos = request.files.getlist('photo')
+        # f2 = request.files["video"]
+        files = request.files.getlist('video')
+        base_path = path.abspath(path.dirname(__file__))
+        photoss = []
+        video_db_paths = []
+        for file in photos:
+            if allowed_photo(file.filename):
+                filename = secure_filename(file.filename)
+                upload_path = os.path.join(base_path, 'uploads', filename)
+                photo = {"title": filename, "path": upload_path}
+                file.save(upload_path)
+                photoss.append(photo)
+            else:
+                flash("您上传的文件不是图片类型！")
+                return render_template('admin/addproject.html', form=form)
+        for file in files:
+            if allowed_video(file.filename):
+                filename = secure_filename(file.filename)
+                upload_path = os.path.join(base_path, 'uploads', filename)
+                video_db_paths.append(upload_path)
+                file.save(upload_path)
+            else:
+                flash("您上传的文件不是视频类型！")
+                return render_template('admin/addproject.html', form=form)
+
+        photoPaths = {"pics": photoss}
+
+        videoPaths = ";".join(video_db_paths)
+        global teammates
+
+        teaminfo = {"teammates": teammates}
+        t = time.time()
+        print(t)  # 原始时间数据
+        print(int(t))  # 秒级时间戳
+        tr = int(round((t*1000)))
+        print(tr)  # 毫秒级时间戳
+
+        nowTime = lambda: int(round(t * 1000))
+        print(nowTime());  # 毫秒级时间戳，基于lambda
+
+        print("2222222")
+        print(form.isPublish.data)
+        print(type(form.isPublish.data))
+        if(form.isPublish.data):
+            publish_flag = 1
+        else:
+            publish_flag = 0
+
+
+        nowTime = datetime.now().strftime('%Y-%m-%d %H:%M:%S')  # 现在
+        project = nProject(project_id = str(tr),title=form.name.data, brief=form.introduction.data, member_info=str(teaminfo),
+                           ban_url=str(photoPaths),delete_flag=0,publish_flag=publish_flag,modified_flag=0,create_time=nowTime,publish_time=nowTime,broad_time=nowTime,creator_id=1)
+        db.session.add(project)
+        db.session.commit()
+
+        teammates = []
+        flash("修改成功")
+        # 获取get请求传过来的页数,没有传参数，默认为1
+        page = int(request.args.get('page', 1))
+        # 获取get请求传过来的以多少条数据分页的参数，默认为5
+        per_page = int(request.args.get('per_page', 7))
+        paginate = nProject.query.order_by(nProject.create_time.desc()).paginate(page, per_page, error_out=False)
+        # paginate = Project.query.order_by(Project.create_time.desc()).paginate(page, per_page, error_out=False)
+        # 获得数据
+        projects = paginate.items
+        # 返回给前端
+        return render_template('back01/projects.html', paginate=paginate, projects=projects)
+
     return render_template('back01/editproject.html', project=project, form=form)
 
 @back01.route('/addproject01', methods=['GET', 'POST'])
@@ -313,7 +398,7 @@ def addproject():
             publish_flag = 0
 
 
-        nowTime = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')  # 现在
+        nowTime = datetime.now().strftime('%Y-%m-%d %H:%M:%S')  # 现在
         project = nProject(project_id = str(tr),title=form.name.data, brief=form.introduction.data, member_info=str(teaminfo),
                            ban_url=str(photoPaths),delete_flag=0,publish_flag=publish_flag,modified_flag=0,create_time=nowTime,publish_time=nowTime,broad_time=nowTime,creator_id=1)
         db.session.add(project)
