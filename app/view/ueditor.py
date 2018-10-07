@@ -21,7 +21,7 @@ from werkzeug.utils import secure_filename, redirect
 from app.view.admin.forms import AddAdminForm, AddProjectForm
 
 import json
-import files
+
 from app.utils.fileUploadUtils import ftp_upload
 from flask import render_template, request
 

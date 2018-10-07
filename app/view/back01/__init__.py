@@ -11,3 +11,13 @@ from . import views, article
 @login_required
 def index():
     return redirect('/back01/articleList')
+
+'''
+功能测试路由，无需登陆验证
+20181007
+alex
+'''
+@back01.route('/test', methods=['POST'])
+def indexTest():
+    return redirect('/back01/test')
+
