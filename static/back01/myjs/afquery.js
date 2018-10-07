@@ -102,15 +102,27 @@ Af.rest = function (serviceUri, req, dataHandler,restErrHandler)
 }
 
 /* JSONP 调用 */
-Af.jsonp = function(URI, req, resultHanlder)
+Af.jsonp = function(URI, req, resultHanlder,errorHanlder)
 {
-	jQuery.ajax({				
-			url: URI,	
+	jQuery.ajax({
+			url: URI,
 			method: "GET", // get方式
-			dataType: "jsonp", // 1: jsonp 
+			dataType: "json", // 1: jsonp
 			//jsonpCallback: "callback",
 			data: req, // 参数
-			success: resultHanlder
+			success: function (ans) {
+				if(ans.error != 0)
+				{
+					if(resultHanlder != null)
+						errorHanlder( ans.error, ans.reason);
+					else
+						Af.restErrHandler( ans.error, ans.reason);
+				}
+				else
+				{
+					resultHanlder(ans.data);
+				}
+            }
 	});	
 }
 

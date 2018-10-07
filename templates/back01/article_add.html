@@ -11,16 +11,16 @@
     <section class="wrapper">
         <div class="row">
             <div class="col-lg-12">
-                <h3 class="page-header"><i class="fa fa-files-o"></i>修改文章</h3>
+                <h3 class="page-header"><i class="fa fa-files-o"></i>添加文章</h3>
                 <ol class="breadcrumb">
                     <li><i class="fa fa-home"></i><a href="index.html">主页</a></li>
                     <li><i class="icon_document_alt"></i>文章管理</li>
-                    <li><i class="fa fa-files-o"></i>修改文章</li>
+                    <li><i class="fa fa-files-o"></i>添加文章</li>
                 </ol>
             </div>
         </div>
         <!-- Form validations -->
-        <div class="row" id="article_id" article_id="{{article.article_id}}">
+        <div class="row">
             <div class="col-lg-12">
                 <section class="panel">
                     <header class="panel-heading">
@@ -28,13 +28,13 @@
                     </header>
                     <div class="panel-body">
                         <div class="form article">
-                            <form class="form-horizontal" onsubmit="return false" action="##" method="post">
+                            <form id="articleform" class="form-horizontal" onsubmit="return false" action="##" method="post">
                                 <div class="form-group ">
                                     <label for="title" class="control-label col-lg-2">标题<span
                                             class="required">*</span></label>
                                     <div class="col-lg-10">
                                         <input class="form-control title" id="title" name="title"
-                                               type="text" value="{{article.title}}" required />
+                                               type="text" required/>
                                     </div>
                                 </div>
 
@@ -43,7 +43,7 @@
                                             class="required">*</span></label>
                                     <div class="col-lg-10">
                                         <input class="form-control subtitle" id="subtitle" name="subtitle"
-                                               type="text" value="{{article.sub_title}}" required/>
+                                               type="text" required/>
                                     </div>
                                 </div>
 
@@ -52,21 +52,24 @@
                                             class="required">*</span></label>
                                     <div class="col-lg-10">
                                         <textarea class="form-control ckeditor brief" name="brief" rows="6"
-                                                  id="brief" value="{{article.brief}}"></textarea>
+                                                  id="brief"></textarea>
                                     </div>
                                 </div>
 
                                 <div class="form-group ">
                                     <label class="control-label col-lg-2">关键字<span
                                             class="required">*</span></label>
-                                    <div class="col-lg-4 kw">
-                                        <input class="form-control keyword" name="keyword"
-                                               type="text" value="{{article.content}}"required/>
+                                    <div class="col-lg-10">
+                                        <div class="col-lg-2 kw">
+                                            <input class="form-control keyword" name="keyword" style="margin-bottom: 10px"
+                                               type="text" required/>
+                                        </div>
+                                        <div class="col-lg-1 addkeyword">
+                                            <button id="addkeyword" class="btn btn-primary" onclick="MAIN.addkeyword()">添加
+                                            </button>
+                                        </div>
                                     </div>
-                                    <div class="col-lg-1 addkeyword">
-                                        <button id="addkeyword" class="btn btn-primary" onclick="MAIN.addkeyword()">添加
-                                        </button>
-                                    </div>
+
                                 </div>
 
                                 <div class="form-group ">
@@ -74,20 +77,23 @@
                                             class="required">*</span></label>
                                     <div class="col-lg-10">
                                         <textarea class="form-control ckeditor content" name="editor1" rows="6"
-                                                  id="content" value="{{article.content}}" ></textarea>
+                                                  id="content"></textarea>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <label for="InputFile" class="control-label col-lg-2">上传附件</label>
-                                    <input type="file" id="InputFile">
+                                    <input type="file" id="InputFile" name="attachment" multiple="multiple">
                                     <p class="help-block">上传附件</p>
                                 </div>
 
                                 <div class="form-group">
                                     <div class="col-lg-offset-2 col-lg-8">
-                                        <button class="btn btn-primary" onclick="MAIN.onSave(0)">保存</button>
+                                        <button class="btn btn-primary" onclick="MAIN.onSave01(0)">保存</button>
                                         <button class="btn btn-default" type="button">取消</button>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <button class="btn btn-primary" onclick="MAIN.onSave01(1)">保存并发布</button>
                                     </div>
                                 </div>
                             </form>
@@ -111,6 +117,8 @@
     MAIN.addkeyword = function () {
         var kw = $(".kw:first")
         $(".addkeyword").before(kw.clone())
+        $(".keyword:last").value("")
+
     }
 
     MAIN.onSave = function (type) {
@@ -120,12 +128,39 @@
         req.brief = $('.brief').val().trim();
         req.keyword = $('.keyword').val().trim();
         req.content = $('.content').val().trim();
-        req.is_add = 1;
-        req.article_id = $('#article_id').attr('article_id')
+        req.type = type;
+        req.is_add = 0;
         Af.rest("/back01/saveArticle",req,function (data) {
             alert(data);
-            $("input").value("");
+            $("input").val("");
         })
+    }
+
+
+    MAIN.onSave01 = function (type) {
+        var form = new FormData(document.getElementById("articleform"));
+        form.append("is_add",0);
+        form.append("type",type);
+        var kws = "";
+        $(".keyword").each(function () {
+            var kw = $(this).val().trim();
+            kws += kw + "||"
+
+        });
+        form.append("kws",kws.substr(0,kws.length-2))
+        $.ajax({
+                url:"/back01/saveArticle",
+                type:"post",
+                data:form,
+                processData:false,
+                contentType:false,
+                success:function(data){
+                    alert("success")
+                },
+                error:function(e){
+                    alert("fail");
+                }
+            });
     }
 
 

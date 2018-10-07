@@ -327,7 +327,7 @@ def addproject():
 @back01.route('/back01/updateArticle/<string:article_id>', methods=['GET'])
 def updateArticle(article_id):
     article = getArticleByID(article_id)
-    return render_template('back01/article_update.html',article=article)
+    return render_template('back01/article_modified.html',article=article)
 
 
 @back01.route('/lab', methods=['GET'], defaults={'page': 1})
