@@ -22,6 +22,7 @@ from flask import render_template, request
 
 from app.model.models import *
 from app.service.ArticleService import *
+from app.service.LaboratoryService import *
 from app.utils.timeutils import *
 from app.view.MessageInfo import MessageInfo
 from app.view.back01 import back01
@@ -329,16 +330,17 @@ def updateArticle(article_id):
     return render_template('back01/article_update.html',article=article)
 
 
-@back01.route('/back01/lab')
-def lab():
-    labs = Laboratory.query.order_by(Laboratory.create_time.desc()).all()
-    return render_template('back01/lab.html', labs=labs)
+@back01.route('/lab', methods=['GET'], defaults={'page': 1})
+@back01.route('/lab/<int:page>', methods=['GET'])
+def lab(page):
+    pagination, labs = getLaboratoryByPage(page, 10)
+    return render_template('back01/lab.html', labs=labs, pagination=pagination)
 
-@back01.route('/back01/lab/create')
+@back01.route('/lab/create', methods=['GET'])
 def lab_create():
     return render_template('back01/lab_create.html')
 
-@back01.route('/api/lab/create',methods=['GET','POST'])
+@back01.route('/lab/create', methods=['POST'])
 def api_create():
     data = json.loads(request.get_data("utf-8"))
     name = data['name']
@@ -350,17 +352,17 @@ def api_create():
 
     return jsonify({"info": "添加成功"})
 
-@back01.route('/back01/lab/<lab_id>')
+@back01.route('/lab/<lab_id>')
 def lab_detail(lab_id):
     lab = db.session.query(Laboratory).filter(Laboratory.id == lab_id).one()
     return render_template('back01/lab_detail.html', lab=lab)
 
-@back01.route('/back01/update/<lab_id>')
+@back01.route('/update/<lab_id>')
 def lab_update(lab_id):
     lab = db.session.query(Laboratory).filter(Laboratory.id == lab_id).one()
     return render_template('back01/lab_update.html',lab=lab)
 
-@back01.route('/api/lab/update', methods=['POST'])
+@back01.route('/lab/update', methods=['POST'])
 def api_update():
     data = json.loads(request.get_data("utf-8"))
     id = data['id']
@@ -368,14 +370,13 @@ def api_update():
     intros = data['intros']
 
     lab = db.session.query(Laboratory).filter(Laboratory.id == id).one()
-    Laboratory.name = name
-    Laboratory.introduction = intros
-    db.session.add(lab)
+    lab.name = name
+    lab.introduction = intros
     db.session.commit()
 
     return jsonify({"info": "修改成功"})
 
-@back01.route('/api/lab/delete',methods=['POST'])
+@back01.route('/lab/delete',methods=['POST'])
 def api_delete():
     data = json.loads(request.get_data("utf-8"))
     id = data['id']

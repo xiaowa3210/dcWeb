@@ -37,20 +37,40 @@
                     </thead>
                     <tbody>
                     {% for lab in labs %}
-                        <tr id="lab_id" lab_id="{{ lab.id }}">
+                        <tr >
                             <td><a href="{{ url_for('back01.lab_detail',lab_id=lab.id) }}">{{ lab.name }}</a></td>
                             <td>{{lab.create_time}}</td>
                             <td>
                                 <div class="btn-group">
                                     <a href="{{ url_for('back01.lab_update',lab_id=lab.id) }}" class="btn btn-primary"><i class="icon_check_alt2"></i>修改</a>
-                                    <a href="javascript:void(0);" class="btn btn-danger" id="submit"><i class="icon_close_alt2"></i>删除</a>
+                                    <a href="javascript:void(0);" class="btn btn-danger delete" id="lab_id" lab_id="{{ lab.id }}"><i class="icon_close_alt2"></i>删除</a>
                                 </div>
                             </td>
                         </tr>
                     {% endfor %}
                     </tbody>
                 </table>
+            </div>
+        </div>
+        <div class="text-center row">
+            <div class="col-lg-12">
+                <ul class="pagination pagination-lg">
+                    {% if pagination.has_prev %}
+                        <li><a href="{{url_for('back01.lab',page = pagination.page - 1)}}">«</a></li>
+                    {% endif %}
 
+                    {% for p in pagination.iter_pages() %}
+                        {% if p == pagination.page%}
+                             <li class="active"><a href="{{url_for('back01.lab',page = p)}}">{{loop.index}}</a></li>
+                        {% else %}
+                            <li><a href="{{url_for('back01.lab',page = p)}}">{{loop.index}}</a></li>
+                        {% endif %}
+                    {% endfor %}
+
+                    {% if pagination.has_next %}
+                        <li><a href="{{url_for('back01.lab',page = pagination.page + 1)}}">»</a></li>
+                    {% endif %}
+                </ul>
             </div>
         </div>
 
@@ -59,14 +79,14 @@
 </section>
 
 <script>
-  $("#submit").click(function () {
+$(function () {
+     $(".delete").click(function () {
       if (delete_confirm()) {
-
           var data = {};
-          data['id'] = $("#lab_id").attr('lab_id');
+          data['id'] = $(this).attr('lab_id');
 
           $.ajax({
-              url: '/api/lab/delete',
+              url: '/back01/lab/delete',
               type: 'post',
               data: JSON.stringify(data),
               dataType: 'json',
@@ -95,6 +115,8 @@
            return false;
        }
   }
+});
+
 
 
 </script>
