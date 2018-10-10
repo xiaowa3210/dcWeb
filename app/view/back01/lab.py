@@ -58,3 +58,18 @@ def api_delete():
     db.session.commit()
 
     return jsonify({"info": "删除成功"})
+
+
+"""
+************************
+"""
+@back01.route('/deluser',methods=['POST'])
+def deluser():
+    id = json.loads(request.get_data("utf-8"))
+    print("*********************************")
+    print(id)
+    print("*********************************")
+    user = User.query.get(id)
+    db.session.delete(user)
+    db.session.commit()
+    return jsonify({'code':200,'message':'删除成功！'})
