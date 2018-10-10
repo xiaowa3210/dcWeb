@@ -80,18 +80,26 @@ def addadmin():
 """
 @back01.route('/userlist01')
 @login_required
-def userlist():
+def userlist01():
     page = request.args.get('page',1,type = int)
-    pagination = User.query.order_by(User.created_time.desc()).paginate(page,per_page=15,error_out=False)
+    pagination = User.query.order_by(User.created_time.desc()).paginate(page,per_page=10,error_out=False)
     users = pagination.items
-    return render_template('admin/edit_user.html',users=users,pagination=pagination)
+    return render_template('back01/edit_user01.html',users=users,pagination=pagination)
 
 
-@back01.route('/delete_user01',methods=['POST'])
-@login_required
-def delete_user():
-    id = request.form.get("id")
-    user = User.query.get(id)
+
+
+
+@back01.route('/deluser',methods=['POST'])
+def deluser():
+    print("*********************************")
+    data = int(json.loads(request.get_data("utf-8")))
+    print(data)
+    print(type(data))
+
+    print("*********************************")
+    user = User.query.get(data)
+    print(user)
     db.session.delete(user)
     db.session.commit()
     return jsonify({'code':200,'message':'删除成功！'})
@@ -210,7 +218,7 @@ def query_projects():
     # 返回给前端
     return render_template('back01/projects.html', paginate=paginate, projects=projects)
 @back01.route('/query_projects/<project_id>/',methods=['GET', 'POST'])
-@login_required
+#@login_required
 def operate(project_id):
     if  request.form.get("operate") == "编辑":
         print("3333")
