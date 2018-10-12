@@ -1,8 +1,9 @@
 {% extends 'back01/base.html' %}
 
 {% block static_files %}
-
-
+<script type="text/javascript" src="/static/ueditor/ueditor.config.js"></script>
+<script type="text/javascript" src="/static/ueditor/ueditor.all.js"></script>
+<script src="/static/js/jquery-2.1.0.min.js"></script>
 {% endblock %}
 
 {% block body_part %}
@@ -76,11 +77,12 @@
                                 </div>
 
                                 <div class="form-group ">
-                                    <label for="content" class="control-label col-lg-2">编辑内容<span
+                                    <label class="control-label col-lg-2">编辑内容<span
                                             class="required">*</span></label>
                                     <div class="col-lg-10">
-                                        <textarea class="form-control ckeditor content" name="editor1" rows="6"
-                                                  id="content" required>{{article.content}}</textarea>
+                                        <span id="data-content"  data-content="{{ article.content }}"></span>
+                                        <script id="editor" type="text/plain">
+                                        </script>
                                     </div>
                                 </div>
 
@@ -103,6 +105,9 @@
                                         <button class="btn btn-primary" onclick="MAIN.onSave(0)">保存</button>
                                         <button class="btn btn-default" type="button">取消</button>
                                     </div>
+                                    <div class="col-lg-2">
+                                        <button class="btn btn-primary" onclick="MAIN.onSave(1)">保存并发布</button>
+                                    </div>
                                 </div>
                             </form>
                         </div>
@@ -118,9 +123,24 @@
 
     var MAIN = {};
 
+//    MAIN.ue = UE.getEditor('editor',{
+//        serverUrl:"/files/images"
+//    })
+
+    $(function (){
+        var ue = UE.getEditor('editor');
+        var origin_content = $("#data-content").attr("data-content");
+        ue.ready(function () {
+            ue.setContent(origin_content);
+        });
+        window.ue = ue;
+    });
+
     MAIN.init = function () {
 
     }
+
+
 
     MAIN.addkeyword = function () {
         var kw = $(".kw:first")

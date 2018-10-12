@@ -17,6 +17,8 @@ import random
 import base64
 import os
 
+from app.model.config import ROOT_PATH
+
 # /movie/
 # /book/
 
@@ -50,7 +52,7 @@ def upload():
     action = request.args.get('action')
     result = {}
     if action == 'config':
-        config_path = os.path.join(bp.static_folder or app.static_folder,'admin','ueditor','config.json')
+        config_path = os.path.join(ROOT_PATH,'ueditor','config.json')
         with open(config_path,'r',encoding='utf-8') as fp:
             result = json.loads(re.sub(r'\/\*.*\*\/','',fp.read()))
 

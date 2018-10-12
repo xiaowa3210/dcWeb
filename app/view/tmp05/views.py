@@ -1,9 +1,11 @@
 #!/user/bin/env python
 # -*- coding:utf-8 -*-
 import os
-from flask import render_template, make_response, send_from_directory
+from flask import render_template, make_response, send_from_directory, send_file
 
+from app.service.ArticleService import *
 from app.service.DocumentsService import *
+from app.service.FileService import getFileByID
 from app.service.ProjectService import *
 from app.service.LaboratoryService import *
 from app.view.tmp05 import tmp05
@@ -37,16 +39,16 @@ def user_center():
 @tmp05.route('/tmp05/news/<int:page>')
 def news(page):
     per_page = 10
-    pagination,documents = getDocumentByPage(page,per_page,1)
-    return render_template('tmp05/news.html', pagination=pagination, documents=documents)
+    articles,pagination = getArticlesByPage(page,per_page,0)
+    return render_template('tmp05/news.html', pagination=pagination, articles=articles)
 
 @tmp05.route('/tmp05/newsapi')
 def newsapi(): return render_template('tmp05/newsAPI.html')
 
 @tmp05.route('/tmp05/newsDetail/<news_id>')
 def news_detail(news_id):
-    news_obj = getDoucumentByID(news_id)
-    return render_template('tmp05/news-detail.html', news=news_obj)
+    article = getArticleByID(news_id)
+    return render_template('tmp05/news-detail.html', article=article)
 
 @tmp05.route('/tmp05/downlink', defaults={'page':1})
 @tmp05.route('/tmp05/downlink/<int:page>')
@@ -61,6 +63,17 @@ def download_file(filename):
     #需要知道2个参数, 第1个参数是本地目录的path, 第2个参数是文件名(带扩展名)
     directory = os.path.join(app.root_path, 'view/admin/uploads')
     response = make_response(send_from_directory(directory, filename, as_attachment=True))
+    response.headers["Content-Disposition"] = "attachment; filename={}".format(filename.encode().decode('latin-1'))
+    return response
+
+
+#附件下载
+@tmp05.route('/tmp05/loadattachment/<string:file_id>', methods=['GET'])
+def download_attachment(file_id):
+    #需要知道2个参数, 第1个参数是本地目录的path, 第2个参数是文件名(带扩展名)
+    file = getFileByID(file_id)
+    filename = file.local_name
+    response = make_response(send_file(file.local_path))
     response.headers["Content-Disposition"] = "attachment; filename={}".format(filename.encode().decode('latin-1'))
     return response
 

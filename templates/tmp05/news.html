@@ -15,7 +15,7 @@
 <!--<div class="container">-->
 <!--<div class="row">-->
 <!--&lt;!&ndash;循环部分&ndash;&gt;-->
-<!--{% for doc in documents %}-->
+<!--{% for doc in articles %}-->
 <!--<div class="col-sm-12 companyDyanmicc_cot ">-->
 <!--<div class="row">-->
 <!--<a href="{{url_for('tmp05.news_detail',news_id=30)}}">-->
@@ -87,11 +87,11 @@
                 </tr>
                 </thead>
                 <tbody>
-                {% for document in documents %}
+                {% for article in articles %}
                 <tr>
-                    <td width="82%"><a href="{{ url_for('tmp05.news_detail',news_id=document.id) }}">{{ document.title
+                    <td width="82%"><a href="{{ url_for('tmp05.news_detail',news_id=article.article_id) }}">{{ article.title
                         }}</a></td>
-                    <td width="18%" style="text-align: center;">{{ document.created_time }}</td>
+                    <td width="18%" style="text-align: center;">{{ article.publish_time }}</td>
                 </tr>
                 {% endfor %}
                 </tbody>
