@@ -49,7 +49,7 @@ def articleModified():
 @back01.route('/articleList', methods=['GET'],defaults={'page':1})
 @back01.route('/articleList/<int:page>',methods=['GET'])
 def articleList(page):
-    articles,pagination = getArticlesByPage(page,10)
+    articles,pagination = getArticlesByPage(page,10,1)
     return render_template('back01/article_list.html',articles=articles,pagination=pagination)
 
 #保存文章
@@ -85,10 +85,10 @@ def saveArticle():
     keywords = request.form.get('kws')
     content = request.form.get('content')
     is_add = request.form.get('is_add')
+
+    type = request.form.get('type')  # 0代表保存，1代表保存并且发布
     # 添加文章
     if is_add == '0':
-        type = request.form.get('type')  # 0代表保存，1代表保存并且发布
-
         article = Article()
         article.article_id = 'Ariticle' + str(current_timestamp_now())
         article.article_type = 1  # 代表图文
@@ -128,6 +128,12 @@ def saveArticle():
         article.brief = brief
         article.key_words = keywords
         article.content = content
+
+        if type == '1':
+            article.publish_sign = 1  # 设置为已发布
+            article.publish_id = article.creator_id  # 发布人id就是创建人id
+            article.publish_time = datetime.now()
+            article.true_publish_time = datetime.now()
         if updateArticleByID(article,files):
             return json.dumps(MessageInfo.success(data='修改成功').__dict__)
         else:

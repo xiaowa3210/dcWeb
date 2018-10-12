@@ -18,11 +18,19 @@ def addArticle(article):
          traceback.print_exc()
          return False
      return True
-def getArticlesByPage(page_index,per_page):
+def getArticlesByPage(page_index,per_page,is_publish):
     # 这个地方要用到分页查询。带删除标志的不要展示出来了
-    pagination = Article.query.filter(Article.delete_flag == 0).paginate(page_index, per_page, error_out=False)
-    articles = pagination.items
-    return articles,pagination
+    if is_publish:
+        pagination = Article.query.filter(Article.delete_flag == 0).paginate(page_index, per_page, error_out=False)
+        articles = pagination.items
+        return articles,pagination
+    else:
+        pagination = Article.query.filter(Article.delete_flag == 0).filter(Article.publish_sign == 1)\
+            .paginate(page_index, per_page, error_out=False)
+        articles = pagination.items
+        return articles, pagination
+
+
 
 #逻辑删除文章,将删除标志位设为1
 def deleteArticleByID(article_id):

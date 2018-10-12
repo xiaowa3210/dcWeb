@@ -30,3 +30,5 @@ def deleteFileByID(file_id):
     except Exception as e:
         return False
     return True
+def getFileByID(file_id):
+    return db.session.query(Files).filter(Files.file_id == file_id).one()

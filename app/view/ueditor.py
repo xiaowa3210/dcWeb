@@ -43,7 +43,7 @@ def ueditorCtr():
     args = request.args.get("action") or "args没有参数"
 
     if(args == "config"):#返回编辑器后台配置
-        configJSON = open(os.path.abspath('.') + os.sep + 'static' + os.sep + 'config.json', "r", encoding='utf-8').read()
+        configJSON = open(Roo + os.sep + 'static' + os.sep + 'ueditor'+ os.sep +'config.json', "r", encoding='utf-8').read()
         load_dict = json.loads(configJSON)
         return jsonify(load_dict)
 
