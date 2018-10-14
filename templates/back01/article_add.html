@@ -131,7 +131,7 @@
         req.subtitle = $('.subtitle').val().trim();
         req.brief = $('.brief').val().trim();
         req.keyword = $('.keyword').val().trim();
-        req.content = $('.content').val().trim();
+        var content = MAIN.ue.getContent();
         req.type = type;
         req.is_add = 0;
         Af.rest("/back01/saveArticle",req,function (data) {

@@ -7,12 +7,17 @@ import time
 
 
 import os
+import uuid
 from os import path
 
 from flask import render_template, flash, request, url_for, jsonify
 from flask_login import current_user, login_required
 from werkzeug.utils import secure_filename, redirect
 
+from app.model.config import UEDITOR_UPLOAD_PATH, HOST
+# from app.service.ProjectService import  addProject
+from app.service.ProjectService import addProject, getProjectById, getTeamInfo, updateProjectByID
+from app.utils.utils import str_to_dict
 
 from app.view.admin.forms import AddAdminForm, AddProjectForm
 
@@ -217,22 +222,7 @@ def query_projects():
     projects = paginate.items
     # 返回给前端
     return render_template('back01/projects.html', paginate=paginate, projects=projects)
-@back01.route('/query_projects/<project_id>/',methods=['GET', 'POST'])
-#@login_required
-def operate(project_id):
-    if  request.form.get("operate") == "编辑":
-        print("3333")
-        project = Project.query.filter(Project.id == project_id).one()
-        form  =AddProjectForm()
-        return render_template('admin/editproject.html', project=project, form=form)
-    if  request.form.get("operate") == "删除":
-        print("4444")
-        p = Project.query.filter_by(id=project_id).first()
-        db.session.delete(p)
-        db.session.commit()
-        flash("删除成功")
-    projects = Project.query.order_by(Project.create_time.desc()).all()
-    return redirect(url_for('admin.query_projects'))
+
 @back01.route('/projects01/<project_id>/',methods=['GET', 'POST'])
 @login_required
 def pdetail(project_id):
@@ -265,12 +255,23 @@ def delete(project_id):
     projects = paginate.items
     # 返回给前端
     return render_template('back01/projects.html', paginate=paginate, projects=projects)
+@back01.route('/project/Modified', methods=['GET'])
+@login_required
+def projectModified():
+    project_id = request.values.get("project_id")
+
+    project= getProjectById(project_id)
+    teammates= getTeamInfo(project)
+    # kws = kwsStr.split("||")
+    return render_template('back01/editproject.html', project=project,teammates=teammates)
 
 @back01.route('/edit01/<project_id>/',methods=['GET', 'POST'])
 @login_required
 def edit(project_id):
     print("3333")
     project = nProject.query.filter(nProject.project_id == project_id).one()
+    teammates = str_to_dict(project.member_info)
+    teammates =teammates['teammates']
     form  =AddProjectForm()
     print(project.member_info)
     # users =project.member_info["teammates"].split(',')
@@ -319,20 +320,12 @@ def edit(project_id):
         nowTime = lambda: int(round(t * 1000))
         print(nowTime());  # 毫秒级时间戳，基于lambda
 
-        print("2222222")
-        print(form.isPublish.data)
-        print(type(form.isPublish.data))
         if(form.isPublish.data):
             publish_flag = 1
         else:
             publish_flag = 0
 
 
-        # nowTime = datetime.now().strftime('%Y-%m-%d %H:%M:%S')  # 现在
-        # project = nProject(project_id = str(tr),title=form.name.data, brief=form.introduction.data, member_info=str(teaminfo),
-        #                    ban_url=str(photoPaths),delete_flag=0,publish_flag=publish_flag,modified_flag=0,create_time=nowTime,publish_time=nowTime,broad_time=nowTime,creator_id=1)
-        # db.session.add(project)
-        # db.session.commit()
         project= nProject.query.filter(nProject.project_id == project_id).one()
         print(project)
         print(type(project))
@@ -356,7 +349,7 @@ def edit(project_id):
         # 返回给前端
         return render_template('back01/projects.html', paginate=paginate, projects=projects)
 
-    return render_template('back01/editproject.html', project=project, form=form)
+    return render_template('back01/editproject.html', project=project, teammates=teammates)
 
 @back01.route('/addproject01', methods=['GET', 'POST'])
 # @login_required
@@ -487,6 +480,110 @@ def api_delete():
     db.session.commit()
 
     return jsonify({"info": "删除成功"})
+
+
+@back01.route('/saveProject', methods=['POST'])
+def saveProject():
+    # 解析前端传过来的json数据
+    # data = json.loads(request.get_data("utf-8"))
+
+    #attachment = request.files.get("attachment")
+
+    photos = request.files.getlist("photos")
+    is_attachment = 1
+    # files = []
+
+    photoss = []
+    if len(photos) > 0:
+        is_attachment = 0
+        path = UEDITOR_UPLOAD_PATH + "/project_photo/"
+        if not os.path.exists(path):
+            os.mkdir(path)
+        for file in photos:
+            if allowed_photo(file.filename):
+                filename = secure_filename(file.filename)
+                upload_path = os.path.join(path,  filename)
+                photo = {"title": filename, "path": upload_path}
+                file.save(upload_path)
+                photoss.append(photo)
+            else:
+                flash("您上传的文件不是图片类型！")
+    photoPaths = {"pics": photoss}
+    title = request.form.get("title")
+    # subtitle = request.form.get('subtitle')
+    brief = request.form.get('brief')
+
+    teammates =request.form.get('teammates')
+    teammates = teammates.split("&")
+    member_infos=[]
+    for teammate in  teammates:
+        ada = teammate.strip(',').split('||')
+
+        name = ada[0]
+        faculty = ada[1]
+        grade = ada[2]
+        teammate = {"name": name,
+                    "faculty": faculty,
+                    "grade": grade}
+        member_infos.append(teammate)
+        # print(type(ada))
+
+    member_info ={"teammates": member_infos}
+    print(str(member_info))
+
+    # keywords = request.form.get('kws')
+    # content = request.form.get('content')
+    is_add = request.form.get('is_add')
+    type = request.form.get('type')
+    # 添加文章
+    if is_add == '0':
+         # 0代表保存，1代表保存并且发布
+
+        project = nProject()
+
+        t = time.time()
+        tr = int(round((t*1000)))
+        project.project_id = 'Project' + str(tr)
+        project.title = title
+        project.brief=brief
+        project.member_info =str(member_info)
+        project.ban_url =str(photoPaths)
+        project.delete_flag =0
+        project.modified_flag=0
+        project.create_time =datetime.now()
+        project.publish_time =datetime.now()
+        project.broad_time=datetime.now()
+        project.creator_id=1
+
+        if type == '1':
+            project.publish_flag=1
+        else:
+            project.publish_flag = 0
+
+        #如果有附件
+
+        if addProject(project):
+            return json.dumps(MessageInfo.success(data='保存成功').__dict__)
+        else:
+            return json.dumps(MessageInfo.fail(data="保存失败").__dict__)
+    else:
+        # 修改文章
+        project = nProject()
+        project.project_id = request.form.get('project_id')
+        project.title = title
+        project.brief = brief
+        project.member_info = str(member_info)
+
+        if type == '1':
+            project.publish_flag = 1  # 设置为已发布
+            project.publish_id = project.creator_id  # 发布人id就是创建人id
+            project.publish_time = datetime.now()
+        if updateProjectByID(project):
+            return json.dumps(MessageInfo.success(data='修改成功').__dict__)
+        else:
+            return json.dumps(MessageInfo.fail(data="修改失败").__dict__)
+
+
 
 
 
