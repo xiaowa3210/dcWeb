@@ -5,7 +5,7 @@ from flask_login import current_user, login_required
 
 back01 = Blueprint('back01', __name__)
 
-from . import views, article
+from . import views, article, lab
 
 @back01.route('/', methods=['GET'])
 @login_required

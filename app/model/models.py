@@ -333,3 +333,57 @@ class nProject(db.Model):
     # 关键字
     key_worlds = db.Column(db.String(256), nullable=True)
 
+#实验室
+class Laboratory(db.Model):
+    __tablename__ = 't_laboratory'
+
+    laboratory_id = db.Column(db.String(30), primary_key=True)
+
+    # 实验室名称
+    name = db.Column(db.String(256), nullable=True)
+
+    # 介绍
+    introduction = db.Column(db.Text(length=(2**32)-1), nullable=True)
+
+    # 负责人ID
+
+
+
+    #创建人ID
+    creator_id = db.Column(db.String(30), nullable=False)
+
+    #创建时间
+    create_time = db.Column(db.DateTime, nullable=False, default=datetime.now)
+
+    #发布标志,0未发布，1已发布,2已发布正编辑
+    publish_sign = db.Column(db.DECIMAL(1,0), nullable=False, default=0)
+
+    #发布人ID
+    publish_id = db.Column(db.String(30), nullable=True)
+
+    #发布时间
+    publish_time = db.Column(db.DateTime, nullable=True)
+
+    #最后修改人ID
+    last_modified_id = db.Column(db.String(30), nullable=True)
+
+    #最后修改时间
+    last_modified_time = db.Column(db.DateTime, nullable=True)
+
+    #是否有附件,0代表有，1代表没有
+    is_attachment = db.Column(db.DECIMAL(1,0), nullable=False)
+
+    #标签
+    tags = db.Column(db.String(256), nullable=True)
+
+    #删除标志：0未删除，1已删除
+    delete_flag = db.Column(db.DECIMAL(1,0),nullable=False, default=0)
+
+    #删除人ID
+    deleter_id = db.Column(db.String(30), nullable=True)
+
+    # 删除时间
+    delete_time = db.Column(db.DateTime, nullable=True)
+
+    #真实发布时间
+    true_publish_time = db.Column(db.DateTime, nullable=True)
