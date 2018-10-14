@@ -10,6 +10,6 @@ class LoginForm(FlaskForm):
     username = StringField('用户名', validators=[DataRequired(), Length(1, 64), ])
     password = PasswordField('密码', validators=[DataRequired()])
     rememberme = BooleanField('记住我')
-    submit = SubmitField('提交')
+    submit = SubmitField('登录')
 
 

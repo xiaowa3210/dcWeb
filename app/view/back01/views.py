@@ -55,8 +55,15 @@ def allowed_photo(filename):
 def allowed_video(filename):
     return '.' in filename and filename.rsplit('.',1)[1] in VEDIO_ALLOWED_EXTENSIONS
 
+@back01.route('/first', methods=['GET'])
+@login_required
+def first():
+    return render_template('back01/index01.html', current_user=current_user)
+
+
+
 @back01.route('/addadmin01', methods=['GET','POST'])
-# @login_required
+@login_required
 def addadmin():
     form = AddAdminForm()
     if form.is_submitted():
@@ -538,7 +545,6 @@ def saveProject():
     # 添加文章
     if is_add == '0':
          # 0代表保存，1代表保存并且发布
-
         project = nProject()
 
         t = time.time()
