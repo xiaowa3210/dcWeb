@@ -30,7 +30,7 @@
                       {% endif %}
                     <td>
                       <div class="btn-group">
-                          <button type="button"   class="btn btn-primary"  onclick="{if(confirm('确定修改这条记录吗?')){window.location.href='{{ url_for("back01.edit",project_id=project.project_id) }}';return true;}return false;}"><i class="icon_plus_alt2">修改</i></button>
+                          <button type="button"   class="btn btn-primary"  onclick="{if(confirm('确定修改这条记录吗?')){window.location.href='{{ url_for("back01.projectModified",project_id=project.project_id) }}';return true;}return false;}"><i class="icon_plus_alt2">修改</i></button>
                            <!--<button type="button"   class="btn btn-success"  onclick="{if(confirm('确定现在发布这条记录吗?')){window.location.href='{{ url_for("back01.delete",project_id=project.id) }}';return true;}return false;}"><i class="icon_check_alt2">发布</i></button>-->
 {#                        <a class="btn btn-success" href="#"><i class="icon_check_alt2"></i></a>#}
                           <button type="button"   class="btn btn-danger"  onclick="{if(confirm('确定删除这条记录吗?')){window.location.href='{{ url_for("back01.delete",project_id=project.project_id) }}';return true;}return false;}"><i class="icon_close_alt2">删除</i></button>

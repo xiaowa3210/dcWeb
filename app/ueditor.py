@@ -17,12 +17,10 @@ import random
 import base64
 import os
 
-from app.model.config import ROOT_PATH
-
 # /movie/
 # /book/
 
-bp = Blueprint('ueditor',__name__,url_prefix='/ueditor')
+bp = Blueprint('ueditor',__name__,url_prefix="/ueditor/")
 
 
 UEDITOR_UPLOAD_PATH = ""
@@ -52,7 +50,8 @@ def upload():
     action = request.args.get('action')
     result = {}
     if action == 'config':
-        config_path = os.path.join(ROOT_PATH,'ueditor','config.json')
+        # config_path = os.path.join(os.path.dirname(__file__),'static','ueditor','config.json')
+        config_path = os.path.join(os.path.dirname(os.path.dirname(__file__)),'static','ueditor','config.json')
         with open(config_path,'r',encoding='utf-8') as fp:
             result = json.loads(re.sub(r'\/\*.*\*\/','',fp.read()))
 

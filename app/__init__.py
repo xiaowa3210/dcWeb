@@ -22,6 +22,7 @@ login_manager = LoginManager()
 login_manager.session_protection = 'strong'
 login_manager.login_view = 'auth.login'
 login_manager.login_message = '请先登录'
+app.config['SECRET_KEY'] = 'kkk'
 login_manager.init_app(app)
 @login_manager.user_loader
 def load_user(user_id):
@@ -42,8 +43,8 @@ app.register_blueprint(tmp05_blueprint)
 '''ueditor配置接口'''
 #from app.ueditor import bp as bp_blueprint
 #app.register_blueprint(bp_blueprint)
-from app.view.ueditor import ueditor#editor后台配置接口，用于获取配置
-app.register_blueprint(ueditor)
+from app.ueditor import bp as ueditor_bp#editor后台配置接口，用于获取配置
+app.register_blueprint(ueditor_bp)
 from app.view.back01 import back01#back01注册蓝图
 app.register_blueprint(back01, url_prefix='/back01')
 from app.view.API import api#api接口

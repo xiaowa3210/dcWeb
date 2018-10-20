@@ -26,9 +26,8 @@ from flask_login import login_user, logout_user, login_required, login_manager
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
-    print(form.rememberme.data)
 
-    if form.validate_on_submit():
+    if form.is_submitted():
             user= db.session.query(User).filter_by(username=form.username.data).first()
             print(user)
             # print(user.password)
@@ -37,7 +36,7 @@ def login():
                 print("1111")
                 login_user(user, form.rememberme.data)
                 # flash("登录成功")
-                return redirect(request.args.get('next') or url_for('back01.lab'))
+                return redirect(request.args.get('next') or url_for('back01.first'))
             else:
                 print("2222")
                 flash('用户名或密码错误')

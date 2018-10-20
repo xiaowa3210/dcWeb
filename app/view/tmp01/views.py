@@ -38,7 +38,7 @@ def user_center():
 @tmp01.route('/tmp01/news/<int:page>')
 def news(page):
     per_page = 10
-    pagination,documents = getAiticleByPage(page,per_page)
+    pagination,documents = getAiticleByPage(page,per_page,0)
 
     return render_template('tmp01/news.html', pagination=pagination, documents=documents)
 
@@ -61,7 +61,7 @@ def news_detail(news_id):
 @tmp01.route('/tmp01/downlink/<int:page>')
 def downlink(page):
     per_page = 10
-    pagination, documents = getDownlinkByPage(page, per_page)
+    pagination, documents = getDocumentByPage(page, per_page,1)
     return render_template('tmp01/downlink.html', pagination=pagination, documents=documents)
 
 @tmp01.route('/tmp01/projects', defaults={'page':1})
