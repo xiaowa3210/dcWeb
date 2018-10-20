@@ -13,8 +13,8 @@ def getDocumentByPage(page_index, per_page,type):
     pagination = Document.query.filter(Document.type == type).order_by(Document.created_time.desc()).paginate(page_index, per_page)
     documents = pagination.items
     return pagination,documents
-def getAiticleByPage(page_index, per_page):
-    pagination = Article.query.order_by(Article.create_time.desc()).paginate(page_index, per_page)
+def getAiticleByPage(page_index, per_page,type):
+    pagination = Article.query.filter(Article.is_attachment == type).order_by(Article.create_time.desc()).paginate(page_index, per_page)
     documents = pagination.items
     return pagination,documents
 def getAiticleByID(did):
