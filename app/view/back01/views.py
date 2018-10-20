@@ -198,7 +198,7 @@ def addt_project():
 
 
 @back01.route('/adduser01', methods=['GET', 'POST'])
-# @login_required
+@login_required
 def adduser():
     form = AddProjectForm()
     if form.is_submitted():
@@ -214,7 +214,7 @@ def adduser():
 
     return render_template('back01/users.html', form=form)
 @back01.route('/query_projects01', methods=['GET','POST'])
-# @login_required
+@login_required
 def query_projects():
     # projects = Project.query.order_by(Project.create_time.desc()).all()
     # return render_template('admin/projects.html', projects=projects)
@@ -246,7 +246,6 @@ def pdetail(project_id):
 @back01.route('/delete01/<project_id>/',methods=['GET', 'POST'])
 @login_required
 def delete(project_id):
-    print("4444")
     p = nProject.query.filter_by(project_id=project_id).first()
     # p = Project.query.filter_by(id=project_id).first()
     db.session.delete(p)
@@ -359,7 +358,7 @@ def edit(project_id):
     return render_template('back01/editproject.html', project=project, teammates=teammates)
 
 @back01.route('/addproject01', methods=['GET', 'POST'])
-# @login_required
+@login_required
 def addproject():
     form = AddProjectForm()
     if form.is_submitted():
@@ -490,6 +489,7 @@ def api_delete():
 
 
 @back01.route('/saveProject', methods=['POST'])
+@login_required
 def saveProject():
     # 解析前端传过来的json数据
     # data = json.loads(request.get_data("utf-8"))
