@@ -268,6 +268,9 @@ def projectModified():
 
     project= getProjectById(project_id)
     teammates= getTeamInfo(project)
+
+    print("2222222")
+    print(project.brief)
     # kws = kwsStr.split("||")
     return render_template('back01/editproject.html', project=project,teammates=teammates)
 
@@ -281,7 +284,6 @@ def edit(project_id):
     form  =AddProjectForm()
     print(project.member_info)
     # users =project.member_info["teammates"].split(',')
-
     if form.is_submitted():
         print("555")
         # f1= request.files["photo"]
@@ -354,7 +356,8 @@ def edit(project_id):
         projects = paginate.items
         # 返回给前端
         return render_template('back01/projects.html', paginate=paginate, projects=projects)
-
+    print("2222222")
+    print(project.brief)
     return render_template('back01/editproject.html', project=project, teammates=teammates)
 
 @back01.route('/addproject01', methods=['GET', 'POST'])
