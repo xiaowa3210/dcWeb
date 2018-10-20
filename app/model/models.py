@@ -135,37 +135,16 @@ class Project(db.Model):
                (self.id,self.pname,self.users,self.introduction,self.picture,self.vedio,self.create_time)
 
 
-#实验室介绍
-class Laboratory(db.Model):
-    __tablename__ = 'laboratory'
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    name = db.Column(db.String(256), nullable=False)
-    introduction = db.Column(db.TEXT, nullable=False)
-    activities = db.relationship('Activity', back_populates='laboratory')
-    member = db.Column(db.String(256),nullable=True)
-    create_time = db.Column(db.DateTime, nullable=False, default=datetime.now)
-
-    def to_json(self):
-        json_lab = {
-            'id': self.id,
-            'name': self.name,
-            'introduction': self.introduction,
-            'activities': self.activities,
-            'member': self.member,
-            'create_time': self.create_time
-        }
-
-        return json_lab
 
 #实验室活动介绍(考虑富文本)
-class Activity(db.Model):
-    __tablename__ = 'activity'
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    title = name = db.Column(db.String(256), nullable=False)
-    content = db.Column(db.TEXT, nullable=False)
-    create_time = db.Column(db.DateTime, nullable=False, default=datetime.now)
-    lid = db.Column(db.Integer, ForeignKey(Laboratory.id))
-    laboratory = db.relationship('Laboratory', back_populates='activities')
+# class Activity(db.Model):
+#     __tablename__ = 'activity'
+#     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+#     title = name = db.Column(db.String(256), nullable=False)
+#     content = db.Column(db.TEXT, nullable=False)
+#     create_time = db.Column(db.DateTime, nullable=False, default=datetime.now)
+#     lid = db.Column(db.Integer, ForeignKey(Laboratory.id))
+#     laboratory = db.relationship('Laboratory', back_populates='activities')
 
 
 
@@ -337,7 +316,7 @@ class nProject(db.Model):
 class Laboratory(db.Model):
     __tablename__ = 't_laboratory'
 
-    laboratory_id = db.Column(db.String(30), primary_key=True)
+    id = db.Column(db.String(30), primary_key=True)
 
     # 实验室名称
     name = db.Column(db.String(256), nullable=True)
@@ -346,8 +325,13 @@ class Laboratory(db.Model):
     introduction = db.Column(db.Text(length=(2**32)-1), nullable=True)
 
     # 负责人ID
+    manager_id = db.Column(db.String(30), nullable=True)
 
+    # 负责人名字
+    manager_name = db.Column(db.String(256), nullable=True)
 
+    # 负责人职位
+    manager_job = db.Column(db.String(256), nullable=True)
 
     #创建人ID
     creator_id = db.Column(db.String(30), nullable=False)
@@ -369,21 +353,3 @@ class Laboratory(db.Model):
 
     #最后修改时间
     last_modified_time = db.Column(db.DateTime, nullable=True)
-
-    #是否有附件,0代表有，1代表没有
-    is_attachment = db.Column(db.DECIMAL(1,0), nullable=False)
-
-    #标签
-    tags = db.Column(db.String(256), nullable=True)
-
-    #删除标志：0未删除，1已删除
-    delete_flag = db.Column(db.DECIMAL(1,0),nullable=False, default=0)
-
-    #删除人ID
-    deleter_id = db.Column(db.String(30), nullable=True)
-
-    # 删除时间
-    delete_time = db.Column(db.DateTime, nullable=True)
-
-    #真实发布时间
-    true_publish_time = db.Column(db.DateTime, nullable=True)
