@@ -324,15 +324,6 @@ class Laboratory(db.Model):
     # 介绍
     introduction = db.Column(db.Text(length=(2**32)-1), nullable=True)
 
-    # # 负责人ID
-    # manager_id = db.Column(db.String(30), nullable=True)
-    #
-    # # 负责人名字
-    # manager_name = db.Column(db.String(256), nullable=True)
-    #
-    # # 负责人职位
-    # manager_job = db.Column(db.String(256), nullable=True)
-
     #创建人ID
     creator_id = db.Column(db.String(30), nullable=False)
 
