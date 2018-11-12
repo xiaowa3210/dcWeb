@@ -26,8 +26,9 @@ def api_create():
     data = json.loads(request.get_data("utf-8"))
     name = data['name']
     intros = data['intros']
+    publish_sign = data['publish_sign']
 
-    lab = Laboratory(name=name, introduction=intros)
+    lab = Laboratory(name=name, introduction=intros, publish_sign=publish_sign)
     if addLab(lab):
         return jsonify({"info": "添加成功"})
     else:
