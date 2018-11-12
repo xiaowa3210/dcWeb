@@ -24,6 +24,14 @@ def getTeamInfo(project):
     # honors = teamInfoDict['honor']
     return teammates
 
+def getPhotoInfo(project):
+    photoinfo = project.ban_url
+    photoinfo =photoinfo.replace("\'","\"")
+    photoinfoDict = str_to_dict(photoinfo)
+    pics = photoinfoDict['pics']
+    # honors = teamInfoDict['honor']
+    return pics
+
 
 def addProject(project):
     try:
@@ -35,12 +43,23 @@ def addProject(project):
     return True
 def updateProjectByID(project):
     newProject = db.session.query(nProject).filter(nProject.project_id == project.project_id).one()
-
     if project:
         try:
             newProject.title = project.title
             newProject.brief = project.brief
             newProject.member_info = project.member_info
+            pics=[]
+            photoPaths = {"pics": pics}
+            if(newProject.ban_url ==str(photoPaths)):
+                newProject.ban_url = project.ban_url
+            else:
+                pics1 =getPhotoInfo(newProject)
+                pics2 =getPhotoInfo(project)
+                photoss =pics1.extend(pics2)
+                photoPaths = {"pics": photoss}
+                newProject.ban_url = str(photoPaths)
+
+
             db.session.commit()
         except Exception as e:
             traceback.print_exc()

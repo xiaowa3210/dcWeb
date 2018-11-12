@@ -1,19 +1,27 @@
 from flask import render_template, json, jsonify, request
+from flask_login import login_required
+
 from app.model.models import db, Laboratory
 from app.view.back01 import back01
 from app.service.LaboratoryService import *
 
+
 @back01.route('/lab', methods=['GET'], defaults={'page': 1})
 @back01.route('/lab/<int:page>', methods=['GET'])
+@login_required
 def lab(page):
     pagination, labs = getLaboratoryByPage(page, 10)
     return render_template('back01/lab.html', labs=labs, pagination=pagination)
 
+
 @back01.route('/lab/create')
+@login_required
 def lab_create():
     return render_template('back01/lab_create.html')
 
+
 @back01.route('/lab/create', methods=['POST'])
+@login_required
 def api_create():
     data = json.loads(request.get_data("utf-8"))
     name = data['name']
@@ -25,17 +33,23 @@ def api_create():
     else:
         return jsonify({"info": "添加失败"})
 
-@back01.route('/lab/detail/<lab_id>')
+
+@back01.route('/lab/<lab_id>')
+@login_required
 def lab_detail(lab_id):
     lab = getLabById(lab_id)
     return render_template('back01/lab_detail.html', lab=lab)
 
+
 @back01.route('/update/<int:lab_id>')
+@login_required
 def lab_update(lab_id):
     lab = getLabById(lab_id)
     return render_template('back01/lab_update.html',lab=lab)
 
+
 @back01.route('/lab/update', methods=['POST'])
+@login_required
 def api_update():
     data = json.loads(request.get_data("utf-8"))
     id = data['id']
@@ -47,7 +61,9 @@ def api_update():
     else:
         return jsonify({"info": "修改失败"})
 
+
 @back01.route('/lab/delete',methods=['POST'])
+@login_required
 def api_delete():
     data = json.loads(request.get_data("utf-8"))
     id = data['id']
@@ -59,7 +75,9 @@ def api_delete():
 """
 ************************
 """
+#
 # @back01.route('/deluser',methods=['POST'])
+# @login_required
 # def deluser():
 #     id = json.loads(request.get_data("utf-8"))
 #     print("*********************************")
@@ -69,3 +87,4 @@ def api_delete():
 #     db.session.delete(user)
 #     db.session.commit()
 #     return jsonify({'code':200,'message':'删除成功！'})
+

@@ -186,11 +186,12 @@
         var req = {};
         req.title = $('.title').val().trim();
         req.subtitle = $('.subtitle').val().trim();
-        req.brief = $('.brief').val().trim();
+        <!--req.brief = $('.brief').val().trim();-->
         // req.keyword = $('.keyword').val().trim();
            var i=0
         var content = MAIN.ue.getContent();
         req.content = content
+        req.brief = content
         req.type = type;
         req.is_add = 0;
         var arr = teammates.join('&');
@@ -237,7 +238,6 @@
           MAIN.teammates.push(t)
 
 
-
         }
 
 
@@ -245,6 +245,8 @@
 
 
         form.append("teammates",arr)
+        var content = MAIN.ue.getContent();
+        form.append("brief",content);
         $.ajax({
                 url:"/back01/saveProject",
                 type:"post",

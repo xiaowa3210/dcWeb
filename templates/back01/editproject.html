@@ -65,9 +65,9 @@
                  <tr    class="addkeyword" >
                     <td>   <input id = "name" value="{{ user['name'] }}" class="form-control keyword" name="name" style="margin-bottom: 10px"
                                                type="text" required/></td>
-                    <td>   <input id = "faculty" class="form-control keyword" name="faculty" style="margin-bottom: 10px"
+                    <td>   <input id = "faculty" value="{{ user['faculty'] }}"class="form-control keyword" name="faculty" style="margin-bottom: 10px"
                                                type="text" required/></td>
-                    <td>   <input id = "grade" class="form-control keyword" name="grade" style="margin-bottom: 10px"
+                    <td>   <input id = "grade" value="{{ user['grade'] }}" class="form-control keyword" name="grade" style="margin-bottom: 10px"
                                                type="text" required/></td>
                     <!--<td></td>-->
                     <!--<td></td>-->
@@ -105,6 +105,11 @@
                                 <div class="form-group">
                                     <label class="control-label col-lg-2">上传图片</label>
                                     <div class="col-lg-10">
+                                            {% for photo in photos%}
+                                            <div class="col-lg-2" style="margin-bottom: 10px">
+                                                <a file_id="{{ photo['title'] }}" file_path="{{ photo['path'] }}" class="btn btn-danger" onclick="MAIN.deletefile(this)">{{ photo['title'] }}<i class="icon_close_alt2"></i></a>
+                                            </div>
+                                        {% endfor %}
                                         <div class="col-lg-12">
                                             <input type="file" id="InputFile" multiple="multiple" name="attachment" >
                                             <!--<p class="help-block">上传附件</p>-->
@@ -199,6 +204,8 @@
         var arr = MAIN.teammates.join('&')
 
         form.append("teammates",arr)
+         var content = MAIN.ue.getContent();
+        form.append("brief",content);
         $.ajax({
                 url:"/back01/saveProject",
                 type:"post",
@@ -218,9 +225,12 @@
 
     MAIN.deletefile = function (e) {
         var file_id = $(e).attr('file_id');
+        var file_path = $(e).attr('file_path');
         var req = {};
+        req.project_id=$("#article_id").attr("article_id")
         req.file_id = file_id
-        Af.rest("/back01/deleteFile",req,function (data) {
+        req.file_path = file_path
+        Af.rest("/back01/deletePhoto",req,function (data) {
             $(e).parent('div:first').remove();
             alert(data)
         })

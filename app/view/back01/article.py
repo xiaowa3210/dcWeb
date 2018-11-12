@@ -54,6 +54,7 @@ def articleList(page):
 
 #保存文章
 @back01.route('/saveArticle', methods=['POST'])
+@login_required
 def saveArticle():
     # 解析前端传过来的json数据
     # data = json.loads(request.get_data("utf-8"))
@@ -141,6 +142,7 @@ def saveArticle():
 
 
 @back01.route('/deleteArticle', methods=['GET'])
+@login_required
 def deleteArticleById():
     article_id = request.values.get("articleId")
     if deleteArticleByID(article_id):
@@ -150,6 +152,7 @@ def deleteArticleById():
 
 
 @back01.route('/deleteFile', methods=['GET','POST'])
+@login_required
 def deleteFileById():
      #解析前端传过来的json数据
     data = json.loads(request.get_data("utf-8"))

@@ -16,7 +16,7 @@ from werkzeug.utils import secure_filename, redirect
 
 from app.model.config import UEDITOR_UPLOAD_PATH, HOST
 # from app.service.ProjectService import  addProject
-from app.service.ProjectService import addProject, getProjectById, getTeamInfo, updateProjectByID
+from app.service.ProjectService import addProject, getProjectById, getTeamInfo, updateProjectByID, getPhotoInfo
 from app.utils.utils import str_to_dict
 
 from app.view.admin.forms import AddAdminForm, AddProjectForm
@@ -198,7 +198,7 @@ def addt_project():
 
 
 @back01.route('/adduser01', methods=['GET', 'POST'])
-# @login_required
+@login_required
 def adduser():
     form = AddProjectForm()
     if form.is_submitted():
@@ -214,7 +214,7 @@ def adduser():
 
     return render_template('back01/users.html', form=form)
 @back01.route('/query_projects01', methods=['GET','POST'])
-# @login_required
+@login_required
 def query_projects():
     # projects = Project.query.order_by(Project.create_time.desc()).all()
     # return render_template('admin/projects.html', projects=projects)
@@ -246,7 +246,6 @@ def pdetail(project_id):
 @back01.route('/delete01/<project_id>/',methods=['GET', 'POST'])
 @login_required
 def delete(project_id):
-    print("4444")
     p = nProject.query.filter_by(project_id=project_id).first()
     # p = Project.query.filter_by(id=project_id).first()
     db.session.delete(p)
@@ -266,11 +265,13 @@ def delete(project_id):
 @login_required
 def projectModified():
     project_id = request.values.get("project_id")
-
     project= getProjectById(project_id)
+    print("8374834")
+    print(project.ban_url)
     teammates= getTeamInfo(project)
+    photos =getPhotoInfo(project)
     # kws = kwsStr.split("||")
-    return render_template('back01/editproject.html', project=project,teammates=teammates)
+    return render_template('back01/editproject.html', project=project,teammates=teammates,photos=photos)
 
 @back01.route('/edit01/<project_id>/',methods=['GET', 'POST'])
 @login_required
@@ -282,7 +283,6 @@ def edit(project_id):
     form  =AddProjectForm()
     print(project.member_info)
     # users =project.member_info["teammates"].split(',')
-
     if form.is_submitted():
         print("555")
         # f1= request.files["photo"]
@@ -359,7 +359,7 @@ def edit(project_id):
     return render_template('back01/editproject.html', project=project, teammates=teammates)
 
 @back01.route('/addproject01', methods=['GET', 'POST'])
-# @login_required
+@login_required
 def addproject():
     form = AddProjectForm()
     if form.is_submitted():
@@ -436,6 +436,7 @@ def updateArticle(article_id):
 
 
 @back01.route('/saveProject', methods=['POST'])
+@login_required
 def saveProject():
     # 解析前端传过来的json数据
     # data = json.loads(request.get_data("utf-8"))
@@ -443,12 +444,12 @@ def saveProject():
     #attachment = request.files.get("attachment")
 
     photos = request.files.getlist("photos")
-    is_attachment = 1
+    # is_attachment = 1
     # files = []
 
     photoss = []
     if len(photos) > 0:
-        is_attachment = 0
+        # is_attachment = 0
         path = UEDITOR_UPLOAD_PATH + "/project_photo/"
         if not os.path.exists(path):
             os.mkdir(path)
@@ -525,6 +526,7 @@ def saveProject():
         project.title = title
         project.brief = brief
         project.member_info = str(member_info)
+        project.ban_url =str(photoPaths)
 
         if type == '1':
             project.publish_flag = 1  # 设置为已发布
@@ -534,8 +536,33 @@ def saveProject():
             return json.dumps(MessageInfo.success(data='修改成功').__dict__)
         else:
             return json.dumps(MessageInfo.fail(data="修改失败").__dict__)
+@back01.route('/deletePhoto', methods=['GET','POST'])
+@login_required
+def deletePhotoById():
+     #解析前端传过来的json数据
+    # data = json.loads(request.get_data("utf-8"))
+    data = json.loads(request.get_data().decode("utf-8"))
+    project_id = data["project_id"]
+    project = getProjectById(project_id)
+    file_id = data["file_id"]
+    file_path = data["file_path"]
+    project = getProjectById(project_id)
+    pics = getPhotoInfo(project)
+    photo = {"title": file_id, "path": file_path}
+    pics.remove(photo)
+    photoPaths = {"pics": pics}
+    project.ban_url =str(photoPaths)
+    db.session.commit()
+    if deletePhoto(file_id,file_path):
+        return json.dumps(MessageInfo.success(data='图片删除成功').__dict__)
+    else:
+        return json.dumps(MessageInfo.fail(data="图片删除失败").__dict__)
 
+def deletePhoto(file_id,file_path):
 
+    if os.path.exists(file_path):
+        os.remove(file_path)
+    return True
 
 
 
