@@ -315,7 +315,7 @@ def edit(project_id):
         photoPaths = {"pics": photoss}
 
         videoPaths = ";".join(video_db_paths)
-        global teammates
+        # global teammates
 
         teaminfo = {"teammates": teammates}
         t = time.time()
