@@ -264,9 +264,6 @@ class Files(db.Model):
     #图片附属信息
     img_info = db.Column(db.String(256), nullable=True)
 
-    #序号
-    sn = db.Column(db.DECIMAL(5,0), nullable=True)
-
     #外网url
     url = db.Column(db.String(256), nullable=True)
 
@@ -333,3 +330,12 @@ class nProject(db.Model):
     # 关键字
     key_worlds = db.Column(db.String(256), nullable=True)
 
+#获奖信息
+class Awards:
+    name = db.Column(db.String(128),nullable=False)#名称
+    stu_id = db.Column(db.String(64),nullable=False)#学号
+    cls = db.Column(db.String(64), nullable=False)  # 班级
+    grade = db.Column(db.String(64), nullable=False)# 年级
+    major = db.Column(db.String(64), nullable=False)# 专业
+    link = db.Column(db.String(512), nullable=False)# 获奖链接
+    time = db.Column(db.DateTime, nullable=True)#获奖时间

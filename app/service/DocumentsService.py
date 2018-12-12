@@ -23,3 +23,4 @@ def getDownlinkByPage(page_index, per_page):
     pagination = Files.query.paginate(page_index, per_page)
     documents = pagination.items
     return pagination,documents
+

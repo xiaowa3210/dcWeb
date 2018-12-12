@@ -10,11 +10,11 @@
     <div class="container">
         <div class="blog-main">
             <div class="col-md-10 blog-main-left">
-                <h3>{{project.pname}}</h3>
+                <h3>{{project.title}}</h3>
                 <div class="blg">
                     <div class="reply">
                        <h4>基本介绍</h4>
-                        <p class="para1">{{project.introduction}}</p>
+                        <p class="para1">{{project.brief}}</p>
                     </div>
                     <div class="reply">
                         <h4>所获奖项</h4>
@@ -24,7 +24,7 @@
                         {% for teammate in teammates %}
                             <div class="comments-main">
                             <div class="col-md-2 cmts-main-left">
-                                <img src="/static/img/boy-1.jpg" alt="">
+                                <img src="/static/img/profile.jpeg" alt="">
                             </div>
                             <div class="col-md-10 cmts-main-right">
                                 <ul>
@@ -39,6 +39,11 @@
                     </div>
                     <div class="reply">
                        <h4>图片展示</h4>
+                        {% for pic in pics %}
+                        <div class="col-md-2 cmts-main-left">
+                            <img src="{{ url_for('static', filename=pic.path) }}" alt="">
+                        </div>
+                        {% endfor %}
                     </div>
                 </div>
             </div>

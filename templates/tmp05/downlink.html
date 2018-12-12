@@ -18,11 +18,9 @@
         </tr>
         </thead>
         <tbody>
-        {% for document in documents %}
+        {% for file in files %}
         <tr>
-            <td width="82%"><a href="{{ url_for('tmp05.download_file',filename='_20150924_171719.xls') }}">{{ document.title
-                }}</a></td>
-            <td width="18%" style="text-align: center;">{{ document.created_time }}</td>
+            <td width="82%"><a href="{{ url_for('tmp05.download_attachment',file_id=file.file_id) }}">{{ file.local_name}}</a></td>
         </tr>
         {% endfor %}
         </tbody>
@@ -32,18 +30,18 @@
     <div class="blog-bottom">
         <ul>
             {% if pagination.has_prev %}
-            <li><a href="{{url_for('tmp05.downlink',page = pagination.page - 1)}}" class="active">PREV</a></li>
+            <li><a href="{{url_for('tmp05.downlink01',page = pagination.page - 1)}}" class="active">PREV</a></li>
             {% endif %}
             {% for p in pagination.iter_pages() %}
             {% if p == pagination.page%}
-            <li><a href="{{url_for('tmp05.downlink',page = p)}}" class="active">{{loop.index}}</a></li>
+            <li><a href="{{url_for('tmp05.downlink01',page = p)}}" class="active">{{loop.index}}</a></li>
             {% else %}
-            <li><a href="{{url_for('tmp05.downlink',page = p)}}">{{loop.index}}</a></li>
+            <li><a href="{{url_for('tmp05.downlink01',page = p)}}">{{loop.index}}</a></li>
             {% endif %}
             {% endfor %}
 
             {% if pagination.has_next %}
-            <li><a href="{{url_for('tmp05.downlink',page = pagination.page + 1)}}" class="active">NEXT</a></li>
+            <li><a href="{{url_for('tmp05.downlink01',page = pagination.page + 1)}}" class="active">NEXT</a></li>
             {% endif %}
         </ul>
     </div>

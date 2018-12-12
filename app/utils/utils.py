@@ -16,6 +16,13 @@ def str_to_dict(dict_str):
         new_dict = ""
     return new_dict
 
+def str_to_list(list_str):
+    if isinstance(list_str, str) and list_str != '':
+        new_list = json.loads(list_str)
+    else:
+        new_list = ""
+    return new_list
+
 
 ## URL解码
 def urldecode(raw_str):
