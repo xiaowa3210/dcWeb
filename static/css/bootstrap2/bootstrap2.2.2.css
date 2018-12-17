@@ -282,11 +282,31 @@ a:hover {
   min-height: 1px;
 }
 
-.container,
-.navbar-static-top .container,
-.navbar-fixed-top .container,
-.navbar-fixed-bottom .container {
-  width: 940px;
+@media (min-width: 768px) {
+  .container,
+  .navbar-fixed-top .container,
+  .navbar-static-top .container,
+  .navbar-fixed-bottom .container{
+     width: 750px;
+  }
+}
+
+@media (min-width: 992px) {
+  .container,
+  .navbar-fixed-top .container,
+  .navbar-static-top .container,
+  .navbar-fixed-bottom .container {
+     width: 970px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .container,
+  .navbar-fixed-top .container,
+  .navbar-static-top .container,
+  .navbar-fixed-bottom .container {
+     width: 1170px;
+  }
 }
 
 .span12 {
@@ -4321,7 +4341,7 @@ input[type="submit"].btn.btn-mini {
 }
 
 .navbar .container {
-  width: auto;
+  /*width: auto;*/
 }
 
 .nav-collapse.collapse {
@@ -4481,11 +4501,11 @@ input[type="submit"].btn.btn-mini {
           border-radius: 0;
 }
 
-.navbar-static-top .container,
-.navbar-fixed-top .container,
-.navbar-fixed-bottom .container {
-  width: 940px;
-}
+/*.navbar-static-top .container,*/
+/*.navbar-fixed-top .container,*/
+/*.navbar-fixed-bottom .container {*/
+  /*width: 940px;*/
+/*}*/
 
 .navbar-fixed-top {
   top: 0;
