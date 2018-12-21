@@ -1,6 +1,6 @@
 /venv/ # python 虚拟运行环境文件夹，虚拟环境命名为venv
 /static/files/ #上传文件夹，忽略此文件夹的提交
-/.idea/ # idea配置文件夹
+.idea # idea配置文件夹
 __pycache__/ # win下py运行文件
 *.pyc # linux 下python 编译运行文件
 *.swp # linux下运行时文件
