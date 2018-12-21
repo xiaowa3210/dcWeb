@@ -8,3 +8,4 @@ __pycache__/ # win下py运行文件
 /app/view/admin/uploads/* #上传文件夹，忽略此文件夹的提交
 /files/ #上传文件夹，忽略此文件夹的提交。临时中转
 /doc/tmp #临时文件目录，忽略此文件夹的提交
+/test.txt
