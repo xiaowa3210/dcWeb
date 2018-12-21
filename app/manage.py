@@ -14,11 +14,11 @@
 from flask_script import Manager
 from flask_migrate import Migrate, MigrateCommand
 
-from app import app, db
+from app import app, db2
 
 manager = Manager(app)
 
-migrate = Migrate(app, db)
+migrate = Migrate(app, db2)
 
 manager.add_command('db', MigrateCommand)
 
