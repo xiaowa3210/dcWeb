@@ -6,6 +6,6 @@ __pycache__/
 *.swp
 *.log
 /app/view/admin/uploads/*
-/files/
+/files/*
 /doc/tmp
 /test.txt
