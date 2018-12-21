@@ -1,0 +1,53 @@
+{% extends 'tmp05/base.html' %}
+
+{% block page_name %}常见下载{% endblock %}
+
+{% block static_files %}
+{% endblock %}
+
+
+{% block body_part%}
+<div class="container">
+    <div class="row" >
+        <div class="col-md-12 col-sm-12">
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th>标题</th>
+            <th style="text-align: center">发布时间</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for file in files %}
+        <tr>
+            <td width="82%"><a href="{{ url_for('tmp05.download_attachment',file_id=file.file_id) }}">{{ file.local_name}}</a></td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+        <div class="col-md-12 col-sm-12">
+    <div class="blog-bottom">
+        <ul>
+            {% if pagination.has_prev %}
+            <li><a href="{{url_for('tmp05.downlink01',page = pagination.page - 1)}}" class="active">PREV</a></li>
+            {% endif %}
+            {% for p in pagination.iter_pages() %}
+            {% if p == pagination.page%}
+            <li><a href="{{url_for('tmp05.downlink01',page = p)}}" class="active">{{loop.index}}</a></li>
+            {% else %}
+            <li><a href="{{url_for('tmp05.downlink01',page = p)}}">{{loop.index}}</a></li>
+            {% endif %}
+            {% endfor %}
+
+            {% if pagination.has_next %}
+            <li><a href="{{url_for('tmp05.downlink01',page = pagination.page + 1)}}" class="active">NEXT</a></li>
+            {% endif %}
+        </ul>
+    </div>
+</div>
+    </div>
+</div>
+
+
+{% endblock%}

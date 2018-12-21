@@ -1,0 +1,82 @@
+{% extends 'tmp05/base.html' %}
+
+{% block page_name %}项目介绍{% endblock %}
+
+{% block static_files %}
+{% endblock %}
+
+{% block body_part%}
+<div class="blog">
+    <div class="container">
+        <div class="blog-main">
+            <div class="col-md-8 blog-main-left">
+                <h3>大创项目</h3>
+
+                {% for project in projects %}
+                <div class="blg">
+                    <div class="col-md-4 blog-left">
+                        <a href="{{url_for('tmp05.projects_detail03')}}"><img src="/static/img/ape.jpg" alt=""></a>
+                    </div>
+                    <div class="col-md-8 blog-left">
+                        <h5>{{ project.title }}</h5>
+                        <p>{{project.brief}}</p>
+                        <div class="blog-btn">
+                            <!--<a href="{{url_for('tmp05.projects_detail03')}}">了解更多</a>-->
+                            <a href="{{url_for('tmp05.projects_detail_v1',project_id=project.project_id)}}">了解更多</a>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="col-md-4 blog-main-left">
+                <h3>类型</h3>
+                <div class="ctgry">
+                    <ul>
+                        <li><a href="#">创新创业</a></li>
+                        <li><a href="#">创业训练</a></li>
+                        <li><a href="#">创新实践</a></li>
+                    </ul>
+                </div>
+                <div class="archives">
+                    <h3>年份</h3>
+                    <ul>
+                        <li><a href="#">2013</a></li>
+                        <li><a href="#">2014</a></li>
+                        <li><a href="#">2015</a></li>
+                        <li><a href="#">2016</a></li>
+                        <li><a href="#">2017</a></li>
+                        <li><a href="#">2018</a></li>
+                    </ul>
+                </div>
+                <div class="search">
+                    <h3>搜索</h3>
+                    <input type="text" value="Search" onfocus="this.value = '';"
+                           onblur="if (this.value == '') {this.value = 'Email';}"/>
+                    <input type="submit" value="搜索"/>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="blog-bottom">
+            <ul>
+                {% if pagination.has_prev %}
+                    <li><a href="{{url_for('tmp05.projects',page = pagination.page - 1)}}" class="active">PREV</a></li>
+                {% endif %}
+
+                {% for p in pagination.iter_pages() %}
+                    {% if p == pagination.page%}
+                        <li><a href="{{url_for('tmp05.projects',page = p)}}" class="active">{{loop.index}}</a></li>
+                    {% else %}
+                        <li><a href="{{url_for('tmp05.projects',page = p)}}">{{loop.index}}</a></li>
+                    {% endif %}
+                {% endfor %}
+
+                {% if pagination.has_next %}
+                    <li><a href="{{url_for('tmp05.projects',page = pagination.page + 1)}}" class="active">NEXT</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}

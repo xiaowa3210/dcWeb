@@ -1,0 +1,78 @@
+每周分支提交-0909补充
+1使用命令把自己的依赖更新到项目下的requirements文件：pip freeze > requirements
+2在“每周例会”里写本周进展，同时发到大群里
+3周六下午推送
+
+
+----
+
+项目分支介绍-0908补充
+master:这个分支基本不做任何的开发，仅仅只是用来确定发布版本，只有一个
+dev：针对开发进行管理的分支，只有一个。每个开发周期，将所有人员的开发分支合并到dev分支，更新发布版本时，dev分支合并到master分支
+feature分支：确定一个新功能之后就创建一个feature分支。每个新功能对应一个feature分支
+bug分支：bug修复，发现bug后进行修复修改的分支
+feature和bug分支的命名，从dev拉取分支，并命名为F（新功能）/B（bug修复）+日期+人名，例如F0903huchao，B0903huchao等
+
+----
+
+一、将基础版本的项目添加到远程master分支
+1.进入项目所在的文件夹
+git init(把目录下的文件变成Git可以管理的仓库)
+
+2.将本地仓库和远程仓库关联
+git remote add origin git@git.coding.net:dachuang/dcWeb.git
+
+
+3.将目录下的文件添加到本地仓库
+git add.
+git commit -m "xxxx"
+
+4.将本地仓库推送到远程
+git push origin master
+
+远程master分支创建完成
+*********************************************************************
+二、创建远程develop分支
+1.git checkout -b develop(从本地master分支拉出一个本地develop分支)
+2.git push origin develop(将本地develop分支推送到远程develop分支)
+
+远程develop分支创建完成
+**********************************************************************
+三、开发流程参考（重要）（前提：在远程master分支和develop分支存在的情况）：
+
+我们开发从这个步骤开始
+
+初始化步骤1,2
+1.git clone git@git.coding.net:dachuang/dcWeb.git(从远程仓库clone项目)
+此时远程的master分支拉倒本地，本地也会有一个master分支,注:使用git branch可以查看本地分支数
+
+2.git checkout -b develop(从本地master拉一个develop分支)
+此时本地有两个分支master,develop
+
+
+3.当开发一个新的功能的时候
+    1.git branch：查看自己当前所在的分支（如果没有在develop分支,接着2执行,否则接着3执行）
+    2.git checkout develop:切换到develop分支
+    3.git pull origin develop:将远程develop最新的代码来下来。(注：有可能没有最新的)
+    4.git checkout -b feature/功能名：从develop分支拉一个（feature/功能名）分支，我们的开发都在这个分支上写。
+
+
+4.当这个功能写完，并且自己测试好时。
+    1.执行3中的1,2,3。目的是保证本地的develop分支是最新的代码
+    2.git merge feature/功能名(将你开发的功能合并到本地的develop分支)
+    3.git push origin develop:将本地的develop分支推送到远程的develop分支。
+
+***************************************************************************
+三.等所有的功能开发完了后
+git checkout master：切换到本地主分支
+git merge develop：合并develop分支
+git pull origin master：推送到远程
+
+至于git add,git commit等命令怎么用自己查。
+
+删除远程分支：git push origin --delete <branchName>
+删除本地分支：git branch -d <branchName>
+更新远程分支列表：git remote update origin --prune
+参考链接：
+https://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000
+https://my.oschina.net/pmos/blog/823988

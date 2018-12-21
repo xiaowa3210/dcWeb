@@ -1,0 +1,72 @@
+1.设计数据库
+每个字段都设有一个id。主键
+角色：
+1.超级管理员(root)：用于分配管理员。写死在数据库中
+2.管理员(admin)
+    必须：（username,password,nickname）
+    可选：
+3.用户(user)
+    必须的(username|email,password,nickname)
+    可选：
+4.游客：无需保存记录
+
+*确定哪些页面是要登录才能访问的？
+如果考虑以后扩展会有区别。
+**********************************************
+
+信息发布(information)
+必须：title,time,content,attachments
+    可选：adminname,
+attachments存一个json数组,数组中每一项为documentid
+代表多个附件
+
+政策文件(documents)
+必须：did,link,time
+
+项目展示(project)：由管理员上传？讨论
+pid,pname,picture,introduction，persons项目相关人员信息(json)。
+pic字段存放图片路径，json数组代表，
+数组中的每项代表一个图片路径
+
+
+项目留言板（messageboard）
+游客能查看所有留言，但是登录后才能留言。
+pid uid message time
+
+对留言进行讨论。discuss
+bid toid fromid content time
+
+站内消息msg
+1.来自管理员的消息
+2.来自其他用户的消息
+toid,fromid,content,time,type
+
+
+2.功能
+主页
+登录功能（三种角色）每种角色不同的功能可以方法我的主页中。
+注册功能（只允许用户注册）
+
+信息发布页面
+政策文件下载页面
+项目展示，下面有个留言板的功能。
+
+用户功能
+查看收到的消息
+
+超级管理员功能
+添加管理员
+删除管理员
+查看管理员
+修改管理员
+
+管理员功能
+信息上传
+政策文件上传
+项目信息上传
+查看收到的消息
+发送管理员消息
+查看用户信息。封号？禁言？
+搜索用户
+
+考虑将这些页面添加到我的主页

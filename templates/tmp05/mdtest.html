@@ -1,0 +1,75 @@
+<!--
+参考文章：https://blog.csdn.net/kikaylee/article/details/55006262
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="/static/js/jquery-2.1.0.min.js"></script>
+    <link rel="stylesheet" href="{{url_for('static',filename='mdeditor/editormd.min.css')}}">
+    <script src="{{url_for('static',filename='mdeditor/editormd.min.js')}}"></script>
+    <script src="{{url_for('static',filename='js/afquery.js')}}"></script>
+</head>
+<body>
+
+<div style="width: auto;height: 500px">
+    <div id="test-editormd">
+        <!--<textarea class="editormd-markdown-textarea" name="$id-markdown-doc"></textarea>-->
+         <!-- html textarea 需要开启配置项 saveHTMLToTextarea == true -->
+        <!--<textarea class="editormd-html-textarea" name="$id-html-code"></textarea>-->
+    </div>
+    <button type="submit" onclick="MAIN.onSave()">提交</button>
+</div>
+
+<div style="width: auto;height: 500px">
+    <div id="show">
+    </div>
+</div>
+
+<div>
+
+</div>
+
+</body>
+<script>
+
+    //markdown编辑器设置
+    var testEditor;
+    $(function () {
+        testEditor = editormd("test-editormd", {
+            width: '100%',
+            height: '50%',
+            syncScrolling: "single",
+            saveHTMLToTextarea : true,
+            path: "{{url_for('static',filename='mdeditor/lib/')}}",
+            //启动本地图片上传功能
+            imageUpload: true,
+            imageFormats: ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+            imageUploadURL: "{{url_for('tmp05.upload')}}"
+        });
+    });
+
+
+    var MAIN = {};
+    MAIN.init = function () {
+
+    }
+
+    MAIN.onSave = function () {
+        var req = {};
+        req.content = testEditor.getHTML();
+        Af.rest("/tmp05/addtest",req,function (data) {
+            Af.log(data);
+            MAIN.showMdTest(data);
+        })
+    }
+
+    MAIN.showMdTest = function (val) {
+        $("#show").html(val);
+    }
+
+</script>
+
+</html>
