@@ -1,0 +1,269 @@
+{% extends 'tmp01/base.html' %}
+
+{% block page_name %}首页{% endblock %}
+
+{% block static_files %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='mdeditor/editormd.min.css')}}">
+
+<style>
+    * {
+        box-sizing: border-box;
+    }
+    #projectTitle,#awardTitle {
+        width: 100%;
+        height: 40px;
+        line-height: 40px;
+        font-size: 20px;
+        padding-left: 10px;
+    }
+    p {
+        margin: 5px 0;
+        font-size: 14px;
+    }
+
+    fieldset {
+        padding-left: 10px;
+        border: 1px solid #aaa;
+        width: 100%;
+        margin-bottom: 5px;
+    }
+
+    fieldset label {
+        display: inline-block;
+        height: 30px;
+        line-height: 30px;
+        margin-bottom: 0;
+    }
+
+    fieldset input[type="text"], fieldset select {
+        width: 80%;
+        height: 30px;
+        margin-bottom: 0;
+    }
+
+    option:hover {
+        color: #00a65a;
+    }
+
+    .hide {
+        display: none;
+    }
+
+    .cerImg {
+        width: 30%;
+    }
+
+    input[type="file"] {
+        cursor: pointer;
+    }
+
+    #addAward,#submit {
+        width: 100px;
+        height: 50px;
+        background-color: #00a65a;
+        border:none;
+        font-size: 16px;
+        color: #fff;
+        line-height: 50px;
+        border-radius: 5px;
+        margin-top: 10px;
+    }
+
+    #submit {
+        margin-top: 50px;
+    }
+
+</style>
+
+{% endblock%}
+
+{% block body_part%}
+
+<!--项目表单-->
+<!--========================-->
+<div class="container">
+    <div class="row-fluid">
+        <form class="form" style="padding-top: 20px;overflow: hidden" action="##" >
+            <div class="span9">
+                <div class="project">
+                    <input type="text" placeholder="请输入项目名称" id="projectTitle" name="projectTitle" value=""> <!--项目名称-->
+                    <div style="width: 100%;height: 600px">   <!--项目详情-->
+                        <div id="markdown">
+                        </div>
+                    </div>
+                </div>
+
+                <button type="button" id="addAward">添加奖项</button>
+                <div class="award hide">
+                    <p><input type="text" placeholder="请输入奖项名称" id="awardTitle" name="awardTitle" value=""></p>  <!--奖项名称-->
+                    <div style="position: relative">
+                        <input type="file" name="certificate" id="certificate" multiple style="opacity: 0">
+                        <button style="position: absolute;left: 0;top: 0;z-index: -10;" type="button">上传证书/奖项图片</button>
+                    </div> <!--一张或多张证书、奖项-->
+                    <div id="show"></div>
+                </div>
+
+            </div>
+
+            <div class="span3">
+                <div style="position: relative;">
+                    <input id="coverImg" type="file" name="coverImg" style="opacity: 0;">  <!--一张封面图片-->
+                    <button style="position: absolute;left: 0;top: 0;z-index: -10" type="button">上传封面图片</button>
+                    <img id="preview" style="display: block;background-color: #eee;width: 100%;height: 200px">
+                </div>
+                <div>
+                    <p class="title">类别</p>
+                    <select id="category" name="category" required>
+                        <option value="view">计算机视觉</option>
+                        <option value="vr">虚拟/增强现实</option>
+                        <option value="data">数据挖掘</option>
+                        <option value="machine">机器学习</option>
+                        <option value="others">其他</option>
+                    </select>
+                </div>
+                <div class="member">
+                   <p class="title">项目成员</p>
+                    <fieldset>
+                        <p>
+                            <label for="memberName">姓名</label>
+                            <input type="text" name="memberName" id="memberName">
+                        </p>
+                        <p>
+                            <label for="memberGrade">年级</label>
+                            <select id="memberGrade" name="memberGrade">
+                                <option value="four">大四</option>
+                                <option value="three">大三</option>
+                                <option value="two">大二</option>
+                                <option value="one">大一</option>
+                            </select>
+                        </p>
+                        <p>
+                            <label for="memberCollege">学院</label>
+                            <select id="memberCollege" name="memberCollege">
+                                <option value="xintong">信通院</option>
+                                <option value="jisuanji">计算机院</option>
+                                <option value="dianzi">电子院</option>
+                                <option value="shumei">数媒院</option>
+                            </select>
+                        </p>
+                    </fieldset>
+                </div>
+                <button type="button" id="addMember">添加成员</button>
+                <div>
+                    <button type="button" id="submit">提交</button>
+                </div>
+
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock%}
+
+{% block js_files%}
+<script src="{{ url_for('static',filename='mdeditor/editormd.js')}}"></script>
+
+
+<script type="text/javascript">
+    $(function () {
+        //添加成员
+        $("#addMember").click(function () {
+            $(".member").append($("fieldset:first").clone());
+        });
+
+
+        //添加封面图片
+        $('#coverImg').change(function () {
+            var files = this.files;
+            var file = files[0];
+            //这里我们判断下类型如果不是图片就返回 去掉就可以上传任意文件
+            if (!/image\/\w+/.test(file.type)) {
+                alert("请确保文件为图像类型");
+                return false;
+            }
+            var reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = function (e) {
+                console.log("chufa");
+                var urlsrc = this.result;
+                $('#preview').attr('src', urlsrc);
+            }
+        });
+
+        //显示奖项信息
+        $("#addAward").click(function () {
+            $("div.award").removeClass("hide");
+        });
+
+
+        //上传证书奖项
+        $('#certificate').change(function () {
+            var files = this.files;
+            var result = $("#show");
+
+            for (var i = 0; i < files.length; i++) {
+                var reader = new FileReader();
+                reader.readAsDataURL(files[i]);
+                reader.onload = function (e) {
+                    //多图预览
+                    result.append('<img class="cerImg" src="' + this.result + '" alt="" />');
+                }
+            }
+        });
+
+        //markdown编辑器设置
+        var testEditor;
+
+        testEditor = editormd("markdown", {
+            syncScrolling: "single",
+            saveHTMLToTextarea: true,
+            path: "{{url_for('static',filename='mdeditor/lib/')}}",
+            //启动本地图片上传功能
+            imageUpload: true,
+            imageFormats: ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+            imageUploadURL: "{{url_for('tmp05.upload')}}"
+        });
+
+        //提交表单
+        $("#submit").click(function () {
+            //存储项目成员信息
+
+            var memberArr=new Array();
+            var member=new Object();
+
+            $("fieldset").each(function () {
+                member.name=$(this).find("#memberName").val();       //成员姓名
+                member.grade=$(this).find("#memberGrade").val();     //成员年级
+                member.college=$(this).find("#memberCollege").val(); //成员学院
+                memberArr.push(member); //每个成员对象存入数组
+            });
+
+            //console.log(memberArr[1].name);
+            //所有信息
+            var data = {};
+            data.title=$("#projectTitle").val(); //项目标题
+            data.content=testEditor.getHTML();   //项目内容、富文本
+            data.cover=$("#coverImg").val();     //项目封面图片??需要调试
+            data.category=$("#category").val();  //项目类型
+            data.member=memberArr;               //项目成员
+            data.award=$("#awardTitle").val();   //项目奖项-可能为空
+            data.certificate=$("#certificate").val(); //项目证书图片-可能为空/可能多张??需要调试
+
+            $.ajax({
+                url:'tmp01/', //补充
+                type:'post',
+                data:JSON.stringify(data),
+                dataType:'json',
+                success:function (data) {
+                    alert(data.info); //提交成功
+                    //window.location.href='';//跳转到个人中心
+                },
+                error:function (data) {
+                    alert(data.info);  //提交失败
+                }
+
+            });
+        });
+
+    })
+</script>
+{% endblock%}
