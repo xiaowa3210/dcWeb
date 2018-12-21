@@ -75,6 +75,10 @@ def projects_detail(project_id):
                            honors=honors)
 
 
+@tmp03.route('/tmp03/pDetail')
+def pDetail():
+    return render_template('tmp03/projects_detail.html')
+
 @tmp03.route('/tmp03/lib')
 def lib():
     return render_template('tmp03/lib.html')

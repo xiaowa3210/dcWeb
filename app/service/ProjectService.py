@@ -1,10 +1,17 @@
 #!usr/bin/python
 # -*- coding: utf-8 -*-
+<<<<<<< HEAD
 import traceback
 
 from ..utils.utils import str_to_dict
 from ..model.models import  nProject, db
 import json
+=======
+
+from app.model.models import nProject, Project
+from app.utils.utils import str_to_dict, str_to_list
+
+>>>>>>> a9ad3e71c7a3d72ebd6a6da3eeb48aa11b2fbefe
 
 def getProjectsByPage(page_index,per_page):
     # 这个地方要用到分页查询，每次查询12页
@@ -66,4 +73,25 @@ def updateProjectByID(project):
             return False
         return True
     return False
+
+#对应t_project表的操作
+def getProjectById_v1(pid):
+    return nProject.query.filter(nProject.project_id == pid).one()
+
+
+def getTeamInfo_v1(nProject):
+    teaminfosStr = nProject.member_info
+    teamInfos = eval(teaminfosStr)
+    picsStr = nProject.ban_url
+    pics = eval(picsStr)
+    return teamInfos['teammates'],pics['pics']
+
+
+if __name__ == '__main__':
+    project = getProjectById('1543974862420')
+    teaminfos = getTeamInfo(project)
+    for teaminfo in teaminfos:
+        print(teaminfo['name'])
+
+
 

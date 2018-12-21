@@ -32,3 +32,9 @@ def deleteFileByID(file_id):
     return True
 def getFileByID(file_id):
     return db.session.query(Files).filter(Files.file_id == file_id).one()
+
+
+def getFilesByPage(page_index,per_page):
+    pagination = Files.query.paginate(page_index, per_page, error_out=False)
+    files = pagination.items
+    return pagination,files

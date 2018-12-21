@@ -14,11 +14,15 @@ from flask import render_template, flash, request, url_for, jsonify
 from flask_login import current_user, login_required
 from werkzeug.utils import secure_filename, redirect
 
+<<<<<<< HEAD
 from app.model.config import UEDITOR_UPLOAD_PATH, HOST
 # from app.service.ProjectService import  addProject
 from app.service.ProjectService import addProject, getProjectById, getTeamInfo, updateProjectByID, getPhotoInfo
 from app.utils.utils import str_to_dict
 
+=======
+from app.model.config import STATIC_PATH
+>>>>>>> a9ad3e71c7a3d72ebd6a6da3eeb48aa11b2fbefe
 from app.view.admin.forms import AddAdminForm, AddProjectForm
 
 import json
@@ -154,8 +158,8 @@ def addt_project():
             print(allowed_photo(file.filename))
             if allowed_photo(file.filename):
                 filename = secure_filename(file.filename)
-                upload_path = os.path.join(base_path, 'uploads', filename)
-                photo = {"title": filename, "path": upload_path}
+                upload_path = os.path.join(STATIC_PATH, 'img', filename)
+                photo = {"title": filename, "path": 'img/' + filename}
                 file.save(upload_path)
                 photoss.append(photo)
             else:
@@ -187,7 +191,7 @@ def addt_project():
         print("34222222222")
         print(teaminfo)
         print(photoPaths)
-        project = Project(pname=form.name.data, introduction=form.introduction.data, teaminfo=str(teaminfo),
+        project = Project(pname=form.name.data, introduction=form.introduction.data, teaminfo=json.dumps(teaminfo),
                           picture=str(photoPaths), vedio=videoPaths)
         db.session.add(project)
         db.session.commit()
@@ -375,6 +379,7 @@ def addproject():
             if allowed_photo(file.filename):
                 filename = secure_filename(file.filename)
                 upload_path = os.path.join(base_path, 'uploads', filename)
+                print(upload_path)
                 photo = {"title": filename, "path": upload_path}
                 file.save(upload_path)
                 photoss.append(photo)
