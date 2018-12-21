@@ -1,17 +1,16 @@
 #!usr/bin/python
 # -*- coding: utf-8 -*-
-<<<<<<< HEAD
+
 import traceback
 
 from ..utils.utils import str_to_dict
 from ..model.models import  nProject, db
 import json
-=======
+
 
 from app.model.models import nProject, Project
 from app.utils.utils import str_to_dict, str_to_list
 
->>>>>>> a9ad3e71c7a3d72ebd6a6da3eeb48aa11b2fbefe
 
 def getProjectsByPage(page_index,per_page):
     # 这个地方要用到分页查询，每次查询12页

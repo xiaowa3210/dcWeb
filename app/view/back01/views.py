@@ -14,15 +14,12 @@ from flask import render_template, flash, request, url_for, jsonify
 from flask_login import current_user, login_required
 from werkzeug.utils import secure_filename, redirect
 
-<<<<<<< HEAD
 from app.model.config import UEDITOR_UPLOAD_PATH, HOST
 # from app.service.ProjectService import  addProject
 from app.service.ProjectService import addProject, getProjectById, getTeamInfo, updateProjectByID, getPhotoInfo
 from app.utils.utils import str_to_dict
 
-=======
 from app.model.config import STATIC_PATH
->>>>>>> a9ad3e71c7a3d72ebd6a6da3eeb48aa11b2fbefe
 from app.view.admin.forms import AddAdminForm, AddProjectForm
 
 import json

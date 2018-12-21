@@ -309,7 +309,6 @@ class nProject(db.Model):
     # 关键字
     key_worlds = db.Column(db.String(256), nullable=True)
 
-<<<<<<< HEAD
 #实验室
 class Laboratory(db.Model):
     __tablename__ = 't_laboratory'
@@ -342,7 +341,6 @@ class Laboratory(db.Model):
 
     #最后修改时间
     last_modified_time = db.Column(db.DateTime, nullable=True)
-=======
 #获奖信息
 class Awards:
     name = db.Column(db.String(128),nullable=False)#名称
@@ -352,4 +350,3 @@ class Awards:
     major = db.Column(db.String(64), nullable=False)# 专业
     link = db.Column(db.String(512), nullable=False)# 获奖链接
     time = db.Column(db.DateTime, nullable=True)#获奖时间
->>>>>>> a9ad3e71c7a3d72ebd6a6da3eeb48aa11b2fbefe
