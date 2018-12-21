@@ -82,3 +82,11 @@ def contact():
 @tmp01.route('/tmp01/lib')
 def lib():
     return render_template('tmp01/lib.html')
+
+@tmp01.route('/tmp01/user_center/addProject')
+def addProject():
+    return render_template('tmp01/addProject.html')
+
+@tmp01.route('/tmp01/test')
+def test():
+    return render_template('tmp01/test.html')
