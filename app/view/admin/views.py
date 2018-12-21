@@ -14,7 +14,7 @@ from werkzeug.utils import secure_filename  # 使用这个是为了确保filenam
 # from backstage import utils
 # from backstage.models import CfgNotify
 # from backstage.tmp01.forms import CfgNotifyForm
-from app.model.models import Document, Project, User, db, Laboratory, Activity
+from app.model.models import Document, Project, User, db, Laboratory
 from app.view.admin.forms import AddinfoForm, AddDocumentForm, AddProjectForm, AddAdminForm, AddMemberForm, AddLabForm, \
     AddActivityForm
 
@@ -78,11 +78,11 @@ def allowed_video(filename):
 #     return redirect(url_for('tmp01.index'))
 
 
-# 首页
-@admin.route('/index', methods=['GET'])
-@login_required
-def index():
-    return render_template('admin/index.html', current_user=current_user)
+# # 首页
+# @admin.route('/index', methods=['GET'])
+# @login_required
+# def index():
+#     return render_template('admin/index.html', current_user=current_user)
 
 
 @admin.route('/addadmin', methods=['GET','POST'])
@@ -413,36 +413,36 @@ def addmember():
         return render_template('admin/addlab.html',form = form,users=members)
     return render_template('admin/addmember.html',form=mform)
 
-@admin.route('/addlab', methods=['GET','POST'])
-@login_required
-def addlab():
-    form = AddLabForm()
-    global members
-    m = {"members":members}
-    if form.is_submitted():
-        global activities
-        lab = Laboratory(name =form.name.data,introduction =form.introduction.data,member=str(m),activities=activities)
-        db.session.add(lab)
-        db.session.commit()
-        activities =[]
-     
-        members=[]
-
-        teammates=[]
-        flash("保存成功")
-    return render_template('admin/addlab.html', form=form,users=members,activities=activities)
-
-
-@admin.route('/addactivity', methods=['GET','POST'])
-@login_required
-def addactivity():
-    aform = AddActivityForm()
-    if aform.is_submitted():
-        activity = Activity(title=aform.name.data,content=aform.introduction.data)
-        global activities
-        activities.append(activity)
-        return render_template('admin/addlab.html', form=AddLabForm(), users=members,activities=activities)
-    return render_template('admin/addactivity.html', form=aform)
+# @admin.route('/addlab', methods=['GET','POST'])
+# @login_required
+# def addlab():
+#     form = AddLabForm()
+#     global members
+#     m = {"members":members}
+#     if form.is_submitted():
+#         global activities
+#         lab = Laboratory(name =form.name.data,introduction =form.introduction.data,member=str(m),activities=activities)
+#         db.session.add(lab)
+#         db.session.commit()
+#         activities =[]
+#
+#         members=[]
+#
+#         teammates=[]
+#         flash("保存成功")
+#     return render_template('admin/addlab.html', form=form,users=members,activities=activities)
+#
+#
+# @admin.route('/addactivity', methods=['GET','POST'])
+# @login_required
+# def addactivity():
+#     aform = AddActivityForm()
+#     if aform.is_submitted():
+#         activity = Activity(title=aform.name.data,content=aform.introduction.data)
+#         global activities
+#         activities.append(activity)
+#         return render_template('admin/addlab.html', form=AddLabForm(), users=members,activities=activities)
+#     return render_template('admin/addactivity.html', form=aform)
 
 
 
