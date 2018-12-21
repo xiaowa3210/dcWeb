@@ -11,6 +11,7 @@ from app.service.FileService import getFileByID,getFilesByPage
 from app.service.ProjectService import *
 from app.view.MessageInfo import MessageInfo
 from app.view.tmp05 import tmp05
+from app.service.UserServiceV2 import *
 
 from app import app
 
@@ -184,6 +185,17 @@ def addtest():
     content = data['content']
     print(content)
     return json.dumps(MessageInfo.success(data=content).__dict__)
+
+
+@tmp05.route("/tmp05/databasetest")
+def databasetest():
+    # user = User('dhjal', 'dakkda', 1)
+    # addUser_v1(user)
+
+    modifiedPw(66,'666666666')
+
+    return 'hello,world'
+
 
 
 
