@@ -48,20 +48,20 @@ disallow_url_teacher = [
 
 ]
 
-#登录验证
-@app.before_request
-def before_action():
-    path = request.path
-    #拦截需要登录才能访问的页面
-    if path not in allow_url:
-        if role_dict[ADMIN] in session:
-            if path in disallow_url_admin:
-                return redirect(url_for("login"))
-        elif role_dict[TEACHER] in session:
-            if path in disallow_url_teacher:
-                return redirect(url_for("login"))
-        else:
-            return redirect(url_for("login"))
+# #登录验证
+# @app.before_request
+# def before_action():
+#     path = request.path
+#     #拦截需要登录才能访问的页面
+#     if path not in allow_url:
+#         if role_dict[ADMIN] in session:
+#             if path in disallow_url_admin:
+#                 return redirect(url_for("login"))
+#         elif role_dict[TEACHER] in session:
+#             if path in disallow_url_teacher:
+#                 return redirect(url_for("login"))
+#         else:
+#             return redirect(url_for("login"))
 
 @app.route("/login")
 def login():

@@ -70,7 +70,7 @@
           {% for project in projects %}
           <article class="blog-post">
             <div class="post-heading">
-              <h3><a href="#">{{ project.pname }}</a></h3>
+              <h3><a href="#">{{ project.title }}</a></h3>
             </div>
             <div class="row">
               <div class="span3">
@@ -86,7 +86,7 @@
                 </ul>
                 <div class="clearfix">
                 </div>
-                <p>{{ project.introduction }}</p>
+                <p>{{ project.brief }}</p>
                 <button class="btn btn-small btn-success" type="button"><a href="{{ url_for('tmp01.projects_detail',project_id=project.project_id) }}">更多</a></button>
               </div>
             </div>

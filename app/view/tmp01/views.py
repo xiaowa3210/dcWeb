@@ -69,7 +69,9 @@ def downlink(page):
 def projects(page):
     per_page = 3
     pagination,projects = getProjectsByPage(page,per_page)
-    return render_template('tmp01/projects.html', pagination=pagination, projects=projects, )
+
+
+    return render_template('tmp01/projects.html', pagination=pagination, projects=projects)
 
 @tmp01.route('/tmp01/projects/<project_id>')
 def projects_detail(project_id):
