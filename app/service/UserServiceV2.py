@@ -21,6 +21,8 @@
                   ┃┫┫  ┃┫┫
                   ┗┻┛  ┗┻┛
 """
+import traceback
+
 from app.model.entity import User
 from app import db2
 from app.model.constant import *
@@ -59,6 +61,7 @@ class UserService:
         try:
             return db2.session.query(User).filter(User.username == name).filter(User.type == type).one()
         except:
+            traceback.print_exc()
             return None
 
     """ 
