@@ -6,7 +6,6 @@ basedir = os.path.abspath(os.path.dirname(__file__))  # 当前文件的绝对路
 
 
 #测试环境
-# HOST = "47.107.103.82"
 HOST = "47.93.236.82"
 PORT = "3306"
 DB = "dcwebdb"
