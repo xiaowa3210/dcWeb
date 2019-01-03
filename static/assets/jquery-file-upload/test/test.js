@@ -16,7 +16,7 @@ $(function () {
     'use strict';
 
     QUnit.done = function () {
-        // Delete all uploaded files:
+        // Delete all uploaded resources:
         var url = $('#fileupload').prop('action');
         $.getJSON(url, function (result) {
             $.each(result.files, function (index, file) {
@@ -483,7 +483,7 @@ $(function () {
                 strictEqual(
                     data.files.length,
                     0,
-                    'Returns empty files list'
+                    'Returns empty resources list'
                 );
             },
             add: $.noop
@@ -868,7 +868,7 @@ $(function () {
         ($('#fileupload').data('blueimp-fileupload') ||
                 $('#fileupload').data('fileupload'))
             ._renderDownload(files)
-            .appendTo($('#fileupload .files')).show()
+            .appendTo($('#fileupload .resources')).show()
             .find('.delete input').click();
         buttonbar.find('.delete').click();
     });
@@ -936,7 +936,7 @@ $(function () {
                 delete_url: 'test',
                 delete_type: 'DELETE'
             }])
-            .appendTo($('#fileupload .files'))
+            .appendTo($('#fileupload .resources'))
             .show()
             .find('.delete input').click();
         $('#fileupload .fileupload-buttonbar .delete').click();
@@ -1042,7 +1042,7 @@ $(function () {
                 delete_url: 'test',
                 delete_type: 'DELETE'
             }])
-            .appendTo($('#fileupload .files'))
+            .appendTo($('#fileupload .resources'))
             .show()
             .find('.delete input').click();
         $('#fileupload .fileupload-buttonbar .delete').click();

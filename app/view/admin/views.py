@@ -222,9 +222,9 @@ def addproject():
         # if request.method == 'POST':
     if form.is_submitted():
         print("555")
-        # f1= request.files["photo"]
+        # f1= request.resources["photo"]
         photos = request.files.getlist('photo')
-        # f2 = request.files["video"]
+        # f2 = request.resources["video"]
         files = request.files.getlist('video')
         base_path = path.abspath(path.dirname(__file__))
         print(path.dirname(__file__))
@@ -304,9 +304,9 @@ def editproject(project_id):
     if form.is_submitted():
         if request.method == 'POST':
             print("555")
-            # f1= request.files["photo"]
+            # f1= request.resources["photo"]
             photos = request.files.getlist('photo')
-            # f2 = request.files["video"]
+            # f2 = request.resources["video"]
             files = request.files.getlist('video')
             base_path = path.abspath(path.dirname(__file__))
             photo_db_paths = []

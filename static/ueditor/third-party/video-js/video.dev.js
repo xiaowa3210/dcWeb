@@ -1156,8 +1156,8 @@ vjs.createTimeRange = function(start, end){
 };
 
 /**
- * Simple http request for retrieving external files (e.g. text tracks)
- * @param  {String} url           URL of resource
+ * Simple http request for retrieving external resources (e.g. text tracks)
+ * @param  {String} url           URL of resources
  * @param  {Function=} onSuccess  Success callback
  * @param  {Function=} onError    Error callback
  * @private
@@ -3157,7 +3157,7 @@ vjs.Player.prototype.onProgress = function(){
 };
 
 /**
- * Fired when the end of the media resource is reached (currentTime == duration)
+ * Fired when the end of the media resources is reached (currentTime == duration)
  * @event ended
  */
 vjs.Player.prototype.onEnded = function(){
@@ -3168,7 +3168,7 @@ vjs.Player.prototype.onEnded = function(){
 };
 
 /**
- * Fired when the duration of the media resource is first known or changed
+ * Fired when the duration of the media resources is first known or changed
  * @event durationchange
  */
 vjs.Player.prototype.onDurationChange = function(){
@@ -3628,7 +3628,7 @@ vjs.Player.prototype.selectSource = function(sources){
  *
  * **URL String**: A URL to the the video file. Use this method if you are sure
  * the current playback technology (HTML5/Flash) can support the source you
- * provide. Currently only MP4 files can be used in both HTML5 and Flash.
+ * provide. Currently only MP4 resources can be used in both HTML5 and Flash.
  *
  *     myPlayer.src("http://www.example.com/path/to/video.mp4");
  *
@@ -6265,7 +6265,7 @@ vjs.TextTrack.prototype.createEl = function(){
  * The user agent is maintaining a list of which cues are active, and events are being fired accordingly.
  * In addition, for text tracks whose kind is subtitles or captions, the cues are being displayed over the video as appropriate;
  * for text tracks whose kind is descriptions, the user agent is making the cues available to the user in a non-visual fashion;
- * and for text tracks whose kind is chapters, the user agent is making available to the user a mechanism by which the user can navigate to any point in the media resource by selecting a cue.
+ * and for text tracks whose kind is chapters, the user agent is making available to the user a mechanism by which the user can navigate to any point in the media resources by selecting a cue.
  * The showing by default state is used in conjunction with the default attribute on track elements to indicate that the text track was enabled due to that attribute.
  * This allows the user agent to override the state if a later track is discovered that is more appropriate per the user's preferences.
  */

@@ -259,16 +259,16 @@ CodeMirror.defineMode("perl",function(){
                 alarm                           :1,     // - schedule a SIGALRM
                 'atan2'                         :1,     // - arctangent of Y/X in the range -PI to PI
                 bind                            :1,     // - binds an address to a socket
-                binmode                         :1,     // - prepare binary files for I/O
+                binmode                         :1,     // - prepare binary resources for I/O
                 bless                           :1,     // - create an object
                 bootstrap                       :1,     //
                 'break'                         :1,     // - break out of a "given" block
                 caller                          :1,     // - get context of the current subroutine call
                 chdir                           :1,     // - change your current working directory
-                chmod                           :1,     // - changes the permissions on a list of files
+                chmod                           :1,     // - changes the permissions on a list of resources
                 chomp                           :1,     // - remove a trailing record separator from a string
                 chop                            :1,     // - remove the last character from a string
-                chown                           :1,     // - change the owership on a list of files
+                chown                           :1,     // - change the owership on a list of resources
                 chr                             :1,     // - get character this number represents
                 chroot                          :1,     // - make directory new root for path lookups
                 close                           :1,     // - close file (or pipe or socket) handle

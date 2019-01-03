@@ -760,7 +760,7 @@ if (typeof(SyntaxHighlighter) == 'undefined') var SyntaxHighlighter = function()
             highlighters : {}
         },
 
-        /** This object is populated by user included external brush files. */
+        /** This object is populated by user included external brush resources. */
         brushes : {},
 
         /** Common regular expressions. */

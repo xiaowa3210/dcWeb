@@ -66,7 +66,7 @@ $(function () {
             });
         }
     } else {
-        // Load existing files:
+        // Load existing resources:
         // Demo settings:
         $.ajax({
             // Uncomment the following to send cross-domain cookies:

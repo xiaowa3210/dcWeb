@@ -143,9 +143,9 @@ def addt_project():
     # if request.method == 'POST':
     if form.is_submitted():
         print("555")
-        # f1= request.files["photo"]
+        # f1= request.resources["photo"]
         photos = request.files.getlist('photo')
-        # f2 = request.files["video"]
+        # f2 = request.resources["video"]
         files = request.files.getlist('video')
         base_path = path.abspath(path.dirname(__file__))
         photoss = []
@@ -286,9 +286,9 @@ def edit(project_id):
     # users =project.member_info["teammates"].split(',')
     if form.is_submitted():
         print("555")
-        # f1= request.files["photo"]
+        # f1= request.resources["photo"]
         photos = request.files.getlist('photo')
-        # f2 = request.files["video"]
+        # f2 = request.resources["video"]
         files = request.files.getlist('video')
         base_path = path.abspath(path.dirname(__file__))
         photoss = []
@@ -365,9 +365,9 @@ def addproject():
     form = AddProjectForm()
     if form.is_submitted():
         print("555")
-        # f1= request.files["photo"]
+        # f1= request.resources["photo"]
         photos = request.files.getlist('photo')
-        # f2 = request.files["video"]
+        # f2 = request.resources["video"]
         files = request.files.getlist('video')
         base_path = path.abspath(path.dirname(__file__))
         photoss = []
@@ -443,11 +443,11 @@ def saveProject():
     # 解析前端传过来的json数据
     # data = json.loads(request.get_data("utf-8"))
 
-    #attachment = request.files.get("attachment")
+    #attachment = request.resources.get("attachment")
 
     photos = request.files.getlist("photos")
     # is_attachment = 1
-    # files = []
+    # resources = []
 
     photoss = []
     if len(photos) > 0:

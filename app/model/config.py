@@ -29,11 +29,17 @@ SQLALCHEMY_DATABASE_URI = DB_URI
 SQLALCHEMY_TRACK_MODIFICATIONS = True
 SECRET_KEY = "THIS-A-SECRET-KEY"
 
-UEDITOR_UPLOAD_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), '../../files/')) #图片上传配置
+UEDITOR_UPLOAD_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), '../../resources/')) #图片上传配置
 
 ROOT_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), '../../'))
 
-ARTICLE_ATTACHMENT_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), '../../files/article_attachment/'))
+ARTICLE_ATTACHMENT_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), '../../resources/article_attachment/'))
 
 
 STATIC_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), '../../static/'))
+
+
+UPLOAD_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), '../../resources/')) #图片上传配置
+
+
+UPLOAD_PICS_PATH = os.path.abspath(os.path.join(UPLOAD_PATH, 'pics')) #图片上传配置

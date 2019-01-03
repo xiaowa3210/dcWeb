@@ -59,7 +59,7 @@ def saveArticle():
     # 解析前端传过来的json数据
     # data = json.loads(request.get_data("utf-8"))
 
-    #attachment = request.files.get("attachment")
+    #attachment = request.resources.get("attachment")
 
     attachments = request.files.getlist("attachment")
     is_attachment = 1

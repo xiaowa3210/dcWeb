@@ -13,9 +13,9 @@ f.set_pasv(0)
 
 '''
 从服务器路径上传到ftp
-local_path 带斜杠的本地路径如 d:/files/
+local_path 带斜杠的本地路径如 d:/resources/
 file_name 文件名 例如 1.jpg
-remote_pre_url 上传成功后拼接url的前缀，带斜杠 如 http://dc.blfly.com/files/
+remote_pre_url 上传成功后拼接url的前缀，带斜杠 如 http://dc.blfly.com/resources/
 '''
 def ftp_upload( local_path, file_name):
 
@@ -25,10 +25,10 @@ def ftp_upload( local_path, file_name):
     (shotname, extension) = os.path.splitext(file_name)#判断工作路径，路径加上年月日
     if(extension == 'jpg' or extension == 'png' or extension == 'bmp'): # 根据文件后缀决定上传的路径
         ftp_mid = '/pub/images/' + daystr + '/'
-        remote_pre_url = 'http://dc.blfly.com/files/images/' + daystr +'/'
+        remote_pre_url = 'http://dc.blfly.com/resources/images/' + daystr +'/'
     else:
         ftp_mid = '/pub/' + daystr + '/'
-        remote_pre_url = 'http://dc.blfly.com/files/' + daystr +'/'
+        remote_pre_url = 'http://dc.blfly.com/resources/' + daystr +'/'
 
     try:
         f.cwd(ftp_mid)  # 改变路径

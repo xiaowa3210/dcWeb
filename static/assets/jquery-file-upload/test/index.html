@@ -29,7 +29,7 @@
 <div id="qunit-fixture">
     <!-- The file upload form used as target for the file upload widget -->
     <form id="fileupload" action="../server/php/" method="POST" enctype="multipart/form-data">
-        <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
+        <!-- The fileupload-buttonbar contains buttons to add/delete resources and start/cancel the upload -->
         <div class="row fileupload-buttonbar">
             <div class="span7">
                 <!-- The fileinput-button span is used to style the file input field as button -->
@@ -65,11 +65,11 @@
         <!-- The loading indicator is shown during file processing -->
         <div class="fileupload-loading"></div>
         <br>
-        <!-- The table listing the files available for upload/download -->
+        <!-- The table listing the resources available for upload/download -->
         <table role="presentation" class="table table-striped"><tbody class="files" data-toggle="modal-gallery" data-target="#modal-gallery"></tbody></table>
     </form>
 </div>
-<!-- The template to display files available for upload -->
+<!-- The template to display resources available for upload -->
 <script id="template-upload" type="text/x-tmpl">
 {% for (var i=0, file; file=o.files[i]; i++) { %}
     <tr class="template-upload">
@@ -100,7 +100,7 @@
     </tr>
 {% } %}
 </script>
-<!-- The template to display files available for download -->
+<!-- The template to display resources available for download -->
 <script id="template-download" type="text/x-tmpl">
 {% for (var i=0, file; file=o.files[i]; i++) { %}
     <tr class="template-download">

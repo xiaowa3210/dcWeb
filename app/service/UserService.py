@@ -26,7 +26,7 @@ def deleteUserByUserId(userID):
         # 删除t_user_project中关联的数据
         sql = 'delete from t_user_project where userId=' + str(userID)
         # 删除t_user中的数据
-        sql = 'delete from t_user where id=' + str(userID)
+        sql = 'delete from dc_user where id=' + str(userID)
         db2.session.execute(sql)
         db2.session.execute(sql)
         db2.session.commit()

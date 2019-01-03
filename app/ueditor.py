@@ -68,7 +68,7 @@ def upload():
         # 为什么用save()
         image.save(os.path.join(UEDITOR_UPLOAD_PATH, save_filename))
         result['state'] = "SUCCESS"
-        result['url'] = url_for('ueditor.files',filename=save_filename)
+        result['url'] = url_for('ueditor.resources',filename=save_filename)
         result['title'] = save_filename,
         result['original'] = image.filename
 
@@ -88,6 +88,6 @@ def upload():
         }
     return jsonify(result)
 
-@bp.route('/files/<filename>/')
+@bp.route('/resources/<filename>/')
 def files(filename):
    return send_from_directory(UEDITOR_UPLOAD_PATH,filename)

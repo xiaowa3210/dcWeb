@@ -1067,7 +1067,7 @@ Mocha.prototype.ui = function(name){
 };
 
 /**
- * Load registered files.
+ * Load registered resources.
  *
  * @api private
  */
@@ -4632,7 +4632,7 @@ exports.keys = Object.keys || function(obj) {
 };
 
 /**
- * Watch the given `files` for changes
+ * Watch the given `resources` for changes
  * and invoke `fn(file)` on modification.
  *
  * @param {Array} files
@@ -4651,7 +4651,7 @@ exports.watch = function(files, fn){
 };
 
 /**
- * Ignored files.
+ * Ignored resources.
  */
 
 function ignored(path){
@@ -4659,7 +4659,7 @@ function ignored(path){
 }
 
 /**
- * Lookup files in the given `dir`.
+ * Lookup resources in the given `dir`.
  *
  * @return {Array}
  * @api private

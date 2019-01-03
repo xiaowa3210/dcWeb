@@ -31,8 +31,14 @@ app.register_blueprint(tmp03_blueprint)
 from app.view.tmp05 import tmp05 as tmp05_blueprint
 app.register_blueprint(tmp05_blueprint)
 
-userSevice = UserService()
 
+from app.view.front import front as front_blueprint
+app.register_blueprint(front_blueprint)
+from app.view.common import common as common_blueprint
+app.register_blueprint(common_blueprint)
+
+
+userSevice = UserService()
 #不需要拦截的url
 allow_url = [
     "/login"

@@ -93,9 +93,9 @@
                     </div>
                 </div>
 
-                <button type="button" id="addAward">添加奖项</button>
+                <button type="button" id="addAward">编辑奖项</button>
                 <div class="award hide">
-                    <p><input type="text" placeholder="请输入奖项名称" id="awardTitle" name="awardTitle" value=""></p>  <!--奖项名称-->
+                    <p><input type="text" placeholder="请输入奖项名称" id="awardTitle" name="awardTitle" value=""></p><!--奖项名称-->
                     <div style="position: relative">
                         <input type="file" name="certificate" id="certificate" multiple style="opacity: 0">
                         <button style="position: absolute;left: 0;top: 0;z-index: -10;" type="button">上传证书/奖项图片</button>
@@ -220,7 +220,7 @@
             //启动本地图片上传功能
             imageUpload: true,
             imageFormats: ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
-            imageUploadURL: "{{url_for('tmp05.upload')}}"
+            imageUploadURL: "{{url_for('common.markdown_upload')}}"
         });
 
         //提交表单

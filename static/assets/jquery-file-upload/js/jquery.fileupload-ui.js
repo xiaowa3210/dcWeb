@@ -38,11 +38,11 @@
     $.widget('blueimp.fileupload', $.blueimp.fileupload, {
 
         options: {
-            // By default, files added to the widget are uploaded as soon
+            // By default, resources added to the widget are uploaded as soon
             // as the user clicks on the start buttons. To enable automatic
             // uploads, set the following option to true:
             autoUpload: false,
-            // The following option limits the number of files that are
+            // The following option limits the number of resources that are
             // allowed to be uploaded using this widget:
             maxNumberOfFiles: undefined,
             // The maximum allowed file size:
@@ -52,7 +52,7 @@
             // The regular expression for allowed file types, matches
             // against either file type or file name:
             acceptFileTypes:  /.+$/i,
-            // The regular expression to define for which files a preview
+            // The regular expression to define for which resources a preview
             // image is shown, matched against the file type:
             previewSourceFileTypes: /^image\/(gif|jpeg|png)$/,
             // The maximum file size of images that are to be displayed as preview:
@@ -69,17 +69,17 @@
             uploadTemplateId: 'template-upload',
             // The ID of the download template:
             downloadTemplateId: 'template-download',
-            // The container for the list of files. If undefined, it is set to
-            // an element with class "files" inside of the widget element:
+            // The container for the list of resources. If undefined, it is set to
+            // an element with class "resources" inside of the widget element:
             filesContainer: undefined,
-            // By default, files are appended to the files container.
-            // Set the following option to true, to prepend files instead:
+            // By default, resources are appended to the resources container.
+            // Set the following option to true, to prepend resources instead:
             prependFiles: false,
             // The expected data type of the upload response, sets the dataType
             // option of the $.ajax upload requests:
             dataType: 'json',
 
-            // The add callback is invoked as soon as files are added to the fileupload
+            // The add callback is invoked as soon as resources are added to the fileupload
             // widget (via file input selection, drag & drop or add API call).
             // See the basic file upload widget for more information:
             add: function (e, data) {
@@ -379,7 +379,7 @@
             return [];
         },
 
-        // Link handler, that allows to download files
+        // Link handler, that allows to download resources
         // by drag & drop of the links to the desktop:
         _enableDragToDesktop: function () {
             var link = $(this),
@@ -466,11 +466,11 @@
             if (file.error) {
                 return file.error;
             }
-            // The number of added files is subtracted from
+            // The number of added resources is subtracted from
             // maxNumberOfFiles before validation, so we check if
             // maxNumberOfFiles is below 0 (instead of below 1):
             if (this.options.maxNumberOfFiles < 0) {
-                return 'Maximum number of files exceeded';
+                return 'Maximum number of resources exceeded';
             }
             // Files are accepted if either the file type or the file name
             // matches against the acceptFileTypes regular expression, as

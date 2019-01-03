@@ -58,7 +58,7 @@
             */
             ],
 
-            // The add callback is invoked as soon as files are added to the
+            // The add callback is invoked as soon as resources are added to the
             // fileupload widget (via file input selection, drag & drop or add
             // API call). See the basic file upload widget for more information:
             add: function (e, data) {
@@ -69,10 +69,10 @@
         },
 
         processActions: {
-            // Loads the image given via data.files and data.index
+            // Loads the image given via data.resources and data.index
             // as img element if the browser supports canvas.
             // Accepts the options fileTypes (regular expression)
-            // and maxFileSize (integer) to limit the files to load:
+            // and maxFileSize (integer) to limit the resources to load:
             load: function (data, options) {
                 var that = this,
                     file = data.files[data.index],
@@ -116,7 +116,7 @@
                 return data;
             },
             // Saves the processed image given as data.canvas
-            // inplace at data.index of data.files:
+            // inplace at data.index of data.resources:
             save: function (data, options) {
                 // Do nothing if no processing has happened:
                 if (!data.canvas) {
@@ -138,7 +138,7 @@
                             }
                         }
                         // Store the created blob at the position
-                        // of the original file in the files list:
+                        // of the original file in the resources list:
                         data.files[data.index] = blob;
                         dfd.resolveWith(that, [data]);
                     };
@@ -159,7 +159,7 @@
         },
 
         // Resizes the file at the given index and stores the created blob at
-        // the original position of the files list, returns a Promise object:
+        // the original position of the resources list, returns a Promise object:
         _processFile: function (files, index, options) {
             var that = this,
                 dfd = $.Deferred().resolveWith(that, [{
@@ -187,9 +187,9 @@
             return chain;
         },
 
-        // Processes the files given as files property of the data parameter,
+        // Processes the resources given as resources property of the data parameter,
         // returns a Promise object that allows to bind a done handler, which
-        // will be invoked after processing all files (inplace) is done:
+        // will be invoked after processing all resources (inplace) is done:
         process: function (data) {
             var that = this,
                 options = $.extend({}, this.options, data);

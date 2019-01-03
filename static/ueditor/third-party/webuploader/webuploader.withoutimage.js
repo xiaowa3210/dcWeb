@@ -2319,7 +2319,7 @@
     
                     if ( !(file instanceof File) ) {
                         if ( !this._ruid ) {
-                            throw new Error('Can\'t add external files.');
+                            throw new Error('Can\'t add external resources.');
                         }
                         file = new File( this._ruid, file );
                     }
@@ -2453,8 +2453,8 @@
              * @description 返回指定状态的文件集合，不传参数将返回所有状态的文件。
              * @for  Uploader
              * @example
-             * console.log( uploader.getFiles() );    // => all files
-             * console.log( uploader.getFiles('error') )    // => all error files.
+             * console.log( uploader.getFiles() );    // => all resources
+             * console.log( uploader.getFiles('error') )    // => all error resources.
              */
             getFiles: function() {
                 return this.queue.getFiles.apply( this.queue, arguments );

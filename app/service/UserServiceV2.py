@@ -22,7 +22,6 @@
                   ┗┻┛  ┗┻┛
 """
 import traceback
-
 from app.model.entity import User
 from app import db2
 from app.model.constant import *
@@ -44,7 +43,7 @@ class UserService:
             "password": newPw,
             "uid": uid
         }
-        sql = 'update t_user set password=(:password) WHERE id=(:uid)'
+        sql = 'update dc_user set password=(:password) WHERE id=(:uid)'
         db2.session.execute(sql, params)
         db2.session.commit()
 

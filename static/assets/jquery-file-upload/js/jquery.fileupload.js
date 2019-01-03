@@ -51,9 +51,9 @@
     // The fileupload widget listens for change events on file input fields defined
     // via fileInput setting and paste or drop events of the given dropZone.
     // In addition to the default jQuery Widget methods, the fileupload widget
-    // exposes the "add" and "send" methods, to add or directly send files using
+    // exposes the "add" and "send" methods, to add or directly send resources using
     // the fileupload API.
-    // By default, files added via file input selection, paste, drag & drop or
+    // By default, resources added via file input selection, paste, drag & drop or
     // "add" method are uploaded immediately, but it is possible to override
     // the "add" callback option to queue file uploads.
     $.widget('blueimp.fileupload', {
@@ -77,14 +77,14 @@
             replaceFileInput: true,
             // The parameter name for the file form data (the request argument name).
             // If undefined or empty, the name property of the file input field is
-            // used, or "files[]" if the file input name property is also empty,
+            // used, or "resources[]" if the file input name property is also empty,
             // can be a string or an array of strings:
             paramName: undefined,
             // By default, each file of a selection is uploaded using an individual
             // request for XHR type uploads. Set to false to upload file
             // selections in one request each:
             singleFileUploads: true,
-            // To limit the number of files uploaded with one XHR request,
+            // To limit the number of resources uploaded with one XHR request,
             // set the following option to an integer greater than 0:
             limitMultiFileUploads: undefined,
             // Set the following option to true to issue all file upload requests
@@ -108,9 +108,9 @@
             // The iframe transport is always using multipart/form-data.
             // Set to false to enable non-multipart XHR uploads:
             multipart: true,
-            // To upload large files in smaller chunks, set the following option
+            // To upload large resources in smaller chunks, set the following option
             // to a preferred maximum chunk size. If set to 0, null or undefined,
-            // or the browser does not support the required Blob API, files will
+            // or the browser does not support the required Blob API, resources will
             // be uploaded as a whole.
             maxChunkSize: undefined,
             // When a non-multipart upload or a chunked multipart upload has been
@@ -137,13 +137,13 @@
                 return form.serializeArray();
             },
 
-            // The add callback is invoked as soon as files are added to the fileupload
+            // The add callback is invoked as soon as resources are added to the fileupload
             // widget (via file input selection, drag & drop, paste or add API call).
             // If the singleFileUploads option is enabled, this callback will be
             // called once for each file in the selection for XHR file uplaods, else
             // once for each file selection.
             // The upload starts when the submit method is invoked on the data parameter.
-            // The data object contains a files property holding the added files
+            // The data object contains a resources property holding the added resources
             // and allows to override plugin options as well as define ajax settings.
             // Listeners for this callback can also be bound the following way:
             // .bind('fileuploadadd', func);
@@ -445,7 +445,7 @@
                 paramName = [];
                 fileInput.each(function () {
                     var input = $(this),
-                        name = input.prop('name') || 'files[]',
+                        name = input.prop('name') || 'resources[]',
                         i = (input.prop('files') || [1]).length;
                     while (i) {
                         paramName.push(name);
@@ -453,7 +453,7 @@
                     }
                 });
                 if (!paramName.length) {
-                    paramName = [fileInput.prop('name') || 'files[]'];
+                    paramName = [fileInput.prop('name') || 'resources[]'];
                 }
             } else if (!$.isArray(paramName)) {
                 paramName = [paramName];
@@ -850,7 +850,7 @@
                     }
                     // Since $.when returns immediately if one
                     // Deferred is rejected, we use resolve instead.
-                    // This allows valid files and invalid items
+                    // This allows valid resources and invalid items
                     // to be returned together in one set:
                     dfd.resolve([e]);
                 },
@@ -879,7 +879,7 @@
                 }, errorHandler);
             } else {
                 // Return an empy list for file system items
-                // other than files or directories:
+                // other than resources or directories:
                 dfd.resolve([]);
             }
             return dfd.promise();
@@ -940,7 +940,7 @@
                 if (!value) {
                     return $.Deferred().resolve([]).promise();
                 }
-                // If the files property is not available, the browser does not
+                // If the resources property is not available, the browser does not
                 // support the File API and we add a pseudo File object with
                 // the input value as name with path information removed:
                 files = [{name: value.replace(/^.*\\/, '')}];
@@ -1092,10 +1092,10 @@
             this._destroyEventHandlers();
         },
 
-        // This method is exposed to the widget API and allows adding files
+        // This method is exposed to the widget API and allows adding resources
         // using the fileupload API. The data parameter accepts an object which
-        // must have a files property and can contain additional options:
-        // .fileupload('add', {files: filesList});
+        // must have a resources property and can contain additional options:
+        // .fileupload('add', {resources: filesList});
         add: function (data) {
             var that = this;
             if (!data || this.options.disabled) {
@@ -1112,10 +1112,10 @@
             }
         },
 
-        // This method is exposed to the widget API and allows sending files
+        // This method is exposed to the widget API and allows sending resources
         // using the fileupload API. The data parameter accepts an object which
-        // must have a files or fileInput property and can contain additional options:
-        // .fileupload('send', {files: filesList});
+        // must have a resources or fileInput property and can contain additional options:
+        // .fileupload('send', {resources: filesList});
         // The method returns a Promise object for the file upload call.
         send: function (data) {
             if (data && !this.options.disabled) {

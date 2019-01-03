@@ -27,11 +27,11 @@
 //  "pics":[
 //    {
 //      "title":"xxxxxx",
-//      "path" : "xxxxx/dcWeb/resource/xxxx.jpg"
+//      "path" : "xxxxx/dcWeb/resources/xxxx.jpg"
 //    },
 //    {
 //      "title":"xxxxxx",
-//      "path" : "xxxxx/dcWeb/resource/xxxx.jpg"
+//      "path" : "xxxxx/dcWeb/resources/xxxx.jpg"
 //    }
 //  ]
 //}
@@ -41,11 +41,11 @@
 //  "pics":[
 //    {
 //      "title":"xxxxxx",
-//      "path" : "xxxxx/dcWeb/resource/xxxx.jpg"
+//      "path" : "xxxxx/dcWeb/resources/xxxx.jpg"
 //    },
 //    {
 //      "title":"xxxxxx",
-//      "path" : "xxxxx/dcWeb/resource/xxxx.jpg"
+//      "path" : "xxxxx/dcWeb/resources/xxxx.jpg"
 //    }
 //  ]
 //}

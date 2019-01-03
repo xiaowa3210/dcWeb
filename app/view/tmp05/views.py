@@ -172,11 +172,11 @@ def upload():
         }
     return jsonify(res)
 
-@tmp05.route('/image/<name>')
-def image(name):
-    with open(os.path.join(UEDITOR_UPLOAD_PATH,name),'rb') as f:
-        resp=Response(f.read(),mimetype="image/jpeg")
-    return resp
+# @tmp05.route('/image/<name>')
+# def image(name):
+#     with open(os.path.join(UEDITOR_UPLOAD_PATH,name),'rb') as f:
+#         resp=Response(f.read(),mimetype="image/jpeg")
+#     return resp
 
 
 @tmp05.route("/tmp05/addtest",methods=["POST"])

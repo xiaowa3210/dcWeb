@@ -25,8 +25,8 @@
         options = {
             tmpDir: __dirname + '/tmp',
             publicDir: __dirname + '/public',
-            uploadDir: __dirname + '/public/files',
-            uploadUrl: '/files/',
+            uploadDir: __dirname + '/public/resources',
+            uploadUrl: '/resources/',
             maxPostSize: 11000000000, // 11 GB
             minFileSize: 1,
             maxFileSize: 10000000000, // 10 GB
@@ -52,7 +52,7 @@
             },
             */
             nodeStatic: {
-                cache: 3600 // seconds to cache served files
+                cache: 3600 // seconds to cache served resources
             }
         },
         utf8encode = function (str) {
@@ -104,7 +104,7 @@
                 setNoCacheHeaders = function () {
                     res.setHeader('Pragma', 'no-cache');
                     res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate');
-                    res.setHeader('Content-Disposition', 'inline; filename="files.json"');
+                    res.setHeader('Content-Disposition', 'inline; filename="resources.json"');
                 },
                 handler = new UploadHandler(req, res, handleResult);
             switch (req.method) {
@@ -161,9 +161,9 @@
         return !this.error;
     };
     FileInfo.prototype.safeName = function () {
-        // Prevent directory traversal and creating hidden system files:
+        // Prevent directory traversal and creating hidden system resources:
         this.name = path.basename(this.name).replace(/^\.+/, '');
-        // Prevent overwriting existing files:
+        // Prevent overwriting existing resources:
         while (_existsSync(options.uploadDir + '/' + this.name)) {
             this.name = this.name.replace(nameCountRegexp, nameCountFunc);
         }

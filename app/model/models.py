@@ -350,3 +350,5 @@ class Awards:
     major = db.Column(db.String(64), nullable=False)# 专业
     link = db.Column(db.String(512), nullable=False)# 获奖链接
     time = db.Column(db.DateTime, nullable=True)#获奖时间
+
+

@@ -102,7 +102,7 @@
         path                 : "./lib/",       // Dependents module file directory
         pluginPath           : "",             // If this empty, default use settings.path + "../plugins/"
         delay                : 300,            // Delay parse markdown to html, Uint : ms
-        autoLoadModules      : true,           // Automatic load dependent module files
+        autoLoadModules      : true,           // Automatic load dependent module resources
         watch                : true,
         placeholder          : "Enjoy Markdown! coding now...",
         gotoLine             : true,
@@ -3363,13 +3363,13 @@
         pageBreak     : /^\[[=]{8,}\]$/
     };
 
-    // Emoji graphics files url path
+    // Emoji graphics resources url path
     editormd.emoji     = {
         path  : "http://www.emoji-cheat-sheet.com/graphics/emojis/",
         ext   : ".png"
     };
 
-    // Twitter Emoji (Twemoji)  graphics files url path    
+    // Twitter Emoji (Twemoji)  graphics resources url path
     editormd.twemoji = {
         path : "http://twemoji.maxcdn.com/36x36/",
         ext  : ".png"
@@ -4187,7 +4187,7 @@
     
     /**
      * 加载KaTeX文件
-     * load KaTeX files
+     * load KaTeX resources
      * 
      * @param {Function} [callback=function()]  加载成功后执行的回调函数
      */

@@ -117,7 +117,7 @@ class UploadHandler(webapp2.RequestHandler):
     def post(self):
         if (self.request.get('_method') == 'DELETE'):
             return self.delete()
-        result = {'files': self.handle_upload()}
+        result = {'resources': self.handle_upload()}
         s = json.dumps(result, separators=(',',':'))
         redirect = self.request.get('redirect')
         if redirect:
