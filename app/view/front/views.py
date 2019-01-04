@@ -21,6 +21,11 @@ def uploadProject():
     projectService.addProject(data)
     return json.dumps(MessageInfo.success(data='保存成功').__dict__)
 
-
+""" 
+上传图片接口
+"""
+@front.route('/api/uploadImg')
+def uploadImg():
+    pass
 
 
