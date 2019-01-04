@@ -35,6 +35,10 @@ class Project(db2.Model):
     status = db2.relationship('ProjectStatus',uselist=False,backref='project')
     awards = db2.relationship('ProjectAward',backref='project',lazy='dynamic')
 
+    def __init__(self,pname,content,type):
+        self.pname = pname
+        self.content = content
+        self.type = type
 
 class ProjectStatus(db2.Model):
     __tablename__ = 'dc_project_status_info'
@@ -52,6 +56,13 @@ class ProjectStatus(db2.Model):
     checkTime = db2.Column(DateTime, nullable=True)                                 #审核时间
     msg = db2.Column(db2.TEXT, nullable=True)                                       #审核所附加的信息
 
+
+    def __init__(self,pname,type,publisher,status):
+        self.pname = pname
+        self.type = type
+        self.publisher = publisher
+        self.status = status
+
 class ProjectMember(db2.Model):
     __tablename__ = 'dc_project_member'
     id = db2.Column(db2.Integer, primary_key=True, autoincrement=True)
@@ -62,6 +73,9 @@ class ProjectMember(db2.Model):
     type = db2.Column(db2.Integer, nullable=False)                                  #类型
     brief = db2.Column(db2.TEXT, nullable=True)                                     #简介
 
+    def __init__(self,name,type):
+        self.name = name
+        self.type = type
 
 class ProjectAward(db2.Model):
     __tablename__ = 'dc_project_award'
@@ -71,5 +85,8 @@ class ProjectAward(db2.Model):
     honorLink = db2.Column(db2.TEXT,nullable=True)                                  # 获奖链接
     awardTime = db2.Column(DateTime, nullable=True)                                 # 获奖时间
     pid = db2.Column(db2.Integer, db2.ForeignKey('dc_project.pid'))                 # 外键关联dc_project表，多对一关系
+
+    def __init__(self,awardName):
+        self.awardName = awardName
 
 

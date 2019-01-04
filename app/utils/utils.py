@@ -131,3 +131,10 @@ def object2json(obj):
     objson = {}
     for k,v in obj.__dict__.items(): objson[k] = str(v)
     return objson
+
+
+def mapGet(map,key):
+    if key in map.keys():
+        return map[key]
+    else:
+        return None
