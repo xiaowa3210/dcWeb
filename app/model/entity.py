@@ -101,7 +101,7 @@ class New(db2.Model):
         self.title = title
         self.content = content
         self.src_content = content
-#新闻额外信息表
+#新闻额外信息表 
 class newExt(db2.Model):
     __tablename__ = 'dc_new_ext'
     id = db2.Column(db2.Integer, primary_key=True, autoincrement=True)
