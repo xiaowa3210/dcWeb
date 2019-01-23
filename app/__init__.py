@@ -36,6 +36,8 @@ from app.view.front import front as front_blueprint
 app.register_blueprint(front_blueprint)
 from app.view.common import common as common_blueprint
 app.register_blueprint(common_blueprint)
+from app.view.back import back as back_blueprint
+app.register_blueprint(back_blueprint)
 
 
 userSevice = UserService()

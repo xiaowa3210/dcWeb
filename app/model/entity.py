@@ -23,7 +23,7 @@ class User(db2.Model):
 
     def __repr__(self):
         return '<User %r>' % self.username
-
+#项目表
 class Project(db2.Model):
     __tablename__ = 'dc_project'
     pid = db2.Column(db2.Integer, primary_key=True, autoincrement=True)
@@ -39,7 +39,7 @@ class Project(db2.Model):
         self.pname = pname
         self.content = content
         self.type = type
-
+#项目状态表
 class ProjectStatus(db2.Model):
     __tablename__ = 'dc_project_status_info'
     id = db2.Column(db2.Integer, primary_key=True, autoincrement=True)
@@ -62,7 +62,7 @@ class ProjectStatus(db2.Model):
         self.type = type
         self.publisher = publisher
         self.status = status
-
+#项目成员表
 class ProjectMember(db2.Model):
     __tablename__ = 'dc_project_member'
     id = db2.Column(db2.Integer, primary_key=True, autoincrement=True)
@@ -76,7 +76,7 @@ class ProjectMember(db2.Model):
     def __init__(self,name,type):
         self.name = name
         self.type = type
-
+#项目奖项表
 class ProjectAward(db2.Model):
     __tablename__ = 'dc_project_award'
     id = db2.Column(db2.Integer, primary_key=True, autoincrement=True)
@@ -89,4 +89,43 @@ class ProjectAward(db2.Model):
     def __init__(self,awardName):
         self.awardName = awardName
 
+#新闻表
+class New(db2.Model):
+    __tablename__ = 'dc_new'
+    nid = db2.Column(db2.Integer, primary_key=True, autoincrement=True)
+    title = db2.Column(db2.String(256),nullable=False)                        #标题
+    content = db2.Column(db2.TEXT, nullable=True)                             #html内容
+    src_content = db2.Column(db2.TEXT, nullable=True)                         #markdown内容
+    extInfo = db2.relationship('newExt', uselist=False, backref='new')
+    def __init__(self,title,content,src_content):
+        self.title = title
+        self.content = content
+        self.src_content = content
+#新闻额外信息表
+class newExt(db2.Model):
+    __tablename__ = 'dc_new_ext'
+    id = db2.Column(db2.Integer, primary_key=True, autoincrement=True)
+    pid = db2.Column(db2.Integer, db2.ForeignKey('dc_new.nid'))               # 外键关联dc_new表
+    title = db2.Column(db2.String(256), nullable=False)                       # 新闻标题
+    status = db2.Column(db2.Integer, nullable=False)                          # 状态
+    creater = db2.Column(db2.String(256), nullable=False)                     # 创建人
+    publisher = db2.Column(db2.String(256), nullable=False)                   # 发布人
+    modifier = db2.Column(db2.String(256), nullable=False)                    # 最后修改人
+    createTime = db2.Column(DateTime, nullable=False, default=datetime.now)   # 创建时间
+    modifiedTime = db2.Column(DateTime, nullable=True)                        # 最后修改时间
+    cancelTime = db2.Column(DateTime, nullable=True)                          # 撤销时间
+    submitTime = db2.Column(DateTime, nullable=True)                          # 提交时间
+    publisherTime = db2.Column(DateTime, nullable=True)                       # 发布时间
 
+    def __init__(self,title,status):
+        self.title = title
+        self.status = status
+#附件表
+class Files(db2.Model):
+    __tablename__ = 'dc_files'
+    nid = db2.Column(db2.Integer, primary_key=True, autoincrement=True)
+    name = db2.Column(db2.String(256),nullable=False)
+    path = db2.Column(db2.String(128),nullable=False)
+    source = db2.Column(db2.Integer,nullable=False)#0:代表资料下载文件。1:代表新闻附件。2:代表项目附件
+    source_id = db2.Column(db2.Integer,nullable=True)
+    delete_flag = db2.Column(db2.DECIMAL(1,0),nullable=False,default=0)
