@@ -48,6 +48,7 @@ class ProjectStatus(db2.Model):
     type = db2.Column(db2.Integer, nullable=False)                                  #项目类别
     publisher = db2.Column(db2.String(256), nullable=False)                         #上传者
     reviewer = db2.Column(db2.String(256), nullable=True)                           #审核人
+    undoer = db2.Column(db2.String(256), nullable=True)                             #撤销人
     status = db2.Column(db2.Integer, nullable=False)                                #状态
     createTime = db2.Column(DateTime, nullable=False, default=datetime.now)         #创建时间
     modifiedTime = db2.Column(DateTime, nullable=True)                              #修改时间

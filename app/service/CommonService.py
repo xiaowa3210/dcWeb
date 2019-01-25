@@ -60,5 +60,7 @@ class CommonService:
         return picName
 
 
+    def getCurrentUsername(self):
+        return 'anonymous'
 if __name__ == '__main__':
     commonService = CommonService()

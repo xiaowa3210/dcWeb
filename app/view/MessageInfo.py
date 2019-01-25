@@ -12,8 +12,8 @@ class MessageInfo:
         return msgInfo
 
     @staticmethod
-    def fail(errorCode=-1,data='FAIL'):
-        msgInfo = MessageInfo(errorCode,data,"")
+    def fail(errorCode=-1,msg='FAIL',data=''):
+        msgInfo = MessageInfo(errorCode,msg,data)
         return msgInfo
 
 

@@ -30,9 +30,21 @@ def uploadFile():
 @back.route("/api/admin/deletePro")
 def deleteProject():
     pid = request.values.get("pid")
+    if pid is None:
+        return json.dumps(MessageInfo.fail(msg="pid不能为空").__dict__)
     projectService.deletePro(pid)
-
     return json.dumps(MessageInfo.success(msg="删除成功").__dict__)
+
+""" 
+管理员撤销项目
+"""
+@back.route("/api/admin/undoPro")
+def undoProject():
+    pid = request.values.get("pid")
+    if pid is None:
+        return json.dumps(MessageInfo.fail(msg="pid不能为空").__dict__)
+    projectService.undoPro(pid)
+    return json.dumps(MessageInfo.success(msg="撤销成功").__dict__)
 #******************************模板******************************#
 """ 
 审核项目
