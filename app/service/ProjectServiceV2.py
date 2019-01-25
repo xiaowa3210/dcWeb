@@ -83,6 +83,18 @@ class ProjectService:
         return pagination, projects
 
 
+
+    """ 
+    @:param:
+        updateContent:更新内容
+        condition:查询条件
+    @:return:
+    @descrition:更新项目状态
+    """
+    def updateProStatus(self,updateContent,condition):
+        db2.session.query(ProjectStatus).filter(condition).update(updateContent)
+        db2.session.commit()
+
     """ 
     @:param:
     @:return:
@@ -91,6 +103,19 @@ class ProjectService:
     def getUploadedProBypage(self,page_index,per_page):
         condition = (ProjectStatus.status.in_([2,3,4]))
         return self.getProjectsByPage(page_index,per_page,condition)
+
+
+    """ 
+    @:param:
+    @:return:
+    @descrition:逻辑删除项目。
+    """
+    def deletePro(self,pid):
+        condition = (ProjectStatus.pid == pid)
+        updateContent = {
+            "delete_flag":1
+        }
+        self.updateProStatus(updateContent,condition)
 
 
 
