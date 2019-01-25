@@ -95,6 +95,15 @@ class ProjectService:
         db2.session.query(ProjectStatus).filter(condition).update(updateContent)
         db2.session.commit()
 
+
+    """ 
+    @:param:
+    @:return:
+    @descrition:根据项目ID更新内容
+    """
+    def updateProStatusByPid(self,updateContent,pid):
+        db2.session.query(ProjectStatus).filter(ProjectStatus.pid == pid).update(updateContent)
+        db2.session.commit()
     """ 
     @:param:
     @:return:
@@ -104,19 +113,31 @@ class ProjectService:
         condition = (ProjectStatus.status.in_([2,3,4]))
         return self.getProjectsByPage(page_index,per_page,condition)
 
-
     """ 
     @:param:
     @:return:
     @descrition:逻辑删除项目。
     """
     def deletePro(self,pid):
-        condition = (ProjectStatus.pid == pid)
         updateContent = {
             "delete_flag":1
         }
-        self.updateProStatus(updateContent,condition)
+        self.updateProStatusByPid(updateContent,pid)
 
+
+
+    """ 
+    @:param:
+    @:return:
+    @descrition:撤销项目
+    """
+    def undoPro(self,pid):
+        updateContent = {
+            'status':3,                                     #将其改成未审核态
+            'undoer':commonService.getCurrentUsername(),
+            'cancelTime':datetime.now()
+        }
+        self.updateProStatusByPid(updateContent, pid)
 
 
 
