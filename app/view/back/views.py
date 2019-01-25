@@ -1,8 +1,11 @@
 #!/user/bin/env python
 # -*- coding:utf-8 -*-
-from flask import render_template
+import json
+
+from flask import render_template, request
 
 from app.service.ProjectServiceV2 import ProjectService
+from app.view.MessageInfo import MessageInfo
 from app.view.back import back
 
 projectService = ProjectService()
@@ -21,6 +24,15 @@ def uploadNew():
 def uploadFile():
     pass
 
+""" 
+管理员删除项目
+"""
+@back.route("/api/admin/deletePro")
+def deleteProject():
+    pid = request.values.get("pid")
+    projectService.deletePro(pid)
+
+    return json.dumps(MessageInfo.success(msg="删除成功").__dict__)
 #******************************模板******************************#
 """ 
 审核项目

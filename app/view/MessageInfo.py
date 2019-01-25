@@ -2,9 +2,9 @@ import json
 
 class MessageInfo:
 
-    def __init__(self,error,reason,data):
-        self.error = error              #0成功，非O失败。
-        self.reason = reason
+    def __init__(self,errorno,msg,data):
+        self.errorno = errorno              #0成功，非O失败。
+        self.msg = msg
         self.data = data
     @staticmethod
     def success(msg='OK',data=''):
@@ -15,6 +15,7 @@ class MessageInfo:
     def fail(errorCode=-1,data='FAIL'):
         msgInfo = MessageInfo(errorCode,data,"")
         return msgInfo
+
 
 
 if __name__ == '__main__':
