@@ -2,9 +2,10 @@
 # -*- coding:utf-8 -*-
 from flask import render_template
 
+from app.service.ProjectServiceV2 import ProjectService
 from app.view.back import back
 
-
+projectService = ProjectService()
 #******************************api接口******************************#
 """ 
 上传新闻
@@ -31,9 +32,12 @@ def checkProject():
 """ 
 管理项目
 """
-@back.route("/admin/manageProject")
-def manageProject():
-    return render_template("back01/back/manageProject.html")
+@back.route("/admin/manageProject",defaults={'page':1,'count':10})
+@back.route("/admin/manageProject/<int:page>/<int:count>")
+def manageProject(page,count):
+    projects,pagination = projectService.getUploadedProBypage(page,count)
+    return render_template("back01/back/manageProject.html",projects=projects,pagination=pagination)
+
 
 
 """ 

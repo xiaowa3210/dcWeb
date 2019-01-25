@@ -67,6 +67,33 @@ class ProjectService:
 
 
 
+    """ 
+    @:param:(page_index)->页数
+            (per_page)->每页数量
+            (condition)->查询条件
+    @:return:
+    @descrition:分页查询项目
+    """
+    def getProjectsByPage(self,page_index,per_page,condition):
+        if condition is not None:
+            pagination = ProjectStatus.query.filter(condition).paginate(page_index, per_page, error_out=False)
+        else:
+            pagination = ProjectStatus.query.paginate(page_index, per_page, error_out=False)
+        projects = pagination.items
+        return pagination, projects
+
+
+    """ 
+    @:param:
+    @:return:
+    @descrition:得到学生已经上传了的项目(管理员只能对这部分项目进行管理)
+    """
+    def getUploadedProBypage(self,page_index,per_page):
+        condition = (ProjectStatus.status.in_([2,3,4]))
+        return self.getProjectsByPage(page_index,per_page,condition)
+
+
+
 
 
 
