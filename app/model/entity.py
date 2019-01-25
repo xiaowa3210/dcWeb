@@ -107,7 +107,7 @@ class newExt(db2.Model):
     id = db2.Column(db2.Integer, primary_key=True, autoincrement=True)
     pid = db2.Column(db2.Integer, db2.ForeignKey('dc_new.nid'))               # 外键关联dc_new表
     title = db2.Column(db2.String(256), nullable=False)                       # 新闻标题
-    status = db2.Column(db2.Integer, nullable=False)                          # 状态
+    status = db2.Column(db2.Integer, nullable=False)                          # 状态：0代表未发布,1代表已发布
     creater = db2.Column(db2.String(256), nullable=False)                     # 创建人
     publisher = db2.Column(db2.String(256), nullable=False)                   # 发布人
     modifier = db2.Column(db2.String(256), nullable=False)                    # 最后修改人
