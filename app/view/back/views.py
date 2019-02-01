@@ -4,6 +4,7 @@ import json
 
 from flask import render_template, request
 
+from app.service.ArticleService import getArticlesByPage
 from app.service.ProjectServiceV2 import ProjectService
 from app.view.MessageInfo import MessageInfo
 from app.view.back import back
@@ -69,14 +70,17 @@ def manageProject(page,count):
 """
 @back.route("/admin/editNews")
 def editNews():
-    return render_template("back01/back/editNews.html")
+    return render_template('back01/article_add.html')
 
 """ 
 新闻管理
 """
-@back.route("/admin/manageNews")
-def manageNews():
-    return render_template("back01/back/manageNews.html")
+#文章列表
+@back.route('/admin/manageNews', methods=['GET'],defaults={'page':1})
+@back.route('/admin/manageNews/<int:page>',methods=['GET'])
+def manageNews(page):
+    articles, pagination = getArticlesByPage(page, 10, 1)
+    return render_template('back01/article_list.html', articles=articles, pagination=pagination)
 
 """ 
 修改新闻
