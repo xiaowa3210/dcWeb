@@ -57,6 +57,7 @@ def uploadProjectTmp():
 """
 @front.route('/news')
 def news():
+
     return render_template("tmp01/news.html")
 
 """ 

@@ -57,7 +57,7 @@
                             {% endif %}
                             <td>
                                 <div class="btn-group">
-                                    <a class="btn btn-primary" href="{{url_for('back01.articleModified',article_id = article.article_id)}}"><i class="icon_plus_alt2">修改</i></a>
+                                    <a class="btn btn-primary" href="{{url_for('back.modifiesNews',article_id = article.article_id)}}"><i class="icon_plus_alt2">修改</i></a>
                                     <a class="btn btn-danger" onclick="MAIN.doRemove(this)"><i class="icon_close_alt2">删除</i></a>
                                 </div>
                             </td>
@@ -77,14 +77,14 @@
 
                     {% for p in pagination.iter_pages() %}
                         {% if p == pagination.page%}
-                             <li class="active"><a href="{{url_for('back01.articleList',page = p)}}">{{loop.index}}</a></li>
+                             <li class="active"><a href="{{url_for('back.manageNews',page = p)}}">{{loop.index}}</a></li>
                         {% else %}
-                            <li><a href="{{url_for('back01.articleList',page = p)}}">{{loop.index}}</a></li>
+                            <li><a href="{{url_for('back.manageNews',page = p)}}">{{loop.index}}</a></li>
                         {% endif %}
                     {% endfor %}
 
                     {% if pagination.has_next %}
-                        <li><a href="{{url_for('back01.articleList',page = pagination.page + 1)}}">»</a></li>
+                        <li><a href="{{url_for('back.manageNews',page = pagination.page + 1)}}">»</a></li>
                     {% endif %}
                 </ul>
             </div>
