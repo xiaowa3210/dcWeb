@@ -39,7 +39,6 @@ def user_center():
 def news(page):
     per_page = 10
     pagination,documents = getAiticleByPage(page,per_page,0)
-
     return render_template('tmp01/news.html', pagination=pagination, documents=documents)
 
 @tmp01.route('/tmp01/search')
