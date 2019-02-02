@@ -34,9 +34,11 @@ def uploadImg():
 """ 
 管理项目
 """
-@front.route('/student/manageProject')
-def manageProject():
-    return render_template("tmp01/manageProject.html")
+@front.route('/student/manageProject',defaults={'page':1,'count':10})
+@front.route('/student/manageProject/<int:page>/<int:count>')
+def manageProject(page,count):
+    pagination,project = projectService.getProByStudentId(page,count)
+    return render_template("tmp01/manageProject.html",pagination=pagination,project=project)
 
 """ 
 修改项目
