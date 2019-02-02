@@ -57,7 +57,8 @@ class ProjectService:
             awardList.append(award)
 
         #添加状态信息
-        status = ProjectStatus(data['pname'],data['type'],'xiaoming',data['status'])
+        publisher = commonService.getCurrentUsername()
+        status = ProjectStatus(data['pname'],data['type'],publisher,data['status'])
         if data['status'] == 2:                             #如果是提交,记录提交的时间
             status.submitTime = datetime.now()
         project.status = status
@@ -83,7 +84,6 @@ class ProjectService:
         return pagination, projects
 
 
-
     """ 
     @:param:
         updateContent:更新内容
@@ -95,6 +95,16 @@ class ProjectService:
         db2.session.query(ProjectStatus).filter(condition).update(updateContent)
         db2.session.commit()
 
+
+    """ 
+    @:param:
+    @:return:
+    @descrition:根据学生ID得到，该学生上传的项目
+    """
+    def getProByStudentId(self,page_index,per_page):
+        sid = commonService.getCurrentUsername()
+        condition = (ProjectStatus.publisher == sid)
+        return self.getProjectsByPage(page_index,per_page,condition)
 
     """ 
     @:param:
@@ -138,8 +148,6 @@ class ProjectService:
             'cancelTime':datetime.now()
         }
         self.updateProStatusByPid(updateContent, pid)
-
-
 
 
 
