@@ -43,9 +43,10 @@ def manageProject(page,count):
 """ 
 修改项目
 """
-@front.route('/student/modifiesProject')
-def modifiesProject():
-    return render_template("tmp01/modifiesProject.html")
+@front.route('/student/modifiesProject/<int:pid>')
+def modifiesProject(pid):
+    project = projectService.getProjectByID(pid)
+    return render_template("tmp01/modifiesProject.html",project=project)
 
 """ 
 上传项目
@@ -59,7 +60,6 @@ def uploadProjectTmp():
 """
 @front.route('/news')
 def news():
-
     return render_template("tmp01/news.html")
 
 """ 
