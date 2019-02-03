@@ -83,7 +83,6 @@ class ProjectService:
         projects = pagination.items
         return pagination, projects
 
-
     """ 
     @:param:
         updateContent:更新内容
@@ -150,4 +149,12 @@ class ProjectService:
         self.updateProStatusByPid(updateContent, pid)
 
 
+
+    """ 
+    @:param:
+    @:return:
+    @descrition:根据PID得到项目内容
+    """
+    def getProjectByID(self,pid):
+        return Project.query.filter(Project.pid == pid).one()
 
