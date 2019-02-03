@@ -148,7 +148,17 @@ class ProjectService:
         }
         self.updateProStatusByPid(updateContent, pid)
 
+    """ 
+    @:param:
+    @:return:
+    @descrition:撤销项目
+    """
 
+    def stuUndoPro(self, pid):
+        updateContent = {
+            'status': 1,  # 将其修改成未提交的状态
+        }
+        self.updateProStatusByPid(updateContent, pid)
 
     """ 
     @:param:
