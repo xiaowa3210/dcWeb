@@ -28,7 +28,16 @@ def uploadProject():
 def uploadImg():
     pass
 
-
+""" 
+学生撤销审核中的项目
+"""
+@front.route('/api/student/undoPro')
+def stuUodoPro():
+    pid = request.values.get("pid")
+    if pid is None:
+        return json.dumps(MessageInfo.fail(msg="pid不能为空").__dict__)
+    projectService.stuUndoPro(pid)
+    return json.dumps(MessageInfo.success(msg="撤销成功").__dict__)
 #******************************模板******************************#
 
 """ 
