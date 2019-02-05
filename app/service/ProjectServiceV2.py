@@ -160,6 +160,31 @@ class ProjectService:
         }
         self.updateProStatusByPid(updateContent, pid)
 
+
+
+
+    """ 
+    @:param:operation=0代表不通过,非0代表通过。
+    @:return:
+    @descrition:审核项目
+    """
+    def checkoutPro(self,pid,operation,msg):
+        if operation == 0:
+            updateContent = {
+                'status': 4,
+                "reviewer": commonService.getCurrentUsername(),
+                "checkTime": datetime.now(),
+                "msg":'审核不通过' if msg == None or msg == '' else msg
+            }
+        else:
+            updateContent = {
+                'status': 3,
+                "reviewer": commonService.getCurrentUsername(),
+                "checkTime": datetime.now(),
+                'msg':'审核通过' if msg == None or msg == '' else msg
+            }
+        self.updateProStatusByPid(updateContent,pid)
+
     """ 
     @:param:
     @:return:
@@ -168,3 +193,12 @@ class ProjectService:
     def getProjectByID(self,pid):
         return Project.query.filter(Project.pid == pid).one()
 
+
+
+    """ 
+    @:param:
+    @:return:
+    @descrition:根据pid得到项目信息
+    """
+    def getProStatusByPid(self, pid):
+        return ProjectStatus.query.filter(ProjectStatus.pid == pid).one()

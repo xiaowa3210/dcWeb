@@ -46,13 +46,39 @@ def undoProject():
         return json.dumps(MessageInfo.fail(msg="pid不能为空").__dict__)
     projectService.undoPro(pid)
     return json.dumps(MessageInfo.success(msg="撤销成功").__dict__)
+
+
+""" 
+审核项目接口
+分为2种。operation：0代表不通过审核，1代表通过审核
+通过或者不通过审核可以给出相应的msg
+"""
+@back.route("/api/admin/checkoutPro",methods=['POST'])
+def checkoutProjectapi():
+    data = json.loads(request.get_data("utf-8"))
+    pid = data["pid"]
+    project = projectService.getProStatusByPid(pid)
+    if project.delete_flag == 1:
+        return json.dumps(MessageInfo.fail(msg="亲,该项目已删除不能对它进行操作了").__dict__)
+    if project.status == 1:
+        return json.dumps(MessageInfo.fail(msg="亲,该项目还未提交，暂时不能对其操作").__dict__)
+    operation = data["operation"]
+    msg = data["msg"]
+    if pid is None:
+        return json.dumps(MessageInfo.fail(msg="pid不能为空").__dict__)
+    projectService.checkoutPro(pid,operation,msg)
+    return json.dumps(MessageInfo.success(msg="审核成功").__dict__)
 #******************************模板******************************#
 """ 
 审核项目
 """
-@back.route("/admin/checkproject")
-def checkProject():
-    return render_template("back01/back/checkproject.html")
+@back.route("/admin/checkproject/<int:pid>")
+def checkProject(pid):
+    project = projectService.getProStatusByPid(pid)
+    #若是未提交状态管理员就没必要查看其内容
+    if project.status == 1 or project.delete_flag == 1:
+        project = None
+    return render_template("back01/back/checkproject.html",project=project)
 
 """ 
 管理项目
