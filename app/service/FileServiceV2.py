@@ -58,9 +58,34 @@ class FilesService:
         condition = (Files.source == source)
         return self.getFilesByPage(page_index,per_page,condition)
 
-    # 逻辑删除文章,将删除标志位设为1
-    def deleteFileByID(self,file_id):
-        pass
+    """ 
+    @:param:
+        updateContent:更新内容
+        condition:查询条件
+    @:return:
+    @descrition:更新文件
+        """
+    def updateFileStatus(self, updateContent, condition):
+        db2.session.query(Files).filter(condition).update(updateContent)
+        db2.session.commit()
 
-    def getFileByID(self,file_id):
-        pass
+    """ 
+    @:param:
+    @:return:
+    @descrition:根据文件ID更新内容
+    """
+    def updateProStatusByPid(self, updateContent, fid):
+        db2.session.query(Files).filter(Files.fid == fid).update(updateContent)
+        db2.session.commit()
+
+
+    """ 
+    @:param:
+    @:return:
+    @descrition:删除文件
+    """
+    def deleteFileByID(self,file_id):
+        updateContent = {
+            'delete_flag':1
+        }
+        self.updateProStatusByPid(updateContent,file_id)
