@@ -43,3 +43,7 @@ UPLOAD_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), '../../res
 
 
 UPLOAD_PICS_PATH = os.path.abspath(os.path.join(UPLOAD_PATH, 'pics')) #图片上传配置
+
+
+UPLOAD_FILES_PATH = os.path.abspath(os.path.join(UPLOAD_PATH, 'files')) #图片上传配置
+
