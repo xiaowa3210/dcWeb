@@ -40,6 +40,16 @@ def uploadFile():
         return json.dumps(MessageInfo.success(msg="上传成功").__dict__)
     else:
         return json.dumps(MessageInfo.fail(msg="没有检测到文件").__dict__)
+""" 
+管理员删除项目
+"""
+@back.route("/api/admin/deleteFile")
+def deleteFile():
+    fid = request.values.get("fid")
+    if fid is None:
+        return json.dumps(MessageInfo.fail(msg="fid不能为空").__dict__)
+    filesService.deleteFileByID(fid)
+    return json.dumps(MessageInfo.success(msg="删除成功").__dict__)
 
 
 """ 
