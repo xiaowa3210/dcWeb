@@ -96,6 +96,14 @@ def checkoutProjectapi():
     projectService.checkoutPro(pid,operation,msg)
     return json.dumps(MessageInfo.success(msg="审核成功").__dict__)
 #******************************模板******************************#
+
+""" 
+后台管理主页
+"""
+@back.route("/admin/main")
+def main():
+    return render_template("back01/back/main.html")
+
 """ 
 审核项目
 """
