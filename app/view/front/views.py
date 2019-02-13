@@ -5,6 +5,7 @@ import json
 from flask import request, render_template
 
 from app.service.FileServiceV2 import FilesService
+from app.service.DocumentsService import getDoucumentByID, getAiticleByID
 from app.service.ProjectServiceV2 import ProjectService
 from app.view.MessageInfo import MessageInfo
 from app.view.front import front
@@ -75,9 +76,10 @@ def news():
 """ 
 新闻内容展示
 """
-@front.route('/new')
-def new():
-    return render_template("tmp01/new.html")
+@front.route('/new/<news_id>')
+def new(news_id):
+    news_obj = getAiticleByID(news_id)
+    return render_template("tmp01/news-detail.html",news=news_obj)
 
 """
 资料下载展示
