@@ -26,8 +26,8 @@
 import os
 
 from datetime import datetime
-from flask import request, url_for, jsonify, Response
-from app.model.config import UPLOAD_PICS_PATH
+from flask import request, url_for, jsonify, Response, make_response, send_from_directory
+from app.model.config import UPLOAD_PICS_PATH, UPLOAD_FILES_PATH
 from app.view.common import common
 
 
@@ -63,6 +63,16 @@ def image(name):
     with open(os.path.join(UPLOAD_PICS_PATH,name),'rb') as f:
         resp=Response(f.read(),mimetype="image/jpeg")
     return resp
+
+
+""" 
+根据文件名，下载文件
+"""
+@common.route('/file/<name>')
+def file(name):
+    response = make_response(send_from_directory(UPLOAD_FILES_PATH, name, as_attachment=True))
+    response.headers["Content-Disposition"] = "attachment; filename={}".format(name.encode().decode('latin-1'))
+    return response
 
 
 

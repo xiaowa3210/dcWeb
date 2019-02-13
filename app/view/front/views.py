@@ -4,12 +4,13 @@ import json
 
 from flask import request, render_template
 
+from app.service.FileServiceV2 import FilesService
 from app.service.ProjectServiceV2 import ProjectService
 from app.view.MessageInfo import MessageInfo
 from app.view.front import front
 
 projectService = ProjectService()
-
+filesService = FilesService()
 #******************************api接口******************************#
 """ 
 上传项目接口
@@ -78,12 +79,14 @@ def news():
 def new():
     return render_template("tmp01/new.html")
 
-""" 
+"""
 资料下载展示
 """
-@front.route('/downloadfile')
-def downloadFile():
-    return render_template("tmp01/downloadfile.html")
+@front.route('/downloadfile',defaults={'page':1,'count':10})
+@front.route('/downloadfile/<int:page>/<int:count>')
+def downloadFile(page,count):
+    pagination, files = filesService.getFilesBySource(page, count, '0')
+    return render_template("tmp01/downlink.html", pagination=pagination, files=files)
 
 """ 
 基地风采展示

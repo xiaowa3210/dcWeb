@@ -128,6 +128,6 @@ class Files(db2.Model):
     fid = db2.Column(db2.Integer, primary_key=True, autoincrement=True)
     name = db2.Column(db2.String(256),nullable=False)
     path = db2.Column(db2.String(128),nullable=False)
-    source = db2.Column(db2.Integer,nullable=False)#0:代表资料下载文件。1:代表新闻附件。2:代表项目附件
+    source = db2.Column(db2.Integer,nullable=False)#1:代表资料下载文件。2:代表新闻附件。3:代表项目附件
     source_id = db2.Column(db2.Integer,nullable=True)
     delete_flag = db2.Column(db2.DECIMAL(1,0),nullable=False,default=0)
