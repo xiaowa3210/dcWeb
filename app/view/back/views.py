@@ -135,10 +135,12 @@ def modifiesNews():
 """ 
 资料管理
 """
-@back.route("/admin/manageResource")
-def manageResource():
-    return render_template("back01/back/manageResource.html")
-
+@back.route("/admin/manageResource",methods=['GET'],defaults={'page':1,'count':10})
+@back.route("/admin/manageResource/<int:page>/<int:count>",methods=['GET'])
+def manageResource(page,count):
+    source = request.values.get("source")
+    pagination,files = filesService.getFilesBySource(page,count,source)
+    return render_template("back01/back/manageResource.html",pagination=pagination,files=files)
 
 """ 
 管理员人员管理
