@@ -71,30 +71,30 @@ disallow_url_teacher = [
 #         else:
 #             return redirect(url_for("login"))
 
-@app.route("/login")
-def login():
-    return render_template("test/login.html")
-
-#登录功能
-@app.route("/api/login",methods=['POST'])
-def login_api():
-    data = json.loads(request.get_data("utf-8"))
-    username = data['username']
-    password = data['password']
-    role = data['role']
-    user = userSevice.selectByName(username,role)
-    if user :
-        if password == user.password:
-            session[role_dict[role]] = user.username             #用session保存登录状态
-            resp = {
-                "msg":"登录成功",
-                "code":0
-            }
-            return json.dumps(MessageInfo.success(data=resp).__dict__)
-        else:
-            return json.dumps(MessageInfo.success(data="亲，密码错误!").__dict__)
-    else:
-        return json.dumps(MessageInfo.success(data="亲,用户不存在或选错用户类型了").__dict__)
+# @app.route("/login")
+# def login():
+#     return render_template("test/login.html")
+#
+# #登录功能
+# @app.route("/api/login",methods=['POST'])
+# def login_api():
+#     data = json.loads(request.get_data("utf-8"))
+#     username = data['username']
+#     password = data['password']
+#     role = data['role']
+#     user = userSevice.selectByName(username,role)
+#     if user :
+#         if password == user.password:
+#             session[role_dict[role]] = user.username             #用session保存登录状态
+#             resp = {
+#                 "msg":"登录成功",
+#                 "code":0
+#             }
+#             return json.dumps(MessageInfo.success(data=resp).__dict__)
+#         else:
+#             return json.dumps(MessageInfo.success(data="亲，密码错误!").__dict__)
+#     else:
+#         return json.dumps(MessageInfo.success(data="亲,用户不存在或选错用户类型了").__dict__)
 
 
 # # 日志系统配置
