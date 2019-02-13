@@ -125,7 +125,7 @@ class newExt(db2.Model):
 #附件表
 class Files(db2.Model):
     __tablename__ = 'dc_files'
-    nid = db2.Column(db2.Integer, primary_key=True, autoincrement=True)
+    fid = db2.Column(db2.Integer, primary_key=True, autoincrement=True)
     name = db2.Column(db2.String(256),nullable=False)
     path = db2.Column(db2.String(128),nullable=False)
     source = db2.Column(db2.Integer,nullable=False)#0:代表资料下载文件。1:代表新闻附件。2:代表项目附件

@@ -2,14 +2,19 @@
 # -*- coding:utf-8 -*-
 import json
 
+import os
 from flask import render_template, request
 
+from app.model.config import UPLOAD_FILES_PATH
+from app.model.entity import Files
 from app.service.ArticleService import getArticlesByPage
+from app.service.FileServiceV2 import FilesService
 from app.service.ProjectServiceV2 import ProjectService
 from app.view.MessageInfo import MessageInfo
 from app.view.back import back
 
 projectService = ProjectService()
+filesService = FilesService()
 #******************************api接口******************************#
 """ 
 上传新闻
@@ -21,9 +26,21 @@ def uploadNew():
 """ 
 上传文件
 """
-@back.route("/api/uploadFile")
+@back.route("/api/admin/uploadFile",methods=['POST'])
 def uploadFile():
-    pass
+    files = request.files.getlist("files")
+    if len(files) > 0:
+        for f in files:
+            file = Files()
+            file.name = f.filename  #得到文件名
+            file.path = f.filename
+            file.source = 0         #代表资料下载的文件
+            f.save(os.path.join(UPLOAD_FILES_PATH,file.name))
+            filesService.addFile(file)
+        return json.dumps(MessageInfo.success(msg="上传成功").__dict__)
+    else:
+        return json.dumps(MessageInfo.fail(msg="没有检测到文件").__dict__)
+
 
 """ 
 管理员删除项目
