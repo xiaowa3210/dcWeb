@@ -22,12 +22,17 @@
                   ┗┻┛  ┗┻┛
 """
 import json
+import uuid
 from datetime import datetime
+
+import os
+
+from app.model.config import UPLOAD_PATH
 from app.model.entity import Project, ProjectMember, ProjectAward, ProjectStatus
 from app import db2
 from app.service.CommonService import CommonService
 from app.utils.utils import mapGet
-
+import xlwt
 commonService = CommonService()
 class ProjectService:
     #添加项目
@@ -67,6 +72,18 @@ class ProjectService:
         db2.session.commit()
 
 
+
+    """ 
+    @:param:
+    @:return:
+    @descrition:查询项目(未分页查询)
+    """
+    def getProjects(self,condition):
+        if condition is not None:
+            projects = Project.query.filter(condition)
+        else:
+            projects = Project.query
+        return projects
 
     """ 
     @:param:(page_index)->页数
@@ -202,3 +219,106 @@ class ProjectService:
     """
     def getProStatusByPid(self, pid):
         return ProjectStatus.query.filter(ProjectStatus.pid == pid).one()
+
+
+
+    """ 
+    @:param:
+    @:return:
+    @descrition:生成获奖信息,并写入excel
+    """
+    def generateAwardInfoExcel(self,condition):
+        projects = self.getProjects(condition)
+
+        f = xlwt.Workbook()
+
+        #水平居中style
+        alignment = xlwt.Alignment()
+        alignment.horz = xlwt.Alignment.HORZ_CENTER  # 水平居中
+        style = xlwt.XFStyle()  # Create Style
+        style.alignment = alignment  # Add Alignment to Style
+
+
+        sheet1 = f.add_sheet('获奖信息', cell_overwrite_ok=True)
+        #设置头的样式
+        # 写第0行
+        row0 = ["项目名", "获奖信息", "项目成员"]
+
+
+        # sheet1.write(0,0,row0[0],self.set_style('Times New Roman', 220, True))
+        # sheet1.write(0,1, row0[1], self.set_style('Times New Roman', 220, True))
+        # sheet1.write(0, 3, row0[2], self.set_style('Times New Roman', 220, True))
+        sheet1.write_merge(0, 1, 0, 0, row0[0],style)
+        sheet1.write_merge(0, 0, 1, 2, row0[1],style)
+        sheet1.write_merge(0, 0, 3, 6, row0[2],style)
+
+        #写第1行
+        row1 = ["所获奖项", "获奖时间", "姓名","学院","年级","类型"]
+        for i in range(0, len(row1)):
+            sheet1.write(1, i+1, row1[i], self.set_style('Times New Roman', 220, True))
+
+        preX = 2
+        nextX = 2
+        #写入数据库中的数据
+        for p in projects:
+            alen = 0
+            mlen = 0
+            curX = preX
+
+            # 将获奖信息写入
+            curY = 1
+            awards = p.awards
+            tmpY = curY
+            for a in awards:
+                sheet1.write(curX,curY,a.awardName)#写入所获奖项
+                curY += 1
+                sheet1.write(curX,curY,"" if a.awardTime is None else str(a.awardTime)[0:10])#写入获奖时间
+                curX += 1
+                curY = tmpY
+                alen += 1
+            aX = curX
+            nextX = nextX if curX < nextX else curX
+            #将项目成员写入
+            curX = preX
+            curY = 3
+            members = p.members
+            for m in members:
+                sheet1.write(curX,curY,m.name)         # 写入姓名
+                curY += 1
+                sheet1.write(curX,curY,m.academy)      # 写入学院
+                curY += 1
+                sheet1.write(curX,curY,m.grade)       # 写入年级
+                curY += 1
+                sheet1.write(curX,curY,"指导老师" if m.type == 0 else "学生")        # 写入类型
+                curX += 1
+                curY = 3
+                mlen += 1
+            mX = curX
+            nextX = nextX if curX < nextX else curX
+            # 合并单元格
+            sheet1.write_merge(preX, nextX - 1, 0, 0, p.pname, self.set_style('Times New Roman', 220, True))  # 写入项目名
+            if alen > mlen:
+                sheet1.write_merge(mX,nextX-1,3,6)
+                pass
+            elif alen < mlen:
+                sheet1.write_merge(aX,nextX-1,1,2)
+                pass
+            preX = nextX
+
+
+
+        filename = '获奖信息'+str(uuid.uuid1()).replace("-","")+'.xls'
+        f.save(os.path.join(UPLOAD_PATH, filename))
+        return filename
+
+    # 设置表格样式
+    def set_style(slef,name, height, bold=False):
+        style = xlwt.XFStyle()
+        font = xlwt.Font()
+        font.name = name
+        font.bold = bold
+        font.color_index = 4
+        font.height = height
+        style.font = font
+        return style
+
