@@ -148,7 +148,7 @@ def manageNews(page):
 """
 @back.route("/admin/modifiesNews")
 def modifiesNews():
-    return render_template("back01/back/modifiesNews.html")
+    return render_template("back01/article_modified.html")
 
 """ 
 资料管理
