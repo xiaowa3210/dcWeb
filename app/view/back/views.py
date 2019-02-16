@@ -3,9 +3,9 @@
 import json
 
 import os
-from flask import render_template, request
+from flask import render_template, request, make_response, send_from_directory
 
-from app.model.config import UPLOAD_FILES_PATH
+from app.model.config import UPLOAD_FILES_PATH, UPLOAD_PATH
 from app.model.entity import Files
 from app.service.ArticleService import getArticlesByPage
 from app.service.FileServiceV2 import FilesService
@@ -95,6 +95,16 @@ def checkoutProjectapi():
         return json.dumps(MessageInfo.fail(msg="pid不能为空").__dict__)
     projectService.checkoutPro(pid,operation,msg)
     return json.dumps(MessageInfo.success(msg="审核成功").__dict__)
+
+
+@back.route("/api/admin/downAwardInfo",methods=['GET'])
+def downAwardInfo():
+    filename = projectService.generateAwardInfoExcel(None)
+    response = make_response(send_from_directory(UPLOAD_PATH, filename, as_attachment=True))
+    response.headers["Content-Disposition"] = "attachment; filename={}".format(filename.encode().decode('latin-1'))
+    return response
+
+
 #******************************模板******************************#
 
 """ 
