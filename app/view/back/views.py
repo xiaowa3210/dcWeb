@@ -3,18 +3,20 @@
 import json
 
 import os
-from flask import render_template, request, make_response, send_from_directory
+from flask import render_template, request, make_response, send_from_directory, session, redirect, url_for
 
 from app.model.config import UPLOAD_FILES_PATH, UPLOAD_PATH
 from app.model.entity import Files
 from app.service.ArticleService import getArticlesByPage
 from app.service.FileServiceV2 import FilesService
 from app.service.ProjectServiceV2 import ProjectService
+from app.service.UserServiceV2 import UserService, role_dict
 from app.view.MessageInfo import MessageInfo
 from app.view.back import back
 
 projectService = ProjectService()
 filesService = FilesService()
+userService = UserService()
 #******************************api接口******************************#
 """ 
 上传新闻
@@ -96,7 +98,9 @@ def checkoutProjectapi():
     projectService.checkoutPro(pid,operation,msg)
     return json.dumps(MessageInfo.success(msg="审核成功").__dict__)
 
-
+""" 
+下载获奖信息
+"""
 @back.route("/api/admin/downAwardInfo",methods=['GET'])
 def downAwardInfo():
     filename = projectService.generateAwardInfoExcel(None)
@@ -105,7 +109,36 @@ def downAwardInfo():
     return response
 
 
+""" 
+管理员登录接口
+"""
+@back.route("/api/login",methods=['POST'])
+def login_api():
+    data = json.loads(request.get_data("utf-8"))
+    username = data['username']
+    password = data['password']
+    user = userService.selectByName(username,0)
+    if user :
+        if password == user.password:
+            session["admin"] = user.username                        #用session保存登录状态
+            return json.dumps(MessageInfo.success(msg="登录成功").__dict__)
+            # return redirect(url_for("back.main"))
+        else:
+            return json.dumps(MessageInfo.fail(msg="亲，密码错误!").__dict__)
+    else:
+        return json.dumps(MessageInfo.fail(msg="亲,用户不存在").__dict__)
+
+@back.route("/api/admin/logout", methods=['GET'])
+def logout_api():
+    session.pop('admin', None)
+    return redirect(url_for('back.login'))
 #******************************模板******************************#
+""" 
+登录页面
+"""
+@back.route("/login")
+def login():
+    return render_template("back01/back/login.html")
 
 """ 
 后台管理主页

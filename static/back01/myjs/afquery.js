@@ -83,17 +83,7 @@ Af.rest = function (serviceUri, req, dataHandler,restErrHandler)
 		data: JSON.stringify(req),
 		dataType: 'json',
 		success: function(ans){
-			if(ans.error != 0)
-			{
-				if(restErrHandler != null)
-					restErrHandler( ans.error, ans.reason);
-				else
-					Af.restErrHandler( ans.error, ans.reason);
-			}				
-			else
-			{
-				dataHandler(ans.data);
-			}				
+			dataHandler(ans);
 		},
 		error: function( jqXHR, textStatus, errorThrown){
 			Af.httpErrHandler();
