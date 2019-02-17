@@ -136,7 +136,7 @@ def logout_api():
 """ 
 登录页面
 """
-@back.route("/login")
+@back.route("/admin/login")
 def login():
     return render_template("back01/back/login.html")
 

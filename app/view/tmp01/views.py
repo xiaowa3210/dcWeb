@@ -13,10 +13,10 @@ from app.view.tmp01 import tmp01
 def home():
     # documents = Document.query.filter(Document.type == 1).order_by(Document.created_time.desc()).limit(6)
     # projects = Project.query.order_by(Project.create_time.desc()).limit(3)
-    documents = Article.query.order_by(Article.create_time.desc()).limit(6)
-    projects = nProject.query.order_by(nProject.create_time.desc()).limit(3)
+    # documents = Article.query.order_by(Article.create_time.desc()).limit(6)
+    projects = nProject.query.order_by(nProject.create_time.desc()).limit(4)
     
-    return render_template('tmp01/home.html', documents=documents, projects=projects)
+    return render_template('tmp01/home.html', projects=projects)
 
 @tmp01.route('/tmp01/login')
 def login():
