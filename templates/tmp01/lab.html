@@ -1,10 +1,42 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>基地风采</title>
-</head>
-<body>
+{% extends 'tmp01/base.html' %}
 
-</body>
-</html>
+{% block page_name %}基地风采{% endblock %}
+
+{% block static_files%}
+<style>
+    .lib p {
+        font-size: 16px;
+        text-indent: 2em;
+    }
+    .lib ul li {
+        font-size: 16px;
+    }
+</style>
+{% endblock %}
+
+{% block body_part %}
+<!--基地、实验室列表-->
+<div class="lib">
+    <div class="container">
+        <div class="row-fluid">
+            <div class="span4">
+                <img src="{{url_for('static',filename='tmp01/images/libLogo.jpg')}}">
+            </div>
+            <div class="span8">
+                <h2>I<sup>3</sup>创新实验基地</h2>
+                <p>
+                    北邮教务处所属的I<sup>3</sup>创新实践基地，也被称为北京邮电大学“电路与电子技术创新实践基地（三）”，依托于北京邮电大学信息与通信工程学院展开基地建设。
+                    I<sup>3</sup>这个名字，取自以字母“I”为开头的英文单词，即Innovation，Information，Intelligence，Inspiration, Insight, Impact， Interesting, International, Infinite。
+                    该基地名字表明了基地的基本特质，即：<br/>
+                    <ul>
+                        <li>关注技术领域：信息、智能、创新</li>
+                        <li>精神特质：灵感/鼓舞、洞察力/见地、影响力</li>
+                        <li>愿景：有趣、国际、无限</li>
+                    </ul>
+                </p>
+                <a href="{{url_for('tmp01.i3')}}"><button class="btn btn-small btn-success" type="button">更多</button></a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
