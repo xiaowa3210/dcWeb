@@ -1,0 +1,30 @@
+{% extends 'tmp01/base.html' %}
+
+{% block page_name %}用户中心{% endblock %}
+
+{% block static_files%}
+{% endblock %}
+
+{% block body_part %}
+<section id="subintro">
+    <div class="container">
+        <div class="row-fluid">
+            <div class="span3">
+                <ul>
+                    <li>我的项目</li>
+                    <li>我的奖项</li>
+                </ul>
+            </div>
+            <div class="span6">
+
+            </div>
+            <div class="span3">
+                <ul>
+                    <li><a href="{{url_for('front.uploadProjectTmp')}}">上传项目</a></li>
+                    <li>上传奖项</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

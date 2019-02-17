@@ -25,7 +25,9 @@
    .projects .project-title {
        text-align: center;
    }
-
+    .project-title h5 {
+        margin: 0;
+    }
 
 </style>
 {% endblock %}
@@ -52,68 +54,37 @@
            </div>
        </div>
        <div class="row-fluid">
-           <div class="span4">
+           {% for project in projects %}
+           <div class="span3">
                <div class="project-image">
-                   <a href="post_right_sidebar.html">  <!--需要链接到项目的详情地址-->
+                   <a href="{{ url_for('tmp01.projects_detail',project_id=project.project_id) }}">  <!--链接到项目的详情地址-->
 					   <img src="{{url_for('static',filename='tmp01/images/project.jpg')}}" alt=""> <!--需要一张封面图片-->
                    </a>
                </div>
                <div class="project-title">
-                   <a href="post_right_sidebar.html"> <!--需要链接到项目的详情地址-->
-                       <h5>This is a standard post</h5> <!--项目标题-->
+                   <a href="{{ url_for('tmp01.projects_detail',project_id=project.project_id) }}"> <!--需要链接到项目的详情地址-->
+                       <h5>{{project.title}}</h5> <!--项目标题-->
                    </a>
                </div>
                <div class="project-info">
-                   <div class="left">
-                       <i></i><h6>发布人</h6> <!--发布人/第一个项目负责人-->
-                   </div>
-                   <div class="right">
-                       <i></i><h6>发布时间</h6>  <!--发布时间 年、月、日-->
-                   </div>
+                   <table class="table table-condensed" >
+                       <thead>
+                            <tr>
+                                <th style="text-align: center;width: 50%">发布人</th>
+                                <th style="text-align: center">发布时间</th>
+                            </tr>
+                       </thead>
+                       <tbody>
+                            <tr>
+                                <td style="text-align: center">{{project.member_info}}</td>
+                                <td style="text-align: center">{{project.broad_time}}</td>
+                            </tr>
+                       </tbody>
+                   </table>
                </div>
            </div>
-           <div class="span4">
-               <div class="project-image">
-                   <a href="post_right_sidebar.html">  <!--需要链接到项目的详情地址-->
-					   <img src="{{url_for('static',filename='tmp01/images/project.jpg')}}" alt=""> <!--需要一张封面图片-->
-                   </a>
-               </div>
-               <div class="project-title">
-                   <a href="post_right_sidebar.html"> <!--需要链接到项目的详情地址-->
-                       <h5>This is a standard post</h5> <!--项目标题-->
-                   </a>
-               </div>
-               <div class="project-info">
-                   <div class="left">
-                       <i></i><h6>发布人</h6> <!--发布人/第一个项目负责人-->
-                   </div>
-                   <div class="right">
-                       <i></i><h6>发布时间</h6>  <!--发布时间 年、月、日-->
-                   </div>
-               </div>
-           </div>
-           <div class="span4 margin0">
-               <div class="project-image">
-                   <a href="post_right_sidebar.html">  <!--需要链接到项目的详情地址-->
-					   <img src="{{url_for('static',filename='tmp01/images/project.jpg')}}" alt=""> <!--需要一张封面图片-->
-                   </a>
-               </div>
-               <div class="project-title">
-                   <a href="post_right_sidebar.html"> <!--需要链接到项目的详情地址-->
-                       <h5>This is a standard post</h5> <!--项目标题-->
-                   </a>
-               </div>
-               <div class="project-info">
-                   <div class="left">
-                       <i></i><h6>发布人</h6> <!--发布人/第一个项目负责人-->
-                   </div>
-                   <div class="right">
-                       <i></i><h6>发布时间</h6>  <!--发布时间 年、月、日-->
-                   </div>
-               </div>
-           </div>
-           <div class="clear">
-           </div>
+           {% endfor %}
+           <div class="clear"></div>
        </div>
       </div>
   </div>
