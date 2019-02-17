@@ -80,9 +80,14 @@ def projects_detail(project_id):
 @tmp01.route('/tmp01/contact')
 def contact():
     return render_template('tmp01/contact.html')
-@tmp01.route('/tmp01/lib')
-def lib():
-    return render_template('tmp01/lib.html')
+
+@tmp01.route('/tmp01/lab')
+def lab():
+    return render_template('tmp01/lab.html')
+
+@tmp01.route('/tmp01/lab/i3')
+def i3():
+    return render_template('tmp01/i3.html')
 
 @tmp01.route('/tmp01/user_center/addProject')
 def addProject():
