@@ -51,12 +51,12 @@
 
                                 <div class="form-group">
                                     <div class="col-lg-offset-2 col-lg-8">
-                                        <button class="btn btn-primary" onclick="MAIN.onSave01(0)">上传</button>
+                                        <button class="btn btn-primary" onclick="MAIN.onSave01()">上传</button>
                                         <button class="btn btn-default" type="button">取消</button>
                                     </div>
-                                    <div class="col-lg-2">
-                                        <button class="btn btn-primary" onclick="MAIN.onSave01(1)">保存并发布</button>
-                                    </div>
+                                    <!--<div class="col-lg-2">-->
+                                        <!--<button class="btn btn-primary" onclick="MAIN.onSave01()">保存并发布</button>-->
+                                    <!--</div>-->
                                 </div>
                             </form>
                         </div>
@@ -86,37 +86,37 @@
 
     }
 
-    MAIN.onSave = function (type) {
-        var req = {};
-        req.title = $('.title').val().trim();
-        req.subtitle = $('.subtitle').val().trim();
-        req.brief = $('.brief').val().trim();
-        req.keyword = $('.keyword').val().trim();
-        var content = MAIN.ue.getContent();
-        req.type = type;
-        req.is_add = 0;
-        Af.rest("/back01/saveArticle",req,function (data) {
-            alert(data);
-            $("input").val("");
-        })
-    }
+    <!--MAIN.onSave = function (type) {-->
+        <!--var req = {};-->
+        <!--req.title = $('.title').val().trim();-->
+        <!--req.subtitle = $('.subtitle').val().trim();-->
+        <!--req.brief = $('.brief').val().trim();-->
+        <!--req.keyword = $('.keyword').val().trim();-->
+        <!--var content = MAIN.ue.getContent();-->
+        <!--req.type = type;-->
+        <!--req.is_add = 0;-->
+        <!--Af.rest("/back01/saveArticle",req,function (data) {-->
+            <!--alert(data);-->
+            <!--$("input").val("");-->
+        <!--})-->
+    <!--}-->
 
 
-    MAIN.onSave01 = function (type) {
+    MAIN.onSave01 = function () {
         var form = new FormData(document.getElementById("articleform"));
-        form.append("is_add",0);
-        form.append("type",type);
-        var content = MAIN.ue.getContent();
-        form.append("content",content);
-        var kws = "";
-        $(".keyword").each(function () {
-            var kw = $(this).val().trim();
-            kws += kw + "||"
+        <!--form.append("is_add",0);-->
+        <!--form.append("type",type);-->
+        <!--var content = MAIN.ue.getContent();-->
+        <!--form.append("content",content);-->
+        <!--var kws = "";-->
+        <!--$(".keyword").each(function () {-->
+            <!--var kw = $(this).val().trim();-->
+            <!--kws += kw + "||"-->
 
-        });
-        form.append("kws",kws.substr(0,kws.length-2))
+        <!--});-->
+        <!--form.append("kws",kws.substr(0,kws.length-2))-->
         $.ajax({
-                url:"/back01/saveArticle",
+                url:"/api/admin/uploadFile",
                 type:"post",
                 data:form,
                 processData:false,
