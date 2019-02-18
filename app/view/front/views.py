@@ -49,7 +49,7 @@ def stuUodoPro():
 @front.route('/student/manageProject/<int:page>/<int:count>')
 def manageProject(page,count):
     pagination,project = projectService.getProByStudentId(page,count)
-    return render_template("tmp01/manageProject.html",pagination=pagination,project=project)
+    return render_template("tmp01/user.html",pagination=pagination,project=project)
 
 """ 
 修改项目
@@ -97,4 +97,27 @@ def downloadFile(page,count):
 def lab():
     return render_template("tmp01/lab.html")
 
+@front.route("/lab/i3")
+def i3():
+    return render_template('tmp01/i3.html')
 
+"""
+主页
+"""
+#@front.route("/home")
+#def home():
+#    return render_template("tmp01.home")  #按项目发布时间排序，取最近的4个项目，需要：项目名称、封面图片、发布人和时间
+
+"""
+用户中心
+"""
+#@front.route("/user/<user_id>")
+#def user(user_id):
+#    return render_template("tmp01/user.html") #根据学生的id获取到学生Model
+
+"""
+测试用
+"""
+@front.route("/user")
+def user():
+    return render_template("tmp01/user.html")

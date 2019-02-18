@@ -54,6 +54,11 @@
         display: none;
     }
 
+    .mainPic {
+        width: 100%;
+        height: 200px;
+    }
+
     .cerImg {
         width: 30%;
     }
@@ -62,7 +67,7 @@
         cursor: pointer;
     }
 
-    #addAward, #submit {
+    #addAward, #submit, #save {
         width: 100px;
         height: 50px;
         background-color: #00a65a;
@@ -71,12 +76,9 @@
         color: #fff;
         line-height: 50px;
         border-radius: 5px;
-        margin-top: 10px;
+        margin: 20px 0;
     }
 
-    #submit {
-        margin-top: 50px;
-    }
 
 </style>
 
@@ -101,9 +103,9 @@
                 <button type="button" id="addAward">添加奖项</button>
                 <div class="award hide">
                     <fieldset class="awardItem">
-                        <p><input type="text" placeholder="请输入奖项名称" class="awardTitle" name="awardTitle" value=""></p>
+                        <p>奖项名称：<input type="text" placeholder="请输入奖项名称" class="awardTitle" name="awardTitle" value=""></p>
                         <!--奖项名称-->
-                        <p>获奖时间：<input class="awardTime" type="text"></p><!--这个地方最好选择时间控件-->
+                        <p>获奖时间：<input type="date" class="awardTime" type="text"></p><!--这个地方最好选择时间控件-->
                         <p>获奖链接：<input class="awardLink" type="text"></p>
                         <div style="position: relative">
                             <input type="file" name="certificate" class="certificate" multiple style="opacity: 0">
@@ -118,11 +120,12 @@
 
             <div class="span3">
                 <div style="position: relative;">
-                    <input id="coverImg" type="file" name="coverImg" style="opacity: 0;">  <!--一张封面图片-->
+                    <input class="coverImg" type="file" name="coverImg" style="opacity: 0;">  <!--一张封面图片-->
                     <button style="position: absolute;left: 0;top: 0;z-index: -10" type="button">上传封面图片</button>
-                    <img class="preview" id="preview"
-                         style="display: block;background-color: #eee;width: 100%;height: 200px">
                 </div>
+                <div class="preview" style="display: block;background-color: #eee;width: 100%;height: 200px"></div>
+                    <!--<img class="preview" id="preview"-->
+                         <!--style="display: block;background-color: #eee;width: 100%;height: 200px">-->
                 <div>
                     <p class="title">类别</p>
                     <select id="category" name="category" required>
@@ -159,8 +162,8 @@
                             </select>
                         </p>
                         <p>
-                            <label>简介</label>
-                            <input type="text" name="brief" class="brief">
+                            <label for="brief">简介</label>
+                            <input type="text" name="brief" id="brief">
                         </p>
                     </fieldset>
                 </div>
@@ -183,8 +186,8 @@
 
                 <button type="button" id="addTeacher">添加指导老师</button>
                 <div>
-                    <button type="button" onclick="uploadProject(1)">保存</button>
-                    <button type="button" onclick="uploadProject(2)">提交</button>
+                    <button type="button" id="save" onclick="uploadProject(1)">保存</button>
+                    <button type="button" id="submit" onclick="uploadProject(2)">提交</button>
                 </div>
 
             </div>
@@ -208,28 +211,35 @@
             $(".teacher").append($(".teacherset:first").clone());
         });
 
-//        //添加奖项
-//        $("#addAward").click(function () {
-//            $(".award").append($(".awardItem:first").clone());
-//        });
-
+        //添加封面图片
+        // $('#coverImg').change(function () {
+        //     var files = this.files;
+        //     var file = files[0];
+        //     //这里我们判断下类型如果不是图片就返回 去掉就可以上传任意文件
+        //     if (!/image\/\w+/.test(file.type)) {
+        //         alert("请确保文件为图像类型");
+        //         return false;
+        //     }
+        //     var reader = new FileReader();
+        //     reader.readAsDataURL(file);
+        //     reader.onload = function (e) {
+        //         var urlsrc = this.result;
+        //         $('#preview').attr('src', urlsrc);
+        //     }
+        // });
 
         //添加封面图片
-        $('#coverImg').change(function () {
+        $('.coverImg').change(function () {
             var files = this.files;
-            var file = files[0];
-            //这里我们判断下类型如果不是图片就返回 去掉就可以上传任意文件
-            if (!/image\/\w+/.test(file.type)) {
-                alert("请确保文件为图像类型");
-                return false;
-            }
+            var result =$(".preview");
+
             var reader = new FileReader();
-            reader.readAsDataURL(file);
+            reader.readAsDataURL(files[0]);
             reader.onload = function (e) {
-                console.log("chufa");
-                var urlsrc = this.result;
-                $('#preview').attr('src', urlsrc);
+                result.append('<img class="mainPic" src="' + this.result + '" alt="" />');
             }
+
+            this.value = '';
         });
 
         //显示奖项信息
@@ -291,7 +301,7 @@
             });
 
             //获取指导老师信息
-            var teacherArr = new Array();
+            //var teacherArr = new Array();
             $(".teacherset").each(function () {
                 var teacher = new Object();
                 teacher.name = $(this).find(".teacherName").val();
@@ -317,11 +327,13 @@
             data.pname = $("#projectTitle").val();                      //项目标题
             data.type = $("#category").val();                           //项目类型
             data.content = testEditor.getHTML();                        //项目内容、富文本
-            data.picUrl = Common.getPicsSrc(".preview");                //项目封面图片。传过来的是图片的base64编码
+            data.mainPic = Common.getPicsSrc(".mainPic");                //项目封面图片。传过来的是图片的base64编码
             data.members = memberArr;                                   //项目成员
+            //data.teachers = teacherArr;                                  //指导老师
             data.awards = awardArr;                                     //获奖信息
             data.status = status;
-            console.log(data);
+            //console.log(data);
+            console.log(data.mainPic);
             $.ajax({
                 url: "{{url_for('front.uploadProject')}}", //补充
                 type: 'post',

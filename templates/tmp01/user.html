@@ -1,0 +1,62 @@
+{% extends 'tmp01/base.html' %}
+
+{% block page_name %}用户中心{% endblock %}
+
+{% block static_files%}
+<style>
+    ul li {
+        list-style: none;
+    }
+
+</style>
+{% endblock %}
+
+{% block body_part %}
+<section id="subintro">
+    <div class="container">
+        <div class="row-fluid">
+            <div class="span3">
+                <ul>
+                    <li>我的项目</li>
+                    <li>我的奖项</li>
+                </ul>
+                <ul>
+                    <li><a href="{{url_for('front.uploadProjectTmp')}}">上传项目</a></li>
+                    <li>上传奖项</li>
+                </ul>
+            </div>
+            <div class="span9">
+                <div class="myProject">
+                    <ul id="myTab" class="nav nav-tabs">
+                        <li class="active"><a href="#release" data-toggle="tab">已发布项目</a></li>
+                        <li><a href="#examine" data-toggle="tab">待审核项目</a></li>
+                        <li><a href="#fail" data-toggle="tab">未通过项目</a></li>
+                    </ul>
+                    <div id="myTabContent" class="tab-content">
+                        <div class="tab-pane fade in active" id="release">
+                            <p>
+                              Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher synth. Cosby sweater
+                              eu banh mi, qui irure terry richardson ex squid. Aliquip placeat salvia cillum iphone. Seitan aliquip quis cardigan american apparel, butcher voluptate nisi qui.
+                            </p>
+                        </div>
+                        <div class="tab-pane fade" id="examine">
+                            <p>
+                              Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo booth letterpress, commodo
+                              enim craft beer mlkshk aliquip jean shorts ullamco ad vinyl cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit. Keytar helvetica VHS salvia yr, vero magna velit sapiente labore stumptown. Vegan fanny pack
+                              odio cillum wes anderson 8-bit, sustainable jean shorts beard ut DIY ethical culpa terry richardson biodiesel. Art party scenester stumptown, tumblr butcher vero sint qui sapiente accusamus tattooed echo park.
+                            </p>
+                        </div>
+                        <div class="tab-pane fade" id="fail">
+                            <p>
+                              Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro fanny pack lo-fi farm-to-table readymade. Messenger bag gentrify pitchfork tattooed craft beer, iphone skateboard locavore carles etsy salvia banksy
+                              hoodie helvetica. DIY synth PBR banksy irony. Leggings gentrify squid 8-bit cred pitchfork. Williamsburg banh mi whatever gluten-free, carles pitchfork biodiesel fixie etsy retro mlkshk vice blog. Scenester cred you probably haven't
+                              heard of them, vinyl craft beer blog stumptown. Pitchfork sustainable tofu synth chambray yr.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
