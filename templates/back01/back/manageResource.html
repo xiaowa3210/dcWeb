@@ -17,6 +17,18 @@
                     <li><i class="fa fa-th-list"></i>查看</li>
                 </ol>
             </div>
+                  <div class="col-lg-2">
+                                        <button class="btn btn-primary" onclick="MAIN.onQuery(0)">查看全部资料</button>
+                                    </div>
+                         <div class="col-lg-2">
+                                        <button class="btn btn-primary" onclick="MAIN.onQuery(1)">管理员上传的资料</button>
+                                    </div>
+                         <div class="col-lg-2">
+                                        <button class="btn btn-primary" onclick="MAIN.onQuery(2)">新闻上传的附件</button>
+                                    </div>
+                         <div class="col-lg-2">
+                                        <button class="btn btn-primary" onclick="MAIN.onQuery(3)">项目上传的附件</button>
+                                    </div>
         </div>
         <!-- page start-->
         <div class="row">
@@ -25,6 +37,7 @@
                     <header class="panel-heading">
                         Advanced Table
                     </header>
+
 
                     <table class="table table-striped table-advance table-hover">
                         <tbody>
@@ -93,7 +106,32 @@
 </section>
 
 <script>
+
+
+
     var MAIN = {};
+
+        MAIN.onQuery = function (type) {
+         var req = {};
+         req.source =type;
+           $.ajax({
+                url:"/admin/manageResource",
+                type:"GET",
+                data:{ source: type},
+                dataType:"json",
+                success:function(data){
+                    alert("success")
+                },
+                error:function(e){
+
+                    alert("fail");
+
+                }
+            });
+
+    }
+
+
 
     MAIN.doRemove = function (e) {
         var req = {};
