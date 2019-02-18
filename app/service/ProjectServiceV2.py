@@ -39,7 +39,7 @@ class ProjectService:
     def addProject(self,data):
         # 项目基本信息
         project = Project(data['pname'],data['content'],data['type'])
-        project.mainPic = json.dumps(commonService.getImgPathList(mapGet(data,'certPic')))
+        project.mainPic = json.dumps(commonService.getImgPathList(mapGet(data,'mainPic')))
         memberlist = project.members
         awardList = project.awards
         # 项目成员
