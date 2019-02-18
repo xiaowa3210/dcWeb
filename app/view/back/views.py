@@ -205,8 +205,6 @@ def modifiesNews():
 def manageResource(page,count):
     source = request.values.get("source")
     pagination,files = filesService.getFilesBySource(page,count,source)
-    for file in files:
-        print(file.name)
     return render_template("back01/back/manageResource.html",pagination=pagination,files=files)
 
 """ 
