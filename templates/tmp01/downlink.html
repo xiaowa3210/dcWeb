@@ -26,21 +26,15 @@
                   </tr>
                 </thead>
                 <tbody>
-                {% for document in documents %}
+                {% for file in files %}
                   <tr>
                     <!--<td width="82%"><a href="#">北京邮电大学差旅费报销单.xls    </a></td>-->
-                    <!--<td width="18%" style="text-align: center;">{{ document.created_time }}</td>-->
-                    <td width="82%"><a href="#">{{ document.title }}</a></td>
-                    <td width="18%" style="text-align: center;">{{ document.created_time }}</td>
+
+                    <td width="82%"> <a href="{{ url_for('common.file',name= file.name) }}">{{ file.name }}</a></td>
+
                   </tr>
                 {% endfor %}
-                    <!--{% for document in documents %}-->
-                  <!--<tr>-->
-                    <!--&lt;!&ndash;<td width="82%"><a href="#">北京邮电大学差旅费报销单.xls    </a></td>&ndash;&gt;-->
-                    <!--&lt;!&ndash;<td width="18%" style="text-align: center;">{{ document.created_time }}</td>&ndash;&gt;-->
 
-                  <!--</tr>-->
-                <!--{% endfor %}-->
                 </tbody>
               </table>
 
