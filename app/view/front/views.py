@@ -49,7 +49,7 @@ def stuUodoPro():
 @front.route('/student/manageProject/<int:page>/<int:count>')
 def manageProject(page,count):
     pagination,project = projectService.getProByStudentId(page,count)
-    return render_template("tmp01/manageProject.html",pagination=pagination,project=project)
+    return render_template("tmp01/user.html",pagination=pagination,project=project)
 
 """ 
 修改项目
