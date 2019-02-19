@@ -33,9 +33,10 @@ def uploadImg():
 """ 
 学生撤销审核中的项目
 """
-@front.route('/api/student/undoPro')
+@front.route('/api/student/undoPro',methods=['POST'])
 def stuUodoPro():
-    pid = request.values.get("pid")
+    data = json.loads(request.get_data("utf-8"))
+    pid = data["pid"]
     if pid is None:
         return json.dumps(MessageInfo.fail(msg="pid不能为空").__dict__)
     projectService.stuUndoPro(pid)

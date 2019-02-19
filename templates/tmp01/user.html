@@ -8,6 +8,19 @@
         list-style: none;
     }
 
+    #myTabContent>.tab-pane> .span4:nth-child(3n+1) {
+        margin-left: 0;
+    }
+
+    .project-title h5 {
+        margin-bottom: 5px;
+        text-align: center;
+    }
+
+    .project-info {
+        margin-bottom: 10px;
+    }
+
 </style>
 {% endblock %}
 
@@ -31,27 +44,95 @@
                         <li class="active"><a href="#release" data-toggle="tab">已发布项目</a></li>
                         <li><a href="#examine" data-toggle="tab">待审核项目</a></li>
                         <li><a href="#fail" data-toggle="tab">未通过项目</a></li>
+                        <li><a href="#unsubmitted" data-toggle="tab">未提交项目</a></li>
                     </ul>
                     <div id="myTabContent" class="tab-content">
-                        <div class="tab-pane fade in active" id="release">
-                            <p>
-                              Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher synth. Cosby sweater
-                              eu banh mi, qui irure terry richardson ex squid. Aliquip placeat salvia cillum iphone. Seitan aliquip quis cardigan american apparel, butcher voluptate nisi qui.
-                            </p>
+                        <div class="tab-pane fade in active" id="release">   <!--未提交1 待审核2 已发布3 未通过4-->
+                            {% for projectItem in project %}
+                                {% if projectItem.status==3 %}
+                                   <div class="span4">
+                                       <div class="project-image">
+                                           <a href="{{ url_for('tmp01.projects_detail',project_id=projectItem.pid) }}">  <!--链接到项目的详情地址-->
+                                               <img src="{{ url_for('static',filename='tmp01/images/project.jpg') }}" alt=""> <!--封面图片-->
+                                           </a>
+                                       </div>
+                                       <div class="project-title">
+                                           <a href="{{ url_for('tmp01.projects_detail',project_id=projectItem.pid) }}"> <!--链接到项目的详情地址-->
+                                               <h5>{{projectItem.pname}}</h5> <!--项目标题-->
+                                           </a>
+                                       </div>
+                                       <!--<div class="project-info">-->
+                                            <!--<span>编辑</span><span>删除</span>-->
+                                       <!--</div>-->
+                                   </div>
+                                {% endif %}
+                            {% endfor %}
                         </div>
                         <div class="tab-pane fade" id="examine">
-                            <p>
-                              Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo booth letterpress, commodo
-                              enim craft beer mlkshk aliquip jean shorts ullamco ad vinyl cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit. Keytar helvetica VHS salvia yr, vero magna velit sapiente labore stumptown. Vegan fanny pack
-                              odio cillum wes anderson 8-bit, sustainable jean shorts beard ut DIY ethical culpa terry richardson biodiesel. Art party scenester stumptown, tumblr butcher vero sint qui sapiente accusamus tattooed echo park.
-                            </p>
+                            {% for projectItem in project %}
+                                {% if projectItem.status==2 %}
+                                   <div class="span4">
+                                       <div class="project-image">
+                                           <a href="{{ url_for('tmp01.projects_detail',project_id=projectItem.pid) }}">  <!--链接到项目的详情地址-->
+                                               <img src="{{ url_for('static',filename='tmp01/images/project.jpg') }}" alt=""> <!--封面图片 待调试-->
+                                           </a>
+                                       </div>
+                                       <div class="project-title">
+                                           <a href="{{ url_for('tmp01.projects_detail',project_id=projectItem.pid) }}"> <!--链接到项目的详情地址-->
+                                               <h5>{{projectItem.pname}}</h5> <!--项目标题-->
+                                           </a>
+                                       </div>
+                                       <div class="project-info">
+                                            <span class="btn cancel" p_id="{{ projectItem.pid }}">撤销审核</span>
+                                            <span class="btn delete">删除</span>
+                                       </div>
+                                   </div>
+                                {% endif %}
+                            {% endfor %}
                         </div>
                         <div class="tab-pane fade" id="fail">
-                            <p>
-                              Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro fanny pack lo-fi farm-to-table readymade. Messenger bag gentrify pitchfork tattooed craft beer, iphone skateboard locavore carles etsy salvia banksy
-                              hoodie helvetica. DIY synth PBR banksy irony. Leggings gentrify squid 8-bit cred pitchfork. Williamsburg banh mi whatever gluten-free, carles pitchfork biodiesel fixie etsy retro mlkshk vice blog. Scenester cred you probably haven't
-                              heard of them, vinyl craft beer blog stumptown. Pitchfork sustainable tofu synth chambray yr.
-                            </p>
+                            {% for projectItem in project %}
+                                {% if projectItem.status==4 %}
+                                   <div class="span4">
+                                       <div class="project-image">
+                                           <a href="{{ url_for('tmp01.projects_detail',project_id=projectItem.pid) }}">  <!--链接到项目的详情地址-->
+                                               <img src="{{ url_for('static',filename='tmp01/images/project.jpg') }}" alt=""> <!--封面图片-->
+                                           </a>
+                                       </div>
+                                       <div class="project-title">
+                                           <a href="{{ url_for('tmp01.projects_detail',project_id=projectItem.pid) }}"> <!--链接到项目的详情地址-->
+                                               <h5>{{projectItem.pname}}</h5> <!--项目标题-->
+                                           </a>
+                                       </div>
+                                       <div class="project-info">
+                                           <span class="btn"><a href="{{url_for('front.modifiesProject',pid=projectItem.pid)}}">编辑</a></span>
+                                           <span class="btn delete" p_id="{{ projectItem.pid }}">删除</span>
+                                       </div>
+                                   </div>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                        <div class="tab-pane fade" id="unsubmitted">
+                            {% for projectItem in project %}
+                                {% if projectItem.status==1 %}
+                                   <div class="span4">
+                                       <div class="project-image">
+                                           <a href="{{ url_for('tmp01.projects_detail',project_id=projectItem.pid) }}">  <!--链接到项目的详情地址-->
+                                               <img src="{{ url_for('static',filename='tmp01/images/project.jpg') }}" alt=""> <!--封面图片-->
+                                           </a>
+                                       </div>
+                                       <div class="project-title">
+                                           <a href="{{ url_for('tmp01.projects_detail',project_id=projectItem.pid) }}"> <!--链接到项目的详情地址-->
+                                               <h5>{{projectItem.pname}}</h5> <!--项目标题-->
+                                           </a>
+                                       </div>
+                                       <div class="project-info">
+                                           <span class="btn"><a href="{{ url_for('front.modifiesProject',pid=projectItem.pid) }}">编辑</a></span>
+                                           <span class="btn delete" p_id="{{ projectItem.pid}}">删除</span>
+                                       </div>
+                                   </div>
+                                {% endif %}
+                            {% endfor %}
                         </div>
                     </div>
                 </div>
@@ -59,4 +140,58 @@
         </div>
     </div>
 </section>
+
 {% endblock %}
+
+{% block js_files%}
+<script>
+$(function () {
+
+    // 待审核项目撤回
+     $(".cancel").click(function () {
+      if (cancel_confirm()) {
+          var data = {};
+          data.pid = $(this).attr('p_id');
+          console.log(data.pid);
+
+          $.ajax({
+              url: '{{ url_for("front.stuUodoPro") }}',
+              type: 'post',
+              data: JSON.stringify(data),
+              dataType: 'json',
+              success: function (data) {
+                  alert(data.msg);
+                  // window.location.href="/back01/lab"
+              },
+              error: function (data) {
+                  alert(data.msg)
+
+              }
+          });
+      }
+     });
+
+  function cancel_confirm() {
+       if (window.confirm('确定撤回吗？')){
+           return true;
+       }
+       else{
+           return false;
+       }
+  }
+
+  //删除项目
+
+  function delete_confirm() {
+       if (window.confirm('确定删除吗？')){
+           return true;
+       }
+       else{
+           return false;
+       }
+  }
+
+});
+
+</script>
+{% endblock%}
