@@ -42,6 +42,10 @@ def uploadFile():
         return json.dumps(MessageInfo.success(msg="上传成功").__dict__)
     else:
         return json.dumps(MessageInfo.fail(msg="没有检测到文件").__dict__)
+@back.route("/admin/editFiles")
+def editFiles():
+    return render_template('back01/file_add.html')
+
 """ 
 管理员删除项目
 """
