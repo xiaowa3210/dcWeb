@@ -6,7 +6,7 @@ import os
 from flask import render_template, request, make_response, send_from_directory, session, redirect, url_for
 
 from app.model.config import UPLOAD_FILES_PATH, UPLOAD_PATH
-from app.model.entity import Files
+from app.model.entity import Files, User
 from app.service.ArticleService import getArticlesByPage
 from app.service.FileServiceV2 import FilesService
 from app.service.ProjectServiceV2 import ProjectService
@@ -42,10 +42,6 @@ def uploadFile():
         return json.dumps(MessageInfo.success(msg="上传成功").__dict__)
     else:
         return json.dumps(MessageInfo.fail(msg="没有检测到文件").__dict__)
-@back.route("/admin/editFiles")
-def editFiles():
-    return render_template('back01/file_add.html')
-
 """ 
 管理员删除项目
 """
@@ -132,11 +128,35 @@ def login_api():
     else:
         return json.dumps(MessageInfo.fail(msg="亲,用户不存在").__dict__)
 
+""" 
+管理员登出接口
+"""
 @back.route("/api/admin/logout", methods=['GET'])
 def logout_api():
     session.pop('admin', None)
     return redirect(url_for('back.login'))
+
+""" 
+管理员添加用户
+"""
+@back.route("/api/admin/addUser", methods=['POST'])
+def addUser():
+    data = json.loads(request.get_data("utf-8"))
+    username = data['username']
+    password = data['password']
+    type = data['type']
+
+    user = User(username,password,type)
+    userService.addUser_v1(user)
+    return json.dumps(MessageInfo.success(msg="添加成功").__dict__)
+
 #******************************模板******************************#
+#******************************模板******************************#
+#******************************模板******************************#
+#******************************模板******************************#
+#******************************模板******************************#
+#******************************模板******************************#
+
 """ 
 登录页面
 """
@@ -207,12 +227,17 @@ def manageResource(page,count):
     pagination,files = filesService.getFilesBySource(page,count,source)
     return render_template("back01/back/manageResource.html",pagination=pagination,files=files)
 
+@back.route("/admin/editFiles")
+def editFiles():
+    return render_template('back01/file_add.html')
 """ 
 管理员人员管理
 """
-@back.route("/admin/manageUser")
-def manageUser():
-    return render_template("back01/back/manageUser.html")
+@back.route("/admin/manageUser",methods=['GET'],defaults={'page':1,'count':10,'type':-1})
+@back.route("/admin/manageUser/<int:page>/<int:count>/<int:type>",methods=['GET'])
+def manageUser(page,count,type):
+    pagination, users = userService.selectByPage(page,count,type)
+    return render_template("back01/back/manageUser.html",pagination=pagination,users=users)
 
 
 

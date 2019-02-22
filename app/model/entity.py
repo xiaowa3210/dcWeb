@@ -10,7 +10,7 @@ class User(db2.Model):
     __tablename__ = 'dc_user'
     id = db2.Column(db2.Integer, primary_key=True, autoincrement=True)
     username = db2.Column(db2.String(64), index=True, unique=True, nullable=False)
-    nickname = db2.Column(db2.String(64), nullable=False)
+    nickname = db2.Column(db2.String(64), nullable=True)
     password = db2.Column(db2.String(128), nullable=False)
     type = db2.Column(db2.Integer, nullable=False)
     created_time = db2.Column(DateTime, nullable=True, default=datetime.now)

@@ -80,13 +80,13 @@ class UserService:
     """
     分页查询所有
     """
-    def selectByPage(self,page_index,type=-1,per_page=10):
+    def selectByPage(self,page_index,per_page,type):
         if type == ADMIN:
             pagination = User.query.filter(User.type == 0).order_by(User.created_time).paginate(page_index, per_page)
         elif type == TEACHER:
             pagination = User.query.filter(User.type == 1).order_by(User.created_time).paginate(page_index, per_page)
         else:
             pagination = User.query.order_by(User.created_time).paginate(page_index, per_page)
-        return pagination
+        return pagination,pagination.items
 
 
