@@ -102,22 +102,24 @@ class New(db2.Model):
     def __init__(self,title,content,src_content):
         self.title = title
         self.content = content
-        self.src_content = content
+        self.src_content = src_content
 #新闻额外信息表 
 class newExt(db2.Model):
     __tablename__ = 'dc_new_ext'
     id = db2.Column(db2.Integer, primary_key=True, autoincrement=True)
-    pid = db2.Column(db2.Integer, db2.ForeignKey('dc_new.nid'))               # 外键关联dc_new表
+    nid = db2.Column(db2.Integer, db2.ForeignKey('dc_new.nid'))               # 外键关联dc_new表
     title = db2.Column(db2.String(256), nullable=False)                       # 新闻标题
     status = db2.Column(db2.Integer, nullable=False)                          # 状态：0代表未发布,1代表已发布
     creater = db2.Column(db2.String(256), nullable=False)                     # 创建人
-    publisher = db2.Column(db2.String(256), nullable=False)                   # 发布人
+    publisher = db2.Column(db2.String(256), nullable=True)                   # 发布人
     modifier = db2.Column(db2.String(256), nullable=False)                    # 最后修改人
     createTime = db2.Column(DateTime, nullable=False, default=datetime.now)   # 创建时间
     modifiedTime = db2.Column(DateTime, nullable=True)                        # 最后修改时间
     cancelTime = db2.Column(DateTime, nullable=True)                          # 撤销时间
     submitTime = db2.Column(DateTime, nullable=True)                          # 提交时间
     publisherTime = db2.Column(DateTime, nullable=True)                       # 发布时间
+    deleteFlag = db2.Column(db2.DECIMAL(1, 0), nullable=False, default=0)     # 发布时间
+
 
     def __init__(self,title,status):
         self.title = title

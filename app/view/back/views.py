@@ -3,28 +3,73 @@
 import json
 
 import os
+
+from datetime import datetime
 from flask import render_template, request, make_response, send_from_directory, session, redirect, url_for
 
 from app.model.config import UPLOAD_FILES_PATH, UPLOAD_PATH
-from app.model.entity import Files, User
-from app.service.ArticleService import getArticlesByPage
+from app.model.entity import Files, User, New, newExt
+from app.service.NewsService import NewsService
 from app.service.FileServiceV2 import FilesService
 from app.service.ProjectServiceV2 import ProjectService
 from app.service.UserServiceV2 import UserService, role_dict
 from app.view.MessageInfo import MessageInfo
 from app.view.back import back
+from app.service.CommonService import CommonService
 
+commonService = CommonService()
 projectService = ProjectService()
 filesService = FilesService()
 userService = UserService()
+newsService = NewsService()
 #******************************api接口******************************#
 """ 
-上传新闻
+添加新闻
 """
-@back.route('/api/uploadNew')
+@back.route('/api/admin/addNew',methods=['POST'])
 def uploadNew():
-    pass
+    title = request.form.get("title")
+    content = request.form.get("content")
+    src_content = request.form.get("src_content")
+    type = request.form.get('type')
 
+    new = New(title,content,src_content)
+
+    extraInfo = newExt(title,type)
+    extraInfo.creater = commonService.getCurrentUsername()
+    extraInfo.modifiedTime = datetime.now()
+    extraInfo.modifier = commonService.getCurrentUsername()
+    if type == 1:
+        extraInfo.publisher = commonService.getCurrentUsername()
+        extraInfo.publisherTime = commonService.getCurrentUsername()
+    new.extInfo = extraInfo
+    newsService.addNews(new)
+
+    return json.dumps(MessageInfo.success(msg="添加成功").__dict__)
+
+""" 
+删除新闻
+"""
+@back.route('/api/admin/deleteNew/<nid>',methods=['get'])
+def deteteNew(nid):
+    newsService.deleteNew(nid)
+    return json.dumps(MessageInfo.success(msg="删除成功").__dict__)
+
+""" 
+发布新闻
+"""
+@back.route('/api/admin/releaseNew/<nid>',methods=['get'])
+def releaseNew(nid):
+    newsService.releaseOrUndoNew(nid,1)
+    return json.dumps(MessageInfo.success(msg="发布成功").__dict__)
+
+""" 
+撤销新闻
+"""
+@back.route('/api/admin/undoNew/<nid>',methods=['get'])
+def undoNew(nid):
+    newsService.releaseOrUndoNew(nid,0)
+    return json.dumps(MessageInfo.success(msg="撤销成功").__dict__)
 """ 
 上传文件
 """
@@ -198,17 +243,18 @@ def manageProject(page,count):
 """
 @back.route("/admin/editNews")
 def editNews():
-    return render_template('back01/article_add.html')
+    return render_template('back01/back/editNews.html')
 
 """ 
 新闻管理
 """
 #文章列表
-@back.route('/admin/manageNews', methods=['GET'],defaults={'page':1})
-@back.route('/admin/manageNews/<int:page>',methods=['GET'])
-def manageNews(page):
-    articles, pagination = getArticlesByPage(page, 10, 1)
-    return render_template('back01/article_list.html', articles=articles, pagination=pagination)
+@back.route('/admin/manageNews', methods=['GET'],defaults={'page':1,'count':10})
+@back.route('/admin/manageNews/<int:page>/<int:count>',methods=['GET'])
+def manageNews(page,count):
+    type = request.values.get("type")
+    pagination,news = newsService.selectByPage(page,count,type)
+    return render_template('back01/back/manageNews.html', news=news, pagination=pagination)
 
 """ 
 修改新闻
