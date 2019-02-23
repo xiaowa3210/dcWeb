@@ -32,20 +32,30 @@ def uploadNew():
     content = request.form.get("content")
     src_content = request.form.get("src_content")
     type = request.form.get('type')
+    operate = request.form.get('operate')
 
-    new = New(title,content,src_content)
 
-    extraInfo = newExt(title,type)
-    extraInfo.creater = commonService.getCurrentUsername()
-    extraInfo.modifiedTime = datetime.now()
-    extraInfo.modifier = commonService.getCurrentUsername()
-    if type == 1:
-        extraInfo.publisher = commonService.getCurrentUsername()
-        extraInfo.publisherTime = commonService.getCurrentUsername()
-    new.extInfo = extraInfo
-    newsService.addNews(new)
+    if operate == 0:
+        #代表添加新闻
+        new = New(title, content, src_content)
 
-    return json.dumps(MessageInfo.success(msg="添加成功").__dict__)
+        extraInfo = newExt(title, type)
+        extraInfo.creater = commonService.getCurrentUsername()
+        extraInfo.modifiedTime = datetime.now()
+        extraInfo.modifier = commonService.getCurrentUsername()
+        if type == 1:
+            extraInfo.publisher = commonService.getCurrentUsername()
+            extraInfo.publisherTime = commonService.getCurrentUsername()
+        new.extInfo = extraInfo
+        newsService.addNews(new)
+        return json.dumps(MessageInfo.success(msg="添加成功").__dict__)
+    else:
+        nid = request.form.get("nid")
+        new = New(title, content, src_content)
+        new.nid = nid
+        newsService.updatenew(new,type)
+
+        return json.dumps(MessageInfo.success(msg="修改成功").__dict__)
 
 """ 
 删除新闻
@@ -259,9 +269,10 @@ def manageNews(page,count):
 """ 
 修改新闻
 """
-@back.route("/admin/modifiesNews")
-def modifiesNews():
-    return render_template("back01/article_modified.html")
+@back.route("/admin/modifiesNews/<int:nid>")
+def modifiesNews(nid):
+    new = newsService.selectByNid(nid)
+    return render_template("back01/back/modifiesNews.html",new=new)
 
 """ 
 资料管理
