@@ -34,11 +34,12 @@ class NewsService:
     """ 
     修改新闻
     """
-    def updatenew(self,new):
+    def updatenew(self,new,status):
         result = db2.session.query(New).filter(New.nid == new.nid).one()
         result.title = new.title
         result.content = new.content
-        db2.commit()
+        result.extInfo.status = status
+        db2.session.commit()
 
     """ 
     @:param:

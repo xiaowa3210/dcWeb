@@ -5,13 +5,14 @@ import json
 from flask import request, render_template
 
 from app.service.FileServiceV2 import FilesService
-from app.service.DocumentsService import getDoucumentByID, getAiticleByID
+from app.service.NewsService import NewsService
 from app.service.ProjectServiceV2 import ProjectService
 from app.view.MessageInfo import MessageInfo
 from app.view.front import front
 
 projectService = ProjectService()
 filesService = FilesService()
+newsService = NewsService()
 #******************************api接口******************************#
 """ 
 上传项目接口
@@ -70,17 +71,19 @@ def uploadProjectTmp():
 """ 
 新闻列表展示
 """
-@front.route('/news')
-def news():
-    return render_template("tmp01/news.html")
+@front.route('/news', methods=['GET'],defaults={'page':1,'count':10})
+@front.route('/news/<int:page>/<int:count>')
+def news(page,count):
+    pagination, news = newsService.selectByPage(page, count, 1)
+    return render_template("tmp01/news.html",pagination=pagination,news=news)
 
 """ 
 新闻内容展示
 """
 @front.route('/new/<news_id>')
 def new(news_id):
-    news_obj = getAiticleByID(news_id)
-    return render_template("tmp01/news-detail.html",news=news_obj)
+    new = newsService.selectByNid(news_id)
+    return render_template("tmp01/news-detail.html",new=new)
 
 """
 资料下载展示
