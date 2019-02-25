@@ -262,7 +262,7 @@ def manageProject(page,count):
 """
 @back.route("/admin/editNews")
 def editNews():
-    return render_template('back01/article_add.html')
+    return render_template('back01/back/article_add.html')
 
 """ 
 新闻管理
@@ -273,7 +273,7 @@ def editNews():
 def manageNews(page,count):
     type = request.values.get("type")
     pagination,news = newsService.selectByPage(page,count,type)
-    return render_template('back01/article_list.html', news=news, pagination=pagination)
+    return render_template('back01/back/article_list.html', news=news, pagination=pagination)
 
 """ 
 修改新闻
