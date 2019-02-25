@@ -1,8 +1,16 @@
 {% extends 'back01/base.html' %}
 
 {% block static_files %}
-<script type="text/javascript" src="/static/ueditor/ueditor.config.js"></script>
-<script type="text/javascript" src="/static/ueditor/ueditor.all.js"></script>
+    <script src="/static/js/jquery-2.1.0.min.js"></script>
+    <link rel="stylesheet" href="{{url_for('static',filename='mdeditor/editormd.min.css')}}">
+    <script src="{{url_for('static',filename='mdeditor/editormd.min.js')}}"></script>
+    <script src="{{url_for('static',filename='js/afquery.js')}}"></script>
+
+<!--<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='mdeditor/editormd.min.css')}}">-->
+<!--<script src="{{ url_for('static',filename='mdeditor/editormd.js')}}"></script>-->
+
+<!--<script src="{{url_for('static',filename='common.js')}}"></script>-->
+
 {% endblock %}
 
 {% block body_part %}
@@ -37,58 +45,73 @@
                                                type="text" required/>
                                     </div>
                                 </div>
-
-                                <div class="form-group ">
-                                    <label for="subtitle" class="control-label col-lg-2">副标题<span
-                                            class="required">*</span></label>
-                                    <div class="col-lg-10">
-                                        <input class="form-control subtitle" id="subtitle" name="subtitle"
-                                               type="text" required/>
-                                    </div>
-                                </div>
-
-                                <div class="form-group ">
-                                    <label for="brief" class="control-label col-lg-2">摘要<span
-                                            class="required">*</span></label>
-                                    <div class="col-lg-10">
-                                        <textarea class="form-control ckeditor brief" name="brief" rows="6"
-                                                  id="brief"></textarea>
-                                    </div>
-                                </div>
-
-                                <div class="form-group ">
-                                    <label class="control-label col-lg-2">关键字<span
-                                            class="required">*</span></label>
-                                    <div class="col-lg-10">
-                                        <div class="col-lg-2 kw">
-                                            <input class="form-control keyword" name="keyword" style="margin-bottom: 10px"
-                                               type="text" required/>
-                                        </div>
-                                        <div class="col-lg-1 addkeyword">
-                                            <button id="addkeyword" class="btn btn-primary" onclick="MAIN.addkeyword()">添加
-                                            </button>
-                                        </div>
-                                    </div>
-
-                                </div>
-
-                                <div class="form-group ">
-                                    <label  class="control-label col-lg-2">编辑内容<span
-                                            class="required">*</span></label>
-                                    <div class="col-lg-10">
-                                        <script id="editor" type="text/plain">
-
-                                        </script>
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
+                                    <div class="form-group">
                                     <label for="InputFile" class="control-label col-lg-2">上传附件</label>
                                     <input type="file" id="InputFile" name="attachment" multiple="multiple">
 
                                 </div>
 
-                                <div class="form-group">
+
+
+                                <!--<div class="form-group ">-->
+                                    <!--<label for="subtitle" class="control-label col-lg-2">副标题<span-->
+                                            <!--class="required">*</span></label>-->
+                                    <!--<div class="col-lg-10">-->
+                                        <!--<input class="form-control subtitle" id="subtitle" name="subtitle"-->
+                                               <!--type="text" required/>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+
+                                <!--<div class="form-group ">-->
+                                    <!--<label for="brief" class="control-label col-lg-2">摘要<span-->
+                                            <!--class="required">*</span></label>-->
+                                    <!--<div class="col-lg-10">-->
+                                        <!--<textarea class="form-control ckeditor brief" name="brief" rows="6"-->
+                                                  <!--id="brief"></textarea>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+
+                                <!--<div class="form-group ">-->
+                                    <!--<label class="control-label col-lg-2">关键字<span-->
+                                            <!--class="required">*</span></label>-->
+                                    <!--<div class="col-lg-10">-->
+                                        <!--<div class="col-lg-2 kw">-->
+                                            <!--<input class="form-control keyword" name="keyword" style="margin-bottom: 10px"-->
+                                               <!--type="text" required/>-->
+                                        <!--</div>-->
+                                        <!--<div class="col-lg-1 addkeyword">-->
+                                            <!--<button id="addkeyword" class="btn btn-primary" onclick="MAIN.addkeyword()">添加-->
+                                            <!--</button>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+
+                                <!--</div>-->
+                <!--<div class="project">-->
+                    <!--<input type="text" placeholder="请输入项目名称" id="projectTitle" name="projectTitle" value=""> &lt;!&ndash;项目名称&ndash;&gt;-->
+                    <!--<div style="width: 100%;height: 600px">   &lt;!&ndash;项目详情&ndash;&gt;-->
+                        <!--<div id="markdown">-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+
+
+                                <!--<div class="form-group ">-->
+                                    <!--<label  class="control-label col-lg-2">编辑内容<span-->
+                                            <!--class="required">*</span></label>-->
+                                    <!--<div class="col-lg-10">-->
+                                            <!--&lt;!&ndash;项目详情&ndash;&gt;-->
+                                    <!--<div id="markdown" style="width: 100%;height: 600px>-->
+
+                                                    <!--</div>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                                <div style="width: auto;height: 700px">
+    <div id="test-editormd">
+        <!--<textarea class="editormd-markdown-textarea" name="$id-markdown-doc"></textarea>-->
+         <!-- html textarea 需要开启配置项 saveHTMLToTextarea == true -->
+        <!--<textarea class="editormd-html-textarea" name="$id-html-code"></textarea>-->
+    </div>
+                                                         <div class="form-group">
                                     <div class="col-lg-offset-2 col-lg-8">
                                         <button class="btn btn-primary" onclick="MAIN.onSave01(0)">保存</button>
                                         <button class="btn btn-default" type="button">取消</button>
@@ -97,6 +120,17 @@
                                         <button class="btn btn-primary" onclick="MAIN.onSave01(1)">保存并发布</button>
                                     </div>
                                 </div>
+    <!--<button type="submit"  onclick="MAIN.onSave()">提交</button>-->
+</div>
+
+
+<!--<div style="width: auto;height: 10px">-->
+    <!--<div id="show">-->
+    <!--</div>-->
+<!--</div>-->
+
+
+
                             </form>
                         </div>
 
@@ -107,16 +141,28 @@
     </section>
 </section>
 
+<script src="{{ url_for('static',filename='mdeditor/editormd.js')}}"></script>
 <script>
+
+   //markdown编辑器设置
+    var testEditor;
+    $(function () {
+        testEditor = editormd("test-editormd", {
+            width: '80%',
+            height: '50%',
+            syncScrolling: "single",
+            saveHTMLToTextarea : true,
+            path: "{{url_for('static',filename='mdeditor/lib/')}}",
+            //启动本地图片上传功能
+            imageUpload: true,
+            imageFormats: ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+            imageUploadURL: "{{url_for('tmp05.upload')}}"
+        });
+    });
 
 
     var MAIN = {};
 
-    MAIN.ue = UE.getEditor('editor',
-            {"serverUrl":'/ueditor/upload/'})
-    MAIN.init = function () {
-
-    }
 
     MAIN.addkeyword = function () {
         var kw = $(".kw:first")
@@ -143,19 +189,13 @@
 
     MAIN.onSave01 = function (type) {
         var form = new FormData(document.getElementById("articleform"));
-        form.append("is_add",0);
         form.append("type",type);
-        var content = MAIN.ue.getContent();
+        var content =  testEditor.getHTML();
         form.append("content",content);
-        var kws = "";
-        $(".keyword").each(function () {
-            var kw = $(this).val().trim();
-            kws += kw + "||"
-
-        });
-        form.append("kws",kws.substr(0,kws.length-2))
+        form.append("src_content",content);
+        form.append("operate",0);
         $.ajax({
-                url:"/back01/saveArticle",
+                url:"/api/admin/addNew",
                 type:"post",
                 data:form,
                 processData:false,
@@ -169,21 +209,6 @@
             });
     }
 
-
-
-
-
-//    $(document).ready(function () {
-//        MAIN.init();
-//    });
-
-
-    //    $(function () {
-    //        $('#datetimepicker').datetimepicker({
-    //            format: 'YYYY-MM-DD',
-    //            locale: moment.locale('zh-cn')
-    //        });
-    //    });
 
 
 </script>
