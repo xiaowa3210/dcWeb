@@ -49,26 +49,26 @@
                             <th>发布标志</th>
                         </tr>
 
-                        {% for article in articles %}
-                        <tr articleId="{{article.article_id}}">
+                        {% for article in news %}
+                        <tr articleId="{{article.nid}}">
                             <td width="200">{{article.title}}</td>
-                            <td>{{article.creator_id}}</td>
-                            <td>{{article.publish_id}}</td>
-                            <td>{{article.last_modified_id}}</td>
+                            <td>{{article.creater}}</td>
+                            <td>{{article.publisher}}</td>
+                            <td>{{article.modifier}}</td>
                             <td>{{article.create_time}}</td>
-                            <td>{{article.publish_time}}</td>
-                            <td>{{article.last_modified_time}}</td>
-                            {% if article.publish_sign == 0 %}
+                            <td>{{article.publisherTime}}</td>
+                            <td>{{article.modifiedTimee}}</td>
+                            {% if article.status == 0 %}
                                 <td>未发布</td>
-                            {% elif article.publish_sign == 1%}
+                            {% elif article.status == 1%}
                                 <td>已发布</td>
                             {% else %}
                                 <td>已发布正在编辑</td>
                             {% endif %}
                             <td>
                                 <div class="btn-group">
-                                    <a class="btn btn-primary" href="{{url_for('back.modifiesNews',article_id = article.article_id)}}"><i class="icon_plus_alt2">修改</i></a>
-                                    <a class="btn btn-danger" onclick="MAIN.doRemove(this)"><i class="icon_close_alt2">删除</i></a>
+                                    <a class="btn btn-primary" href="{{url_for('back.modifiesNews',nid = article.nid)}}"><i class="icon_plus_alt2">修改</i></a>
+                                    <a class="btn btn-danger" href="{{url_for('back.deteteNew',nid = article.nid)}}"><i class="icon_close_alt2">删除</i></a>
                                 </div>
                             </td>
                         </tr>
@@ -122,8 +122,8 @@
     MAIN.doRemove = function (e) {
         var req = {};
         var trow = $(e).parents('tr:first') //找到这一行的tr元素
-        req.articleId = trow.attr('articleId')
-        Af.jsonp("/back01/deleteArticle",req,
+        req.nid = trow.attr('articleId')
+        Af.jsonp("/api/admin/deleteNew",req,
             function (data) {
             alert(data)
             $(e).parents('tr:first').remove();
