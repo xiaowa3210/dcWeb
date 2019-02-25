@@ -42,6 +42,18 @@ def stuUodoPro():
         return json.dumps(MessageInfo.fail(msg="pid不能为空").__dict__)
     projectService.stuUndoPro(pid)
     return json.dumps(MessageInfo.success(msg="撤销成功").__dict__)
+
+""" 
+学生删除的项目
+"""
+@front.route('/api/student/deletePro',methods=['POST'])
+def studeletePro():
+    data = json.loads(request.get_data("utf-8"))
+    pid = data["pid"]
+    if pid is None:
+        return json.dumps(MessageInfo.fail(msg="pid不能为空").__dict__)
+    projectService.deletePro(pid)
+    return json.dumps(MessageInfo.success(msg="删除成功").__dict__)
 #******************************模板******************************#
 
 """ 
@@ -95,6 +107,24 @@ def downloadFile(page,count):
     return render_template("tmp01/downlink.html", pagination=pagination, files=files)
 
 """ 
+项目分页展示
+"""
+@front.route("/projects",methods=['GET'],defaults={'page':1,'count':10})
+@front.route("/projects/<int:page>/<int:count>")
+def projects(page,count):
+    projects,pagination = projectService.getPublishedPro(page,count)
+    return render_template("tmp01/projects.html",projects=projects,pagination=pagination)
+
+""" 
+项目详细展示
+"""
+@front.route("/project",methods=['GET'])
+@front.route("/project/<int:pid>")
+def project(pid):
+    project = projectService.getProjectByID(pid)
+    return render_template("tmp01/projects.html",project=project)
+
+""" 
 基地风采展示
 """
 @front.route("/lab")
@@ -108,9 +138,10 @@ def i3():
 """
 主页
 """
-#@front.route("/home")
-#def home():
-#    return render_template("tmp01.home")  #按项目发布时间排序，取最近的4个项目，需要：项目名称、封面图片、发布人和时间
+@front.route("/home")
+def home():
+   projects = projectService.getPublishedPro(1,4)
+   return render_template("tmp01.home",projects=projects)
 
 """
 用户中心

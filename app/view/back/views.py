@@ -55,6 +55,7 @@ def uploadNew():
         new.nid = nid
         newsService.updatenew(new,type)
 
+
         return json.dumps(MessageInfo.success(msg="修改成功").__dict__)
 
 """ 
@@ -236,6 +237,14 @@ def checkProject(pid):
     if project.status == 1 or project.delete_flag == 1:
         project = None
     return render_template("back01/back/checkproject.html",project=project)
+
+""" 
+审核项目列表
+"""
+@back.route("/admin/checkProjects/<int:pid>")
+def checkProjects(pid):
+    pagination,project = projectService.getUncheckPro(pid)
+    return render_template("back01/back/checkProjects.html",project=project,pagination=pagination)
 
 """ 
 管理项目
