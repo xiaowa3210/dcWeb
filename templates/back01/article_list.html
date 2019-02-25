@@ -18,6 +18,16 @@
                 </ol>
             </div>
         </div>
+            <div class="col-lg-2">
+                                        <button class="btn btn-primary" onclick="MAIN.onQuery(-1)">查看全部新闻</button>
+                                    </div>
+                         <div class="col-lg-2">
+                                        <button class="btn btn-primary" onclick="MAIN.onQuery(0)">查看未发布新闻</button>
+                                    </div>
+                         <div class="col-lg-2">
+                                        <button class="btn btn-primary" onclick="MAIN.onQuery(1)">查看已发布新闻</button>
+                                    </div>
+        </div>
         <!-- page start-->
         <div class="row">
             <div class="col-lg-12">
@@ -94,6 +104,20 @@
 
 <script>
     var MAIN = {};
+      MAIN.onQuery = function (type) {
+        window.location.href="/admin/manageNews?type="+type;
+         <!--var req = {};-->
+         <!--req.source =type;-->
+           <!--$.ajax({-->
+                <!--url:"/admin/manageResource",-->
+                <!--type:"GET",-->
+                <!--data:{ source: type},-->
+                <!--dataType:"json",-->
+
+            <!--});-->
+
+    }
+
 
     MAIN.doRemove = function (e) {
         var req = {};

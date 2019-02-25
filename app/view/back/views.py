@@ -273,7 +273,7 @@ def editNews():
 def manageNews(page,count):
     type = request.values.get("type")
     pagination,news = newsService.selectByPage(page,count,type)
-    return render_template('back01/back/manageNews.html', news=news, pagination=pagination)
+    return render_template('back01/article_list.html', news=news, pagination=pagination)
 
 """ 
 修改新闻
