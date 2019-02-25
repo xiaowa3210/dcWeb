@@ -37,8 +37,17 @@ commonService = CommonService()
 class ProjectService:
     #添加项目
     def addProject(self,data):
+
+        operate = data['operate']
         # 项目基本信息
-        project = Project(data['pname'],data['content'],data['type'])
+        if int(operate) == 0:  # 代表添加
+            project = Project(data['pname'],data['content'],data['type'])
+        else:
+            pid = data['pid']
+            project = db2.session.query(Project).filter(Project.pid == pid).one()
+            project.pname = data['pname']
+            project.content = data['content']
+            project.type = data['type']
         project.mainPic = json.dumps(commonService.getImgPathList(mapGet(data,'mainPic')))
         memberlist = project.members
         awardList = project.awards
@@ -67,8 +76,11 @@ class ProjectService:
         if data['status'] == 2:                             #如果是提交,记录提交的时间
             status.submitTime = datetime.now()
         project.status = status
-        #添加到数据库中
-        db2.session.add(project)
+
+
+        if int(operate) == 0:  # 代表添加
+            # 添加到数据库中
+            db2.session.add(project)
         db2.session.commit()
 
 
@@ -100,6 +112,27 @@ class ProjectService:
         projects = pagination.items
         return pagination, projects
 
+
+    """ 
+    @:param:
+    @:return:
+    @descrition:查询已经审核通过的项目
+    """
+    def getPublishedPro(self,page_index,count):
+        pagination = ProjectStatus.query.filter(ProjectStatus.status == 3,ProjectStatus.delete_flag == 0)\
+            .order_by(ProjectStatus.checkTime).paginate(page_index, count, error_out=False)
+        return pagination.items
+
+    """ 
+    @:param:
+    @:return:
+    @descrition:查询待审核的项目
+    """
+
+    def getUncheckPro(self, page_index, count):
+        pagination = ProjectStatus.query.filter(ProjectStatus.status == 2, ProjectStatus.delete_flag == 0) \
+            .order_by(ProjectStatus.checkTime).paginate(page_index, count, error_out=False)
+        return pagination,pagination.items
     """ 
     @:param:
         updateContent:更新内容
@@ -136,7 +169,7 @@ class ProjectService:
     @descrition:得到学生已经上传了的项目(管理员只能对这部分项目进行管理)
     """
     def getUploadedProBypage(self,page_index,per_page):
-        condition = (ProjectStatus.status.in_([2,3,4]))
+        condition = (ProjectStatus.status.in_([2,3,4]),ProjectStatus.delete_flag)
         return self.getProjectsByPage(page_index,per_page,condition)
 
     """ 
@@ -261,6 +294,8 @@ class ProjectService:
         nextX = 2
         #写入数据库中的数据
         for p in projects:
+            if p.status.delete_flag == 1:
+                continue
             alen = 0
             mlen = 0
             curX = preX
