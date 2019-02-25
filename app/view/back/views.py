@@ -35,7 +35,7 @@ def uploadNew():
     operate = request.form.get('operate')
 
 
-    if operate == 0:
+    if operate == '0':
         #代表添加新闻
         new = New(title, content, src_content)
 
@@ -253,7 +253,7 @@ def manageProject(page,count):
 """
 @back.route("/admin/editNews")
 def editNews():
-    return render_template('back01/back/editNews.html')
+    return render_template('back01/article_add.html')
 
 """ 
 新闻管理
