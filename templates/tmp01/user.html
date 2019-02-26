@@ -4,8 +4,43 @@
 
 {% block static_files%}
 <style>
-    ul li {
+    .sidebar a {
+        display: block;
+        width:100%;
+        height:40px;
+        line-height: 40px;
+        color:#333;
+        text-decoration: none;
+        font-size:20px;
+        font-weight: bold;
+    }
+
+    .sidebar  .show a:hover {
+        background: #eee;
+    }
+
+    .sidebar ul {
+        text-align: center;
         list-style: none;
+    }
+
+    .sidebar ul li {
+        margin:30px 0;
+    }
+
+    .sidebar ul a.active {
+        color:#00a65a;
+    }
+
+    .sidebar .upload button {
+        width: 100%;
+        height:50px;
+        display: block;
+        line-height: 50px;
+        background: #00a65a;
+        border:0px;
+        border-radius:5px;
+        color:#fff;
     }
 
     #myTabContent>.tab-pane> .span4:nth-child(3n+1) {
@@ -21,6 +56,10 @@
         margin-bottom: 10px;
     }
 
+    #myTab li {
+        width: 25%;
+        text-align: center;
+    }
 </style>
 {% endblock %}
 
@@ -29,14 +68,16 @@
     <div class="container">
         <div class="row-fluid">
             <div class="span3">
-                <ul>
-                    <li>我的项目</li>
-                    <li>我的奖项</li>
-                </ul>
-                <ul>
-                    <li><a href="{{url_for('front.uploadProjectTmp')}}">上传项目</a></li>
-                    <li>上传奖项</li>
-                </ul>
+                <div class="sidebar">
+                    <ul class="show">
+                        <li><a class="active" href="{{url_for('front.manageProject')}}">我的项目</a></li>
+                        <li>我的奖项</li>
+                    </ul>
+                    <ul class="upload">
+                        <li><button type="button"><a href="{{url_for('front.uploadProjectTmp')}}">上传项目</a></button></li>
+                        <li>上传奖项</li>
+                    </ul>
+                </div>
             </div>
             <div class="span9">
                 <div class="myProject">
@@ -52,7 +93,7 @@
                                 {% if projectItem.status==3 %}
                                    <div class="span4">
                                        <div class="project-image">
-                                           <a href="{{ url_for('tmp01.projects_detail',project_id=projectItem.pid) }}">  <!--链接到项目的详情地址-->
+                                           <a href="{{ url_for('front.project',pid=projectItem.pid) }}">  <!--链接到项目的详情地址-->
                                                <img src="{{ url_for('static',filename='tmp01/images/project.jpg') }}" alt=""> <!--封面图片-->
                                            </a>
                                        </div>
@@ -84,7 +125,7 @@
                                        </div>
                                        <div class="project-info">
                                             <span class="btn cancel" p_id="{{ projectItem.pid }}">撤销审核</span>
-                                            <span class="btn delete">删除</span>
+                                            <span class="btn delete" p_id="{{ projectItem.pid }}">删除</span>
                                        </div>
                                    </div>
                                 {% endif %}
@@ -156,6 +197,30 @@ $(function () {
 
           $.ajax({
               url: '{{ url_for("front.stuUodoPro") }}',
+              type: 'post',
+              data: JSON.stringify(data),
+              dataType: 'json',
+              success: function (data) {
+                  alert(data.msg);
+                  // window.location.href="/back01/lab"
+              },
+              error: function (data) {
+                  alert(data.msg)
+
+              }
+          });
+      }
+     });
+
+     //删除项目
+     $(".delete").click(function () {
+      if (delete_confirm()) {
+          var data = {};
+          data.pid = $(this).attr('p_id');
+          console.log(data.pid);
+
+          $.ajax({
+              url: '/api/student/deletePro',
               type: 'post',
               data: JSON.stringify(data),
               dataType: 'json',
