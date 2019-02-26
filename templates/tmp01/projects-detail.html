@@ -1,65 +1,56 @@
 {% extends 'tmp01/base.html' %}
 
-{% block page_name %}项目展示\id={{ project.id }}{% endblock %}
+{% block page_name %}项目展示{% endblock %}
 
 {% block body_part %}
 <section id="subintro">
-  <div class="container">
+    <div class="container">
     <!-- Docs nav
     ================================================== -->
-    <div class="row">
-      <div class="span3 bs-docs-sidebar">
-        <ul class="nav nav-list bs-docs-sidenav">
-          <li><a href="#general-template"><i class="icon-chevron-right"></i>项目简介</a></li>
-          <li><a href="#contents"><i class="icon-chevron-right"></i> 项目成员</a></li>
-          <li><a href="#html-template"><i class="icon-chevron-right"></i> 项目资料</a></li>
-          <li><a href="#what-next"><i class="icon-chevron-right"></i> 所获奖项</a></li>
-        </ul>
-      </div>
-      <div class="span9">
-        <!-- Download
-        ================================================== -->
-        <section id="general-template" class="doc">
-          <div class="page-header">
-            <h3>{{ project.pname }}</h3>
-          </div>
-          <p>{{ project.introduction }}</p>
-        </section>
-
-        <!-- Contents
-        ================================================== -->
-        <section id="contents" class="doc">
-          <div class="page-header">
-            <h3>项目成员</h3>
-          </div>
-          <p>
-            Serenity template comes equipped with HTML, CSS, and JS for all sorts of things also some PSD elements with template documentation to guide you when use this template. Otherwise all things already summarized with a handful of categories visible at the
-            top of the <a href="overview.html">Serenity overview</a>.
-          </p>
-        </section>
-        <!-- HTML template
-        ================================================== -->
-        <section id="html-template" class="doc">
-          <div class="page-header">
-            <h3>项目资料</h3>
-          </div>
-          <p>
-            With a brief intro into the contents out of the way, we can focus on putting Bootstrap to use. To do that, we'll utilize a basic HTML template that includes everything we mentioned in the <a href="#file-structure">File structure</a>.
-          </p>
-        </section>
-        <!-- Next
-        ================================================== -->
-        <section id="what-next" class="doc">
-          <div class="page-header">
-            <h3>所获奖项</h3>
-          </div>
-          <p>
-            Read Serenity documentation file that included in the download package and enjoy the template! For template support please send email via <a href="https://wrapbootstrap.com/user/iWebstudio">our profile contact form</a>.
-          </p>
-        </section>
-      </div>
+        <div class="row">
+            <div class="span9">
+                <h2>{{project.pname}}</h2>
+                <p>{{project.content}}</p>
+            </div>
+            <div class="span3">
+                <h4>项目类别</h4>
+                <p>{{project.type}}</p>
+                <h4>项目成员</h4>
+                <table>
+                    <tbody>
+                        {% for member in project.members %}
+                            {% if member.type==1 %}                   <!--学生类型1-->
+                                <tr>
+                                    <td>{{member.name}}</td>
+                                    <td>{{member.academy}}</td>
+                                    <td>{{member.grade}}</td>
+                                </tr>
+                            {% endif %}
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <h4>指导老师</h4>
+                <table>
+                    <tbody>
+                        {% for member in project.members %}
+                            {% if member.type==0 %}                   <!--老师类型0-->
+                                <tr>
+                                    <td>{{member.name}}</td>
+                                    <td>{{member.brief}}</td>
+                                </tr>
+                            {% endif %}
+                        {% endfor %}
+                    </tbody>
+                </table>
+                {% for award in project.awards %}
+                <h4>所获奖项</h4>
+                <p>{{ award.awardName }}</p>
+                <h4>获奖链接</h4>
+                <p>{{ award.honorLink }}</p>
+                <h4>获奖证书</h4>
+                <img src="{{ award.certPic}}">
+                {% endfor %}
+            </div>
+        </div>
     </div>
-  </div>
 </section>
-{% endblock %}
-

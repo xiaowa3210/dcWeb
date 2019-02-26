@@ -113,9 +113,10 @@ def deleteFile():
 """ 
 管理员删除项目
 """
-@back.route("/api/admin/deletePro")
+@back.route("/api/admin/deletePro",methods=['POST'])
 def deleteProject():
-    pid = request.values.get("pid")
+    data = json.loads(request.get_data("utf-8"))
+    pid = data["pid"]
     if pid is None:
         return json.dumps(MessageInfo.fail(msg="pid不能为空").__dict__)
     projectService.deletePro(pid)
@@ -126,7 +127,8 @@ def deleteProject():
 """
 @back.route("/api/admin/undoPro")
 def undoProject():
-    pid = request.values.get("pid")
+    data = json.loads(request.get_data("utf-8"))
+    pid = data["pid"]
     if pid is None:
         return json.dumps(MessageInfo.fail(msg="pid不能为空").__dict__)
     projectService.undoPro(pid)
@@ -241,10 +243,11 @@ def checkProject(pid):
 """ 
 审核项目列表
 """
-@back.route("/admin/checkProjects/<int:pid>")
-def checkProjects(pid):
-    pagination,project = projectService.getUncheckPro(pid)
-    return render_template("back01/back/checkProjects.html",project=project,pagination=pagination)
+@back.route("/admin/checkProjects",methods=['GET'],defaults={'page':1,'count':10})
+@back.route("/admin/checkProjects/<int:page>/<int:count>")
+def checkProjects(page,count):
+    pagination,projects = projectService.getUncheckPro(page,count)
+    return render_template("back01/back/checkProjects.html",projects=projects,pagination=pagination)
 
 """ 
 管理项目
@@ -252,9 +255,18 @@ def checkProjects(pid):
 @back.route("/admin/manageProject",defaults={'page':1,'count':10})
 @back.route("/admin/manageProject/<int:page>/<int:count>")
 def manageProject(page,count):
-    projects,pagination = projectService.getUploadedProBypage(page,count)
+    pagination,projects = projectService.getUploadedProBypage(page,count)
     return render_template("back01/back/manageProject.html",projects=projects,pagination=pagination)
 
+"""
+删除已发布项目
+pagination,projects = projectService.getPublishedPro(page,count)
+"""
+@back.route("/admin/deleteProject",defaults={'page':1,'count':10})
+@back.route("/admin/deleteProject/<int:page>/<int:count>")
+def editeProject(page,count):
+    pagination, projects = projectService.getPublishedPro(page, count)
+    return render_template("back01/back/deleteProject.html",projects=projects,pagination=pagination)
 
 
 """ 
