@@ -1,10 +1,198 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>修改新闻</title>
-</head>
-<body>
+{% extends 'back01/base.html' %}
 
-</body>
-</html>
+{% block static_files %}
+    <script src="/static/js/jquery-2.1.0.min.js"></script>
+    <link rel="stylesheet" href="{{url_for('static',filename='mdeditor/editormd.min.css')}}">
+    <script src="{{url_for('static',filename='mdeditor/editormd.min.js')}}"></script>
+    <script src="{{url_for('static',filename='js/afquery.js')}}"></script>
+
+{% endblock %}
+
+{% block body_part %}
+
+<section id="main-content">
+    <section class="wrapper">
+        <div class="row">
+            <div class="col-lg-12">
+                <h3 class="page-header"><i class="fa fa-files-o"></i>修改文章</h3>
+                <ol class="breadcrumb">
+                    <li><i class="fa fa-home"></i><a href="index.html">主页</a></li>
+                    <li><i class="icon_document_alt"></i>文章管理</li>
+                    <li><i class="fa fa-files-o"></i>修改文章</li>
+                </ol>
+            </div>
+        </div>
+        <!-- Form validations -->
+        <div class="row" id="article_id" article_id="{{article.nid}}">
+            <div class="col-lg-12">
+                <section class="panel">
+                    <header class="panel-heading">
+                        添加项目
+                    </header>
+                    <div class="panel-body">
+                        <div class="form article">
+                            <form id="articleform" class="form-horizontal" onsubmit="return false" action="##" method="post">
+                                <div class="form-group ">
+                                    <label for="title" class="control-label col-lg-2">标题<span
+                                            class="required">*</span></label>
+                                    <div class="col-lg-10">
+                                        <input class="form-control title" id="title" name="title"
+                                               type="text" value="{{article.title}}" required />
+                                    </div>
+                                </div>
+                                 <div class="form-group">
+                                    <label class="control-label col-lg-2">上传附件</label>
+                                    <div class="col-lg-10">
+                                        {% for file in article.files%}
+                                            <div class="col-lg-2" style="margin-bottom: 10px">
+                                                <a file_id="{{file.file_id}}" class="btn btn-danger" onclick="MAIN.deletefile(this)">{{file.local_name}}<i class="icon_close_alt2"></i></a>
+                                            </div>
+                                        {% endfor %}
+                                        <div class="col-lg-12">
+                                            <input type="file" id="InputFile" multiple="multiple" name="attachment" >
+                                        </div>
+                                    </div>
+                                </div>
+
+
+<div style="width: auto;height: 700px">
+    <div id="test-editormd" data-content="{{ article.content }}">
+
+        <!--<textarea class="editormd-markdown-textarea" name="$id-markdown-doc"></textarea>-->
+          <!--html textarea 需要开启配置项 saveHTMLToTextarea == true -->
+        <textarea class="editormd-html-textarea" name="$id-html-code">
+            {{article.content}}
+        </textarea>
+    </div>
+   <p id="hhh" hidden>这个段落应该被隐藏。</p>
+</div>
+
+
+                                <div class="form-group">
+                                    <div class="col-lg-offset-2 col-lg-8">
+                                        <button class="btn btn-primary" onclick="MAIN.onSave(0)">保存</button>
+                                        <button class="btn btn-default" type="button">取消</button>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <button class="btn btn-primary" onclick="MAIN.onSave(1)">保存并发布</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </section>
+            </div>
+        </div>
+    </section>
+</section>
+
+<script>
+
+    var MAIN = {};
+
+     //markdown编辑器设置
+    var testEditor;
+    $(function () {
+        testEditor = editormd("test-editormd", {
+            width: '80%',
+            height: '50%',
+            syncScrolling: "single",
+            saveHTMLToTextarea : true,
+            path: "{{url_for('static',filename='mdeditor/lib/')}}",
+            //启动本地图片上传功能
+            imageUpload: true,
+            imageFormats: ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+            imageUploadURL: "{{url_for('tmp05.upload')}}"
+        });
+        <!--var val;-->
+
+            <!--alert($("#hhh").text());-->
+
+
+
+            <!--$("#test-editormd").html(marked($("#hhh").text()));-->
+             <!--alert("00000000");-->
+    });
+    MAIN.showMdTest = function (val) {
+        $("#test-editormd").html(val);
+    }
+//    MAIN.ue = UE.getEditor('editor',{
+//        serverUrl:"/resources/images"
+//    })
+
+    $(function (){
+        var ue = editormd('test-editormd');
+        var origin_content = $("#data-content").attr("data-content");
+        ue.ready(function () {
+            ue.setContent(origin_content);
+        });
+        window.ue = ue;
+    });
+
+    MAIN.init = function () {
+
+    }
+
+
+
+    MAIN.addkeyword = function () {
+        var kw = $(".kw:first")
+        $(".addkeyword").before(kw.clone())
+    }
+
+    MAIN.onSave = function (type) {
+        var form = new FormData(document.getElementById("articleform"));
+         form.append("type",type);
+         form.append("nid","{{article.nid}}");
+        var content =  testEditor.getHTML();
+        form.append("content",content);
+        form.append("src_content",content);
+        form.append("operate",1);
+
+
+        $.ajax({
+                url:"/api/admin/addNew",
+                type:"post",
+                data:form,
+                processData:false,
+                contentType:false,
+                success:function(data){
+                    alert("success")
+                    window.location.reload()
+                },
+                error:function(e){
+                    alert("fail");
+                }
+            });
+    }
+
+
+    MAIN.deletefile = function (e) {
+        var file_id = $(e).attr('file_id');
+        var req = {};
+        req.file_id = file_id
+        Af.rest("/back01/deleteFile",req,function (data) {
+            $(e).parent('div:first').remove();
+            alert(data)
+        })
+    }
+
+
+//    $(document).ready(function () {
+//        MAIN.init();
+//    });
+
+
+    //    $(function () {
+    //        $('#datetimepicker').datetimepicker({
+    //            format: 'YYYY-MM-DD',
+    //            locale: moment.locale('zh-cn')
+    //        });
+    //    });
+
+
+</script>
+
+
+{% endblock %}
