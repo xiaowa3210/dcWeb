@@ -56,12 +56,12 @@
 
 
 <div style="width: auto;height: 700px">
-    <div id="test-editormd" data-content="{{ article.content }}">
+    <div id="test-editormd" data-content="{{ article.src_content }}">
 
         <!--<textarea class="editormd-markdown-textarea" name="$id-markdown-doc"></textarea>-->
           <!--html textarea 需要开启配置项 saveHTMLToTextarea == true -->
         <textarea class="editormd-html-textarea" name="$id-html-code">
-            {{article.content}}
+            {{article.src_content}}
         </textarea>
     </div>
    <p id="hhh" hidden>这个段落应该被隐藏。</p>
@@ -147,7 +147,7 @@
          form.append("nid","{{article.nid}}");
         var content =  testEditor.getHTML();
         form.append("content",content);
-        form.append("src_content",content);
+        form.append("src_content",encodeURIComponent(testEditor.getMarkdown()));
         form.append("operate",1);
 
 
