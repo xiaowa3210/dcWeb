@@ -190,9 +190,11 @@
     MAIN.onSave01 = function (type) {
         var form = new FormData(document.getElementById("articleform"));
         form.append("type",type);
-        var content =  testEditor.getHTML();
+        var content =testEditor.getHTML();
+
         form.append("content",content);
-        form.append("src_content",content);
+        form.append("src_content",testEditor.getMarkdown());
+        <!--form.append("src_content",encodeURIComponent(testEditor.getMarkdown()));-->
         form.append("operate",0);
         $.ajax({
                 url:"/api/admin/addNew",
