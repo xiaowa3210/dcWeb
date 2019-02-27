@@ -293,7 +293,7 @@ def manageNews(page,count):
 @back.route("/admin/modifiesNews/<int:nid>")
 def modifiesNews(nid):
     new = newsService.selectByNid(nid)
-    return render_template("back01/back/modifiesNews.html",new=new)
+    return render_template("back01/back/modifiesNews.html",article=new)
 
 """ 
 资料管理
