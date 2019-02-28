@@ -6,6 +6,22 @@
     <script src="{{url_for('static',filename='mdeditor/editormd.min.js')}}"></script>
     <script src="{{url_for('static',filename='js/afquery.js')}}"></script>
 
+
+
+ <script src="{{url_for('static',filename='mdeditor/lib/marked.min.js')}}"></script>
+<script src="{{url_for('static',filename='mdeditor/lib/prettify.min.js')}}"></script>
+<script src="{{url_for('static',filename='mdeditor/lib/raphael.min.js')}}"></script>
+<script src="{{url_for('static',filename='mdeditor/lib/underscore.min.js')}}"></script>
+<script src="{{url_for('static',filename='mdeditor/lib/sequence-diagram.min.js')}}"></script>
+<script src="{{url_for('static',filename='mdeditor/lib/flowchart.min.js')}}"></script>
+<script src="{{url_for('static',filename='mdeditor/lib/jquery.flowchart.min.js')}}"></script>
+
+<script src="{{url_for('static',filename='mdeditor/editormd.js')}}"></script>
+
+
+
+
+
 {% endblock %}
 
 {% block body_part %}
@@ -56,15 +72,17 @@
 
 
 <div style="width: auto;height: 700px">
-    <div id="test-editormd" data-content="{{ article.content }}">
+    <div id="test-editormd" data-content="{{ article.src_content }}">
 
         <textarea class="editormd-markdown-textarea" name="test-editormd-markdown-doc">{{article.src_content}}</textarea>
           <!--html textarea 需要开启配置项 saveHTMLToTextarea == true -->
         <!--<textarea class="editormd-html-textarea" name="$id-html-code">-->
             <!--{{article.content}}-->
         <!--</textarea>-->
+
     </div>
-   <p id="hhh" hidden>这个段落应该被隐藏。</p>
+
+
 </div>
 
 
@@ -105,14 +123,9 @@
             imageFormats: ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
             imageUploadURL: "{{url_for('tmp05.upload')}}"
         });
-        <!--var val;-->
-
-            <!--alert($("#hhh").text());-->
 
 
 
-            <!--$("#test-editormd").html(marked($("#hhh").text()));-->
-             <!--alert("00000000");-->
     });
     MAIN.showMdTest = function (val) {
         $("#test-editormd").html(val);
@@ -147,7 +160,7 @@
          form.append("nid","{{article.nid}}");
         var content =  testEditor.getHTML();
         form.append("content",content);
-        form.append("src_content",content);
+        form.append("src_content",testEditor.getMarkdown());
         form.append("operate",1);
 
 
@@ -178,18 +191,6 @@
         })
     }
 
-
-//    $(document).ready(function () {
-//        MAIN.init();
-//    });
-
-
-    //    $(function () {
-    //        $('#datetimepicker').datetimepicker({
-    //            format: 'YYYY-MM-DD',
-    //            locale: moment.locale('zh-cn')
-    //        });
-    //    });
 
 
 </script>

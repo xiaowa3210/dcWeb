@@ -1,12 +1,12 @@
 {% extends 'tmp01/base.html' %}
 
-{% block page_name %}资料下载{% endblock %}
+{% block page_name %}项目展示{% endblock %}
 
 {% block body_part %}
 <section id="subintro">
     <div class="container">
-      <div class="row">
-        <div class="span4">
+      <div class="row-fluid">
+        <div class="span3">
           <aside>
             <div class="widget">
               <form class="form-search">
@@ -24,53 +24,14 @@
                 <li><a href="#">云计算 (10)</a></li>
               </ul>
             </div>
-{#            <div class="widget">#}
-{#              <h4>最近提交</h4>#}
-{#              <ul class="recent-posts">#}
-{#                <li><a href="#">Lorem ipsum dolor sit amet munere commodo ut nam</a>#}
-{#                  <div class="clear">#}
-{#                  </div>#}
-{#                  <span class="date"><i class="icon-calendar"></i> 6 March, 2013</span>#}
-{#                  <span class="comment"><i class="icon-comment"></i> 4 Comments</span>#}
-{#                </li>#}
-{#                <li><a href="#">Sea nostrum omittantur ne mea malis nominavi insolens</a>#}
-{#                  <div class="clear">#}
-{#                  </div>#}
-{#                  <span class="date"><i class="icon-calendar"></i> 6 March, 2013</span>#}
-{#                  <span class="comment"><i class="icon-comment"></i> 2 Comments</span>#}
-{#                </li>#}
-{#                <li><a href="#">Eius graece recusabo no pri odio tale quo id, mea at saepe</a>#}
-{#                  <div class="clear">#}
-{#                  </div>#}
-{#                  <span class="date"><i class="icon-calendar"></i> 4 March, 2013</span>#}
-{#                  <span class="comment"><i class="icon-comment"></i> 12 Comments</span>#}
-{#                </li>#}
-{#                <li><a href="#">Malorum deserunt at nec usu ad graeco elaboraret at rebum</a>#}
-{#                  <div class="clear">#}
-{#                  </div>#}
-{#                  <span class="date"><i class="icon-calendar"></i> 3 March, 2013</span>#}
-{#                  <span class="comment"><i class="icon-comment"></i> 3 Comments</span>#}
-{#                </li>#}
-{#              </ul>#}
-{#            </div>#}
-{#            <div class="widget">#}
-{#              <h4>标签</h4>#}
-{#              <ul class="tags">#}
-{#                <li><a href="#" class="btn">Tutorial</a></li>#}
-{#                <li><a href="#" class="btn">Tricks</a></li>#}
-{#                <li><a href="#" class="btn">Design</a></li>#}
-{#                <li><a href="#" class="btn">Trends</a></li>#}
-{#                <li><a href="#" class="btn">Online</a></li>#}
-{#              </ul>#}
-{#            </div>#}
           </aside>
         </div>
-        <div class="span8">
+        <div class="span9">
           <!-- start article 1 -->
           {% for project in projects %}
           <article class="blog-post">
             <div class="post-heading">
-              <h3><a href="#">{{ project.title }}</a></h3>
+              <h3><a href="#">{{ project.pname }}</a></h3>
             </div>
             <div class="row">
               <div class="span3">
