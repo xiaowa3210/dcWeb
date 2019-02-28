@@ -1,4 +1,4 @@
-{% extends 'back01/base.html' %}
+{% extends 'back01/back/base.html' %}
 
 {% block static_files %}
     <script src="/static/js/jquery-2.1.0.min.js"></script>
@@ -58,11 +58,11 @@
 <div style="width: auto;height: 700px">
     <div id="test-editormd" data-content="{{ article.content }}">
 
-        <!--<textarea class="editormd-markdown-textarea" name="$id-markdown-doc"></textarea>-->
+        <textarea class="editormd-markdown-textarea" name="test-editormd-markdown-doc">{{article.src_content}}</textarea>
           <!--html textarea 需要开启配置项 saveHTMLToTextarea == true -->
-        <textarea class="editormd-html-textarea" name="$id-html-code">
-            {{article.content}}
-        </textarea>
+        <!--<textarea class="editormd-html-textarea" name="$id-html-code">-->
+            <!--{{article.content}}-->
+        <!--</textarea>-->
     </div>
    <p id="hhh" hidden>这个段落应该被隐藏。</p>
 </div>

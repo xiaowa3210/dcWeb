@@ -22,7 +22,7 @@ class NewsService:
             pagination = newExt.query.filter(newExt.deleteFlag == 0).order_by(newExt.createTime).paginate(
                 page_index, per_page)
         else:
-            pagination = newExt.query.filter(newExt.deleteFlag == 0,type).order_by(newExt.createTime).paginate(page_index, per_page)
+            pagination = newExt.query.filter(newExt.deleteFlag == 0,newExt.status==type).order_by(newExt.createTime).paginate(page_index, per_page)
         return pagination,pagination.items
 
     """ 
