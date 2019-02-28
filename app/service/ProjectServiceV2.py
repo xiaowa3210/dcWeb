@@ -121,7 +121,7 @@ class ProjectService:
     def getPublishedPro(self,page_index,count):
         pagination = ProjectStatus.query.filter(ProjectStatus.status == 3,ProjectStatus.delete_flag == 0)\
             .order_by(ProjectStatus.checkTime).paginate(page_index, count, error_out=False)
-        return pagination.items
+        return pagination, pagination.items
 
     """ 
     @:param:

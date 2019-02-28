@@ -112,7 +112,7 @@ def downloadFile(page,count):
 @front.route("/projects",methods=['GET'],defaults={'page':1,'count':10})
 @front.route("/projects/<int:page>/<int:count>")
 def projects(page,count):
-    projects,pagination = projectService.getPublishedPro(page,count)
+    pagination,projects = projectService.getPublishedPro(page,count)
     return render_template("tmp01/projects.html",projects=projects,pagination=pagination)
 
 """ 
@@ -140,8 +140,8 @@ def i3():
 """
 @front.route("/home")
 def home():
-   projects = projectService.getPublishedPro(1,4)
-   return render_template("tmp01.home",projects=projects)
+   pagination,projects = projectService.getPublishedPro(1,4)
+   return render_template("tmp01/home.html",projects=projects,pagination=pagination)
 
 """
 用户中心
