@@ -87,7 +87,7 @@ def uploadProjectTmp():
 @front.route('/news/<int:page>/<int:count>')
 def news(page,count):
     pagination, news = newsService.selectByPage(page, count, 1)
-    return render_template("tmp01/news.html",pagination=pagination,news=news)
+    return render_template("tmp01/news.html",pagination=pagination,documents=news)
 
 """ 
 新闻内容展示

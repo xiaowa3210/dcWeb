@@ -42,8 +42,8 @@
                   <tr>
                     <!--<td width="82%"><a href="#">北京邮电大学差旅费报销单.xls    </a></td>-->
                     <!--<td width="18%" style="text-align: center;">{{ document.created_time }}</td>-->
-                    <td width="82%"> <a href="{{ url_for('front.new',news_id=document.article_id) }}">{{ document.title }}</a></td>
-                    <td width="18%" style="text-align: center;">{{ document.created_time }}</td>
+                    <td width="82%"> <a href="{{ url_for('front.new',news_id=document.nid) }}">{{ document.title }}</a></td>
+                    <td width="18%" style="text-align: center;">{{ document.publisherTime }}</td>
 
                   </tr>
                 {% endfor %}
