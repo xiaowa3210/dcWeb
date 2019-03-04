@@ -7,28 +7,46 @@
   <div class="container">
     <div class="login">
         <h3>登陆</h3>
-        <form class="form-horizontal">
+        <form class="form-horizontal" onsubmit="return false">
             <div class="control-group">
-                <label class="control-label" for="inputUser"> 用户名</label>
+                <label class="control-label" for="username"> 用户名</label>
                 <div class="controls">
-                    <input type="text" id="inputUser" placeholder="请输入用户名">
+                    <input type="text" id="username" placeholder="请输入用户名">
                 </div>
             </div>
             <div class="control-group">
-                <label class="control-label" for="inputPassword">输入密码</label>
+                <label class="control-label" for="password">输入密码</label>
                 <div class="controls">
-                    <input type="password" id="inputPassword" placeholder="请输入密码">
+                    <input type="password" id="password" placeholder="请输入密码">
                 </div>
             </div>
-{#      <div class="control-group">#}
-{#        <label class="control-label" for="inputPassword">确认密码</label> #}
-{#        <div class="controls">#}
-{#          <input type="password" id="inputPassword" placeholder="请确认密码"> #}
-{#        </div> #}
-{#      </div>#}
-            <button type="submit" class="btn btn-block btn-large btn-color">登陆</button>
+<!--{#      <div class="control-group">-->
+<!--{#        <label class="control-label" for="inputPassword">确认密码</label>-->
+<!--{#        <div class="controls">#}-->
+<!--{#          <input type="password" id="inputPassword" placeholder="请确认密码"> #}-->
+<!--{#        </div> #}-->
+<!--{#      </div>#}-->
+            <button type="submit" class="btn btn-block btn-large btn-color" onclick="MAIN.login()">登陆</button>
         </form>
     </div>
   </div>
 </section>
+
+
+<script>
+
+  var MAIN = {};
+  MAIN.login = function () {
+      var req = {};
+      req.username = $('#username').val().trim();
+      req.password = $('#password').val().trim();
+      Af.rest("/student/api/login",req,function (data) {
+          Af.log(data)
+          alert(data.msg);
+          if (data.errorno == 0){
+              window.location.href="{{url_for('front.home')}}"
+          }
+        })
+  }
+</script>
 {% endblock %}
