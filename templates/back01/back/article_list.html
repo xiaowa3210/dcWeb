@@ -87,7 +87,7 @@
             <div>
                 <ul class="pagination pagination-lg">
                     {% if pagination.has_prev %}
-                        <li><a href="{{url_for('back01.articleList',page = pagination.page - 1)}}">«</a></li>
+                        <li><a href="{{url_for('back.manageNews',page = pagination.page - 1)}}">«</a></li>
                     {% endif %}
 
                     {% for p in pagination.iter_pages() %}
