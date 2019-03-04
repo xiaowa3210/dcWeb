@@ -22,7 +22,7 @@ userService = UserService()
 @front.route('/api/uploadProject',methods=['POST'])
 def uploadProject():
     #数据
-    data = json.loads(request.get_data("utf-8"))
+    data = json.loads(request.get_data(as_text=True))
     projectService.addProject(data)
     return json.dumps(MessageInfo.success(data='保存成功').__dict__)
 

@@ -71,7 +71,7 @@ class ProjectService:
             awardList.append(award)
 
         #添加状态信息
-        publisher = commonService.getCurrentUsername()
+        publisher = commonService.getCurrentUsername(1)
         status = ProjectStatus(data['pname'],data['type'],publisher,data['status'])
         if data['status'] == 2:                             #如果是提交,记录提交的时间
             status.submitTime = datetime.now()
