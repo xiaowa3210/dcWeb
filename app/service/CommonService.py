@@ -27,6 +27,8 @@ import uuid
 
 import os
 
+from flask import session
+
 from app.model.config import UPLOAD_PICS_PATH
 class CommonService:
 
@@ -60,7 +62,12 @@ class CommonService:
         return picName
 
 
-    def getCurrentUsername(self):
-        return 'anonymous'
+    def getCurrentUsername(self,type=-1):
+        if type == 0:
+            return session.admin
+        elif type == 1:
+            return session.student
+        else:
+            return "anonymous"
 if __name__ == '__main__':
     commonService = CommonService()
