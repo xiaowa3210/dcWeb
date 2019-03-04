@@ -2,8 +2,9 @@
 # -*- coding:utf-8 -*-
 import json
 
-from flask import request, render_template
+from flask import request, render_template, session
 
+from app.service.UserServiceV2 import UserService
 from app.service.FileServiceV2 import FilesService
 from app.service.NewsService import NewsService
 from app.service.ProjectServiceV2 import ProjectService
@@ -13,6 +14,7 @@ from app.view.front import front
 projectService = ProjectService()
 filesService = FilesService()
 newsService = NewsService()
+userService = UserService()
 #******************************api接口******************************#
 """ 
 上传项目接口
@@ -30,6 +32,26 @@ def uploadProject():
 @front.route('/api/uploadImg')
 def uploadImg():
     pass
+
+
+""" 
+学生登录接口
+"""
+@front.route("/student/api/login",methods=['POST'])
+def stu_login_api():
+    data = json.loads(request.get_data(as_text=True))
+    username = data['username']
+    password = data['password']
+    user = userService.selectByName(username,1)
+    if user :
+        if password == user.password:
+            session["student"] = user.username                                    #用session保存登录状态
+            return json.dumps(MessageInfo.success(msg="登录成功").__dict__)
+            # return redirect(url_for("back.main"))
+        else:
+            return json.dumps(MessageInfo.fail(msg="亲，密码错误!").__dict__)
+    else:
+        return json.dumps(MessageInfo.fail(msg="亲,用户不存在").__dict__)
 
 """ 
 学生撤销审核中的项目
@@ -156,3 +178,7 @@ def home():
 @front.route("/user")
 def user():
     return render_template("tmp01/user.html")
+
+@front.route("/student/login")
+def stu_login():
+    return render_template("tmp01/login.html")
