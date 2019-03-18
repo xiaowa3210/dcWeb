@@ -74,7 +74,7 @@ class ProjectMember(db2.Model):
     name = db2.Column(db2.String(32),nullable=False)                                #姓名
     academy = db2.Column(db2.String(128),nullable=True)                             #学院
     grade = db2.Column(db2.String(128),nullable=True)                               #年级
-    type = db2.Column(db2.Integer, nullable=False)                                  #类型
+    type = db2.Column(db2.String(128), nullable=False)                                  #类型
     brief = db2.Column(db2.TEXT, nullable=True)                                     #简介
 
     def __init__(self,name,type):
@@ -86,7 +86,7 @@ class ProjectAward(db2.Model):
     id = db2.Column(db2.Integer, primary_key=True, autoincrement=True)
     awardName = db2.Column(db2.String(128),nullable=False)                          # 获奖名
     certPic = db2.Column(db2.TEXT,nullable=True)                                    # 证书扫描件地址
-    honorLink = db2.Column(db2.TEXT,nullable=True)                                  # 获奖链接
+    honorLink = db2.Column(db2.String(128),nullable=True)                           # 获奖链接
     awardTime = db2.Column(DateTime, nullable=True)                                 # 获奖时间
     pid = db2.Column(db2.Integer, db2.ForeignKey('dc_project.pid'))                 # 外键关联dc_project表，多对一关系
 
