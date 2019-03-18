@@ -30,7 +30,7 @@ class Project(db2.Model):
     pname = db2.Column(db2.String(256), nullable=False)                             #项目名
     content = db2.Column(db2.TEXT,nullable=False)                                   #项目内容
     src_content = db2.Column(db2.TEXT,nullable=False)                                   #项目内容
-    type = db2.Column(db2.Integer, nullable=False)                                  #项目类别
+    type = db2.Column(db2.String(256), nullable=False)                                  #项目类别
     mainPic = db2.Column(db2.String(256),nullable=True)                             #主页图片
     members = db2.relationship('ProjectMember',backref='project',lazy='dynamic')
     status = db2.relationship('ProjectStatus',uselist=False,backref='project')
