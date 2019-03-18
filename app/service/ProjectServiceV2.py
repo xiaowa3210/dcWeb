@@ -37,18 +37,19 @@ commonService = CommonService()
 class ProjectService:
     #添加项目
     def addProject(self,data):
-
         operate = data['operate']
         # 项目基本信息
         if int(operate) == 0:  # 代表添加
             project = Project(data['pname'],data['content'],data['type'])
+            project.src_content = data['src_content']
         else:
             pid = data['pid']
             project = db2.session.query(Project).filter(Project.pid == pid).one()
             project.pname = data['pname']
             project.content = data['content']
+            project.content = data['src_content']
             project.type = data['type']
-        project.mainPic = json.dumps(commonService.getImgPathList(mapGet(data,'mainPic')))
+        project.mainPic = commonService.getImgPathList(mapGet(data,'mainPic'))[0]
         memberlist = project.members
         awardList = project.awards
         # 项目成员
@@ -73,10 +74,10 @@ class ProjectService:
         #添加状态信息
         publisher = commonService.getCurrentUsername(1)
         status = ProjectStatus(data['pname'],data['type'],publisher,data['status'])
+        status.mainPic = project.mainPic
         if data['status'] == 2:                             #如果是提交,记录提交的时间
             status.submitTime = datetime.now()
         project.status = status
-
 
         if int(operate) == 0:  # 代表添加
             # 添加到数据库中
@@ -151,7 +152,7 @@ class ProjectService:
     @descrition:根据学生ID得到，该学生上传的项目
     """
     def getProByStudentId(self,page_index,per_page):
-        sid = commonService.getCurrentUsername()
+        sid = commonService.getCurrentUsername(1)
         condition = (ProjectStatus.publisher == sid)
         return self.getProjectsByPage(page_index,per_page,condition)
 
