@@ -15,33 +15,35 @@
             <div class="span3">
                 <h4>项目类别</h4>
                 <p>{{project.type}}</p>
+                {% for member in project.members %}
+                {% if member.type==1 %}    <!--学生类型1-->
                 <h4>项目成员</h4>
                 <table>
                     <tbody>
-                        {% for member in project.members %}
-                            {% if member.type==1 %}                   <!--学生类型1-->
-                                <tr>
-                                    <td width="30%">{{member.name}}</td>
-                                    <td width="30%">{{member.academy}}</td>
-                                    <td width="30%">{{member.grade}}</td>
-                                </tr>
-                            {% endif %}
-                        {% endfor %}
+                    <tr>
+                        <td width="30%">{{member.name}}</td>
+                        <td width="30%">{{member.academy}}</td>
+                        <td width="30%">{{member.grade}}</td>
+                    </tr>
                     </tbody>
                 </table>
+                {% endif %}
+                {% endfor %}
+
+                {% for member in project.members %}
+                {% if member.type==0 %}    <!--老师类型0-->
                 <h4>指导老师</h4>
                 <table>
                     <tbody>
-                        {% for member in project.members %}
-                            {% if member.type==0 %}                   <!--老师类型0-->
-                                <tr>
-                                    <td>{{member.name}}</td>
-                                    <td>{{member.brief}}</td>
-                                </tr>
-                            {% endif %}
-                        {% endfor %}
+                    <tr>
+                        <td>{{member.name}}</td>
+                        <td>{{member.brief}}</td>
+                    </tr>
                     </tbody>
                 </table>
+                {% endif %}
+                {% endfor %}
+
                 {% for award in project.awards %}
                     <h4>所获奖项</h4>
                     <p>{{ award.awardName }}</p>
