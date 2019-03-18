@@ -89,7 +89,7 @@ def activate(token):
 """
 @front.route('/api/student/undoPro',methods=['POST'])
 def stuUodoPro():
-    data = json.loads(request.get_data("utf-8"))
+    data = json.loads(request.get_data(as_text=True))
     pid = data["pid"]
     if pid is None:
         return json.dumps(MessageInfo.fail(msg="pid不能为空").__dict__)
@@ -101,7 +101,7 @@ def stuUodoPro():
 """
 @front.route('/api/student/deletePro',methods=['POST'])
 def studeletePro():
-    data = json.loads(request.get_data("utf-8"))
+    data = json.loads(request.get_data(as_text=True))
     pid = data["pid"]
     if pid is None:
         return json.dumps(MessageInfo.fail(msg="pid不能为空").__dict__)
@@ -175,6 +175,9 @@ def projects(page,count):
 @front.route("/project/<int:pid>")
 def project(pid):
     project = projectService.getProjectByID(pid)
+    awards = project.awards
+    for a in awards:
+        a.pics = json.loads(a.certPic)
     return render_template("tmp01/projects-detail.html",project=project)
 
 """ 

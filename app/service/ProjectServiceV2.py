@@ -211,8 +211,10 @@ class ProjectService:
     """
     def getProByStudentId(self,page_index,per_page):
         sid = commonService.getCurrentUsername(1)
-        condition = (ProjectStatus.publisher == sid)
-        return self.getProjectsByPage(page_index,per_page,condition)
+        pagination = ProjectStatus.query.filter(ProjectStatus.publisher == sid, ProjectStatus.delete_flag == 0) \
+            .order_by(ProjectStatus.checkTime).paginate(page_index, per_page, error_out=False)
+        return pagination, pagination.items
+
 
     """ 
     @:param:
