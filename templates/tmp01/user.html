@@ -4,7 +4,7 @@
 
 {% block static_files%}
 <style>
-    .sidebar a {
+    .widget a {
         display: block;
         width:100%;
         height:40px;
@@ -15,21 +15,21 @@
         font-weight: bold;
     }
 
-    .sidebar  .show a:hover {
+    .widget .show a:hover {
         background: #eee;
     }
 
-    .sidebar ul {
+    .widget ul {
         text-align: center;
         list-style: none;
     }
 
-    .sidebar ul li {
+    .widget ul li {
         margin:30px 0;
     }
 
-    .sidebar ul a.active {
-        color:#00a65a;
+    .widget ul a.active {
+        color:#94c045;
     }
 
 
@@ -63,12 +63,14 @@
     <div class="container">
         <div class="row-fluid">
             <div class="span3">
-                <div class="sidebar">
-                    <ul class="show">
-                        <li><a class="active" href="{{url_for('front.manageProject')}}">我的项目</a></li>
-                        <li><a href="{{url_for('front.uploadProjectTmp')}}">上传项目</a></button></li>
-                    </ul>
-                </div>
+               <aside>
+                    <div class="widget">
+                      <ul class="cat show">
+                          <li style="padding-left: 0"><a style="color:#94c045;" href="{{url_for('front.manageProject')}}">我的项目</a></li>
+                          <li style="padding-left: 0"><a href="{{url_for('front.uploadProjectTmp')}}">上传项目</a></button></li>
+                      </ul>
+                    </div>
+              </aside>
             </div>
             <div class="span9">
                 <div class="myProject">
@@ -115,8 +117,8 @@
                                            </a>
                                        </div>
                                        <div class="project-info">
-                                            <span class="btn cancel" p_id="{{ projectItem.pid }}">撤销审核</span>
-                                            <span style="text-align: right" class="btn delete" p_id="{{ projectItem.pid }}">删除</span>
+                                            <span class="btn btn-color cancel" p_id="{{ projectItem.pid }}"><i class="icon-remove"></i>撤销</span>
+                                            <span style="margin-left: 10%" class="btn btn-inverse delete" p_id="{{ projectItem.pid }}"><i class="icon-remove"></i>删除</span>
                                        </div>
                                    </div>
                                 {% endif %}
@@ -137,8 +139,8 @@
                                            </a>
                                        </div>
                                        <div class="project-info">
-                                           <span class="btn"><a href="{{ url_for('front.modifiesProject',pid=projectItem.pid) }}">编辑</a></span>
-                                           <span class="btn delete" p_id="{{ projectItem.pid }}">删除</span>
+                                           <span class="btn btn-color"><a href="{{ url_for('front.modifiesProject',pid=projectItem.pid) }}"><i class="icon-pencil"></i>编辑</a></span>
+                                           <span style="margin-left: 10%" class="btn delete btn-reverse" p_id="{{ projectItem.pid }}"><i class="icon-remove"></i>删除</span>
                                        </div>
                                    </div>
                                 {% endif %}
@@ -159,8 +161,8 @@
                                            </a>
                                        </div>
                                        <div class="project-info">
-                                           <span class="btn"><a href="{{ url_for('front.modifiesProject',pid=projectItem.pid) }}">编辑</a></span>
-                                           <span class="btn delete" p_id="{{ projectItem.pid}}">删除</span>
+                                           <span class="btn btn-color"><a style="color:#fff" href="{{ url_for('front.modifiesProject',pid=projectItem.pid) }}"><i class="icon-pencil"></i>编辑</a></span>
+                                           <span style="margin-left: 10%;color:#fff" class="btn delete btn-inverse" p_id="{{ projectItem.pid}}"><i class="icon-remove"></i>删除</span>
                                        </div>
                                    </div>
                                 {% endif %}
