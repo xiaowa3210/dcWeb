@@ -42,48 +42,106 @@ class ProjectService:
         if int(operate) == 0:  # 代表添加
             project = Project(data['pname'],data['content'],data['type'])
             project.src_content = data['src_content']
+            mainPics = commonService.getImgPathList(mapGet(data, 'mainPic'))
+            if mainPics:
+                project.mainPic = mainPics[0]
+            else:
+                project.mainPic = 'default.jpg'
+            memberlist = project.members
+            awardList = project.awards
+            # 项目成员
+            members = data['members']
+            for m in members:
+                member = ProjectMember(m['name'], m['type'])
+                if member.type == 1:  # 0:代表老师，1代表学生
+                    member.academy = m['academy']
+                    member.grade = m['grade']
+                if 'brief' in m.keys():
+                    member.brief = m['brief']
+                memberlist.append(member)
+            # 获奖信息
+            awards = data['awards']
+            for a in awards:
+                award = ProjectAward(a['title'])
+                award.awardTime = mapGet(a, 'awardTime')
+                award.certPic = json.dumps(commonService.getImgPathList(mapGet(a, 'certPic')))
+                award.honorLink = json.dumps(mapGet(a, 'honorLink'))
+                awardList.append(award)
+
+            # 添加状态信息
+            publisher = commonService.getCurrentUsername(1)
+            status = ProjectStatus(data['pname'], data['type'], publisher, data['status'])
+            status.mainPic = project.mainPic
+            if data['status'] == 2:  # 如果是提交,记录提交的时间
+                status.submitTime = datetime.now()
+            project.status = status
+            db2.session.add(project)
+            db2.session.commit()
         else:
-            pid = data['pid']
-            project = db2.session.query(Project).filter(Project.pid == pid).one()
-            project.pname = data['pname']
-            project.content = data['content']
-            project.content = data['src_content']
-            project.type = data['type']
-        project.mainPic = commonService.getImgPathList(mapGet(data,'mainPic'))[0]
-        memberlist = project.members
-        awardList = project.awards
+            self.modifiedProject(data)
+
+
+    """ 
+    @:param:
+    @:return:
+    @descrition:修改项目
+    """
+    def modifiedProject(self,data):
+        #更新内容
+        pid = data['pid']
+        mainPics = commonService.getImgPathList(mapGet(data, 'mainPic'))
+        if mainPics:
+            mainPic = mainPics[0]
+        else:
+            mainPic = 'default.jpg'
+        db2.session.query(Project).filter(Project.pid == pid).update({
+            'content':data['content'],
+            'src_content':data['src_content'],
+            'pname':data['pname'],
+            'type':data['type'],
+            'mainPic':mainPic
+        })
+
+        #删除奖项,成员和状态信息。
+        sql1 = 'delete from dc_project_award where pid=' + str(pid)
+        sql2 = 'delete from dc_project_member where pid=' + str(pid)
+        sql3 = 'delete from dc_project_status_info where pid=' + str(pid)
+
+        db2.session.execute(sql1)
+        db2.session.execute(sql2)
+        db2.session.execute(sql3)
+
         # 项目成员
         members = data['members']
         for m in members:
-            member = ProjectMember(m['name'],m['type'])
-            if member.type == 1:                                   #0:代表老师，1代表学生
+            member = ProjectMember(m['name'], m['type'])
+            member.pid = pid
+            if member.type == 1:  # 0:代表老师，1代表学生
                 member.academy = m['academy']
                 member.grade = m['grade']
             if 'brief' in m.keys():
                 member.brief = m['brief']
-            memberlist.append(member)
+            db2.session.add(member)
+
         # 获奖信息
         awards = data['awards']
         for a in awards:
             award = ProjectAward(a['title'])
-            award.awardTime = mapGet(a,'awardTime')
-            award.certPic = json.dumps(commonService.getImgPathList(mapGet(a,'certPic')))
-            award.honorLink = json.dumps(mapGet(a,'honorLink'))
-            awardList.append(award)
+            award.pid = pid
+            award.awardTime = mapGet(a, 'awardTime')
+            award.certPic = json.dumps(commonService.getImgPathList(mapGet(a, 'certPic')))
+            award.honorLink = json.dumps(mapGet(a, 'honorLink'))
+            db2.session.add(member)
 
-        #添加状态信息
+        # 添加状态信息
         publisher = commonService.getCurrentUsername(1)
-        status = ProjectStatus(data['pname'],data['type'],publisher,data['status'])
-        status.mainPic = project.mainPic
-        if data['status'] == 2:                             #如果是提交,记录提交的时间
+        status = ProjectStatus(data['pname'], data['type'], publisher, data['status'])
+        status.pid = pid
+        status.mainPic = mainPic
+        if data['status'] == 2:  # 如果是提交,记录提交的时间
             status.submitTime = datetime.now()
-        project.status = status
-
-        if int(operate) == 0:  # 代表添加
-            # 添加到数据库中
-            db2.session.add(project)
+        db2.session.add(status)
         db2.session.commit()
-
 
 
     """ 
