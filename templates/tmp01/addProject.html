@@ -310,11 +310,13 @@
             data.pname = $("#projectTitle").val();                      //项目标题
             data.type = $("#category").val();                           //项目类型
             data.content = testEditor.getHTML();                        //项目内容、富文本
+            data.src_content = testEditor.getMarkdown();                //项目内容源内容
             data.mainPic = Common.getPicsSrc(".mainPic");                //项目封面图片。传过来的是图片的base64编码
             data.members = memberArr;                                   //项目成员
             //data.teachers = teacherArr;                                  //指导老师
             data.awards = awardArr;                                     //获奖信息
             data.status = status;
+            data.operate = 0;
             //console.log(data);
             console.log(data.mainPic);
             $.ajax({
@@ -323,7 +325,7 @@
                 data: JSON.stringify(data),
                 dataType: 'json',
                 success: function (data) {
-                    alert(data); //提交成功
+                    alert(data.msg); //提交成功
                     //window.location.href='';//跳转到个人中心
                 },
                 error: function (data) {

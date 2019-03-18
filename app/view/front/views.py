@@ -1,13 +1,16 @@
 #!/user/bin/env python
 # -*- coding:utf-8 -*-
+import base64
 import json
 
 from flask import request, render_template, session
 
+from app.model.entity import User
 from app.service.UserServiceV2 import UserService
 from app.service.FileServiceV2 import FilesService
 from app.service.NewsService import NewsService
 from app.service.ProjectServiceV2 import ProjectService
+from app.utils.email import send_mail
 from app.view.MessageInfo import MessageInfo
 from app.view.front import front
 
@@ -24,7 +27,7 @@ def uploadProject():
     #数据
     data = json.loads(request.get_data(as_text=True))
     projectService.addProject(data)
-    return json.dumps(MessageInfo.success(data='保存成功').__dict__)
+    return json.dumps(MessageInfo.success(msg='保存成功').__dict__)
 
 """ 
 上传图片接口
@@ -52,6 +55,34 @@ def stu_login_api():
             return json.dumps(MessageInfo.fail(msg="亲，密码错误!").__dict__)
     else:
         return json.dumps(MessageInfo.fail(msg="亲,用户不存在").__dict__)
+
+""" 
+学生注册接口
+"""
+@front.route("/api/register",methods=['POST'])
+def stu_register_api():
+    data = json.loads(request.get_data(as_text=True))
+    username = data['username']
+    password = data['password']
+    user = User(username,password,3)                    #3代表未验证过的学生
+    userService.addUser_v1(user)
+    token = base64.b64encode(username.encode())             #用base64加密
+    send_mail(username+'@bupt.edu.cn', '账户激活', 'activate', username=username, token=token)
+    return json.dumps(MessageInfo.success(msg="请登录北邮人邮箱去验证").__dict__)
+
+
+""" 
+激活账户
+"""
+@front.route("/activate/<token>",methods=['GET'])
+def activate(token):
+    username = base64.b64decode(token)
+    user = userService.selectByName(username,3)
+    if user:
+        return json.dumps(MessageInfo.success(msg="验证成功").__dict__)
+    else:
+        return json.dumps(MessageInfo.success(msg="验证错误").__dict__)
+
 
 """ 
 学生撤销审核中的项目
@@ -160,7 +191,7 @@ def i3():
 """
 主页
 """
-@front.route("/home")
+@front.route("/")
 def home():
    pagination,projects = projectService.getPublishedPro(1,4)
    return render_template("tmp01/home.html",projects=projects,pagination=pagination)
@@ -182,3 +213,7 @@ def user():
 @front.route("/student/login")
 def stu_login():
     return render_template("tmp01/login.html")
+
+@front.route("/register")
+def stu_register():
+    return render_template("tmp01/register.html")

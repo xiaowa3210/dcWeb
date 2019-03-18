@@ -21,6 +21,13 @@ PASS = "hubiao"
 # USER = "root"
 # PASS = "Cc!12345"
 
+#邮件服务器配置
+MAIL_SERVER='mail.163.com',
+MAIL_PORT='25',
+MAIL_USE_SSL=False,
+MAIL_USERNAME='hbfaker@163.com',
+MAIL_PASSWORD='hubiao'              #（可在邮箱设置中获取）
+
 
 
 CHARSET = "utf8"
