@@ -28,17 +28,17 @@
                     </header>
                     <div class="panel-body">
                         <table>
+                            <thead>
+                                <th width="13%">项目id</th>
+                                <th width="13%">项目名称</th>
+                                <th width="13%">项目类别</th>
+                                <th width="13%">发布者</th>
+                                <th width="13%">审核者</th>
+                                <th width="13%">审核时间</th>
+                                <th width="13%">审核意见</th>
+                                <th width="13%">操作</th>
+                            </thead>
                             <tbody>
-                                <th>
-                                    <td>项目id</td>
-                                    <td>项目名称</td>
-                                    <td>项目类别</td>
-                                    <td>发布者</td>
-                                    <td>审阅者</td>
-                                    <td>审阅时间</td>
-                                    <td>审阅意见</td>
-                                    <td>操作</td>
-                                </th>
                                 {% for project in projects %}
                                 <tr>
                                     <td>{{project.pid}}</td>

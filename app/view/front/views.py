@@ -144,7 +144,7 @@ def projects(page,count):
 @front.route("/project/<int:pid>")
 def project(pid):
     project = projectService.getProjectByID(pid)
-    return render_template("tmp01/projects.html",project=project)
+    return render_template("tmp01/projects-detail.html",project=project)
 
 """ 
 基地风采展示
