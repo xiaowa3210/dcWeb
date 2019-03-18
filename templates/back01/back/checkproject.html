@@ -3,6 +3,10 @@
 {% block static_files %}
 <script type="text/javascript" src="/static/ueditor/ueditor.config.js"></script>
 <script type="text/javascript" src="/static/ueditor/ueditor.all.js"></script>
+
+<style>
+    
+</style>
 {% endblock %}
 
 {% block body_part %}
@@ -12,7 +16,7 @@
             <div class="col-lg-12">
                 <div class="col-lg-9">
                     <h2>{{project.pname}}</h2>
-                    <p>{{project.content}}</p>
+                    <p>{{project.content | safe}}</p>
                 </div>
                 <div class="col-lg-3">
                     <h4>项目类别</h4>
@@ -58,10 +62,10 @@
         </div>
         <div>
             <label>审核意见</label>
-            <textarea class="advice"></textarea>
+            <textarea class="advice" cols="50" rows="5"></textarea>
         </div>
         <div>
-            <button type="button"  id="pass" p_id="{{project.pid}}">审核通过</button>
+            <button type="button" id="pass" p_id="{{project.pid}}">审核通过</button>
             <button type="button" id="notpass" p_id="{{project.pid}}">审核不通过</button>
         </div>
     </section>

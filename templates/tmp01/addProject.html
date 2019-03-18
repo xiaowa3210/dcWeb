@@ -129,11 +129,11 @@
                 <div>
                     <p class="title">类别</p>
                     <select id="category" name="category" required>
-                        <option value="1">计算机视觉</option>
-                        <option value="2">虚拟/增强现实</option>
-                        <option value="3">数据挖掘</option>
-                        <option value="4">机器学习</option>
-                        <option value="5">其他</option>
+                        <option value="计算机视觉">计算机视觉</option>
+                        <option value="虚拟/增强现实">虚拟/增强现实</option>
+                        <option value="数据挖掘">数据挖掘</option>
+                        <option value="机器学习">机器学习</option>
+                        <option value="其他">其他</option>
                     </select>
                 </div>
                 <div class="member">
@@ -146,19 +146,19 @@
                         <p>
                             <label for="memberGrade">年级</label>
                             <select id="memberGrade" name="memberGrade">
-                                <option value="four">大四</option>
-                                <option value="three">大三</option>
-                                <option value="two">大二</option>
-                                <option value="one">大一</option>
+                                <option value="大四">大四</option>
+                                <option value="大三">大三</option>
+                                <option value="大二">大二</option>
+                                <option value="大一">大一</option>
                             </select>
                         </p>
                         <p>
                             <label for="memberCollege">学院</label>
                             <select id="memberCollege" name="memberCollege">
-                                <option value="xintong">信通院</option>
-                                <option value="jisuanji">计算机院</option>
-                                <option value="dianzi">电子院</option>
-                                <option value="shumei">数媒院</option>
+                                <option value="信通院">信通院</option>
+                                <option value="计算机院">计算机院</option>
+                                <option value="电子院">电子院</option>
+                                <option value="数媒院">数媒院</option>
                             </select>
                         </p>
                         <p>
@@ -315,19 +315,21 @@
             //data.teachers = teacherArr;                                  //指导老师
             data.awards = awardArr;                                     //获奖信息
             data.status = status;
-            //console.log(data);
-            console.log(data.mainPic);
+            console.log(data);
+            //console.log(data.mainPic);
             $.ajax({
-                url: "{{url_for('front.uploadProject')}}", //补充
+                url: "/api/uploadProject",
                 type: 'post',
                 data: JSON.stringify(data),
                 dataType: 'json',
                 success: function (data) {
-                    alert(data); //提交成功
+                    console.log(data);
+                    //alert(data); //提交成功
                     //window.location.href='';//跳转到个人中心
                 },
                 error: function (data) {
-                    alert(data.info);  //提交失败
+                    console.log(data);
+                    //alert(data.info);  //提交失败
                 }
 
             });

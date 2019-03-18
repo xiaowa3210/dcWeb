@@ -17,11 +17,11 @@
             <div class="widget">
               <h4>类别</h4>
               <ul class="cat">
-                <li><a href="#">人工智能 (114)</a></li>
-                <li><a href="#">物联网 (15)</a></li>
-                <li><a href="#">数据挖掘(20)</a></li>
-                <li><a href="#">区块链(15)</a></li>
-                <li><a href="#">云计算 (10)</a></li>
+                <li><a href="#">计算机视觉</a></li>
+                <li><a href="#">虚拟\增强现实</a></li>
+                <li><a href="#">数据挖掘</a></li>
+                <li><a href="#">机器学习</a></li>
+                <li><a href="#">其他</a></li>
               </ul>
             </div>
           </aside>
@@ -29,29 +29,28 @@
         <div class="span9">
           <!-- start article 1 -->
           {% for project in projects %}
-          <article class="blog-post">
-            <div class="post-heading">
-              <h3><a href="#">{{ project.pname }}</a></h3>
-            </div>
-            <div class="row">
-              <div class="span3">
-                <div class="post-image">
-                  <a href="#"> <img  style="height: 270px" src="{{ url_for('static',filename='img/dummies/blog1.jpg')}}"  /></a>
-                </div>
-              </div>
-              <div class="span5">
-                <ul class="post-meta">
-                  <li class="first"><i class="icon-calendar"></i><span>March 03, 2013</span></li>
-                  <li><i class="icon-list-alt"></i><span><a href="#">3 comments</a></span></li>
-                  <li class="last"><i class="icon-tags"></i><span><a href="#">Design</a>, <a href="#">Blog</a>, <a href="#">Tutorial</a></span></li>
-                </ul>
-                <div class="clearfix">
-                </div>
-                <p>{{ project.brief }}</p>
-                <button class="btn btn-small btn-success" type="button"><a href="{{ url_for('tmp01.projects_detail',project_id=project.project_id) }}">更多</a></button>
-              </div>
-            </div>
-          </article>
+<div class="span4">
+               <div class="project-image">
+                   <a href="{{ url_for('front.project',pid=project.pid) }}">  <!--链接到项目的详情地址-->
+					   <img src="{{url_for('static',filename='tmp01/images/project.jpg')}}" alt=""> <!--需要一张封面图片-->
+                   </a>
+               </div>
+               <div class="project-title">
+                   <a href="{{ url_for('front.project',pid=project.pid) }}"> <!--需要链接到项目的详情地址-->
+                       <h5>{{project.pname}}</h5> <!--项目标题-->
+                   </a>
+               </div>
+               <div class="project-info">
+                   <table class="table table-condensed" >
+                       <tbody>
+                            <tr>
+                                <td width="50%"><i class="icon-square icon-user"></i><span>{{project.publisher}}</span></td>
+                                <td style="text-align: right" class="time"><i class="icon-circled icon-calendar"></i><span>{{project.submitTime}}</span></td>
+                            </tr>
+                       </tbody>
+                   </table>
+               </div>
+           </div>
           {% endfor %}
         </div>
       </div>
@@ -81,4 +80,15 @@
       </div>
   </footer>
 </section>
+{% endblock %}
+
+{% block js_files%}
+<script>
+    $(document).ready(function () {
+        var raw=$(".time span").text();
+        console.log(raw);
+        $(".time span").text(raw.slice(0,10));
+    })
+</script>
+
 {% endblock %}

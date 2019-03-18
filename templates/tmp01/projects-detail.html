@@ -10,7 +10,7 @@
         <div class="row">
             <div class="span9">
                 <h2>{{project.pname}}</h2>
-                <p>{{project.content}}</p>
+                <p>{{project.content | safe }}</p>
             </div>
             <div class="span3">
                 <h4>项目类别</h4>
@@ -54,3 +54,4 @@
         </div>
     </div>
 </section>
+{% endblock %}

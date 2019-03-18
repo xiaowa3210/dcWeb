@@ -74,16 +74,10 @@
                </div>
                <div class="project-info">
                    <table class="table table-condensed" >
-                       <thead>
-                            <tr>
-                                <th style="text-align: center;width: 50%">发布人</th>
-                                <th style="text-align: center">发布时间</th>
-                            </tr>
-                       </thead>
                        <tbody>
                             <tr>
-                                <td style="text-align: center">{{project.publisher}}</td>
-                                <td style="text-align: center">{{project.broad_time}}</td>
+                                <td width="50%"><i class="icon-square icon-user"></i><span>{{project.publisher}}</span></td>
+                                <td style="text-align: right" class="time"><i class="icon-circled icon-calendar"></i><span>{{project.submitTime}}</span></td>
                             </tr>
                        </tbody>
                    </table>
@@ -95,4 +89,15 @@
       </div>
   </div>
 </div>
+{% endblock %}
+
+{% block js_files%}
+<script>
+    $(document).ready(function () {
+        var raw=$(".time span").text();
+        console.log(raw);
+        $(".time span").text(raw.slice(0,10));
+    })
+</script>
+
 {% endblock %}
