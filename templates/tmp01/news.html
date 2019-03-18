@@ -4,75 +4,117 @@
 
 {% block static_files %}
 <style>
-  .news a {
-    color:#333;
-    text-decoration: none;
-  }
-  .news a:hover {
-    color:#94c045;
-  }
+
+    table.files {
+        margin-top: 30px;
+    }
+
+    table.files th {
+        padding:10px 10px 10px 10px;
+        font-size: 16px;
+    }
+
+    table.files td {
+        padding:0px;
+    }
+
+    table.files tr:last-child {
+        border-bottom: 1px solid #ddd;
+    }
+
+    table.files a {
+        color:#333;
+        text-decoration: none;
+        display: inline-block;
+        width: 100%;
+        padding:8px;
+    }
+
+    table.files a:hover {
+        color:#94c045;
+    }
+
 </style>
 {% endblock %}
 
 {% block body_part %}
-<section id="subintro">
-    <div class="container" >
-      <div class="row">
-              <table class="table table-hover">
-                <thead>
-                  <tr>
+
+<div class="container" >
+    <!--新闻列表
+    ==========================================================-->
+    <div class="row-fluid">
+        <table class="table table-hover files">
+            <thead>
+                <tr>
                     <th>标题</th>
                     <th style="text-align: center">发布时间</th>
-                  </tr>
-                </thead>
-                <tbody>
+                </tr>
+            </thead>
+            <tbody>
                 {% for document in documents %}
-                  <tr>
-                    <!--<td width="82%"><a href="#">北京邮电大学差旅费报销单.xls    </a></td>-->
-                    <!--<td width="18%" style="text-align: center;">{{ document.created_time }}</td>-->
+                <tr>
                     <td width="82%"> <a href="{{ url_for('front.new',news_id=document.nid) }}">{{ document.title }}</a></td>
-                    <td width="18%" style="text-align: center;">{{ document.publisherTime }}</td>
-
-                  </tr>
+                    <td width="18%" style="text-align: center;" class="time">{{ document.publisherTime }}</td>
+                </tr>
                 {% endfor %}
-                    <!--{% for document in documents %}-->
-                  <!--<tr>-->
-                    <!--&lt;!&ndash;<td width="82%"><a href="#">北京邮电大学差旅费报销单.xls    </a></td>&ndash;&gt;-->
-                    <!--&lt;!&ndash;<td width="18%" style="text-align: center;">{{ document.created_time }}</td>&ndash;&gt;-->
-
-                  <!--</tr>-->
-                <!--{% endfor %}-->
-                </tbody>
-              </table>
-
-        {% from 'tmp01/macros.html' import pager %}
-        {{ pager(pagination) }}
-
+            </tbody>
+        </table>
     </div>
-    <!-- Footer
- ================================================== -->
-  <div class="clear" style="clear: both;"></div>
-  <footer class="footer">
-      <div class="container">
-        <div class="row">
-          <div class="span6">
-            <p>&copy; 北京邮电大学</p>
-          </div>
-          <div class="span6">
-            <div class="pull-right">
-              <div class="credits">
-                <!--
-                  All the links in the footer should remain intact.
-                  You can delete the links only if you purchased the pro version.
-                  Licensing information: https://bootstrapmade.com/license/
-                  Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=Scaffold
-                -->
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-  </footer>
 
-</section>
+    <!--分页导航
+    ==================================================================-->
+    <div class="row-fluid">
+        <div class="pagination" style="text-align: center">
+            <ul>
+                {% if pagination.has_prev %}
+                    <li class="page-item">
+                        <a class="page-link" href="{{ url_for('front.news',page = pagination.page - 1) }}">上一页</a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#">上一页</a>
+                    </li>
+                {% endif %}
+
+
+                {% for p in pagination.iter_pages() %}
+
+                    {% if p == pagination.page%}
+                        <li class="page-item active">
+                            <a class="page-link" href="{{ url_for('front.news', page = p) }}">{{loop.index}}</a>
+                        </li>
+                    {% else %}
+                        <li class="page-item">
+                            <a class="page-link" href="{{ url_for('front.news', page = p) }}">{{loop.index}}</a>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+
+                {% if pagination.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="{{ url_for('front.news',page = pagination.page + 1) }}">下一页</a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#">下一页</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+        <!--{% from 'tmp01/macros.html' import pager %}-->
+        <!--{{ pager(pagination) }}-->
+</div>
+
 {% endblock %}
+
+{% block js_files%}
+<script>
+    $(document).ready(function () {
+
+        $(".time").each(function () {
+            $(this).text($(this).text().slice(0,10));
+        });
+    })
+</script>
+{% endblock%}

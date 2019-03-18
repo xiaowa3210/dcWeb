@@ -94,9 +94,9 @@
 {% block js_files%}
 <script>
     $(document).ready(function () {
-        var raw=$(".time span").text();
-        console.log(raw);
-        $(".time span").text(raw.slice(0,10));
+        $(".time span").each(function () {
+            $(this).text($(this).text().slice(0,10));
+        });
     })
 </script>
 

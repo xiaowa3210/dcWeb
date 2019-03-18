@@ -21,9 +21,9 @@
                         {% for member in project.members %}
                             {% if member.type==1 %}                   <!--学生类型1-->
                                 <tr>
-                                    <td>{{member.name}}</td>
-                                    <td>{{member.academy}}</td>
-                                    <td>{{member.grade}}</td>
+                                    <td width="30%">{{member.name}}</td>
+                                    <td width="30%">{{member.academy}}</td>
+                                    <td width="30%">{{member.grade}}</td>
                                 </tr>
                             {% endif %}
                         {% endfor %}
@@ -46,7 +46,7 @@
                     <h4>所获奖项</h4>
                     <p>{{ award.awardName }}</p>
                     <h4>获奖链接</h4>
-                    <a class="links" href="{{ award.honorLink }}">{{award.honorLink}}</a>
+                    <a class="links" href="{{ award.honorLink }}" style="color: #666;text-decoration: none">{{award.honorLink}}</a>
                     <h4>获奖证书</h4>
                     {% for i in award.pics %}
                     <img height="200" src="{{ url_for('common.image',name=i) }}" alt="">
@@ -61,10 +61,15 @@
 {% block js_files %}
 <script>
     $(document).ready(function () {
+        //获奖链接去掉""
         var rawLink=$(".links").text();
         var link=rawLink.slice(1,rawLink.length-1);
         $(".links").attr("href",link);
         $(".links").text(link);
+
+        //更改导航栏的active
+        $("li:first").removeClass("active");
+        $("li").eq(4).addClass("active");
 
     });
 </script>

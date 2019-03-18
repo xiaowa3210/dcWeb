@@ -12,6 +12,14 @@
         margin-left: 0;
     }
 
+    .project-title a {
+        color: #333;
+        text-decoration: none;
+    }
+
+    .project-title a:hover {
+        color: #94c045;
+    }
 </style>
 {% endblock%}
 
@@ -39,19 +47,19 @@
             </div>
           </aside>
         </div>
+
         <div class="span9">
-          <!-- start article 1 -->
           {% for project in projects %}
             <div class="span4">
                <div class="project-image">
                    <a href="{{ url_for('front.project',pid=project.pid) }}">  <!--链接到项目的详情地址-->
-					   <img style="height: 200px;" src="{{ url_for('common.image',name=project.mainPic) }}" alt=""> <!--需要一张封面图片-->
+					   <img style="height: 200px;" src="{{ url_for('common.image',name=project.mainPic) }}" alt=""> <!--封面图片-->
                    </a>
                </div>
                <div class="project-title">
-                   <a href="{{ url_for('front.project',pid=project.pid) }}"> <!--需要链接到项目的详情地址-->
-                       <h5>{{project.pname}}</h5> <!--项目标题-->
-                   </a>
+                   <h5 style="margin: 5px 0px">
+                       <a href="{{ url_for('front.project',pid=project.pid) }}">{{project.pname}}</a> <!--项目标题-->
+                   </h5>
                </div>
                <div class="project-info">
                    <table class="table table-condensed" >
@@ -68,39 +76,16 @@
         </div>
       </div>
     </div>
-<!-- Footer
- ================================================== -->
-  <div class="clear" style="clear: both;"></div>
-  <footer class="footer">
-      <div class="container">
-        <div class="row">
-          <div class="span6">
-            <p>&copy; 北京邮电大学</p>
-          </div>
-          <div class="span6">
-            <div class="pull-right">
-              <div class="credits">
-                <!--
-                  All the links in the footer should remain intact.
-                  You can delete the links only if you purchased the pro version.
-                  Licensing information: https://bootstrapmade.com/license/
-                  Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=Scaffold
-                -->
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-  </footer>
+
 </section>
 {% endblock %}
 
 {% block js_files%}
 <script>
     $(document).ready(function () {
-        var raw=$(".time span").text();
-        console.log(raw);
-        $(".time span").text(raw.slice(0,10));
+        $(".time span").each(function () {
+            $(this).text($(this).text().slice(0,10));
+        });
     })
 </script>
 
