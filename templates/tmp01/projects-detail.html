@@ -43,15 +43,27 @@
                     </tbody>
                 </table>
                 {% for award in project.awards %}
-                <h4>所获奖项</h4>
-                <p>{{ award.awardName }}</p>
-                <h4>获奖链接</h4>
-                <p>{{ award.honorLink }}</p>
-                <h4>获奖证书</h4>
-                <img src="{{ award.certPic}}">
+                    <h4>所获奖项</h4>
+                    <p>{{ award.awardName }}</p>
+                    <h4>获奖链接</h4>
+                    <a class="links" href="{{ award.honorLink }}">{{award.honorLink}}</a>
+                    <h4>获奖证书</h4>
+                    <img height="200" src="{{ url_for('common.image',name=award.certPic) }}" alt="">
                 {% endfor %}
             </div>
         </div>
     </div>
 </section>
+{% endblock %}
+
+{% block js_files %}
+<script>
+    $(document).ready(function () {
+        var rawLink=$(".links").text();
+        var link=rawLink.slice(1,rawLink.length-1);
+        $(".links").attr("href",link);
+        $(".links").text(link);
+
+    });
+</script>
 {% endblock %}

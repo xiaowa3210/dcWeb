@@ -206,9 +206,11 @@ def home():
 """
 测试用
 """
-@front.route("/user")
-def user():
-    return render_template("tmp01/user.html")
+@front.route("/user",defaults={'page':1,'count':10})
+@front.route("/user/<int:page>/<int:count>")
+def user(page,count):
+    pagination,project = projectService.getProByStudentId(page,count)
+    return render_template("tmp01/user.html",pagination=pagination,project=project)
 
 @front.route("/student/login")
 def stu_login():
@@ -217,3 +219,9 @@ def stu_login():
 @front.route("/register")
 def stu_register():
     return render_template("tmp01/register.html")
+#
+# @front.route('/student/manageProject',defaults={'page':1,'count':10})
+# @front.route('/student/manageProject/<int:page>/<int:count>')
+# def manageProject(page,count):
+#     pagination,project = projectService.getProByStudentId(page,count)
+#     return render_template("tmp01/user.html",pagination=pagination,project=project)

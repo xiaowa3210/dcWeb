@@ -298,8 +298,9 @@
             $(".award").each(function () {
                 var award = new Object();
                 award.title = $(this).find(".awardTitle").val();
-                award.time = $(this).find(".awardTime").val();
-                award.honorLink = new Array($(this).find(".awardLink").val());
+                award.awardTime = $(this).find(".awardTime").val();
+                award.honorLink=$(this).find(".awardLink").val();
+///                award.honorLink = new Array($(this).find(".awardLink").val());
 //                award.certPic = Common.getPicsSrc($(this).find(".show"));
                 award.certPic = Common.getPicsSrc($(this).find(".cerImg"));
                 awardArr.push(award);

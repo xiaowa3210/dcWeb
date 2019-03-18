@@ -2,6 +2,19 @@
 
 {% block page_name %}项目展示{% endblock %}
 
+{% block static_files %}
+<style>
+    .project-title {
+        text-align: center;
+    }
+
+    .span9 > .span4:nth-of-type(3n+1){
+        margin-left: 0;
+    }
+
+</style>
+{% endblock%}
+
 {% block body_part %}
 <section id="subintro">
     <div class="container">
@@ -29,10 +42,10 @@
         <div class="span9">
           <!-- start article 1 -->
           {% for project in projects %}
-<div class="span4">
+            <div class="span4">
                <div class="project-image">
                    <a href="{{ url_for('front.project',pid=project.pid) }}">  <!--链接到项目的详情地址-->
-					   <img src="{{url_for('static',filename='tmp01/images/project.jpg')}}" alt=""> <!--需要一张封面图片-->
+					   <img style="height: 200px;" src="{{ url_for('common.image',name=project.mainPic) }}" alt=""> <!--需要一张封面图片-->
                    </a>
                </div>
                <div class="project-title">
@@ -50,7 +63,7 @@
                        </tbody>
                    </table>
                </div>
-           </div>
+            </div>
           {% endfor %}
         </div>
       </div>
