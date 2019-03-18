@@ -64,9 +64,9 @@ class CommonService:
 
     def getCurrentUsername(self,type=-1):
         if type == 0:
-            return session.admin
+            return session['admin']
         elif type == 1:
-            return session.student
+            return session['student']
         else:
             return "anonymous"
 if __name__ == '__main__':

@@ -9,14 +9,17 @@ from app.model.models import db  # 数据库
 from app.model.entity import db2  # 数据库
 from app.service.UserServiceV2 import UserService
 from app.view.MessageInfo import MessageInfo
+from flask_mail import Mail
 
+mail = Mail()
 app = Flask(__name__, static_folder='../static', static_url_path='/static')   # 新建一个flask应用
 app.config.from_object(config)  # 将配置文件导入应用中
 
 app.config["SQLALCHEMY_ECHO"] = True
+
 db.init_app(app)
 db2.init_app(app)
-
+mail.init_app(app)
 
 
 

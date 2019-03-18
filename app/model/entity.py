@@ -29,6 +29,7 @@ class Project(db2.Model):
     pid = db2.Column(db2.Integer, primary_key=True, autoincrement=True)
     pname = db2.Column(db2.String(256), nullable=False)                             #项目名
     content = db2.Column(db2.TEXT,nullable=False)                                   #项目内容
+    src_content = db2.Column(db2.TEXT,nullable=False)                                   #项目内容
     type = db2.Column(db2.Integer, nullable=False)                                  #项目类别
     mainPic = db2.Column(db2.String(256),nullable=True)                             #主页图片
     members = db2.relationship('ProjectMember',backref='project',lazy='dynamic')
@@ -57,6 +58,7 @@ class ProjectStatus(db2.Model):
     checkTime = db2.Column(DateTime, nullable=True)                                 #审核时间
     msg = db2.Column(db2.TEXT, nullable=True)                                       #审核所附加的信息
     delete_flag = db2.Column(db2.DECIMAL(1, 0), nullable=False, default=0)          #删除标志
+    mainPic = db2.Column(db2.String(256), nullable=True)                            # 主页图片
 
 
     def __init__(self,pname,type,publisher,status):

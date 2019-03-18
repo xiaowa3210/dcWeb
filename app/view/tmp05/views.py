@@ -16,11 +16,11 @@ from app.service.UserServiceV2 import *
 from app import app
 
 
-@tmp05.route('/')
-def home():
-    # documents = Document.query.order_by(Document.created_time.desc()).limit(6)
-    # projects = Project.query.order_by(Project.create_time.desc()).limit(3)
-    return render_template('tmp05/home.html')
+# @tmp05.route('/')
+# def home():
+#     # documents = Document.query.order_by(Document.created_time.desc()).limit(6)
+#     # projects = Project.query.order_by(Project.create_time.desc()).limit(3)
+#     return render_template('tmp05/home.html')
 
 @tmp05.route('/tmp05/login')
 def login():
