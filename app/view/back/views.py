@@ -284,8 +284,18 @@ def editNews():
 @back.route('/admin/manageNews/<int:page>/<int:count>',methods=['GET'])
 def manageNews(page,count):
     type = request.values.get("type")
-    pagination,news = newsService.selectByPage(page,count,type)
-    return render_template('back01/back/article_list.html', news=news, pagination=pagination)
+    pagination, news = newsService.selectByPage(page, count, type)
+
+    if(type == '-1'):
+        return render_template('back01/back/article_list.html', news=news, pagination=pagination)
+    elif (type == '0'):
+        return render_template('back01/back/article_list_unpublished.html', news=news, pagination=pagination)
+    else:
+        return render_template('back01/back/article_list_published.html', news=news, pagination=pagination)
+
+
+
+
 
 """ 
 修改新闻
