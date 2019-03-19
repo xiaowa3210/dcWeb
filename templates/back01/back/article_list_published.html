@@ -87,19 +87,19 @@
             <div>
                 <ul class="pagination pagination-lg">
                     {% if pagination.has_prev %}
-                        <li><a href="{{url_for('back.manageNews',page = pagination.page - 1,count=10)}}?type=-1">«</a></li>
+                        <li><a href="{{url_for('back.manageNews',page = pagination.page - 1)}}?type=1">«</a></li>
                     {% endif %}
 
                     {% for p in pagination.iter_pages() %}
                         {% if p == pagination.page%}
-                             <li class="active"><a href="{{url_for('back.manageNews',page = p,count=10)}}?type=-1">{{loop.index}}</a></li>
+                             <li class="active"><a href="{{url_for('back.manageNews',page = p,count=10)}}?type=1">{{loop.index}}</a></li>
                         {% else %}
-                            <li><a href="{{url_for('back.manageNews',page = p,count=10)}}?type=-1">{{loop.index}}</a></li>
+                            <li><a href="{{url_for('back.manageNews',page = p,count=10)}}?type=1">{{loop.index}}</a></li>
                         {% endif %}
                     {% endfor %}
 
                     {% if pagination.has_next %}
-                        <li><a href="{{url_for('back.manageNews',page = pagination.page + 1,count=10)}}?type=-1">»</a></li>
+                        <li><a href="{{url_for('back.manageNews',page = pagination.page + 1,count=10)}}?type=1">»</a></li>
                     {% endif %}
                 </ul>
             </div>
