@@ -24,34 +24,36 @@
                     <h4>项目类别</h4>
                     <p>{{project.type}}</p>
 
-                {% for member in project.members %}
-                {% if member.type==1 %}    <!--学生类型1-->
                 <h4>项目成员</h4>
                 <table>
                     <tbody>
+                {% for member in project.members %}
+                {% if member.type==1 %}    <!--学生类型1-->
                     <tr>
                         <td width="30%">{{member.name}}</td>
                         <td width="30%">{{member.academy}}</td>
                         <td width="30%">{{member.grade}}</td>
                     </tr>
-                    </tbody>
-                </table>
+
                 {% endif %}
                 {% endfor %}
+                   </tbody>
+                </table>
 
-                {% for member in project.members %}
-                {% if member.type==0 %}    <!--老师类型0-->
-                <h4>指导老师</h4>
+                                    <h4>指导老师</h4>
                 <table>
                     <tbody>
+                {% for member in project.members %}
+                {% if member.type==0 %}    <!--老师类型0-->
+
                     <tr>
                         <td>{{member.name}}</td>
                         <td>{{member.brief}}</td>
                     </tr>
-                    </tbody>
-                </table>
                 {% endif %}
                 {% endfor %}
+                     </tbody>
+                </table>
 
                 {% for award in project.awards %}
                     <h4>所获奖项</h4>
@@ -104,6 +106,7 @@
                 dataType: 'json',
                 success: function (data) {
                     alert(data.msg); //提交成功
+                    window.location.href="{{url_for('back.checkProjects')}}";
                     //window.location.href='';//跳转到个人中心
                 },
                 error: function (data) {
@@ -125,6 +128,7 @@
                 dataType: 'json',
                 success: function (data) {
                     alert(data.msg); //提交成功
+                    window.location.href="{{url_for('back.checkProjects')}}"
                     //window.location.href='';//跳转到个人中心
                 },
                 error: function (data) {

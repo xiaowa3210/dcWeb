@@ -202,6 +202,10 @@
 
 <script type="text/javascript">
     $(function () {
+        //更改导航栏的active
+        $("li:first").removeClass("active");
+        $("li").eq(5).addClass("active");
+
         //添加成员
         $("#addMember").click(function () {
             $(".member").append($(".memberset:first").clone());
@@ -327,6 +331,7 @@
                 dataType: 'json',
                 success: function (data) {
                     alert(data.msg); //提交成功
+                    window.location.href="{{url_for('front.user')}}"
 
                 },
                 error: function (data) {
