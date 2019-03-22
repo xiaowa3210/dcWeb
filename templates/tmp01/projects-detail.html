@@ -13,36 +13,37 @@
                 <p>{{project.content|safe }}</p>
             </div>
             <div class="span3">
+                <div class="project-widget">
                 <h4>项目类别</h4>
                 <p>{{project.type}}</p>
+                <h4>项目成员</h4>
+                <table style="margin-bottom: 15px">
+                    <tbody>
                 {% for member in project.members %}
                 {% if member.type==1 %}    <!--学生类型1-->
-                <h4>项目成员</h4>
-                <table>
-                    <tbody>
                     <tr>
-                        <td width="30%">{{member.name}}</td>
-                        <td width="30%">{{member.academy}}</td>
-                        <td width="30%">{{member.grade}}</td>
+                        <td>{{member.name}}</td>
+                        <td>{{member.academy}}</td>
+                        <td>{{member.grade}}</td>
                     </tr>
-                    </tbody>
-                </table>
                 {% endif %}
                 {% endfor %}
+                    </tbody>
+                </table>
 
+                 <h4>指导老师</h4>
+                 <table style="margin-bottom: 15px">
+                    <tbody>
                 {% for member in project.members %}
                 {% if member.type==0 %}    <!--老师类型0-->
-                <h4>指导老师</h4>
-                <table>
-                    <tbody>
                     <tr>
                         <td>{{member.name}}</td>
                         <td>{{member.brief}}</td>
                     </tr>
-                    </tbody>
-                </table>
                 {% endif %}
                 {% endfor %}
+                    </tbody>
+                </table>
 
                 {% for award in project.awards %}
                     <h4>所获奖项</h4>
@@ -54,6 +55,7 @@
                     <img height="200" src="{{ url_for('common.image',name=i) }}" alt="">
                     {% endfor %}
                 {% endfor %}
+            </div>
             </div>
         </div>
     </div>
