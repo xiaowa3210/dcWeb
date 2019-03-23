@@ -11,3 +11,13 @@
     </div>
 </section>
 {% endblock %}
+
+{% block js_files %}
+<script>
+    $(document).ready(function () {
+        //更改导航栏的active
+        $("li:first").removeClass("active");
+        $("li").eq(2).addClass("active");
+    });
+</script>
+{% endblock %}
