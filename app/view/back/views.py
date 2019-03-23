@@ -199,7 +199,7 @@ def logout_api():
 """
 @back.route("/api/admin/addUser", methods=['POST'])
 def addUser():
-    data = json.loads(request.get_data("utf-8"))
+    data = json.loads(request.get_data(as_text=True))
     username = data['username']
     password = data['password']
     type = data['type']
@@ -321,9 +321,10 @@ def editFiles():
 """ 
 管理员人员管理
 """
-@back.route("/admin/manageUser",methods=['GET'],defaults={'page':1,'count':10,'type':-1})
-@back.route("/admin/manageUser/<int:page>/<int:count>/<int:type>",methods=['GET'])
-def manageUser(page,count,type):
+@back.route("/admin/manageUser",methods=['GET'],defaults={'page':1,'count':10})
+@back.route("/admin/manageUser/<int:page>/<int:count>",methods=['GET'])
+def manageUser(page,count):
+    type = request.values.get("type")
     pagination, users = userService.selectByPage(page,count,type)
     return render_template("back01/back/manageUser.html",pagination=pagination,users=users)
 

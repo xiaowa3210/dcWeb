@@ -46,7 +46,7 @@ class ProjectStatus(db2.Model):
     id = db2.Column(db2.Integer, primary_key=True, autoincrement=True)
     pid = db2.Column(db2.Integer, db2.ForeignKey('dc_project.pid'))                 #外键关联dc_project表，一对一关系
     pname = db2.Column(db2.String(256),nullable=False)                              #项目名
-    type = db2.Column(db2.Integer, nullable=False)                                  #项目类别
+    type = db2.Column(db2.String(256), nullable=False)                                  #项目类别
     publisher = db2.Column(db2.String(256), nullable=False)                         #上传者
     reviewer = db2.Column(db2.String(256), nullable=True)                           #审核人
     undoer = db2.Column(db2.String(256), nullable=True)                             #撤销人
