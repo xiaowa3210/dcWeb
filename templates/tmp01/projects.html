@@ -47,7 +47,7 @@
             <div class="span4">
                <div class="project-image">
                    <a href="{{ url_for('front.project',pid=project.pid) }}">  <!--链接到项目的详情地址-->
-					   <img style="height: 200px;" src="{{ url_for('common.image',name=project.mainPic) }}" alt=""> <!--封面图片-->
+					   <img style="height: 200px;width: 100%" src="{{ url_for('common.image',name=project.mainPic) }}" alt=""> <!--封面图片-->
                    </a>
                </div>
                <div class="project-title">
@@ -70,6 +70,52 @@
         </div>
       </div>
     </div>
+
+  <!--分页导航
+    ==================================================================-->
+    <div class="row-fluid">
+        <div class="pagination" style="text-align: center">
+            <ul>
+                {% if pagination.has_prev %}
+                    <li class="page-item">
+                        <a class="page-link" href="{{ url_for('front.projects',page = pagination.page - 1) }}">上一页</a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#">上一页</a>
+                    </li>
+                {% endif %}
+
+
+                {% for p in pagination.iter_pages() %}
+
+                    {% if p == pagination.page%}
+                        <li class="page-item active">
+                            <a class="page-link" href="{{ url_for('front.projects', page = p) }}">{{loop.index}}</a>
+                        </li>
+                    {% else %}
+                        <li class="page-item">
+                            <a class="page-link" href="{{ url_for('front.projects', page = p) }}">{{loop.index}}</a>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+
+                {% if pagination.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="{{ url_for('front.projects',page = pagination.page + 1) }}">下一页</a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#">下一页</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+        <!--{% from 'tmp01/macros.html' import pager %}-->
+        <!--{{ pager(pagination) }}-->
+</div>
+
 
 </section>
 {% endblock %}
