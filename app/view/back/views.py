@@ -60,7 +60,8 @@ def uploadNew():
             for attachment in attachments:
                 file = Files()
                 file.name = attachment.filename
-                local_path = str(uuid.uuid1()).replace("-", "") + file.name
+                suffix = file.name[file.name.rfind('.'):]
+                local_path = str(uuid.uuid1()).replace("-", "") + suffix
                 attachment.save(path + local_path)
                 file.path = local_path
                 file.source = 2                                 #代表新闻附件
@@ -85,7 +86,8 @@ def uploadNew():
             for attachment in attachments:
                 file = Files()
                 file.name = attachment.filename
-                local_path = str(uuid.uuid1()).replace("-", "") + file.name
+                suffix = file.name[file.name.rfind('.'):]
+                local_path = str(uuid.uuid1()).replace("-", "") + suffix
                 attachment.save(path + local_path)
                 file.path = local_path
                 file.source = 2  # 代表新闻附件
@@ -126,9 +128,11 @@ def uploadFile():
         for f in files:
             file = Files()
             file.name = f.filename  #得到文件名
-            file.path = f.filename
-            file.source = 0         #代表资料下载的文件
-            f.save(os.path.join(UPLOAD_FILES_PATH,file.name))
+            suffix = file.name[file.name.rfind('.'):]
+            local_path = str(uuid.uuid1()).replace("-", "") + suffix
+            file.path = local_path
+            file.source = 1         #代表资料下载的文件
+            f.save(os.path.join(UPLOAD_FILES_PATH,local_path))
             filesService.addFile(file)
         return json.dumps(MessageInfo.success(msg="上传成功").__dict__)
     else:
