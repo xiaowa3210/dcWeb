@@ -60,7 +60,7 @@
                             <td>
                                 <div class="btn-group">
 
-                                    <a class="btn btn-danger" onclick="MAIN.doRemove(this)"><i class="icon_close_alt2">删除</i></a>
+                                    <a class="btn btn-danger" href="{{url_for('back.deleteFile')}}?fid={{file.fid}}"><i class="icon_close_alt2">删除</i></a>
                                 </div>
                             </td>
                         </tr>
