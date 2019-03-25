@@ -3,7 +3,7 @@
 import base64
 import json
 
-from flask import request, render_template, session
+from flask import request, render_template, session, redirect, url_for
 
 from app.model.entity import User
 from app.service.UserServiceV2 import UserService
@@ -55,6 +55,14 @@ def stu_login_api():
             return json.dumps(MessageInfo.fail(msg="亲，密码错误!").__dict__)
     else:
         return json.dumps(MessageInfo.fail(msg="亲,用户不存在").__dict__)
+
+""" 
+学生登出接口
+"""
+@front.route("/api/front/logout", methods=['GET'])
+def stu_logout_api():
+    session.pop('student', None)
+    return redirect(url_for('front.stu_login'))
 
 """ 
 学生注册接口

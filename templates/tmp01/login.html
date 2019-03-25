@@ -2,11 +2,36 @@
 
 {% block page_name %}登录{% endblock %}
 
+{% block static_files %}
+<style>
+    .login {
+        padding:20px;
+        border:1px solid #eee;
+    }
+    button.btn {
+        width: 100px;
+        margin:0 auto;
+        border-radius: 8px;
+    }
+    input {
+        display: inline-block;
+        width: 80%;
+    }
+    .form-horizontal .control-label {
+        width: 100px;
+    }
+
+    .form-horizontal .controls {
+        margin-left: 120px;
+    }
+</style>
+{% endblock %}
+
 {% block body_part %}
 <section id="login">
   <div class="container">
-    <div class="login">
-        <h3>登陆</h3>
+    <div class="login span6 offset3">
+        <h3 style="text-align: center">登陆</h3>
         <form class="form-horizontal" onsubmit="return false">
             <div class="control-group">
                 <label class="control-label" for="username"> 用户名</label>
@@ -28,7 +53,6 @@
 
 
 <script>
-
   var MAIN = {};
   MAIN.login = function () {
       var req = {};
@@ -42,5 +66,16 @@
           }
         })
   }
+</script>
+{% endblock %}
+
+{% block js_files %}
+<script>
+   $(function () {
+       //更改导航栏的active
+        $("li:first").removeClass("active");
+        $("li").eq(5).addClass("active");
+   })
+
 </script>
 {% endblock %}

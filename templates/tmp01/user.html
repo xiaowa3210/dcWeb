@@ -4,6 +4,10 @@
 
 {% block static_files%}
 <style>
+    a:hover {
+        text-decoration: none;
+    }
+
     .widget a {
         display: block;
         width:100%;
@@ -87,7 +91,7 @@
                                    <div class="span4">
                                        <div class="project-image">
                                            <a href="{{ url_for('front.project',pid=projectItem.pid) }}">  <!--链接到项目的详情地址-->
-                                               <img src="{{ url_for('common.image',name=projectItem.mainPic) }}" alt=""> <!--封面图片-->
+                                               <img style="width:100%;height: 200px" src="{{ url_for('common.image',name=projectItem.mainPic) }}" alt=""> <!--封面图片-->
                                            </a>
                                        </div>
                                        <div class="project-title">
@@ -108,7 +112,7 @@
                                    <div class="span4">
                                        <div class="project-image">
                                            <a href="{{ url_for('front.project',pid=projectItem.pid) }}">  <!--链接到项目的详情地址-->
-                                               <img src="{{ url_for('common.image',name=projectItem.mainPic) }}" alt=""> <!--封面图片 待调试-->
+                                               <img style="width:100%;height: 200px" src="{{ url_for('common.image',name=projectItem.mainPic) }}" alt=""> <!--封面图片 待调试-->
                                            </a>
                                        </div>
                                        <div class="project-title">
@@ -130,7 +134,7 @@
                                    <div class="span4">
                                        <div class="project-image">
                                            <a href="{{ url_for('front.project',pid=projectItem.pid) }}">  <!--链接到项目的详情地址-->
-                                               <img src="{{ url_for('common.image',name=projectItem.mainPic) }}" alt=""> <!--封面图片-->
+                                               <img style="width:100%;height: 200px" src="{{ url_for('common.image',name=projectItem.mainPic) }}" alt=""> <!--封面图片-->
                                            </a>
                                        </div>
                                        <div class="project-title">
@@ -139,7 +143,7 @@
                                            </a>
                                        </div>
                                        <div class="project-info">
-                                           <span class="btn btn-color"><a href="{{ url_for('front.modifiesProject',pid=projectItem.pid) }}"><i class="icon-pencil"></i>编辑</a></span>
+                                           <span class="btn btn-color"><a style="color:#fff" href="{{ url_for('front.modifiesProject',pid=projectItem.pid) }}"><i class="icon-pencil"></i>编辑</a></span>
                                            <span style="margin-left: 10%" class="btn delete btn-reverse" p_id="{{ projectItem.pid }}"><i class="icon-remove"></i>删除</span>
                                        </div>
                                    </div>
@@ -152,7 +156,7 @@
                                    <div class="span4">
                                        <div class="project-image">
                                            <a href="{{ url_for('front.project',pid=projectItem.pid) }}">  <!--链接到项目的详情地址-->
-                                               <img src="{{ url_for('common.image',name=projectItem.mainPic) }}" alt=""> <!--封面图片-->
+                                               <img style="width:100%;height: 200px" src="{{ url_for('common.image',name=projectItem.mainPic) }}" alt=""> <!--封面图片-->
                                            </a>
                                        </div>
                                        <div class="project-title">
@@ -181,7 +185,10 @@
 <script>
 $(function () {
     //去掉导航栏第一个active
-    $("nav>ul:first>li:first").removeClass("active");
+        //更改导航栏的active
+        $("li:first").removeClass("active");
+        $("li").eq(5).addClass("active");
+
 
     // 待审核项目撤回
      $(".cancel").click(function () {
@@ -197,6 +204,7 @@ $(function () {
               dataType: 'json',
               success: function (data) {
                   alert(data.msg);
+                  window.location.href="{{url_for('front.user')}}"
                   // window.location.href="/back01/lab"
               },
               error: function (data) {
@@ -222,6 +230,7 @@ $(function () {
               success: function (data) {
                   alert(data.msg);
                   // window.location.href="/back01/lab"
+                  window.location.href="{{url_for('front.user')}}"
               },
               error: function (data) {
                   alert(data.msg)
