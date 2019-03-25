@@ -25,12 +25,18 @@
                         <tr>
                             <th>用户名</th>
                             <th>密码</th>
+                            <th>类型</th>
                         </tr>
 
                         {% for user in users %}
                         <tr>
                             <td width="200">{{user.username}}</td>
                             <td width="200">{{user.password}}</td>
+                            {% if user.type == 0 %}
+                            <td width="200">管理员</td>
+                            {% else %}
+                            <td width="200">学生</td>
+                            {% endif %}
                         </tr>
                         {% endfor %}
                         </tbody>
@@ -42,19 +48,19 @@
             <div>
                 <ul class="pagination pagination-lg">
                     {% if pagination.has_prev %}
-                    <li><a href="{{url_for('back.manageUser',page = pagination.page - 1)}}">«</a></li>
+                    <li><a href="{{url_for('back.manageUser',page = pagination.page - 1,count = 10)}}">«</a></li>
                     {% endif %}
 
                     {% for p in pagination.iter_pages() %}
                     {% if p == pagination.page%}
-                    <li class="active"><a href="{{url_for('back.manageResource',page = p)}}">{{loop.index}}</a></li>
+                    <li class="active"><a href="{{url_for('back.manageUser',page = p,count = 10)}}">{{loop.index}}</a></li>
                     {% else %}
-                    <li><a href="{{url_for('back.manageResource',page = p)}}">{{loop.index}}</a></li>
+                    <li><a href="{{url_for('back.manageUser',page = p, count = 10)}}">{{loop.index}}</a></li>
                     {% endif %}
                     {% endfor %}
 
                     {% if pagination.has_next %}
-                    <li><a href="{{url_for('back.manageResource',page = pagination.page + 1)}}">»</a></li>
+                    <li><a href="{{url_for('back.manageUser',page = pagination.page + 1,count = 10)}}">»</a></li>
                     {% endif %}
                 </ul>
             </div>
@@ -80,6 +86,12 @@
                             </div>
                         </div>
                         <div class="form-group">
+                            <div class="col-lg-10">
+                                <input type="radio" name="type" value="0" checked>管理员
+                                <input type="radio" name="type" value="1">学生
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <div class="col-lg-offset-2 col-lg-10">
                                 <button type="submit" onclick="MAIN.addUser()" class="btn btn-info">添加人员</button>
                             </div>
@@ -99,7 +111,7 @@
         var req = {};
         req.username = $('#username').val().trim();
         req.password = $('#password').val().trim();
-        req.type = 0;
+        req.type = $("input[name='type'][checked]").val().trim();
         Af.rest("/api/admin/addUser", req, function (data) {
             Af.log(data)
             alert(data.msg);

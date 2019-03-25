@@ -3,11 +3,12 @@
 import json
 
 import os
+import uuid
 
 from datetime import datetime
 from flask import render_template, request, make_response, send_from_directory, session, redirect, url_for
 
-from app.model.config import UPLOAD_FILES_PATH, UPLOAD_PATH
+from app.model.config import UPLOAD_FILES_PATH, UPLOAD_PATH, UEDITOR_UPLOAD_PATH
 from app.model.entity import Files, User, New, newExt
 from app.service.NewsService import NewsService
 from app.service.FileServiceV2 import FilesService
@@ -33,7 +34,7 @@ def uploadNew():
     src_content = request.form.get("src_content")
     type = request.form.get('type')
     operate = request.form.get('operate')
-
+    attachments = request.files.getlist("attachment")
 
     if operate == '0':
         #代表添加新闻
@@ -48,6 +49,25 @@ def uploadNew():
             extraInfo.publisherTime = commonService.getCurrentUsername()
         new.extInfo = extraInfo
         newsService.addNews(new)
+
+
+        ###添加附件
+        files = []
+        if len(attachments) > 0:
+            path = UEDITOR_UPLOAD_PATH + "/files/"
+            if not os.path.exists(path):
+                os.mkdir(path)
+            for attachment in attachments:
+                file = Files()
+                file.name = attachment.filename
+                suffix = file.name[file.name.rfind('.'):]
+                local_path = str(uuid.uuid1()).replace("-", "") + suffix
+                attachment.save(path + local_path)
+                file.path = local_path
+                file.source = 2                                 #代表新闻附件
+                file.source_id = new.nid
+                filesService.addFile(file)
+
         return json.dumps(MessageInfo.success(msg="添加成功").__dict__)
     else:
         nid = request.form.get("nid")
@@ -56,6 +76,23 @@ def uploadNew():
         newsService.updatenew(new,type)
 
 
+
+        ###添加附件
+        files = []
+        if len(attachments) > 0:
+            path = UEDITOR_UPLOAD_PATH + "/files/"
+            if not os.path.exists(path):
+                os.mkdir(path)
+            for attachment in attachments:
+                file = Files()
+                file.name = attachment.filename
+                suffix = file.name[file.name.rfind('.'):]
+                local_path = str(uuid.uuid1()).replace("-", "") + suffix
+                attachment.save(path + local_path)
+                file.path = local_path
+                file.source = 2  # 代表新闻附件
+                file.source_id = new.nid
+                filesService.addFile(file)
         return json.dumps(MessageInfo.success(msg="修改成功").__dict__)
 
 """ 
@@ -91,9 +128,11 @@ def uploadFile():
         for f in files:
             file = Files()
             file.name = f.filename  #得到文件名
-            file.path = f.filename
-            file.source = 0         #代表资料下载的文件
-            f.save(os.path.join(UPLOAD_FILES_PATH,file.name))
+            suffix = file.name[file.name.rfind('.'):]
+            local_path = str(uuid.uuid1()).replace("-", "") + suffix
+            file.path = local_path
+            file.source = 1         #代表资料下载的文件
+            f.save(os.path.join(UPLOAD_FILES_PATH,local_path))
             filesService.addFile(file)
         return json.dumps(MessageInfo.success(msg="上传成功").__dict__)
     else:
@@ -115,7 +154,7 @@ def deleteFile():
 """
 @back.route("/api/admin/deletePro",methods=['POST'])
 def deleteProject():
-    data = json.loads(request.get_data("utf-8"))
+    data = json.loads(request.get_data(as_text=True))
     pid = data["pid"]
     if pid is None:
         return json.dumps(MessageInfo.fail(msg="pid不能为空").__dict__)
@@ -127,7 +166,7 @@ def deleteProject():
 """
 @back.route("/api/admin/undoPro")
 def undoProject():
-    data = json.loads(request.get_data("utf-8"))
+    data = json.loads(request.get_data("as_text=True"))
     pid = data["pid"]
     if pid is None:
         return json.dumps(MessageInfo.fail(msg="pid不能为空").__dict__)
@@ -142,7 +181,7 @@ def undoProject():
 """
 @back.route("/api/admin/checkoutPro",methods=['POST'])
 def checkoutProjectapi():
-    data = json.loads(request.get_data("utf-8"))
+    data = json.loads(request.get_data(as_text=True))
     pid = data["pid"]
     project = projectService.getProStatusByPid(pid)
     if project.delete_flag == 1:
@@ -172,7 +211,7 @@ def downAwardInfo():
 """
 @back.route("/api/login",methods=['POST'])
 def login_api():
-    data = json.loads(request.get_data("utf-8"))
+    data = json.loads(request.get_data(as_text=True))
     username = data['username']
     password = data['password']
     user = userService.selectByName(username,0)
@@ -199,7 +238,7 @@ def logout_api():
 """
 @back.route("/api/admin/addUser", methods=['POST'])
 def addUser():
-    data = json.loads(request.get_data("utf-8"))
+    data = json.loads(request.get_data(as_text=True))
     username = data['username']
     password = data['password']
     type = data['type']
@@ -317,13 +356,14 @@ def manageResource(page,count):
 
 @back.route("/admin/editFiles")
 def editFiles():
-    return render_template('back01/file_add.html')
+    return render_template('back01/back/file_add.html')
 """ 
 管理员人员管理
 """
-@back.route("/admin/manageUser",methods=['GET'],defaults={'page':1,'count':10,'type':-1})
-@back.route("/admin/manageUser/<int:page>/<int:count>/<int:type>",methods=['GET'])
-def manageUser(page,count,type):
+@back.route("/admin/manageUser",methods=['GET'],defaults={'page':1,'count':10})
+@back.route("/admin/manageUser/<int:page>/<int:count>",methods=['GET'])
+def manageUser(page,count):
+    type = request.values.get("type")
     pagination, users = userService.selectByPage(page,count,type)
     return render_template("back01/back/manageUser.html",pagination=pagination,users=users)
 

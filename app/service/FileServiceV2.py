@@ -54,9 +54,10 @@ class FilesService:
 
     def getFilesBySource(self,page_index, per_page,source):
         if source == '0':#0代表查询全部的
-            return self.getFilesByPage(page_index,per_page,None)
-        condition = (Files.source == source)
-        return self.getFilesByPage(page_index,per_page,condition)
+            condition = (Files.delete_flag == 0)
+            return self.getFilesByPage(page_index,per_page,condition)
+        pagination = Files.query.filter(Files.source == source,Files.delete_flag == 0).paginate(page_index, per_page, error_out=False)
+        return pagination,pagination.items
 
     """ 
     @:param:
@@ -84,6 +85,11 @@ class FilesService:
     @:return:
     @descrition:删除文件
     """
+
+    def deletePros(self,source,sid):
+        sql = 'update dc_files set delete_flag = 1 where soure = '+ source + ' and source_id =' + 'sid'
+        db2.session.execute(sql)
+        db2.session.commit()
     def deleteFileByID(self,file_id):
         updateContent = {
             'delete_flag':1
