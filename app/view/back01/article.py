@@ -42,7 +42,7 @@ def articleModified():
     article = getArticleByID(article_id)
     kwsStr = str(article.key_words)
     kws = kwsStr.split("||")
-    return render_template('back01/article_modified.html', article=article,kws=kws)
+    return render_template('back01/back/article_modified.html', article=article,kws=kws)
 
 
 #文章列表

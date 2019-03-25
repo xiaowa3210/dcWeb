@@ -5,7 +5,13 @@
 <script type="text/javascript" src="/static/ueditor/ueditor.all.js"></script>
 
 <style>
-    
+    h4 {
+        margin:20px 0;
+        font-weight: bold;
+    }
+    .table>tbody>tr>td{
+        border-top: 0px;
+    }
 </style>
 {% endblock %}
 
@@ -14,25 +20,25 @@
     <section class="wrapper">
         <div class="row">
             <div class="col-lg-12">
-                <div class="col-lg-9">
+                <div class="col-lg-9" style="min-height: 800px">
                     <h2>{{project.pname}}</h2>
                     <p>{{project.content | safe}}</p>
                 </div>
-                <div class="col-lg-3">
+                <div class="col-lg-2">
                     <h4>封面图片</h4>
-                    <img src="{{url_for('common.image',name=project.mainPic)}}">
+                    <img style="width: 100%;height: 200px;" src="{{url_for('common.image',name=project.mainPic)}}">
                     <h4>项目类别</h4>
                     <p>{{project.type}}</p>
 
                 <h4>项目成员</h4>
-                <table>
+                <table class="table">
                     <tbody>
                 {% for member in project.members %}
                 {% if member.type==1 %}    <!--学生类型1-->
                     <tr>
-                        <td width="30%">{{member.name}}</td>
-                        <td width="30%">{{member.academy}}</td>
-                        <td width="30%">{{member.grade}}</td>
+                        <td>{{member.name}}</td>
+                        <td>{{member.academy}}</td>
+                        <td>{{member.grade}}</td>
                     </tr>
 
                 {% endif %}
@@ -40,8 +46,8 @@
                    </tbody>
                 </table>
 
-                                    <h4>指导老师</h4>
-                <table>
+                <h4>指导老师</h4>
+                <table class="table">
                     <tbody>
                 {% for member in project.members %}
                 {% if member.type==0 %}    <!--老师类型0-->
@@ -62,21 +68,31 @@
                     <a class="links" href="{{ award.honorLink }}" style="color: #666;text-decoration: none">{{award.honorLink}}</a>
                     <h4>获奖证书</h4>
                     {% for i in award.pics %}
-                    <img height="200" src="{{ url_for('common.image',name=i) }}" alt="">
+                    <img style="width: 100%;height: 200px" src="{{ url_for('common.image',name=i) }}" alt="">
                     {% endfor %}
                 {% endfor %}
 
                 </div>
             </div>
         </div>
-        <div>
-            <label>审核意见</label>
-            <textarea class="advice" cols="50" rows="5"></textarea>
+        <div class="row">
+            <div class="col-lg-6">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-lg-2 control-label">审核意见</label>
+                        <textarea class="advice" cols="80" rows="10"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-offset-2">
+                            <button type="button" class="btn btn-primary" id="pass" p_id="{{project.pid}}">审核通过</button>
+                            <button type="button" class="btn btn-danger" id="notpass" p_id="{{project.pid}}">审核不通过</button>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
         </div>
-        <div>
-            <button type="button" id="pass" p_id="{{project.pid}}">审核通过</button>
-            <button type="button" id="notpass" p_id="{{project.pid}}">审核不通过</button>
-        </div>
+
     </section>
 </section>
 {% endblock %}

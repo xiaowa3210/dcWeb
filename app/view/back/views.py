@@ -363,7 +363,7 @@ def manageResource(page,count):
 
 @back.route("/admin/editFiles")
 def editFiles():
-    return render_template('back01/file_add.html')
+    return render_template('back01/back/file_add.html')
 """ 
 管理员人员管理
 """
