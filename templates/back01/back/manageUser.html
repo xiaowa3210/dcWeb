@@ -66,58 +66,6 @@
             </div>
         </div>
     </section>
-    <div class="row">
-        <div class="col-lg-6">
-            <section class="panel">
-                <header class="panel-heading">添加人员</header>
-                <div class="panel-body">
-                    <form class="form-horizontal" role="form">
-                        <div class="form-group">
-                            <label for="username" class="col-lg-2 control-label">用户名</label>
-                            <div class="col-lg-10">
-                                <input class="form-control" id="username" placeholder="username">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="password" class="col-lg-2 control-label">password</label>
-                            <div class="col-lg-10">
-                                <input type="password" class="form-control" id="password"
-                                       placeholder="Password">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-lg-10">
-                                <input type="radio" name="type" value="0" checked>管理员
-                                <input type="radio" name="type" value="1">学生
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-lg-offset-2 col-lg-10">
-                                <button type="submit" onclick="MAIN.addUser()" class="btn btn-info">添加人员</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </section>
-        </div>
-    </div>
-</section>
-{% endblock %}
 
-{% block js_files %}
-<script>
-    var MAIN = {};
-    MAIN.addUser = function () {
-        var req = {};
-        req.username = $('#username').val().trim();
-        req.password = $('#password').val().trim();
-        req.type = $("input[name='type'][checked]").val().trim();
-        Af.rest("/api/admin/addUser", req, function (data) {
-            Af.log(data)
-            alert(data.msg);
-            $('#username').clear();
-            $('#password').clear();
-        })
-    }
-</script>
+</section>
 {% endblock %}
