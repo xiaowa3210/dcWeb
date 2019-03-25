@@ -131,7 +131,8 @@ def uploadFile():
             suffix = file.name[file.name.rfind('.'):]
             local_path = str(uuid.uuid1()).replace("-", "") + suffix
             file.path = local_path
-            file.source = 1         #代表资料下载的文件
+            file.source = 1             #代表资料下载的文件
+            file.source_id = -1         #代表资料下载的文件
             f.save(os.path.join(UPLOAD_FILES_PATH,local_path))
             filesService.addFile(file)
         return json.dumps(MessageInfo.success(msg="上传成功").__dict__)
@@ -268,6 +269,11 @@ def login():
 def main():
     return render_template("back01/back/main.html")
 
+
+@back.route("/admin/addUser")
+def insertUser():
+    return render_template("back01/back/addUser.html")
+
 """ 
 审核项目
 """
@@ -342,7 +348,8 @@ def manageNews(page,count):
 @back.route("/admin/modifiesNews/<int:nid>")
 def modifiesNews(nid):
     new = newsService.selectByNid(nid)
-    return render_template("back01/back/modifiesNews.html",article=new)
+    files = filesService.getFilesBySourceIdAndSource(1,nid)
+    return render_template("back01/back/modifiesNews.html",article=new,files=files)
 
 """ 
 资料管理

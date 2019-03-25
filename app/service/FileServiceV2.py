@@ -59,6 +59,12 @@ class FilesService:
         pagination = Files.query.filter(Files.source == source,Files.delete_flag == 0).paginate(page_index, per_page, error_out=False)
         return pagination,pagination.items
 
+
+    def getFilesBySourceIdAndSource(self,source,sid):
+        files = db2.session.query(Files).filter(Files.source == source, Files.source_id == sid).all()
+        db2.session.commit()
+        return files
+
     """ 
     @:param:
         updateContent:更新内容
