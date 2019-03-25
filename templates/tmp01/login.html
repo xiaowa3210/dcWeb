@@ -53,7 +53,6 @@
 
 
 <script>
-
   var MAIN = {};
   MAIN.login = function () {
       var req = {};
@@ -67,5 +66,16 @@
           }
         })
   }
+</script>
+{% endblock %}
+
+{% block js_files %}
+<script>
+   $(function () {
+       //更改导航栏的active
+        $("li:first").removeClass("active");
+        $("li").eq(5).addClass("active");
+   })
+
 </script>
 {% endblock %}

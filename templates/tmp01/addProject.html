@@ -279,35 +279,42 @@
             var memberArr = new Array();
             $(".memberset").each(function () {
                 var student = new Object();
-                student.name = $(this).find("#memberName").val();       //成员姓名
-                student.grade = $(this).find("#memberGrade").val();     //成员年级
-                student.academy = $(this).find("#memberCollege").val(); //成员学院
-                student.type = 1;                                     //学生类型为1
-                student.brief = $(this).find(".brief").val();
-                memberArr.push(student); //每个成员对象存入数组
+                if($(this).find("#memberName").val()) {   //有成员信息
+                    student.name = $(this).find("#memberName").val();       //成员姓名
+                    student.grade = $(this).find("#memberGrade").val();     //成员年级
+                    student.academy = $(this).find("#memberCollege").val(); //成员学院
+                    student.type = 1;                                     //学生类型为1
+                    student.brief = $(this).find(".brief").val();
+                    memberArr.push(student); //每个成员对象存入数组
+                }
             });
 
             //获取指导老师信息
             //var teacherArr = new Array();
             $(".teacherset").each(function () {
                 var teacher = new Object();
-                teacher.name = $(this).find(".teacherName").val();
-                teacher.brief = $(this).find(".brief").val();
-                teacher.type = 0;                                    //老师类型为0
-                memberArr.push(teacher)
+                if($(this).find(".teacherName").val()){
+                    teacher.name = $(this).find(".teacherName").val();
+                    teacher.brief = $(this).find(".brief").val();
+                    teacher.type = 0;                                    //老师类型为0
+                    memberArr.push(teacher)
+                }
             })
 
             //获取奖项信息
             var awardArr = new Array();
             $(".award").each(function () {
                 var award = new Object();
-                award.title = $(this).find(".awardTitle").val();
-                award.awardTime = $(this).find(".awardTime").val();
-                award.honorLink=$(this).find(".awardLink").val();
-///                award.honorLink = new Array($(this).find(".awardLink").val());
-//                award.certPic = Common.getPicsSrc($(this).find(".show"));
-                award.certPic = Common.getPicsSrc($(this).find(".cerImg"));
-                awardArr.push(award);
+                if($(this).find(".awardTitle").val()){
+                    award.title = $(this).find(".awardTitle").val();
+                    award.awardTime = $(this).find(".awardTime").val();
+                    award.honorLink=$(this).find(".awardLink").val();
+    ///                award.honorLink = new Array($(this).find(".awardLink").val());
+    //                award.certPic = Common.getPicsSrc($(this).find(".show"));
+                    award.certPic = Common.getPicsSrc($(this).find(".cerImg"));
+                    awardArr.push(award);
+                }
+
             })
             //console.log(memberArr[1].name);
             //所有信息
