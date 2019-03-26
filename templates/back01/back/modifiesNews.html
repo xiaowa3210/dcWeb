@@ -59,9 +59,9 @@
                                  <div class="form-group">
                                     <label class="control-label col-lg-2">上传附件</label>
                                     <div class="col-lg-10">
-                                        {% for file in article.files%}
+                                        {% for file in files%}
                                             <div class="col-lg-2" style="margin-bottom: 10px">
-                                                <a file_id="{{file.file_id}}" class="btn btn-danger" onclick="MAIN.deletefile(this)">{{file.local_name}}<i class="icon_close_alt2"></i></a>
+                                                <a file_id="{{file.fid}}" class="btn btn-danger" onclick="MAIN.deletefile(this)">{{file.name}}<i class="icon_close_alt2"></i></a>
                                             </div>
                                         {% endfor %}
                                         <div class="col-lg-12">
@@ -186,7 +186,7 @@
         var file_id = $(e).attr('file_id');
         var req = {};
         req.file_id = file_id
-        Af.rest("/back01/deleteFile",req,function (data) {
+        Af.rest("/api/admin/deleteFile",req,function (data) {
             $(e).parent('div:first').remove();
             alert(data)
         })
