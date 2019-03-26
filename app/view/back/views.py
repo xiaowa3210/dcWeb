@@ -348,7 +348,8 @@ def manageNews(page,count):
 @back.route("/admin/modifiesNews/<int:nid>")
 def modifiesNews(nid):
     new = newsService.selectByNid(nid)
-    files = filesService.getFilesBySourceIdAndSource(1,nid)
+    files = filesService.getFilesBySourceIdAndSource(2,nid)
+
     return render_template("back01/back/modifiesNews.html",article=new,files=files)
 
 """ 
