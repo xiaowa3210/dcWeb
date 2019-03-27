@@ -69,10 +69,10 @@
         var req = {};
         req.username = $('#username').val().trim();
         req.password = $('#password').val().trim();
-        req.type = $("input[name='type'][checked]").val().trim();
+        req.type = $("input[name='type']:checked").val().trim();
         Af.rest("/api/admin/addUser", req, function (data) {
             Af.log(data)
-            alert(data.msg);
+            alert(data);
             $('#username').clear();
             $('#password').clear();
         })
