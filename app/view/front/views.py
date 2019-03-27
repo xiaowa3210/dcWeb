@@ -188,6 +188,19 @@ def project(pid):
         a.pics = json.loads(a.certPic)
     return render_template("tmp01/projects-detail.html",project=project)
 
+
+""" 
+项目预览
+"""
+@front.route("/student/preview/project",methods=['GET'])
+@front.route("/student/preview/project/<int:pid>")
+def previewProject(pid):
+    project = projectService.getProjectByID(pid)
+    awards = project.awards
+    for a in awards:
+        a.pics = json.loads(a.certPic)
+    return render_template("tmp01/projects-detail.html",project=project)
+
 """ 
 基地风采展示
 """
