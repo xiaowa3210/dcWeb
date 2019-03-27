@@ -41,12 +41,12 @@ def uploadNew():
         new = New(title, content, src_content)
 
         extraInfo = newExt(title, type)
-        extraInfo.creater = commonService.getCurrentUsername()
+        extraInfo.creater = commonService.getCurrentUsername(0)
         extraInfo.modifiedTime = datetime.now()
-        extraInfo.modifier = commonService.getCurrentUsername()
-        if type == 1:
-            extraInfo.publisher = commonService.getCurrentUsername()
-            extraInfo.publisherTime = commonService.getCurrentUsername()
+        extraInfo.modifier = commonService.getCurrentUsername(0)
+        if type == '1':
+            extraInfo.publisher = commonService.getCurrentUsername(0)
+            extraInfo.publisherTime = datetime.now()
         new.extInfo = extraInfo
         newsService.addNews(new)
 

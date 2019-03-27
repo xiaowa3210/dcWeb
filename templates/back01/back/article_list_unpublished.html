@@ -46,7 +46,6 @@
                             <th>发布人</th>
                             <th>最后修改人</th>
                             <th>创建时间</th>
-                            <th>发布时间</th>
                             <th>最后修改时间</th>
                             <th>发布标志</th>
                         </tr>
@@ -57,9 +56,8 @@
                             <td>{{article.creater}}</td>
                             <td>{{article.publisher}}</td>
                             <td>{{article.modifier}}</td>
-                            <td>{{article.create_time}}</td>
-                            <td>{{article.publisherTime}}</td>
-                            <td>{{article.modifiedTimee}}</td>
+                            <td>{{article.createTime}}</td>
+                            <td>{{article.modifiedTime}}</td>
                             {% if article.status == 0 %}
                                 <td>未发布</td>
                             {% elif article.status == 1%}
