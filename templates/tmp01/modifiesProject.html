@@ -103,41 +103,38 @@
                 </div>
                 <div>
                     <button type="button" id="addAward">添加奖项</button>
-                    {% if project.awards %}
-                    <div class="award">
-                        {% for award in project.awards %}
-                        <fieldset class="awardItem">
-                            <p>奖项名称：<input type="text" class="awardTitle" name="awardTitle" value="{{ award.awardName }}"></p>
-                            <!--奖项名称-->
-                            <p>获奖时间：<input type="date" class="awardTime" type="text" value="{{ award.awardTime }}"></p><!--这个地方最好选择时间控件-->
-                            <p>获奖链接：<input class="awardLink" type="text" value="{{ award.honorLink }}"></p>
-                            <div style="position: relative">
-                                <input type="file" name="certificate" class="certificate" multiple style="opacity: 0">
-                                <button style="position: absolute;left: 0;top: 0;z-index: -10;" type="button">上传证书/奖项图片
-                                </button>
-                            </div> <!--一张或多张证书、奖项-->
-                            {% for i in award.pics %}
-                            <img height="200" style="max-width: 400px" ysrc="{{ url_for('common.image',name=i) }}" alt="">
-                            {% endfor %}
-                        </fieldset>
-                        {% endfor %}
-                    </div>
-                    {% else %}
-                    <div class="award hide">
-                        <fieldset class="awardItem">
-                            <p>奖项名称：<input type="text" class="awardTitle" name="awardTitle"></p>
-                            <!--奖项名称-->
-                            <p>获奖时间：<input type="date" class="awardTime" type="text"></p><!--这个地方最好选择时间控件-->
-                            <p>获奖链接：<input class="awardLink" type="text"></p>
-                            <div style="position: relative">
-                                <input type="file" name="certificate" class="certificate" multiple style="opacity: 0">
-                                <button style="position: absolute;left: 0;top: 0;z-index: -10;" type="button">上传证书/奖项图片
-                                </button>
-                            </div> <!--一张或多张证书、奖项-->
-                            <div class="show"></div>
-                        </fieldset>
-                    </div>
-                    {% endif %}
+                    {% for award in project.awards %}
+                        <div class="award">
+                            <fieldset class="awardItem">
+                                <p>奖项名称：<input type="text" class="awardTitle" name="awardTitle" value="{{ award.awardName }}"></p>
+                                <!--奖项名称-->
+                                <p>获奖时间：<input type="date" class="awardTime" type="text" value="{{ award.awardTime }}"></p><!--这个地方最好选择时间控件-->
+                                <p>获奖链接：<input class="awardLink" type="text" value="{{ award.honorLink }}"></p>
+                                <div style="position: relative">
+                                    <input type="file" name="certificate" class="certificate" multiple style="opacity: 0">
+                                    <button style="position: absolute;left: 0;top: 0;z-index: -10;" type="button">上传证书/奖项图片
+                                    </button>
+                                </div> <!--一张或多张证书、奖项-->
+                                {% for i in award.pics %}
+                                <img height="200" style="max-width: 400px" ysrc="{{ url_for('common.image',name=i) }}" alt="">
+                                {% endfor %}
+                            </fieldset>
+                        </div>
+                    {% endfor %}
+                        <div class="award hide">
+                            <fieldset class="awardItem">
+                                <p>奖项名称：<input type="text" class="awardTitle" name="awardTitle"></p>
+                                <!--奖项名称-->
+                                <p>获奖时间：<input type="date" class="awardTime" type="text"></p><!--这个地方最好选择时间控件-->
+                                <p>获奖链接：<input class="awardLink" type="text"></p>
+                                <div style="position: relative">
+                                    <input type="file" name="certificate" class="certificate" multiple style="opacity: 0">
+                                    <button style="position: absolute;left: 0;top: 0;z-index: -10;" type="button">上传证书/奖项图片
+                                    </button>
+                                </div> <!--一张或多张证书、奖项-->
+                                <div class="show"></div>
+                            </fieldset>
+                        </div>
                 </div>
             </div>
 
@@ -165,12 +162,12 @@
                     {% if member.type==1 %}
                     <fieldset class="memberset">
                         <p>
-                            <label for="memberName">姓名</label>
-                            <input type="text" name="memberName" id="memberName" value="{{ member.name }}">
+                            <label>姓名</label>
+                            <input type="text" name="memberName" class="memberName" value="{{ member.name }}">
                         </p>
                         <p>
-                            <label for="memberGrade">年级</label>
-                            <select id="memberGrade" name="memberGrade" m_grade="{{ member.grade }}">
+                            <label>年级</label>
+                            <select name="memberGrade" m_grade="{{ member.grade }}">
                                 <option value="大四">大四</option>
                                 <option value="大三">大三</option>
                                 <option value="大二">大二</option>
@@ -178,8 +175,8 @@
                             </select>
                         </p>
                         <p>
-                            <label for="memberCollege">学院</label>
-                            <select id="memberCollege" name="memberCollege" m_college="{{ member.academy }}">
+                            <label>学院</label>
+                            <select class="memberGrade" name="memberCollege" m_college="{{ member.academy }}">
                                 <option value="信通院">信通院</option>
                                 <option value="计算机院">计算机院</option>
                                 <option value="电子院">电子院</option>
@@ -187,12 +184,40 @@
                             </select>
                         </p>
                         <p>
-                            <label for="brief">简介</label>
-                            <input type="text" name="brief" id="brief" value="{{ member.brief }}">
+                            <label>简介</label>
+                            <input type="text" name="brief" class="brief" value="{{ member.brief }}">
                         </p>
                     </fieldset>
                     {% endif %}
                     {% endfor %}
+                    <fieldset class="memberset hide">
+                        <p>
+                            <label>姓名</label>
+                            <input type="text" name="memberName" class="memberName">
+                        </p>
+                        <p>
+                            <label >年级</label>
+                            <select class="memberGrade" name="memberGrade">
+                                <option value="大四">大四</option>
+                                <option value="大三">大三</option>
+                                <option value="大二">大二</option>
+                                <option value="大一">大一</option>
+                            </select>
+                        </p>
+                        <p>
+                            <label>学院</label>
+                            <select class="memberCollege" name="memberCollege">
+                                <option value="信通院">信通院</option>
+                                <option value="计算机院">计算机院</option>
+                                <option value="电子院">电子院</option>
+                                <option value="数媒院">数媒院</option>
+                            </select>
+                        </p>
+                        <p>
+                            <label>简介</label>
+                            <input type="text" name="brief" class="brief">
+                        </p>
+                    </fieldset>
                 </div>
                 <button type="button" id="addMember">添加成员</button>
 
@@ -213,6 +238,16 @@
                     </fieldset>
                     {% endif %}
                     {% endfor %}
+                    <fieldset class="teacherset hide">
+                        <p>
+                            <label>姓名</label>
+                            <input type="text" name="memberName" class="teacherName">
+                        </p>
+                        <p>
+                            <label>简介</label>
+                            <input type="text" name="brief" class="brief">
+                        </p>
+                    </fieldset>
                 </div>
 
                 <button type="button" id="addTeacher">添加指导老师</button>
@@ -226,9 +261,9 @@
     </div>
 </div>
 
-{% endblock%}
+{% endblock %}
 
-{% block js_files%}
+{% block js_files %}
 <script src="{{ url_for('static',filename='mdeditor/editormd.js')}}"></script>
 
 
@@ -243,10 +278,10 @@
 
         //项目成员默认值
         //项目成员年级和学院
-        var grade=$("#memberGrade").attr("m_grade");
+        var grade=$(".memberGrade").attr("m_grade");
         $("#memberGrade").val(grade);
-        var college=$("#memberCollege").attr("m_college");
-        $("#memberCollege").val(college);
+        var college=$(".memberCollege").attr("m_college");
+        $(".memberCollege").val(college);
 
 
 
@@ -255,11 +290,21 @@
 
         //添加成员
         $("#addMember").click(function () {
-            $(".member").append($(".memberset:first").clone());
+            if($(".memberset").hasClass("hide")){
+                $(".memberset").removeClass("hide");
+            }else{
+                $(".member").append($(".memberset:first").clone());
+            }
+
         });
         //添加指导老师
         $("#addTeacher").click(function () {
-            $(".teacher").append($(".teacherset:first").clone());
+            if($(".teacherset").hasClass("hide")) {
+                $(".teacherset").removeClass("hide");
+            }else{
+                $(".teacher").append($(".teacherset:first").clone());
+            }
+
         });
 
         //添加封面图片
@@ -278,7 +323,7 @@
 
         //显示奖项信息
         $("#addAward").click(function () {
-            console.log("hhh");
+
             if($(".award").hasClass('hide')){
                 $("div.award").removeClass("hide");
             }else {
@@ -327,34 +372,42 @@
             var memberArr = new Array();
             $(".memberset").each(function () {
                 var student = new Object();
-                student.name = $(this).find("#memberName").val();       //成员姓名
-                student.grade = $(this).find("#memberGrade").val();     //成员年级
-                student.academy = $(this).find("#memberCollege").val(); //成员学院
-                student.type = 1;                                     //学生类型为1
-                student.brief = $(this).find(".brief").val();
-                memberArr.push(student); //每个成员对象存入数组
+                if($(this).find("#memberName").val()){
+                    student.name = $(this).find("#memberName").val();       //成员姓名
+                    student.grade = $(this).find("#memberGrade").val();     //成员年级
+                    student.academy = $(this).find("#memberCollege").val(); //成员学院
+                    student.type = 1;                                     //学生类型为1
+                    student.brief = $(this).find(".brief").val();
+                    memberArr.push(student); //每个成员对象存入数组
+                }
             });
 
             //获取指导老师信息
             //var teacherArr = new Array();
             $(".teacherset").each(function () {
                 var teacher = new Object();
-                teacher.name = $(this).find(".teacherName").val();
-                teacher.brief = $(this).find(".brief").val();
-                teacher.type = 0;                                    //老师类型为0
-                memberArr.push(teacher)
+                if($(this).find(".teacherName").val()){
+                    teacher.name = $(this).find(".teacherName").val();
+                    teacher.brief = $(this).find(".brief").val();
+                    teacher.type = 0;                                    //老师类型为0
+                    memberArr.push(teacher)
+                    }
+
             })
 
             //获取奖项信息
             var awardArr = new Array();
             $(".award").each(function () {
                 var award = new Object();
-                award.title = $(this).find(".awardTitle").val();
-                award.time = $(this).find(".awardTime").val();
-                award.honorLink = new Array($(this).find(".awardLink").val());
-//                award.certPic = Common.getPicsSrc($(this).find(".show"));
-                award.certPic = Common.getPicsSrc($(this).find(".cerImg"));
-                awardArr.push(award);
+                if($(this).find(".awardTitle").val()){
+                     award.title = $(this).find(".awardTitle").val();
+                    award.time = $(this).find(".awardTime").val();
+                    award.honorLink = new Array($(this).find(".awardLink").val());
+    //                award.certPic = Common.getPicsSrc($(this).find(".show"));
+                    award.certPic = Common.getPicsSrc($(this).find(".cerImg"));
+                    awardArr.push(award);
+                }
+
             })
             //console.log(memberArr[1].name);
             //所有信息
