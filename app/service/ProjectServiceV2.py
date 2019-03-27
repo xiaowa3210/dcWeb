@@ -283,7 +283,7 @@ class ProjectService:
         if operation == 0:
             updateContent = {
                 'status': 4,
-                "reviewer": commonService.getCurrentUsername(),
+                "reviewer": commonService.getCurrentUsername(0),
                 "checkTime": datetime.now(),
                 "msg":'审核不通过' if msg == None or msg == '' else msg
             }
