@@ -61,7 +61,7 @@ class FilesService:
 
 
     def getFilesBySourceIdAndSource(self,source,sid):
-        files = db2.session.query(Files).filter(Files.source == source, Files.source_id == sid).all()
+        files = db2.session.query(Files).filter(Files.source == source, Files.source_id == sid,Files.delete_flag == 0).all()
         db2.session.commit()
         return files
 
