@@ -135,3 +135,4 @@ class Files(db2.Model):
     source = db2.Column(db2.Integer,nullable=False)#1:代表资料下载文件。2:代表新闻附件。3:代表项目附件
     source_id = db2.Column(db2.Integer,nullable=True)
     delete_flag = db2.Column(db2.DECIMAL(1,0),nullable=False,default=0)
+    createTime = db2.Column(DateTime, nullable=False, default=datetime.now)  # 创建时间
