@@ -74,7 +74,7 @@
 
 
 <div style="width: auto;height: 2500px">
-    <div id="test-editormd" data-content="{{ article.src_content }}">
+    <div id="test-editormd" >
 
         <textarea class="editormd-markdown-textarea" name="test-editormd-markdown-doc">{{article.src_content}}</textarea>
           <!--html textarea 需要开启配置项 saveHTMLToTextarea == true -->
@@ -174,11 +174,11 @@
                 processData:false,
                 contentType:false,
                 success:function(data){
-                    alert("success")
+                    alert("修改成功")
                     window.location.reload()
                 },
                 error:function(e){
-                    alert("fail");
+                    alert("修改失败");
                 }
             });
     }
