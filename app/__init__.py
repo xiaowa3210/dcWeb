@@ -5,7 +5,6 @@ import json
 from flask import Flask, redirect, url_for, request, session, render_template
 from app.model import config
 from app.model.constant import ADMIN, role_dict, TEACHER
-from app.model.models import db  # 数据库
 from app.model.entity import db2  # 数据库
 from app.service.UserServiceV2 import UserService
 from app.view.MessageInfo import MessageInfo
@@ -17,22 +16,10 @@ app.config.from_object(config)  # 将配置文件导入应用中
 
 app.config["SQLALCHEMY_ECHO"] = True
 
-db.init_app(app)
 db2.init_app(app)
 mail.init_app(app)
 
 
-
-from app.view.admin import admin as admin_blueprint
-app.register_blueprint(admin_blueprint)
-from app.view.auth import auth as auth_blueprint
-app.register_blueprint(auth_blueprint)
-from app.view.tmp01 import tmp01 as tmp01_blueprint
-app.register_blueprint(tmp01_blueprint)
-from app.view.tmp03 import tmp03 as tmp03_blueprint
-app.register_blueprint(tmp03_blueprint)
-from app.view.tmp05 import tmp05 as tmp05_blueprint
-app.register_blueprint(tmp05_blueprint)
 
 
 from app.view.front import front as front_blueprint
