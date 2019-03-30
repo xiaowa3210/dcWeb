@@ -74,8 +74,7 @@
 
 
 <div style="width: auto;height: 2500px">
-    <div id="test-editormd" >
-
+    <div id="test-editormd"  data-content="{{ article.content }}">
         <textarea class="editormd-markdown-textarea" name="test-editormd-markdown-doc">{{article.src_content}}</textarea>
           <!--html textarea 需要开启配置项 saveHTMLToTextarea == true -->
         <!--<textarea class="editormd-html-textarea" name="$id-html-code">-->
@@ -115,6 +114,7 @@
      //markdown编辑器设置
     var testEditor;
     $(function () {
+
         testEditor = editormd("test-editormd", {
             width: '80%',
             height: '50%',
@@ -124,7 +124,7 @@
             //启动本地图片上传功能
             imageUpload: true,
             imageFormats: ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
-            imageUploadURL: "{{url_for('tmp05.upload')}}"
+            imageUploadURL: "{{url_for('common.markdown_upload')}}"
         });
 
 
@@ -137,14 +137,6 @@
 //        serverUrl:"/resources/images"
 //    })
 
-    $(function (){
-        var ue = editormd('test-editormd');
-        var origin_content = $("#data-content").attr("data-content");
-        ue.ready(function () {
-            ue.setContent(origin_content);
-        });
-        window.ue = ue;
-    });
 
     MAIN.init = function () {
 
@@ -165,6 +157,7 @@
         form.append("content",content);
         form.append("src_content",testEditor.getMarkdown());
         form.append("operate",1);
+
 
 
         $.ajax({

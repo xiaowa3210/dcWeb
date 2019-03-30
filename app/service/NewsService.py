@@ -38,6 +38,7 @@ class NewsService:
         result = db2.session.query(New).filter(New.nid == new.nid).one()
         result.title = new.title
         result.content = new.content
+        result.src_content = new.src_content
         result.extInfo.status = status
         db2.session.commit()
 
