@@ -34,6 +34,12 @@ class UserService:
         db2.session.add(user)
         db2.session.commit()
 
+    """
+    删除用户用户
+    """
+    def deleteUser(self, uid):
+        db2.session.query(User).filter(User.id == uid).update({'delete_flag':1})
+        db2.session.commit()
 
     """ 
     修改密码
@@ -58,7 +64,7 @@ class UserService:
     """
     def selectByName(self,name,type):
         try:
-            return db2.session.query(User).filter(User.username == name).filter(User.type == type).one()
+            return db2.session.query(User).filter(User.username == name,User.delete_flag == 0).filter(User.type == type).one()
         except:
             traceback.print_exc()
             return None
@@ -67,7 +73,7 @@ class UserService:
     查询所有记录，按时间排序
     """
     def selectAll(self):
-        return db2.session.query(User).order_by(User.created_time)
+        return db2.session.query(User).filter(User.delete_flag == 0).order_by(User.created_time)
 
 
     """ 
@@ -82,11 +88,11 @@ class UserService:
     """
     def selectByPage(self,page_index,per_page,type):
         if type == ADMIN:
-            pagination = User.query.filter(User.type == 0).order_by(User.created_time).paginate(page_index, per_page)
+            pagination = User.query.filter(User.type == 0,User.delete_flag == 0).order_by(User.created_time).paginate(page_index, per_page)
         elif type == TEACHER:
-            pagination = User.query.filter(User.type == 1).order_by(User.created_time).paginate(page_index, per_page)
+            pagination = User.query.filter(User.type == 1,User.delete_flag == 0).order_by(User.created_time).paginate(page_index, per_page)
         else:
-            pagination = User.query.order_by(User.created_time).paginate(page_index, per_page)
+            pagination = User.query.filter(User.delete_flag == 0).order_by(User.created_time).paginate(page_index, per_page)
         return pagination,pagination.items
 
 

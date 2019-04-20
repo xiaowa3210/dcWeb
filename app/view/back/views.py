@@ -123,7 +123,7 @@ def undoNew(nid):
 """
 @back.route("/api/admin/uploadFile",methods=['POST'])
 def uploadFile():
-    files = request.files.getlist("files")
+    files = request.files.getlist("attachment")
     if len(files) > 0:
         for f in files:
             file = Files()
@@ -139,7 +139,7 @@ def uploadFile():
     else:
         return json.dumps(MessageInfo.fail(msg="没有检测到文件").__dict__)
 """ 
-管理员删除项目
+管理员删除资源
 """
 @back.route("/api/admin/deleteFile")
 def deleteFile():
@@ -247,6 +247,18 @@ def addUser():
     user = User(username,password,type)
     userService.addUser_v1(user)
     return json.dumps(MessageInfo.success(msg="添加成功").__dict__)
+
+
+""" 
+管理员删除用户
+"""
+@back.route("/api/admin/deleteUser", methods=['POST'])
+def deleteUser():
+    data = json.loads(request.get_data(as_text=True))
+    uid = data['uid']
+
+    userService.deleteUser(uid)
+    return json.dumps(MessageInfo.success(msg="删除成功").__dict__)
 
 #******************************模板******************************#
 #******************************模板******************************#

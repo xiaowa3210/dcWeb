@@ -156,7 +156,8 @@ def news(page,count):
 @front.route('/new/<news_id>')
 def new(news_id):
     new = newsService.selectByNid(news_id)
-    return render_template("tmp01/news-detail.html",new=new)
+    files = filesService.getFilesBySourceIdAndSource(2,news_id)
+    return render_template("tmp01/news-detail.html",new=new,files=files)
 
 """
 资料下载展示
