@@ -15,6 +15,7 @@ class User(db2.Model):
     type = db2.Column(db2.Integer, nullable=False)
     created_time = db2.Column(DateTime, nullable=True, default=datetime.now)
     modified_time = db2.Column(DateTime, nullable=True)
+    delete_flag = db2.Column(db2.DECIMAL(1, 0), nullable=False, default=0)  # 删除标志
 
     def __init__(self, username, pwd, type):
         self.username = username

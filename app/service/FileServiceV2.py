@@ -96,6 +96,7 @@ class FilesService:
         sql = 'update dc_files set delete_flag = 1 where soure = '+ source + ' and source_id =' + 'sid'
         db2.session.execute(sql)
         db2.session.commit()
+
     def deleteFileByID(self,file_id):
         updateContent = {
             'delete_flag':1
