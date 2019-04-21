@@ -75,7 +75,7 @@
             <div>
                 <ul class="pagination pagination-lg">
                     {% if pagination.has_prev %}
-                        <li><a href="{{url_for('back01.manageResource',page = pagination.page - 1,count = 10)}}">«</a></li>
+                        <li><a href="{{url_for('back.manageResource',page = pagination.page - 1,count = 10)}}">«</a></li>
                     {% endif %}
 
                     {% for p in pagination.iter_pages() %}
