@@ -15,6 +15,7 @@ class User(db2.Model):
     type = db2.Column(db2.Integer, nullable=False)
     created_time = db2.Column(DateTime, nullable=True, default=datetime.now)
     modified_time = db2.Column(DateTime, nullable=True)
+    delete_flag = db2.Column(db2.DECIMAL(1, 0), nullable=False, default=0)  # 删除标志
 
     def __init__(self, username, pwd, type):
         self.username = username
@@ -46,7 +47,7 @@ class ProjectStatus(db2.Model):
     id = db2.Column(db2.Integer, primary_key=True, autoincrement=True)
     pid = db2.Column(db2.Integer, db2.ForeignKey('dc_project.pid'))                 #外键关联dc_project表，一对一关系
     pname = db2.Column(db2.String(256),nullable=False)                              #项目名
-    type = db2.Column(db2.Integer, nullable=False)                                  #项目类别
+    type = db2.Column(db2.String(256), nullable=False)                                  #项目类别
     publisher = db2.Column(db2.String(256), nullable=False)                         #上传者
     reviewer = db2.Column(db2.String(256), nullable=True)                           #审核人
     undoer = db2.Column(db2.String(256), nullable=True)                             #撤销人
@@ -135,3 +136,4 @@ class Files(db2.Model):
     source = db2.Column(db2.Integer,nullable=False)#1:代表资料下载文件。2:代表新闻附件。3:代表项目附件
     source_id = db2.Column(db2.Integer,nullable=True)
     delete_flag = db2.Column(db2.DECIMAL(1,0),nullable=False,default=0)
+    createTime = db2.Column(DateTime, nullable=False, default=datetime.now)  # 创建时间

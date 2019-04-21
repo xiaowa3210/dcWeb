@@ -3,7 +3,7 @@
 import base64
 import json
 
-from flask import request, render_template, session
+from flask import request, render_template, session, redirect, url_for
 
 from app.model.entity import User
 from app.service.UserServiceV2 import UserService
@@ -55,6 +55,14 @@ def stu_login_api():
             return json.dumps(MessageInfo.fail(msg="亲，密码错误!").__dict__)
     else:
         return json.dumps(MessageInfo.fail(msg="亲,用户不存在").__dict__)
+
+""" 
+学生登出接口
+"""
+@front.route("/api/front/logout", methods=['GET'])
+def stu_logout_api():
+    session.pop('student', None)
+    return redirect(url_for('front.stu_login'))
 
 """ 
 学生注册接口
@@ -148,7 +156,8 @@ def news(page,count):
 @front.route('/new/<news_id>')
 def new(news_id):
     new = newsService.selectByNid(news_id)
-    return render_template("tmp01/news-detail.html",new=new)
+    files = filesService.getFilesBySourceIdAndSource(2,news_id)
+    return render_template("tmp01/news-detail.html",new=new,files=files)
 
 """
 资料下载展示
@@ -174,6 +183,19 @@ def projects(page,count):
 @front.route("/project",methods=['GET'])
 @front.route("/project/<int:pid>")
 def project(pid):
+    project = projectService.getProjectByID(pid)
+    awards = project.awards
+    for a in awards:
+        a.pics = json.loads(a.certPic)
+    return render_template("tmp01/projects-detail.html",project=project)
+
+
+""" 
+项目预览
+"""
+@front.route("/student/preview/project",methods=['GET'])
+@front.route("/student/preview/project/<int:pid>")
+def previewProject(pid):
     project = projectService.getProjectByID(pid)
     awards = project.awards
     for a in awards:

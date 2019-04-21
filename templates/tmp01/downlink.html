@@ -51,8 +51,8 @@
             <tbody>
             {% for file in files %}
             <tr>
-                <td width="82%"> <a href="{{ url_for('common.file',name= file.name) }}">{{ file.name }}</a></td>
-                <td width="18%" style="text-align: center;" class="time">{{ file.publisherTime }}</td>
+                <td width="82%"> <a href="{{ url_for('common.file',name= file.path) }}">{{ file.name }}</a></td>
+                <td width="18%" style="text-align: center;" class="time">{{ file.createTime }}</td>
             </tr>
             {% endfor %}
             </tbody>
@@ -63,7 +63,7 @@
             <ul>
                 {% if pagination.has_prev %}
                     <li class="page-item">
-                        <a class="page-link" href="{{ url_for('front.downloadFile',page = pagination.page - 1) }}">上一页</a>
+                        <a class="page-link" href="{{ url_for('front.downloadFile',page = pagination.page - 1,count = 10) }}">上一页</a>
                     </li>
                 {% else %}
                     <li class="page-item disabled">
@@ -76,18 +76,18 @@
 
                     {% if p == pagination.page%}
                         <li class="page-item active">
-                            <a class="page-link" href="{{ url_for('front.downloadFile', page = p) }}">{{loop.index}}</a>
+                            <a class="page-link" href="{{ url_for('front.downloadFile', page = p,count = 10) }}">{{loop.index}}</a>
                         </li>
                     {% else %}
                         <li class="page-item">
-                            <a class="page-link" href="{{ url_for('front.downloadFile', page = p) }}">{{loop.index}}</a>
+                            <a class="page-link" href="{{ url_for('front.downloadFile', page = p,count = 10) }}">{{loop.index}}</a>
                         </li>
                     {% endif %}
                 {% endfor %}
 
                 {% if pagination.has_next %}
                     <li class="page-item">
-                        <a class="page-link" href="{{ url_for('front.downloadFile',page = pagination.page + 1) }}">下一页</a>
+                        <a class="page-link" href="{{ url_for('front.downloadFile',page = pagination.page + 1,count = 10) }}">下一页</a>
                     </li>
                 {% else %}
                     <li class="page-item disabled">

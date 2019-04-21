@@ -38,7 +38,14 @@ class NewsService:
         result = db2.session.query(New).filter(New.nid == new.nid).one()
         result.title = new.title
         result.content = new.content
+        result.src_content = new.src_content
         result.extInfo.status = status
+        result.extInfo.title = new.title
+        result.extInfo.modifier = CommonService.getCurrentUsername(0)
+        result.extInfo.modifiedTime = datetime.now()
+        if status == 1:
+            result.extInfo.publisher = CommonService.getCurrentUsername(0)
+            result.extInfo.publisherTime = datetime.now()
         db2.session.commit()
 
     """ 
