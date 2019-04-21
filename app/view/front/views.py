@@ -203,7 +203,7 @@ def previewProject(pid):
     awards = project.awards
     for a in awards:
         a.pics = json.loads(a.certPic)
-    return render_template("tmp01/projects-detail.html",project=project)
+    return render_template("tmp01/project-preview.html",project=project)
 
 """ 
 基地风采展示
