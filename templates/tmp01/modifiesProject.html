@@ -115,9 +115,11 @@
                                     <button style="position: absolute;left: 0;top: 0;z-index: -10;" type="button">上传证书/奖项图片
                                     </button>
                                 </div> <!--一张或多张证书、奖项-->
-                                {% for i in award.pics %}
-                                <img height="200" style="max-width: 400px" ysrc="{{ url_for('common.image',name=i) }}" alt="">
-                                {% endfor %}
+                                <div class="show">
+                                    {% for i in award.pics %}
+                                        <img height="200" style="max-width: 400px" src="{{ url_for('common.image',name=i) }}" alt="">
+                                    {% endfor %}
+                                </div>
                             </fieldset>
                         </div>
                     {% endfor %}
@@ -144,9 +146,7 @@
                     <button style="position: absolute;left: 0;top: 0;z-index: -10" type="button">上传封面图片</button>
                 </div>
                 <div class="preview" style="display: block;background-color: #eee;width: 100%;height: 200px">
-
-                    <img style="height: 200px;width: 100%" src="{{ url_for('common.image',name=project.mainPic) }}">
-
+                    <img class="mainPic" style="height: 200px;width: 100%" src="{{ url_for('common.image',name=project.mainPic) }}">
                 </div>
                 <div>
                     <p class="title">类别</p>
