@@ -131,7 +131,7 @@ class ProjectService:
             award.awardTime = mapGet(a, 'awardTime')
             award.certPic = json.dumps(commonService.getImgPathList(mapGet(a, 'certPic')))
             award.honorLink = json.dumps(mapGet(a, 'honorLink'))
-            db2.session.add(member)
+            db2.session.add(award)
 
         # 添加状态信息
         publisher = commonService.getCurrentUsername(1)
