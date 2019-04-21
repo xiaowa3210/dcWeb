@@ -59,7 +59,7 @@
                             {% endif %}
                             <td>
                                 <div class="btn-group">
-                                       <button class="btn btn-danger delete" id="delete"  onclick="MAIN.doRemove(0)" p_id="{{file.fid}}">删除</button>
+                                       <button class="btn btn-danger delete" id="delete"   p_id="{{file.fid}}">删除</button>
 
                                     <!--<a class="btn btn-danger" href="{{url_for('back.deleteFile')}}?fid={{file.fid}}"><i class="icon_close_alt2">删除</i></a>-->
                                 </div>
@@ -100,30 +100,11 @@
 <script>
 
 
-    var MAIN = {};
-
-        MAIN.onQuery = function (type) {
-        window.location.href="/admin/manageResource?source="+type;
-         <!--var req = {};-->
-         <!--req.source =type;-->
-           <!--$.ajax({-->
-                <!--url:"/admin/manageResource",-->
-                <!--type:"GET",-->
-                <!--data:{ source: type},-->
-                <!--dataType:"json",-->
-
-            <!--});-->
-
-    }
-
-
-
-
-    MAIN.doRemove = function (e) {
-          
+   $(function () {
+        $(".delete").click(function () {
             var data={};
             data.nid=$(this).attr("p_id");
-            var n = $("#delete").attr("p_id");
+            n = $(this).attr("p_id");
             console.log(data.pid);
             $.ajax({
                 url:"/api/admin/deleteFile?fid="+n,
@@ -137,6 +118,7 @@
                     alert("删除失败");  //提交失败
                 }
             });
-    }
+        });
+         })
 </script>
 {% endblock%}
