@@ -169,7 +169,7 @@
                         </p>
                         <p>
                             <label>年级</label>
-                            <select name="memberGrade" m_grade="{{ member.grade }}">
+                            <select name="memberGrade" m_grade="{{ member.grade }}" class="memberGrade">
                                 <option value="大四">大四</option>
                                 <option value="大三">大三</option>
                                 <option value="大二">大二</option>
@@ -178,7 +178,7 @@
                         </p>
                         <p>
                             <label>学院</label>
-                            <select class="memberGrade" name="memberCollege" m_college="{{ member.academy }}">
+                            <select class="memberCollege" name="memberCollege" m_college="{{ member.academy }}">
                                 <option value="信通院">信通院</option>
                                 <option value="计算机院">计算机院</option>
                                 <option value="电子院">电子院</option>
@@ -292,8 +292,8 @@
 
         //添加成员
         $("#addMember").click(function () {
-            if($(".memberset").hasClass("hide")){
-                $(".memberset").removeClass("hide");
+            if($(".memberset:first").hasClass("hide")){
+                $(".memberset:first").removeClass("hide");
             }else{
                 $(".member").append($(".memberset:first").clone());
             }
@@ -301,8 +301,8 @@
         });
         //添加指导老师
         $("#addTeacher").click(function () {
-            if($(".teacherset").hasClass("hide")) {
-                $(".teacherset").removeClass("hide");
+            if($(".teacherset:first").hasClass("hide")) {
+                $(".teacherset:first").removeClass("hide");
             }else{
                 $(".teacher").append($(".teacherset:first").clone());
             }
@@ -326,8 +326,8 @@
         //显示奖项信息
         $("#addAward").click(function () {
 
-            if($(".award").hasClass('hide')){
-                $("div.award").removeClass("hide");
+            if($(".award:first").hasClass('hide')){
+                $("div.award:first").removeClass("hide");
             }else {
                 $(".award").append($(".awardItem:first").clone());
             }
@@ -374,12 +374,13 @@
             var memberArr = new Array();
             $(".memberset").each(function () {
                 var student = new Object();
-                if($(this).find("#memberName").val()){
-                    student.name = $(this).find("#memberName").val();       //成员姓名
-                    student.grade = $(this).find("#memberGrade").val();     //成员年级
-                    student.academy = $(this).find("#memberCollege").val(); //成员学院
+                if($(this).find(".memberName").val()){
+                    student.name = $(this).find(".memberName").val();       //成员姓名
+                    student.grade = $(this).find(".memberGrade").val();     //成员年级
+                    student.academy = $(this).find(".memberCollege").val(); //成员学院
                     student.type = 1;                                     //学生类型为1
                     student.brief = $(this).find(".brief").val();
+                    console.log(student.academy);
                     memberArr.push(student); //每个成员对象存入数组
                 }
             });
@@ -414,7 +415,7 @@
             //console.log(memberArr[1].name);
             //所有信息
             var data = {};
-            data.pid = {{project.pid}};
+            data.pid = {{ project.pid }};
             data.operate = 1;
             data.pname = $("#projectTitle").val();                      //项目标题
             data.type = $("#category").val();                           //项目类型
@@ -425,8 +426,8 @@
             //data.teachers = teacherArr;                                  //指导老师
             data.awards = awardArr;                                     //获奖信息
             data.status = status;
-            //console.log(data);
-            console.log(data.mainPic);
+            console.log(data);
+            //console.log(data.mainPic);
             $.ajax({
                 url: "{{url_for('front.uploadProject')}}", //修改项目
                 type: 'post',
