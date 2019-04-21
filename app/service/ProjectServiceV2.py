@@ -283,7 +283,7 @@ class ProjectService:
         if operation == 0:
             updateContent = {
                 'status': 4,
-                "reviewer": commonService.getCurrentUsername(),
+                "reviewer": commonService.getCurrentUsername(0),
                 "checkTime": datetime.now(),
                 "msg":'审核不通过' if msg == None or msg == '' else msg
             }
@@ -355,7 +355,7 @@ class ProjectService:
         nextX = 2
         #写入数据库中的数据
         for p in projects:
-            if p.status.delete_flag == 1:
+            if p.status is not None and p.status.delete_flag == 1:
                 continue
             alen = 0
             mlen = 0

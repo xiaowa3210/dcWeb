@@ -25,12 +25,23 @@
                         <tr>
                             <th>用户名</th>
                             <th>密码</th>
+                            <th>类型</th>
                         </tr>
 
                         {% for user in users %}
                         <tr>
                             <td width="200">{{user.username}}</td>
                             <td width="200">{{user.password}}</td>
+                            {% if user.type == 0 %}
+                            <td width="200">管理员</td>
+                            {% else %}
+                            <td width="200">学生</td>
+                            {% endif %}
+                            <td>
+                                <div class="btn-group">
+                                    <button class="btn btn-danger delete" u_id="{{user.id}}">删除</button>
+                                </div>
+                            </td>
                         </tr>
                         {% endfor %}
                         </tbody>
@@ -42,70 +53,52 @@
             <div>
                 <ul class="pagination pagination-lg">
                     {% if pagination.has_prev %}
-                    <li><a href="{{url_for('back.manageUser',page = pagination.page - 1)}}">«</a></li>
+                    <li><a href="{{url_for('back.manageUser',page = pagination.page - 1,count = 10)}}">«</a></li>
                     {% endif %}
 
                     {% for p in pagination.iter_pages() %}
                     {% if p == pagination.page%}
-                    <li class="active"><a href="{{url_for('back.manageResource',page = p)}}">{{loop.index}}</a></li>
+                    <li class="active"><a href="{{url_for('back.manageUser',page = p,count = 10)}}">{{loop.index}}</a></li>
                     {% else %}
-                    <li><a href="{{url_for('back.manageResource',page = p)}}">{{loop.index}}</a></li>
+                    <li><a href="{{url_for('back.manageUser',page = p, count = 10)}}">{{loop.index}}</a></li>
                     {% endif %}
                     {% endfor %}
 
                     {% if pagination.has_next %}
-                    <li><a href="{{url_for('back.manageResource',page = pagination.page + 1)}}">»</a></li>
+                    <li><a href="{{url_for('back.manageUser',page = pagination.page + 1,count = 10)}}">»</a></li>
                     {% endif %}
                 </ul>
             </div>
         </div>
     </section>
-    <div class="row">
-        <div class="col-lg-6">
-            <section class="panel">
-                <header class="panel-heading">添加人员</header>
-                <div class="panel-body">
-                    <form class="form-horizontal" role="form">
-                        <div class="form-group">
-                            <label for="username" class="col-lg-2 control-label">用户名</label>
-                            <div class="col-lg-10">
-                                <input class="form-control" id="username" placeholder="username">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="password" class="col-lg-2 control-label">password</label>
-                            <div class="col-lg-10">
-                                <input type="password" class="form-control" id="password"
-                                       placeholder="Password">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-lg-offset-2 col-lg-10">
-                                <button type="submit" onclick="MAIN.addUser()" class="btn btn-info">添加人员</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </section>
-        </div>
-    </div>
+
 </section>
+
+
 {% endblock %}
+
 
 {% block js_files %}
 <script>
-    var MAIN = {};
-    MAIN.addUser = function () {
-        var req = {};
-        req.username = $('#username').val().trim();
-        req.password = $('#password').val().trim();
-        req.type = 0;
-        Af.rest("/api/admin/addUser", req, function (data) {
-            Af.log(data)
-            alert(data.msg);
-            $('#username').clear();
-            $('#password').clear();
+    $(function () {
+        $(".delete").click(function () {
+            var data={};
+            data.uid=$(this).attr("u_id");
+            $.ajax({
+                url:"/api/admin/deleteUser",
+                type:"post",
+                data: JSON.stringify(data),
+                dataType: 'json',
+                success: function (data) {
+                    alert(data.msg); //提交成功
+                    window.location.href="{{url_for('back.manageUser')}}"
+                    //window.location.href='';//跳转到个人中心
+                },
+                error: function (data) {
+                    alert(data.msg);  //提交失败
+                }
+            });
         })
-    }
+    })
 </script>
 {% endblock %}

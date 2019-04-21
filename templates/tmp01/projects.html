@@ -27,24 +27,23 @@
 <section id="subintro">
     <div class="container">
       <div class="row-fluid">
-        <div class="span3">
-          <aside>
-            <div class="widget">
-              <h4>类别</h4>
-              <ul class="cat">
-                <li><a href="#">计算机视觉</a></li>
-                <li><a href="#">虚拟\增强现实</a></li>
-                <li><a href="#">数据挖掘</a></li>
-                <li><a href="#">机器学习</a></li>
-                <li><a href="#">其他</a></li>
-              </ul>
-            </div>
-          </aside>
-        </div>
+        <!--<div class="span3">-->
+          <!--<aside>-->
+            <!--<div class="widget">-->
+              <!--<h4>类别</h4>-->
+              <!--<ul class="cat">-->
+                <!--<li><a href="#">计算机视觉</a></li>-->
+                <!--<li><a href="#">虚拟\增强现实</a></li>-->
+                <!--<li><a href="#">数据挖掘</a></li>-->
+                <!--<li><a href="#">机器学习</a></li>-->
+                <!--<li><a href="#">其他</a></li>-->
+              <!--</ul>-->
+            <!--</div>-->
+          <!--</aside>-->
+        <!--</div>-->
 
-        <div class="span9">
           {% for project in projects %}
-            <div class="span4">
+            <div class="span3">
                <div class="project-image">
                    <a href="{{ url_for('front.project',pid=project.pid) }}">  <!--链接到项目的详情地址-->
 					   <img style="height: 200px;width: 100%" src="{{ url_for('common.image',name=project.mainPic) }}" alt=""> <!--封面图片-->
@@ -69,10 +68,10 @@
           {% endfor %}
         </div>
       </div>
-    </div>
 
   <!--分页导航
     ==================================================================-->
+
     <div class="row-fluid">
         <div class="pagination" style="text-align: center">
             <ul>
@@ -112,8 +111,7 @@
             </ul>
         </div>
     </div>
-        <!--{% from 'tmp01/macros.html' import pager %}-->
-        <!--{{ pager(pagination) }}-->
+
 </div>
 
 
