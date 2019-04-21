@@ -26,9 +26,12 @@ userService = UserService()
 def uploadProject():
     #数据
     data = json.loads(request.get_data(as_text=True))
+    status = data['status']   # 如果是提交,记录提交的时间
     projectService.addProject(data)
-    return json.dumps(MessageInfo.success(msg='保存成功').__dict__)
-
+    if status == 2:
+        return json.dumps(MessageInfo.success(msg='提交成功').__dict__)
+    else:
+        return json.dumps(MessageInfo.success(msg='保存成功').__dict__)
 """ 
 上传图片接口
 """
