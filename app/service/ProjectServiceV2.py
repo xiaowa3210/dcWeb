@@ -65,7 +65,7 @@ class ProjectService:
                 award = ProjectAward(a['title'])
                 award.awardTime = mapGet(a, 'awardTime')
                 award.certPic = json.dumps(commonService.getImgPathList(mapGet(a, 'certPic')))
-                award.honorLink = json.dumps(mapGet(a, 'honorLink'))
+                award.honorLink = mapGet(a, 'honorLink')
                 awardList.append(award)
 
             # 添加状态信息
