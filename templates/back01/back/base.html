@@ -123,7 +123,7 @@
                     <ul class="sub">
                         <!--<li><a class="" href="{{ url_for('back.manageNews') }}?type=-1">编辑</a></li>-->
                          <li><a class="" href="{{ url_for('back.editNews') }}">添加</a></li>
-                         <li><a class="" href="{{ url_for('back.manageNews') }}?type=-1">全部</a></li>
+                         <li><a class="" href="{{ url_for('back.manageNews') }}?type=-1">查看全部</a></li>
                          <li><a class="" href="{{ url_for('back.manageNews') }}?type=0">未发布</a></li>
                          <li><a class="" href="{{ url_for('back.manageNews') }}?type=1">已发布</a></li>
                     </ul>
@@ -136,7 +136,10 @@
                     </a>
                     <ul class="sub">
                         <li><a class="" href="{{ url_for('back.editFiles') }}">添加</a></li>
-                        <li><a class="" href="{{ url_for('back.manageResource') }}">编辑</a></li>
+                        <li><a class="" href="{{ url_for('back.manageResource') }}?source=0">查看全部</a></li>
+                        <li><a class="" href="{{ url_for('back.manageResource') }}?source=1">管理员上传</a></li>
+                        <li><a class="" href="{{ url_for('back.manageResource') }}?source=2">新闻上传</a></li>
+                        <li><a class="" href="{{ url_for('back.manageResource') }}?source=3">项目上传</a></li>
                     </ul>
                 </li>
                 <li class="sub-menu">

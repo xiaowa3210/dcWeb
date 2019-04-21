@@ -371,7 +371,14 @@ def modifiesNews(nid):
 def manageResource(page,count):
     source = request.values.get("source")
     pagination,files = filesService.getFilesBySource(page,count,source)
-    return render_template("back01/back/manageResource.html",pagination=pagination,files=files)
+    if(source == '0'):
+        return render_template("back01/back/manageResource_all.html",pagination=pagination,files=files)
+    elif (source == '1'):
+        return render_template("back01/back/manageResource_admin.html",pagination=pagination,files=files)
+    elif (source == '2'):
+        return render_template("back01/back/manageResource_article.html", pagination=pagination, files=files)
+    else:
+        return render_template("back01/back/manageResource_project.html", pagination=pagination, files=files)
 
 @back.route("/admin/editFiles")
 def editFiles():
