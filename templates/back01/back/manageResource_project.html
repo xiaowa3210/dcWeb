@@ -99,6 +99,7 @@
 {% block js_files %}
 <script>
 
+
     var MAIN = {};
 
         MAIN.onQuery = function (type) {
@@ -117,18 +118,19 @@
 
 
 
+
     MAIN.doRemove = function (e) {
           
             var data={};
             data.nid=$(this).attr("p_id");
-            n = $(this).attr("p_id");
+            var n = $("#delete").attr("p_id");
             console.log(data.pid);
             $.ajax({
                 url:"/api/admin/deleteFile?fid="+n,
                 type:"get",
                 success: function (data) {
                     alert("删除成功"); //提交成功
-                    window.location.href="{{url_for('back.manageResource')}}?type=0"
+                    window.location.href="{{url_for('back.manageResource')}}?source=3"
                     //window.location.href='';//跳转到个人中心
                 },
                 error: function (data) {
