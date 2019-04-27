@@ -27,13 +27,86 @@ from datetime import datetime
 
 import os
 
-from app.model.config import UPLOAD_PATH
-from app.model.entity import Project, ProjectMember, ProjectAward, ProjectStatus
+import docx
+from sqlalchemy import desc
+
+from app.model.config import UPLOAD_PATH, UEDITOR_UPLOAD_PATH, UPLOAD_FILES_PATH, UPLOAD_PICS_PATH, UPLOAD_ZIP_PATH
+from app.model.entity import Project, ProjectMember, ProjectAward, ProjectStatus, Files
 from app import db2
 from app.service.CommonService import CommonService
+from app.service.FileServiceV2 import FilesService
 from app.utils.utils import mapGet
 import xlwt
+
+from zip.ZipUtil import compress_listfiles
+
 commonService = CommonService()
+filesService = FilesService()
+def addProStatus(pname, type, status,data):
+    # 添加状态信息
+    publisher = commonService.getCurrentUsername()  # todo:暂时是anonymous
+    proStatus = ProjectStatus(pname, type, publisher, status)
+    proStatus.pro_startTime = data['startTime']
+    proStatus.major = data['major']
+    if proStatus == 2:  # 如果是提交,记录提交的时间
+        proStatus.submitTime = datetime.now()
+    return proStatus
+
+# 将json数据转换成项目成员,1代表学生,0代表指导老师
+def json2ProMember(data, type):
+    if type == 1:
+        member = ProjectMember(data['name'], 1)
+        member.grade = data['grade']
+        member.academy = data['academy']
+        member.major = data['major']
+        member.number = data['number']
+        member.classId = data['classId']
+        return member
+    else:
+        member = ProjectMember(data['name'], 0)
+        member.academy = data['academy']
+        member.major = data['major']
+        return member
+
+# 处理获奖信息
+def json2ProAward(data):
+    award = ProjectAward(data['title'])
+    award.rank = data['rank']
+    return award
+
+def storeMainPic(files):
+    if len(files) > 0:
+        path = UEDITOR_UPLOAD_PATH + '/pics/'
+        if not os.path.exists(path):
+            os.mkdir(path)
+        f = files[0]
+        filename = f.filename
+        suffix = filename[filename.rfind('.'):]
+        local_path = str(uuid.uuid1()).replace("-", "") + suffix
+        f.save(path + local_path)
+        return local_path
+
+# 存储上传的文件到本地，并且将文件信息写到数据库中
+def storefile(files, source, source_id, type):
+    if len(files) > 0:
+        if type == 0:  # 0代表保存的是图片
+            path = UEDITOR_UPLOAD_PATH + "/pics/"
+        else:
+            path = UEDITOR_UPLOAD_PATH + "/files/"
+
+        if not os.path.exists(path):
+            os.mkdir(path)
+        for f in files:
+            file = Files()
+            file.name = f.filename
+            suffix = file.name[file.name.rfind('.'):]
+            local_path = str(uuid.uuid1()).replace("-", "") + suffix
+            file.path = local_path
+            file.source = source  # 代表新闻附件
+            file.source_id = source_id
+            f.save(path + local_path)  # 保存文件到本地
+            filesService.addFile(file)  # 将文件信息写入到数据库
+
 class ProjectService:
     #添加项目
     def addProject(self,data):
@@ -81,12 +154,53 @@ class ProjectService:
             self.modifiedProject(data)
 
 
+    def addProjectV1(self,request):
+        # 获取信息
+        pname = request.form.get("pname")
+        content = request.form.get("content")
+        src_content = request.form.get("src_content")
+        type = request.form.get("type")
+        operate = request.form.get("operate")
+        status = request.form.get("status")
+        member = json.loads(request.form.get("members"))  # 项目成员(不包括老师)
+        awardsInfo = json.loads(request.form.get("awardsInfo"))
+        mainPic = request.files.getlist("mainPic")
+        cerFile = request.files.getlist("certfile")
+
+        project = Project(pname, content, type)
+        project.src_content = src_content
+        project.mainPic = storeMainPic(mainPic)
+
+        # 添加项目成员，包括学生成员和指导老师
+        members = project.members
+        if member:
+            for m in member:
+                members.append(json2ProMember(m, 1))
+            if awardsInfo:
+                teachers = awardsInfo['teacher']
+                if teachers:
+                    for t in teachers:
+                        members.append(json2ProMember(t, 0))
+
+        # 添加奖项信息
+        awards = project.awards
+        if awardsInfo:
+            award = json2ProAward(awardsInfo)
+            awards.append(award)
+
+        # 添加状态信息
+        project.status = addProStatus(pname, type, status, project.mainPic)
+        db2.session.add(project)
+        db2.session.commit()
+        storefile(cerFile, awards[0].id, 3, 0)
+
     """ 
     @:param:
     @:return:
     @descrition:修改项目
     """
     def modifiedProject(self,data):
+
         #更新内容
         pid = data['pid']
         mainPics = commonService.getImgPathList(mapGet(data, 'mainPic'))
@@ -144,6 +258,27 @@ class ProjectService:
         db2.session.commit()
 
 
+
+    #todo:修改项目可以改为模块化修改
+    def modifiedProjectV1(self,request):
+        # 获取信息
+        pname = request.form.get("pname")
+        content = request.form.get("content")
+        src_content = request.form.get("src_content")
+        type = request.form.get("type")
+        operate = request.form.get("operate")
+        status = request.form.get("status")
+        member = json.loads(request.form.get("members"))  # 项目成员(不包括老师)
+        awardsInfo = json.loads(request.form.get("awardsInfo"))
+        mainPic = request.files.getlist("mainPic")
+        cerFile = request.files.getlist("certfile")
+
+        pid = request.form.get['pid']
+
+        if mainPic:
+            picName = storeMainPic(mainPic)
+
+        pass
     """ 
     @:param:
     @:return:
@@ -177,9 +312,23 @@ class ProjectService:
     @:return:
     @descrition:查询已经审核通过的项目
     """
-    def getPublishedPro(self,page_index,count):
-        pagination = ProjectStatus.query.filter(ProjectStatus.status == 3,ProjectStatus.delete_flag == 0)\
-            .order_by(ProjectStatus.checkTime).paginate(page_index, count, error_out=False)
+    def getPublishedPro(self,page_index,count,**kw):
+
+        # 筛选条件
+        startTime = kw['startTime']
+        endTime = kw['endTime']
+        type = kw['type']
+        major = kw['major']
+
+        query = ProjectStatus.query.filter(ProjectStatus.status == 3,ProjectStatus.delete_flag == 0)
+        if startTime and endTime:
+            query = query.filter(ProjectStatus.pro_startTime >= startTime,ProjectStatus.pro_startTime <= endTime)
+        if type != -1:
+            query = query.filter(ProjectStatus.type == type)
+        if major != 0:
+            query = query.filter(ProjectStatus.major == major)
+
+        pagination = query.order_by(desc(ProjectStatus.pro_startTime)).paginate(page_index, count, error_out=False)
         return pagination, pagination.items
 
     """ 
@@ -316,6 +465,100 @@ class ProjectService:
 
 
 
+
+    #添加项目
+    def addPro(self,data):
+        pname = data["pname"]
+        content = data["content"]
+        src_content = data["src_content"]
+        type = data["type"]
+        startTime = data['startTime']
+        project = Project(pname, content, type)
+        project.src_content = src_content
+        # 添加状态信息
+        project.status = addProStatus(pname, type, 1,data)
+        db2.session.add(project)
+        if 'mainPicId' in data:
+            mainPicId = data['mainPicId']
+            db2.session.query(Files).filter(Files.fid == mainPicId, Files.delete_flag == 0).update({
+                'source_id': project.pid
+            })
+            # self.addFile(project.pid,mainPicId)
+        db2.session.commit()
+        return project.pid
+
+    #修改项目
+    def modifyPro(self,pid,data):
+        db2.session.query(Project).filter(Project.pid == pid).update(data)
+        db2.session.query(ProjectStatus).filter(ProjectStatus.pid == pid).update({
+            'pname':data["pname"],
+            'type':data["type"]
+        })
+        db2.session.commit()
+
+
+    #增加项目成员
+    def addProMember(self,pid,data,type):
+        member = json2ProMember(data,type)
+        member.pid = pid
+        db2.session.add(member)
+        db2.session.commit()
+        return member.id
+
+    #修改项目成员
+    def modifyProMember(self,mid,data):
+        db2.session.query(ProjectMember).filter(ProjectMember.id == mid).update(data)
+        db2.session.commit()
+
+    #删除项目成员
+    def deleteProMember(self,mid):
+        sql = 'delete from dc_project_member where id=' + str(mid)
+        db2.session.execute(sql)
+        db2.session.commit()
+
+
+
+    #增加获奖信息
+    def addAwardInfo(self,pid,data):
+        award = json2ProAward(data)
+        award.pid = pid
+        db2.session.add(award)
+        certids = data['certids']
+        if certids:
+            for id in certids:
+                db2.session.query(Files).filter(Files.fid == id,Files.delete_flag == 0).update({
+                    'source_id': award.id
+                })
+        db2.session.commit()
+        print(award.id)
+        return award.id
+
+
+    #修改获奖信息
+    def modifyAwardInfo(self,aid,data):
+        db2.session.query(ProjectAward).filter(ProjectAward.id == aid).update(data)
+        db2.session.commit()
+
+    #删除获奖信息
+    def deleteAwardInfo(self,aid):
+        sql = 'delete from dc_project_award where id=' + str(aid)
+        db2.session.query(Files).filter(Files.source == 2,Files.source_id == aid,Files.delete_flag == 0).update({
+                    'delete_flag':1
+                })
+        db2.session.execute(sql)
+        db2.session.commit()
+
+    #添加图片
+    def addFile(self,source_id,id):
+        db2.session.query(Files).filter(Files.fid == id, Files.delete_flag == 0).update({
+            'source_id': source_id
+        })
+        db2.session.commit()
+
+
+
+
+
     """ 
     @:param:
     @:return:
@@ -418,3 +661,110 @@ class ProjectService:
         style.font = font
         return style
 
+
+
+
+    #生成获奖信息
+    def downProAwardInfo(self,startTime,endTime,academy):
+        sql = "select p.pid from dc_project_status_info AS p INNER JOIN dc_project_award AS a on p.pid = a.pid"
+        where = ""
+        if startTime and endTime and academy != 0:
+            where += ' where a.awardTime >= ' + str(startTime) + 'and  a.awardTime <=' + str(
+                endTime) + 'and p.academy =' + str(academy)
+        elif startTime and endTime:
+            where += ' where a.awardTime >= ' + str(startTime) + 'and  a.awardTime <=' + str(endTime)
+        elif academy != 0:
+            where += ' where p.major =' + str(academy)
+        sql += where
+        result = db2.session.execute(sql).fetchall()
+
+        ids = [row['pid'] for row in result]
+        print(ids)
+        db2.session.commit()
+        pros = db2.session.query(Project).filter(Project.pid.in_(ids)).all()
+
+        files = []
+        #创建一个word文档
+        doc = docx.Document()
+        table = doc.add_table(rows=1, cols=4, style='Table Grid')  # 创建带边框的表格
+        hdr_cells = table.rows[0].cells                            # 获取第0行所有所有单元格
+        hdr_cells[0].text = '项目名'
+        hdr_cells[1].text = '所获奖项'
+        hdr_cells[2].text = '指导老师'
+        hdr_cells[3].text = '成员信息'
+        for p in pros:
+            cells = table.add_row().cells
+            pnametext = p.pname
+            fs,awardstext = formateProjectAwards(p.awards)
+            files += fs
+            stutext,teachertext = formateProjectMembers(p.members)
+            cells[0].text = pnametext
+            cells[1].text = awardstext
+            cells[2].text = teachertext
+            cells[3].text = stutext
+
+        filename = str(uuid.uuid1()).replace("-", "")+".docx"
+        storePath = os.path.join(UPLOAD_FILES_PATH,filename)
+        doc.save(storePath)
+        files.append(storePath)
+
+        finalfilename = str(uuid.uuid1()).replace("-", "")+".zip"
+        zippath = os.path.join(UPLOAD_ZIP_PATH,finalfilename)
+        compress_listfiles(zippath,files)
+        return finalfilename
+
+
+
+#将ProjectMember转为字符串,并且格式化
+def formateProjectMember(member):
+    if member.type == 1:
+        str = "姓名:"+member.name+"\n" + \
+              "学院:"+member.academy+"\n"+\
+              "年级:"+member.grade+"\n"+ \
+              "专业:" + member.major + "\n" + \
+              "学号:" + member.number + "\n" + \
+              "班级:" + member.classId + "\n" + "\n"
+    elif member.type == 0:
+        str = "姓名:" + member.name + "\n" + \
+              "学院:" + member.academy + "\n" + \
+              "专业:" + member.major + "\n" + "\n"
+    return str
+#将ProjectMember转为字符串,并且格式化
+def formateProjectMembers(members):
+    stutext = ""
+    teachertext = ""
+    for member in members:
+        if member.type == 1:
+            stutext += formateProjectMember(member)
+        elif member.type == 0:
+            teachertext += formateProjectMember(member)
+    return stutext,teachertext
+
+# 将ProjectMember转为字符串,并且格式化
+def formateProjectAward(award):
+
+    filename,certfile = packCertPic(award.id)
+    awardtext = award.awardName + "\n" + \
+          str(award.rank) + "\n" + \
+          str(award.awardTime) + "\n" + \
+                filename
+    return certfile,awardtext
+
+# 将ProjectMember转为字符串,并且格式化
+def formateProjectAwards(awards):
+    files = []
+    awardtext = ""
+    for award in awards:
+        certfile, text = formateProjectAward(award)
+        awardtext += text
+        files.append(certfile)
+    return files,awardtext
+
+# 将获奖证书打包成一个压缩包
+def packCertPic(aid):
+    certpic = filesService.getFilesBySourceIdAndSource(2, aid)
+    certpicPath = [os.path.join(UPLOAD_PICS_PATH, p.path) for p in certpic]
+    filename = str(uuid.uuid1()).replace("-", "") + ".zip"
+    zippath = os.path.join(UPLOAD_ZIP_PATH, filename)
+    compress_listfiles(zippath,certpicPath)
+    return filename,zippath

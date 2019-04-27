@@ -1,17 +1,22 @@
 #!/user/bin/env python
 # -*- coding:utf-8 -*-
 import base64
+import datetime
 import json
+import os
+import uuid
 
 from flask import request, render_template, session, redirect, url_for
 
-from app.model.entity import User
+from app.model.config import UEDITOR_UPLOAD_PATH
+from app.model.entity import User, Project, ProjectMember, db2, ProjectAward, Files, ProjectStatus
 from app.service.UserServiceV2 import UserService
 from app.service.FileServiceV2 import FilesService
 from app.service.NewsService import NewsService
 from app.service.ProjectServiceV2 import ProjectService
 from app.utils.email import send_mail
 from app.view.MessageInfo import MessageInfo
+from app.view.back.views import commonService
 from app.view.front import front
 
 projectService = ProjectService()
@@ -19,6 +24,94 @@ filesService = FilesService()
 newsService = NewsService()
 userService = UserService()
 #******************************api接口******************************#
+
+
+#######################项目上传相关api##################################
+
+""" 
+添加项目接口
+"""
+@front.route('/api/addPro',methods=['POST'])
+def addProject():
+    data = json.loads(request.get_data(as_text=True))
+    pid = projectService.addPro(data)
+    return json.dumps(MessageInfo.success(msg='保存成功',data={
+        'pid':pid
+    }).__dict__)
+
+""" 
+添加项目成员
+"""
+@front.route('/api/addProMember/<int:type>/<int:pid>',methods=['POST'])
+def addProMember(type,pid):
+    data = json.loads(request.get_data(as_text=True))
+    mid = projectService.addProMember(pid,data,type)
+    return json.dumps(MessageInfo.success(msg='添加成功',data={
+        'mid':mid
+    }).__dict__)
+
+
+""" 
+添加获奖信息
+"""
+@front.route('/api/addProAward/<int:pid>',methods=['POST'])
+def addProAward(pid):
+    data = json.loads(request.get_data(as_text=True))
+    mid = projectService.addAwardInfo(pid,data)
+    return json.dumps(MessageInfo.success(msg='添加成功',data={
+        'id':mid
+    }).__dict__)
+
+
+""" 
+修改项目接口
+"""
+@front.route('/api/modifyPro/<int:pid>',methods=['POST'])
+def modifyPro(pid):
+    data = json.loads(request.get_data(as_text=True))
+    projectService.modifyPro(pid,data)
+    return json.dumps(MessageInfo.success(msg='保存成功').__dict__)
+
+
+""" 
+修改成员信息
+"""
+@front.route('/api/modifyProMember/<int:mid>',methods=['POST'])
+def modifyProMember(mid):
+    data = json.loads(request.get_data(as_text=True))
+    projectService.modifyProMember(mid,data)
+    return json.dumps(MessageInfo.success(msg='保存成功').__dict__)
+
+
+""" 
+修改成员信息
+"""
+@front.route('/api/modifyProAward/<int:aid>',methods=['POST'])
+def modifyProAward(aid):
+    data = json.loads(request.get_data(as_text=True))
+    projectService.modifyAwardInfo(aid,data)
+    return json.dumps(MessageInfo.success(msg='保存成功').__dict__)
+
+
+""" 
+修改成员信息
+"""
+@front.route('/api/deleteProMember/<int:mid>',methods=['GET'])
+def deleteProMember(mid):
+    projectService.deleteProMember(mid)
+    return json.dumps(MessageInfo.success(msg='删除成功').__dict__)
+
+
+""" 
+删除获奖信息
+"""
+@front.route('/api/deleteProAward/<int:aid>',methods=['GET'])
+def deleteProAward(aid):
+    projectService.deleteAwardInfo(aid)
+    return json.dumps(MessageInfo.success(msg='删除成功').__dict__)
+
+
+
 """ 
 上传项目接口
 """
@@ -32,6 +125,36 @@ def uploadProject():
         return json.dumps(MessageInfo.success(msg='提交成功').__dict__)
     else:
         return json.dumps(MessageInfo.success(msg='保存成功').__dict__)
+
+
+""" 
+导出获奖信息
+"""
+@front.route('/api/downloadAwardInfo',methods=['GET'])
+def downloadAwardInfo():
+    startTime = request.args.get('startTime',default=None)
+    endTime = request.args.get('endTime', default=None)
+    academy = request.args.get('major', default = 0)
+    filename = projectService.downProAwardInfo(startTime,endTime,academy)
+
+    return json.dumps(MessageInfo.success(msg='保存成功',data={
+        'url': url_for('common.file', name=filename),
+    }).__dict__)
+
+
+""" 
+上传项目接口
+"""
+@front.route('/api/uploadProjectV2',methods=['POST'])
+def newuploadProject():
+    status = request.form.get("status")
+    projectService.addProjectV1(request)
+    if status == 2:
+        return json.dumps(MessageInfo.success(msg='提交成功').__dict__)
+    else:
+        return json.dumps(MessageInfo.success(msg='保存成功').__dict__)
+
+
 """ 
 上传图片接口
 """
@@ -177,7 +300,18 @@ def downloadFile(page,count):
 @front.route("/projects",methods=['GET'],defaults={'page':1,'count':10})
 @front.route("/projects/<int:page>/<int:count>")
 def projects(page,count):
-    pagination,projects = projectService.getPublishedPro(page,count)
+
+    #筛选条件
+    startTime = request.args.get('startTime', default=None)
+    endTime = request.args.get('endTime', default=None)
+    type = request.args.get('type', default=-1)
+    major = request.args.get('major',default=0)
+
+    pagination,projects = projectService.getPublishedPro(page,count,
+                                                         startTime=startTime,
+                                                         endTime=endTime,
+                                                         type=type,
+                                                         major=major)
     return render_template("tmp01/projects.html",projects=projects,pagination=pagination)
 
 """ 

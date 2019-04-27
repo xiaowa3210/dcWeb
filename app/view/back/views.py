@@ -44,7 +44,9 @@ def uploadNew():
         extraInfo.creater = commonService.getCurrentUsername(0)
         extraInfo.modifiedTime = datetime.now()
         extraInfo.modifier = commonService.getCurrentUsername(0)
+        extraInfo.status = 1
         if type == '1':
+            extraInfo.status = 2
             extraInfo.publisher = commonService.getCurrentUsername(0)
             extraInfo.publisherTime = datetime.now()
         new.extInfo = extraInfo
@@ -118,6 +120,18 @@ def releaseNew(nid):
 def undoNew(nid):
     newsService.releaseOrUndoNew(nid,0)
     return json.dumps(MessageInfo.success(msg="撤销成功").__dict__)
+
+""" 
+审核新闻
+"""
+@back.route('/api/admin/checkNew/<int:nid>/<int:op>',methods=['get'])
+def checkNew(nid,op):
+    status = 3 if op == 1 else 1
+    newsService.updateNewStatusByNid({
+        'status': status
+    },nid)
+    return json.dumps(MessageInfo.success(msg="审核完成").__dict__)
+
 """ 
 上传文件
 """

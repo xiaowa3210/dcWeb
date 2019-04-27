@@ -44,6 +44,7 @@ class NewsService:
         result.extInfo.modifier = CommonService.getCurrentUsername(0)
         result.extInfo.modifiedTime = datetime.now()
         if status == 1:
+            result.extInfo.status = 2
             result.extInfo.publisher = CommonService.getCurrentUsername(0)
             result.extInfo.publisherTime = datetime.now()
         db2.session.commit()
