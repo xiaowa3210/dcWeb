@@ -60,6 +60,8 @@ class ProjectStatus(db2.Model):
     msg = db2.Column(db2.TEXT, nullable=True)                                       #审核所附加的信息
     delete_flag = db2.Column(db2.DECIMAL(1, 0), nullable=False, default=0)          #删除标志
     mainPic = db2.Column(db2.String(256), nullable=True)                            # 主页图片
+    pro_startTime = db2.Column(DateTime, nullable=False,default=datetime.now)
+    major = db2.Column(db2.Integer, nullable=False, default=1)
 
 
     def __init__(self,pname,type,publisher,status):
@@ -75,7 +77,10 @@ class ProjectMember(db2.Model):
     name = db2.Column(db2.String(32),nullable=False)                                #姓名
     academy = db2.Column(db2.String(128),nullable=True)                             #学院
     grade = db2.Column(db2.String(128),nullable=True)                               #年级
-    type = db2.Column(db2.String(128), nullable=False)                                  #类型
+    type = db2.Column(db2.String(128), nullable=False)                              #类型
+    major = db2.Column(db2.String(32), nullable=True)                               #专业
+    number = db2.Column(db2.String(10), nullable=True)                              #学号
+    classId = db2.Column(db2.String(10), nullable=True)                             #班号
     brief = db2.Column(db2.TEXT, nullable=True)                                     #简介
 
     def __init__(self,name,type):
@@ -90,7 +95,7 @@ class ProjectAward(db2.Model):
     honorLink = db2.Column(db2.String(128),nullable=True)                           # 获奖链接
     awardTime = db2.Column(DateTime, nullable=True)                                 # 获奖时间
     pid = db2.Column(db2.Integer, db2.ForeignKey('dc_project.pid'))                 # 外键关联dc_project表，多对一关系
-
+    rank = db2.Column(db2.Integer,nullable=True,default=0)                          # 获奖级别
     def __init__(self,awardName):
         self.awardName = awardName
 
