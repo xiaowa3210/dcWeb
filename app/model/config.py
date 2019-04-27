@@ -54,3 +54,4 @@ UPLOAD_PICS_PATH = os.path.abspath(os.path.join(UPLOAD_PATH, 'pics')) #图片上
 
 UPLOAD_FILES_PATH = os.path.abspath(os.path.join(UPLOAD_PATH, 'files')) #图片上传配置
 
+UPLOAD_ZIP_PATH = os.path.abspath(os.path.join(UPLOAD_PATH, 'zip')) #图片上传配置

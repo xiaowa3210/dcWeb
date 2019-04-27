@@ -23,15 +23,21 @@
                   ┃┫┫  ┃┫┫
                   ┗┻┛  ┗┻┛
 """
+import json
 import os
+import uuid
 
 from datetime import datetime
 from flask import request, url_for, jsonify, Response, make_response, send_from_directory
-from app.model.config import UPLOAD_PICS_PATH, UPLOAD_FILES_PATH
+
+from app import MessageInfo
+from app.model.config import UPLOAD_PICS_PATH, UPLOAD_FILES_PATH, UEDITOR_UPLOAD_PATH
+from app.model.entity import Files
+from app.service.FileServiceV2 import FilesService
 from app.view.common import common
 
 
-
+filesService = FilesService()
 """ 
 markdown上传图片接口
 """
@@ -64,6 +70,38 @@ def image(name):
         resp=Response(f.read(),mimetype="image/jpeg")
     return resp
 
+
+""" 
+上传图片
+"""
+@common.route('/api/addPic',methods=['POST'])
+def addPic():
+    files = request.files.getlist("pics")
+    source = request.form.get("source")
+    source_id = request.form.get("source_id")
+    source_id = source_id if source_id else -1
+    if len(files) > 0:
+        path = UEDITOR_UPLOAD_PATH + "/pics/"
+        if not os.path.exists(path):
+            os.mkdir(path)
+        ret = []
+        for f in files:
+            file = Files()
+            file.name = f.filename
+            suffix = file.name[file.name.rfind('.'):]
+            local_path = str(uuid.uuid1()).replace("-", "") + suffix
+            file.path = local_path
+            file.source = source
+            file.source_id = source_id
+            f.save(path + local_path)  # 保存文件到本地
+            filesService.addFile(file)  # 将文件信息写入到数据库
+            info = {
+                'url': url_for('common.image', name=local_path),
+                'id':file.fid
+            }
+            ret.append(info)
+
+        return json.dumps(MessageInfo.success(msg='保存成功', data=ret).__dict__)
 
 """ 
 根据文件名，下载文件
