@@ -127,6 +127,7 @@ class newExt(db2.Model):
     submitTime = db2.Column(DateTime, nullable=True)                          # 提交时间
     publisherTime = db2.Column(DateTime, nullable=True)                       # 发布时间
     deleteFlag = db2.Column(db2.DECIMAL(1, 0), nullable=False, default=0)     # 发布时间
+    isTop = db2.Column(db2.Integer, nullable=False,default=0)                 # 是否置顶,0代表不置顶，1代表置顶
 
 
     def __init__(self,title,status):

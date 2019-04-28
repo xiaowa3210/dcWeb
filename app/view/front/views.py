@@ -1,22 +1,15 @@
 #!/user/bin/env python
 # -*- coding:utf-8 -*-
 import base64
-import datetime
 import json
-import os
-import uuid
-
 from flask import request, render_template, session, redirect, url_for
-
-from app.model.config import UEDITOR_UPLOAD_PATH
-from app.model.entity import User, Project, ProjectMember, db2, ProjectAward, Files, ProjectStatus
+from app.model.entity import User
 from app.service.UserServiceV2 import UserService
 from app.service.FileServiceV2 import FilesService
 from app.service.NewsService import NewsService
 from app.service.ProjectServiceV2 import ProjectService
 from app.utils.email import send_mail
 from app.view.MessageInfo import MessageInfo
-from app.view.back.views import commonService
 from app.view.front import front
 
 projectService = ProjectService()
@@ -84,7 +77,7 @@ def modifyProMember(mid):
 
 
 """ 
-修改成员信息
+修改成奖项信息
 """
 @front.route('/api/modifyProAward/<int:aid>',methods=['POST'])
 def modifyProAward(aid):
@@ -94,12 +87,24 @@ def modifyProAward(aid):
 
 
 """ 
-修改成员信息
+修改项目主页图片
+"""
+@front.route('/api/modifyMainPic/<int:fid>',methods=['GET'])
+def modifyMainPic(fid):
+    files = request.files.getlist("pics")
+    filename = projectService.modifyPic(fid,files)
+    return json.dumps(MessageInfo.success(msg='修改成功',data={
+        'url':url_for('common.image', name=filename)
+    }).__dict__)
+
+""" 
+删除成员信息
 """
 @front.route('/api/deleteProMember/<int:mid>',methods=['GET'])
 def deleteProMember(mid):
     projectService.deleteProMember(mid)
     return json.dumps(MessageInfo.success(msg='删除成功').__dict__)
+
 
 
 """ 
@@ -355,8 +360,16 @@ def i3():
 """
 @front.route("/")
 def home():
-   pagination,projects = projectService.getPublishedPro(1,4)
-   return render_template("tmp01/home.html",projects=projects,pagination=pagination)
+    # 筛选条件
+    startTime = request.args.get('startTime', default=None)
+    endTime = request.args.get('endTime', default=None)
+    type = request.args.get('type', default=-1)
+    major = request.args.get('major', default=0)
+    pagination,projects = projectService.getPublishedPro(1,4,startTime=startTime,
+                                                         endTime=endTime,
+                                                         type=type,
+                                                         major=major)
+    return render_template("tmp01/home.html",projects=projects,pagination=pagination)
 
 """
 用户中心
