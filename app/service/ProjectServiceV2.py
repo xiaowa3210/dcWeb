@@ -38,7 +38,7 @@ from app.service.FileServiceV2 import FilesService
 from app.utils.utils import mapGet
 import xlwt
 
-from zip.ZipUtil import compress_listfiles
+# from zip.ZipUtil import compress_listfiles
 
 commonService = CommonService()
 filesService = FilesService()
@@ -710,7 +710,7 @@ class ProjectService:
 
         finalfilename = str(uuid.uuid1()).replace("-", "")+".zip"
         zippath = os.path.join(UPLOAD_ZIP_PATH,finalfilename)
-        compress_listfiles(zippath,files)
+        # compress_listfiles(zippath,files)
         return finalfilename
 
 
@@ -766,5 +766,5 @@ def packCertPic(aid):
     certpicPath = [os.path.join(UPLOAD_PICS_PATH, p.path) for p in certpic]
     filename = str(uuid.uuid1()).replace("-", "") + ".zip"
     zippath = os.path.join(UPLOAD_ZIP_PATH, filename)
-    compress_listfiles(zippath,certpicPath)
+    # compress_listfiles(zippath,certpicPath)
     return filename,zippath

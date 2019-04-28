@@ -9,77 +9,89 @@
 
 
 <style>
-    * {
-        box-sizing: border-box;
+    /** {*/
+        /*box-sizing: border-box;*/
+    /*}*/
+
+    /*#projectTitle, #awardTitle {*/
+        /*width: 100%;*/
+        /*height: 40px;*/
+        /*line-height: 40px;*/
+        /*font-size: 20px;*/
+        /*padding-left: 10px;*/
+    /*}*/
+
+    /*p {*/
+        /*margin: 5px 0;*/
+        /*font-size: 14px;*/
+    /*}*/
+
+    /*fieldset {*/
+        /*padding-left: 10px;*/
+        /*border: 1px solid #aaa;*/
+        /*width: 100%;*/
+        /*margin-bottom: 5px;*/
+    /*}*/
+
+    /*fieldset label {*/
+        /*display: inline-block;*/
+        /*height: 30px;*/
+        /*line-height: 30px;*/
+        /*margin-bottom: 0;*/
+    /*}*/
+
+    /*fieldset input[type="text"], fieldset select {*/
+        /*width: 80%;*/
+        /*height: 30px;*/
+        /*margin-bottom: 0;*/
+    /*}*/
+
+    /*option:hover {*/
+        /*color: #00a65a;*/
+    /*}*/
+
+    /*.hide {*/
+        /*display: none;*/
+    /*}*/
+
+    /*.mainPic {*/
+        /*width: 100%;*/
+        /*height: 200px;*/
+    /*}*/
+
+    /*.cerImg {*/
+        /*width: 30%;*/
+    /*}*/
+
+    /*input[type="file"] {*/
+        /*cursor: pointer;*/
+    /*}*/
+
+    /*#addAward, #submit, #save {*/
+        /*width: 100px;*/
+        /*height: 50px;*/
+        /*background-color: #00a65a;*/
+        /*border: none;*/
+        /*font-size: 16px;*/
+        /*color: #fff;*/
+        /*line-height: 50px;*/
+        /*border-radius: 5px;*/
+        /*margin: 20px 0;*/
+    /*}*/
+    form#project{
+        display:table;
     }
-
-    #projectTitle, #awardTitle {
-        width: 100%;
-        height: 40px;
-        line-height: 40px;
-        font-size: 20px;
-        padding-left: 10px;
+    .tableRow{
+        display:table-row;
     }
-
-    p {
-        margin: 5px 0;
-        font-size: 14px;
+    .tableRow label,.tableRow p{
+        display:table-cell;
+        vertical-align: top;
+        padding:3px
     }
-
-    fieldset {
-        padding-left: 10px;
-        border: 1px solid #aaa;
-        width: 100%;
-        margin-bottom: 5px;
+    .tableRow label{
+        text-align: right;
     }
-
-    fieldset label {
-        display: inline-block;
-        height: 30px;
-        line-height: 30px;
-        margin-bottom: 0;
-    }
-
-    fieldset input[type="text"], fieldset select {
-        width: 80%;
-        height: 30px;
-        margin-bottom: 0;
-    }
-
-    option:hover {
-        color: #00a65a;
-    }
-
-    .hide {
-        display: none;
-    }
-
-    .mainPic {
-        width: 100%;
-        height: 200px;
-    }
-
-    .cerImg {
-        width: 30%;
-    }
-
-    input[type="file"] {
-        cursor: pointer;
-    }
-
-    #addAward, #submit, #save {
-        width: 100px;
-        height: 50px;
-        background-color: #00a65a;
-        border: none;
-        font-size: 16px;
-        color: #fff;
-        line-height: 50px;
-        border-radius: 5px;
-        margin: 20px 0;
-    }
-
-
 </style>
 
 {% endblock%}
@@ -90,154 +102,189 @@
 <!--========================-->
 <div class="container">
     <div class="row-fluid">
-        <form class="form" style="padding-top: 20px;overflow: hidden" action="##">
-            <div class="span9">
-                <div class="project">
-                    <input type="text" placeholder="请输入项目名称" id="projectTitle" name="projectTitle" value=""> <!--项目名称-->
-                    <div style="width: 100%;height: 600px">   <!--项目详情-->
-                        <div id="markdown"></div>
-                    </div>
+        <form id="project">
+            <fieldset id="projectInfo">
+                <div class="tableRow">
+                    <label>项目名称</label>
+                    <p><input type="text" placeholder="请输入项目名称" id="projectTitle"></p>
                 </div>
-
-                <button type="button" id="addAward">添加奖项</button>
-                <div class="award hide">
-                    <fieldset class="awardItem">
-                        <p>奖项名称：<input type="text" placeholder="请输入奖项名称" class="awardTitle" name="awardTitle" value=""></p>
-                        <p>获奖时间：<input type="date" class="awardTime" type="text"></p><!--这个地方最好选择时间控件-->
-                                                <!--添加指导老师-->
-                        <div class="teacher">
-                            <p class="title">指导老师：</p>
-                            <fieldset class="teacherset" style="width: 70%">
-                                <p>
-                                    <label>姓名</label>
-                                    <input type="text" name="teacherName" class="teacherName">
-                                </p>
-                                <p>
-                                    <label>专业</label>
-                                    <input type="text" class="teacherMajor">
-                                </p>
-                                <p>
-                                    <label>学院</label>
-                                    <select class="teacherCollege" name="teacherCollege">
-                                        <option value="信息与通信工程学院">信息与通信工程学院</option>
-                                        <option value="电子工程学院">电子工程学院</option>
-                                        <option value="数字媒体与设计艺术学院">数字媒体与设计艺术学院</option>
-                                        <option value="自动化学院">自动化学院</option>
-                                        <option value="软件学院">软件学院</option>
-                                        <option value="经济管理学院">经济管理学院</option>
-                                        <option value="理学院">理学院</option>
-                                        <option value="人文学院">人文学院</option>
-                                        <option value="公共管理学院">公共管理学院</option>
-                                        <option value="国际学院">国际学院</option>
-                                        <option value="网络教育学院">网络教育学院</option>
-                                        <option value="民族教育学院和马克思主义教学与研究中心">民族教育学院和马克思主义教学与研究中心</option>
-                                    </select>
-                                </p>
-                            </fieldset>
-                        </div>
-                        <button type="button" id="addTeacher">添加指导老师</button>
-                        <p>奖项级别：
-                            <select class="awardCategory">
-                                <option>国际型比赛</option>
-                                <option>国家型比赛</option>
-                                <option>省部型比赛</option>
-                                <option>校内比赛</option>
-                            </select>
-                        </p>
-
-                        <p>获奖链接：<input class="awardLink" type="text"></p>
-
-                        <div style="position: relative">
-                            <input type="file" name="certificate" class="certificate" multiple style="opacity: 0">
-                            <button style="position: absolute;left: 0;top: 0;z-index: -10;" type="button">上传证书/奖项图片
-                            </button>
-                        </div> <!--一张或多张证书、奖项-->
-                        <div class="show"></div>
-                    </fieldset>
+                <div class="tableRow">
+                    <label>项目介绍</label>
+                    <p><div id="markdown"></div></p>
                 </div>
-            </div>
+                <div class="tableRow">
+                    <label>立项时间</label>
+                    <p><input type="date" id="projectTime"></p>
+                </div>
+                <div class="tableRow">
+                    <label>项目所属专业</label>
+                    <p>
+                        <select id="projectMajor">
+                            <option value="1">通信工程</option>
+                            <option value="2">信息工程</option>
+                            <option value="3">电子信息工程</option>
+                        </select>
+                    </p>
+                </div>
+                <div class="tableRow">
+                    <label>封面图片</label>
+                    <p><input type="file" id="mainPic"></p>
+                </div>
+            </fieldset>
+            <fieldset id="projectMember">
 
-            <!--
-            ===============学生信息=====================-->
-
-            <div class="span3">
-                <div style="position: relative;">
-                    <input class="coverImg" type="file" name="coverImg" style="opacity: 0;">  <!--一张封面图片-->
-                    <button style="position: absolute;left: 0;top: 0;z-index: -10" type="button">上传封面图片</button>
-                </div>
-                <div class="preview" style="display: block;background-color: #eee;width: 100%;height: 200px"></div>  <!--封面图片预览-->
-
-                <div>
-                    <p class="title">类别</p>
-                    <select id="category" name="category" required>
-                        <option value="App开发/微信小程序">App开发/微信小程序</option>
-                        <option value="通信/网络">通信/网络</option>
-                        <option value="软件系统">软件系统</option>
-                        <option value="硬件系统">硬件系统</option>
-                        <option value="视频/图像">视频/图像</option>
-                        <option value="大数据/机器学习">大数据/机器学习</option>
-                    </select>
-                </div>
-                <div>
-                    <P class="title">立项时间</P>
-                    <input type="date" id="projectTime">
-                </div>
-                <div class="member">
-                    <p class="title">项目成员</p>
-                    <fieldset class="memberset">
-                        <p>
-                            <label>姓名</label>
-                            <input type="text" name="memberName" class="memberName">
-                        </p>
-                        <p>
-                            <label>学号</label>
-                            <input type="text" class="memberNo">
-                        </p>
-                        <p>
-                            <label>班级</label>
-                            <input type="text" class="memberClass">
-                        </p>
-                        <p>
-                            <label>年级</label>
-                            <select class="memberGrade" name="memberGrade">
-                                <option value="大四">大四</option>
-                                <option value="大三">大三</option>
-                                <option value="大二">大二</option>
-                                <option value="大一">大一</option>
-                            </select>
-                        </p>
-                        <p>
-                            <label>专业</label>
-                            <input type="text" class="memberMajor ">
-                        </p>
-                        <p>
-                            <label>学院</label>
-                            <select class="memberCollege" name="memberCollege">
-                                <option value="信息与通信工程学院">信息与通信工程学院</option>
-                                <option value="电子工程学院">电子工程学院</option>
-                                <option value="数字媒体与设计艺术学院">数字媒体与设计艺术学院</option>
-                                <option value="自动化学院">自动化学院</option>
-                                <option value="软件学院">软件学院</option>
-                                <option value="经济管理学院">经济管理学院</option>
-                                <option value="理学院">理学院</option>
-                                <option value="人文学院">人文学院</option>
-                                <option value="公共管理学院">公共管理学院</option>
-                                <option value="国际学院">国际学院</option>
-                                <option value="网络教育学院">网络教育学院</option>
-                                <option value="民族教育学院和马克思主义教学与研究中心">民族教育学院和马克思主义教学与研究中心</option>
-                            </select>
-                        </p>
-                    </fieldset>
-                </div>
-                <button type="button" id="addMember">添加成员</button>
-                <div>
-                    <button type="button" id="save" onclick="uploadProject(1)">保存</button>
-                    <button type="button" id="submit" onclick="uploadProject(2)">提交</button>
-                </div>
-
-            </div>
+            </fieldset>
         </form>
     </div>
+    <!--<div class="row-fluid">-->
+        <!--<form class="form" style="padding-top: 20px;overflow: hidden" action="##">-->
+            <!--<div class="span9">-->
+                <!--<div class="project">-->
+                    <!--<input type="text" placeholder="请输入项目名称" id="projectTitle" name="projectTitle" value=""> &lt;!&ndash;项目名称&ndash;&gt;-->
+                    <!--<div style="width: 100%;height: 600px">   &lt;!&ndash;项目详情&ndash;&gt;-->
+                        <!--<div id="markdown"></div>-->
+                    <!--</div>-->
+                <!--</div>-->
+
+                <!--<button type="button" id="addAward">添加奖项</button>-->
+                <!--<div class="award hide">-->
+                    <!--<fieldset class="awardItem">-->
+                        <!--<p>奖项名称：<input type="text" placeholder="请输入奖项名称" class="awardTitle" name="awardTitle" value=""></p>-->
+                        <!--<p>获奖时间：<input type="date" class="awardTime" type="text"></p>&lt;!&ndash;这个地方最好选择时间控件&ndash;&gt;-->
+                                                <!--&lt;!&ndash;添加指导老师&ndash;&gt;-->
+                        <!--<div class="teacher">-->
+                            <!--<p class="title">指导老师：</p>-->
+                            <!--<fieldset class="teacherset" style="width: 70%">-->
+                                <!--<p>-->
+                                    <!--<label>姓名</label>-->
+                                    <!--<input type="text" name="teacherName" class="teacherName">-->
+                                <!--</p>-->
+                                <!--<p>-->
+                                    <!--<label>专业</label>-->
+                                    <!--<input type="text" class="teacherMajor">-->
+                                <!--</p>-->
+                                <!--<p>-->
+                                    <!--<label>学院</label>-->
+                                    <!--<select class="teacherCollege" name="teacherCollege">-->
+                                        <!--<option value="信息与通信工程学院">信息与通信工程学院</option>-->
+                                        <!--<option value="电子工程学院">电子工程学院</option>-->
+                                        <!--<option value="数字媒体与设计艺术学院">数字媒体与设计艺术学院</option>-->
+                                        <!--<option value="自动化学院">自动化学院</option>-->
+                                        <!--<option value="软件学院">软件学院</option>-->
+                                        <!--<option value="经济管理学院">经济管理学院</option>-->
+                                        <!--<option value="理学院">理学院</option>-->
+                                        <!--<option value="人文学院">人文学院</option>-->
+                                        <!--<option value="公共管理学院">公共管理学院</option>-->
+                                        <!--<option value="国际学院">国际学院</option>-->
+                                        <!--<option value="网络教育学院">网络教育学院</option>-->
+                                        <!--<option value="民族教育学院和马克思主义教学与研究中心">民族教育学院和马克思主义教学与研究中心</option>-->
+                                    <!--</select>-->
+                                <!--</p>-->
+                            <!--</fieldset>-->
+                        <!--</div>-->
+                        <!--<button type="button" id="addTeacher">添加指导老师</button>-->
+                        <!--<p>奖项级别：-->
+                            <!--<select class="awardCategory">-->
+                                <!--<option>国际型比赛</option>-->
+                                <!--<option>国家型比赛</option>-->
+                                <!--<option>省部型比赛</option>-->
+                                <!--<option>校内比赛</option>-->
+                            <!--</select>-->
+                        <!--</p>-->
+
+                        <!--<p>获奖链接：<input class="awardLink" type="text"></p>-->
+
+                        <!--<div style="position: relative">-->
+                            <!--<input type="file" name="certificate" class="certificate" multiple style="opacity: 0">-->
+                            <!--<button style="position: absolute;left: 0;top: 0;z-index: -10;" type="button">上传证书/奖项图片-->
+                            <!--</button>-->
+                        <!--</div> &lt;!&ndash;一张或多张证书、奖项&ndash;&gt;-->
+                        <!--<div class="show"></div>-->
+                    <!--</fieldset>-->
+                <!--</div>-->
+            <!--</div>-->
+
+            <!--&lt;!&ndash;-->
+            <!--===============学生信息=====================&ndash;&gt;-->
+
+            <!--<div class="span3">-->
+                <!--<div style="position: relative;">-->
+                    <!--<input class="coverImg" type="file" name="coverImg" style="opacity: 0;">  &lt;!&ndash;一张封面图片&ndash;&gt;-->
+                    <!--<button style="position: absolute;left: 0;top: 0;z-index: -10" type="button">上传封面图片</button>-->
+                <!--</div>-->
+                <!--<div class="preview" style="display: block;background-color: #eee;width: 100%;height: 200px"></div>  &lt;!&ndash;封面图片预览&ndash;&gt;-->
+
+                <!--<div>-->
+                    <!--<p class="title">类别</p>-->
+                    <!--<select id="category" name="category" required>-->
+                        <!--<option value="App开发/微信小程序">App开发/微信小程序</option>-->
+                        <!--<option value="通信/网络">通信/网络</option>-->
+                        <!--<option value="软件系统">软件系统</option>-->
+                        <!--<option value="硬件系统">硬件系统</option>-->
+                        <!--<option value="视频/图像">视频/图像</option>-->
+                        <!--<option value="大数据/机器学习">大数据/机器学习</option>-->
+                    <!--</select>-->
+                <!--</div>-->
+                <!--<div>-->
+                    <!--<P class="title">立项时间</P>-->
+                    <!--<input type="date" id="projectTime">-->
+                <!--</div>-->
+                <!--<div class="member">-->
+                    <!--<p class="title">项目成员</p>-->
+                    <!--<fieldset class="memberset">-->
+                        <!--<p>-->
+                            <!--<label>姓名</label>-->
+                            <!--<input type="text" name="memberName" class="memberName">-->
+                        <!--</p>-->
+                        <!--<p>-->
+                            <!--<label>学号</label>-->
+                            <!--<input type="text" class="memberNo">-->
+                        <!--</p>-->
+                        <!--<p>-->
+                            <!--<label>班级</label>-->
+                            <!--<input type="text" class="memberClass">-->
+                        <!--</p>-->
+                        <!--<p>-->
+                            <!--<label>年级</label>-->
+                            <!--<select class="memberGrade" name="memberGrade">-->
+                                <!--<option value="大四">大四</option>-->
+                                <!--<option value="大三">大三</option>-->
+                                <!--<option value="大二">大二</option>-->
+                                <!--<option value="大一">大一</option>-->
+                            <!--</select>-->
+                        <!--</p>-->
+                        <!--<p>-->
+                            <!--<label>专业</label>-->
+                            <!--<input type="text" class="memberMajor ">-->
+                        <!--</p>-->
+                        <!--<p>-->
+                            <!--<label>学院</label>-->
+                            <!--<select class="memberCollege" name="memberCollege">-->
+                                <!--<option value="信息与通信工程学院">信息与通信工程学院</option>-->
+                                <!--<option value="电子工程学院">电子工程学院</option>-->
+                                <!--<option value="数字媒体与设计艺术学院">数字媒体与设计艺术学院</option>-->
+                                <!--<option value="自动化学院">自动化学院</option>-->
+                                <!--<option value="软件学院">软件学院</option>-->
+                                <!--<option value="经济管理学院">经济管理学院</option>-->
+                                <!--<option value="理学院">理学院</option>-->
+                                <!--<option value="人文学院">人文学院</option>-->
+                                <!--<option value="公共管理学院">公共管理学院</option>-->
+                                <!--<option value="国际学院">国际学院</option>-->
+                                <!--<option value="网络教育学院">网络教育学院</option>-->
+                                <!--<option value="民族教育学院和马克思主义教学与研究中心">民族教育学院和马克思主义教学与研究中心</option>-->
+                            <!--</select>-->
+                        <!--</p>-->
+                    <!--</fieldset>-->
+                <!--</div>-->
+                <!--<button type="button" id="addMember">添加成员</button>-->
+                <!--<div>-->
+                    <!--<button type="button" id="save" onclick="uploadProject(1)">保存</button>-->
+                    <!--<button type="button" id="submit" onclick="uploadProject(2)">提交</button>-->
+                <!--</div>-->
+
+            <!--</div>-->
+        <!--</form>-->
+    <!--</div>-->
 </div>
 {% endblock%}
 
