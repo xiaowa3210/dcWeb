@@ -46,14 +46,14 @@ disallow_url_teacher = [
 
 ]
 
-# #登录验证
-# @app.before_request
-# def before_action():
-#     path = request.path
-#     #拦截url中带admin的请求,做登录验证
-#     if 'admin' in path:
-#         if 'admin' not in session:
-#             return redirect(url_for('back.login'))
+#登录验证
+@app.before_request
+def before_action():
+    path = request.path
+    #拦截url中带admin的请求,做登录验证
+    if 'admin' in path:
+        if 'admin' not in session:
+            return redirect(url_for('back.login'))
 
 
 # # 日志系统配置
