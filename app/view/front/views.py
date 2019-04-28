@@ -130,16 +130,16 @@ def uploadProject():
 """ 
 导出获奖信息
 """
-@front.route('/api/downloadAwardInfo',methods=['GET'])
-def downloadAwardInfo():
-    startTime = request.args.get('startTime',default=None)
-    endTime = request.args.get('endTime', default=None)
-    academy = request.args.get('major', default = 0)
-    filename = projectService.downProAwardInfo(startTime,endTime,academy)
-
-    return json.dumps(MessageInfo.success(msg='保存成功',data={
-        'url': url_for('common.file', name=filename),
-    }).__dict__)
+# @front.route('/api/downloadAwardInfo',methods=['GET'])
+# def downloadAwardInfo():
+#     startTime = request.args.get('startTime',default=None)
+#     endTime = request.args.get('endTime', default=None)
+#     academy = request.args.get('major', default = 0)
+#     filename = projectService.downProAwardInfo(startTime,endTime,academy)
+#
+#     return json.dumps(MessageInfo.success(msg='保存成功',data={
+#         'url': url_for('common.file', name=filename),
+#     }).__dict__)
 
 
 """ 
