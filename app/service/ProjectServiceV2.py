@@ -327,9 +327,18 @@ class ProjectService:
             query = query.filter(ProjectStatus.type == type)
         if major != 0:
             query = query.filter(ProjectStatus.major == major)
-
         pagination = query.order_by(desc(ProjectStatus.pro_startTime)).paginate(page_index, count, error_out=False)
-        return pagination, pagination.items
+
+        pros = pagination.items
+        for pro in pros:
+
+            mainPic = db2.session.query(Files).filter(Files.source_id == pro.pid,
+                                                          Files.source == 1,
+                                                          Files.delete_flag == 0).one()
+            pro.pic = mainPic
+        return pagination, pros
+
+
 
     """ 
     @:param:
@@ -472,7 +481,6 @@ class ProjectService:
         content = data["content"]
         src_content = data["src_content"]
         type = data["type"]
-        startTime = data['startTime']
         project = Project(pname, content, type)
         project.src_content = src_content
         # 添加状态信息
@@ -483,7 +491,6 @@ class ProjectService:
             db2.session.query(Files).filter(Files.fid == mainPicId, Files.delete_flag == 0).update({
                 'source_id': project.pid
             })
-            # self.addFile(project.pid,mainPicId)
         db2.session.commit()
         return project.pid
 
@@ -556,8 +563,15 @@ class ProjectService:
         db2.session.commit()
 
 
+    #修改主页图片
+    def modifyPic(self,id,files):
+        path = storeMainPic(files)
+        db2.session.query(Files).filter(Files.fid == id, Files.delete_flag == 0).update({
+            'path': path
+        })
+        db2.session.commit()
 
-
+        return path
 
     """ 
     @:param:

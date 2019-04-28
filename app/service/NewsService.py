@@ -1,5 +1,7 @@
 from datetime import datetime
 
+from sqlalchemy import desc
+
 from app import db2
 from app.model.entity import New, newExt
 from app.service.CommonService import CommonService
@@ -17,9 +19,9 @@ class NewsService:
     """
     分页查询新闻
     """
-    def selectByPage(self,page_index,per_page,type):
+    def selectByPage(self,page_index,per_page,status):
         if int(type) < 0:
-            pagination = newExt.query.filter(newExt.deleteFlag == 0).order_by(newExt.createTime).paginate(
+            pagination = newExt.query.filter(newExt.deleteFlag == 0).order_by(desc(newExt.isTop,newExt.createTime)).paginate(
                 page_index, per_page)
         else:
             pagination = newExt.query.filter(newExt.deleteFlag == 0,newExt.status==type).order_by(newExt.createTime).paginate(page_index, per_page)

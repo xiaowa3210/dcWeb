@@ -46,7 +46,7 @@
             <div class="span3">
                <div class="project-image">
                    <a href="{{ url_for('front.project',pid=project.pid) }}">  <!--链接到项目的详情地址-->
-					   <img style="height: 200px;width: 100%" src="{{ url_for('common.image',name=project.mainPic) }}" alt=""> <!--封面图片-->
+					   <img style="height: 200px;width: 100%" src="{{ url_for('common.image',name=project.pic.path) }}" alt=""> <!--封面图片-->
                    </a>
                </div>
                <div class="project-title">

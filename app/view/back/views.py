@@ -336,7 +336,15 @@ pagination,projects = projectService.getPublishedPro(page,count)
 @back.route("/admin/deleteProject",defaults={'page':1,'count':10})
 @back.route("/admin/deleteProject/<int:page>/<int:count>")
 def editeProject(page,count):
-    pagination, projects = projectService.getPublishedPro(page, count)
+    # 筛选条件
+    startTime = request.args.get('startTime', default=None)
+    endTime = request.args.get('endTime', default=None)
+    type = request.args.get('type', default=-1)
+    major = request.args.get('major', default=0)
+    pagination, projects = projectService.getPublishedPro(page, count,startTime=startTime,
+                                                         endTime=endTime,
+                                                         type=type,
+                                                         major=major)
     return render_template("back01/back/deleteProject.html",projects=projects,pagination=pagination)
 
 
