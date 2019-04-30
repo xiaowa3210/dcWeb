@@ -81,7 +81,7 @@ class FilesService:
     @:return:
     @descrition:根据文件ID更新内容
     """
-    def updateProStatusByPid(self, updateContent, fid):
+    def updateFilesByPid(self, updateContent, fid):
         db2.session.query(Files).filter(Files.fid == fid).update(updateContent)
         db2.session.commit()
 
@@ -101,4 +101,4 @@ class FilesService:
         updateContent = {
             'delete_flag':1
         }
-        self.updateProStatusByPid(updateContent,file_id)
+        self.updateFilesByPid(updateContent, file_id)

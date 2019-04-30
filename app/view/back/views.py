@@ -230,13 +230,16 @@ def login_api():
     username = data['username']
     password = data['password']
     user = userService.selectByName(username,0)
-    if user :
+    admin = userService.selectByName(username,0)
+    if user:
         if password == user.password:
             session["admin"] = user.username                        #用session保存登录状态
             return json.dumps(MessageInfo.success(msg="登录成功").__dict__)
             # return redirect(url_for("back.main"))
         else:
             return json.dumps(MessageInfo.fail(msg="亲，密码错误!").__dict__)
+    elif admin:
+        pass
     else:
         return json.dumps(MessageInfo.fail(msg="亲,用户不存在").__dict__)
 
@@ -416,4 +419,11 @@ def manageUser(page,count):
     return render_template("back01/back/manageUser.html",pagination=pagination,users=users)
 
 
-
+""" 
+审核新闻列表
+"""
+@back.route("/admin/checkNewView",methods=['GET'],defaults={'page':1,'count':10})
+@back.route("/admin/checkNewView/<int:page>/<int:count>",methods=['GET'])
+def checkNewView(page,count):
+    pagination, news = newsService.selectByPage(page, count, 2)
+    return render_template("back01/back/checknew.html",pagination=pagination,news=news)
