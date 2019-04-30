@@ -85,7 +85,7 @@ def storeMainPic(files):
         suffix = filename[filename.rfind('.'):]
         local_path = str(uuid.uuid1()).replace("-", "") + suffix
         f.save(path + local_path)
-        return local_path
+        return local_path,filename
 
 # 存储上传的文件到本地，并且将文件信息写到数据库中
 def storefile(files, source, source_id, type):
@@ -613,9 +613,10 @@ class ProjectService:
 
     #修改主页图片
     def modifyPic(self,id,files):
-        path = storeMainPic(files)
+        path,filename = storeMainPic(files)
         db2.session.query(Files).filter(Files.fid == id, Files.delete_flag == 0).update({
-            'path': path
+            'path': path,
+            'name':filename
         })
         db2.session.commit()
 
