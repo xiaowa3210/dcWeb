@@ -9,6 +9,7 @@ from app.service.FileServiceV2 import FilesService
 from app.service.NewsService import NewsService
 from app.service.ProjectServiceV2 import ProjectService
 from app.utils.email import send_mail
+from app.utils.utils import object2json, member2dict, award2dict
 from app.view.MessageInfo import MessageInfo
 from app.view.front import front
 
@@ -57,14 +58,23 @@ def addProAward(pid):
 
 
 """ 
-修改项目接口
+得到成员信息
 """
-@front.route('/api/modifyPro/<int:pid>',methods=['POST'])
-def modifyPro(pid):
-    data = json.loads(request.get_data(as_text=True))
-    projectService.modifyPro(pid,data)
-    return json.dumps(MessageInfo.success(msg='保存成功').__dict__)
+@front.route('/api/member/<int:mid>',methods=['GET'])
+def getMember(mid):
+    member = projectService.getMember(mid)
+    memberJson = json.dumps(member,default=member2dict)
+    return json.dumps(MessageInfo.success(msg='保存成功',data=memberJson).__dict__)
 
+
+""" 
+得到获奖信息
+"""
+@front.route('/api/award/<int:aid>',methods=['GET'])
+def modifyPro(aid):
+    award = projectService.getaward(aid)
+    awardJson = json.dumps(award, default=award2dict)
+    return json.dumps(MessageInfo.success(msg='保存成功',data=awardJson).__dict__)
 
 """ 
 修改成员信息
@@ -115,7 +125,13 @@ def deleteProAward(aid):
     projectService.deleteAwardInfo(aid)
     return json.dumps(MessageInfo.success(msg='删除成功').__dict__)
 
-
+""" 
+删除文件
+"""
+@front.route('/api/deleteCertFile/<int:fid>',methods=['GET'])
+def deleteCertFile(fid):
+    filesService.deleteFileByID(fid)
+    return json.dumps(MessageInfo.success(msg='删除成功').__dict__)
 
 """ 
 上传项目接口
@@ -278,7 +294,7 @@ def uploadProjectTmp():
 @front.route('/news', methods=['GET'],defaults={'page':1,'count':10})
 @front.route('/news/<int:page>/<int:count>')
 def news(page,count):
-    pagination, news = newsService.selectByPage(page, count, 1)
+    pagination, news = newsService.selectByPage(page, count, 3)
     return render_template("tmp01/news.html",pagination=pagination,documents=news)
 
 """ 
