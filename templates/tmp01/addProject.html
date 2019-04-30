@@ -9,88 +9,106 @@
 
 
 <style>
-    /** {*/
-        /*box-sizing: border-box;*/
-    /*}*/
-
-    /*#projectTitle, #awardTitle {*/
-        /*width: 100%;*/
-        /*height: 40px;*/
-        /*line-height: 40px;*/
-        /*font-size: 20px;*/
-        /*padding-left: 10px;*/
-    /*}*/
-
-    /*p {*/
-        /*margin: 5px 0;*/
-        /*font-size: 14px;*/
-    /*}*/
-
-    /*fieldset {*/
-        /*padding-left: 10px;*/
-        /*border: 1px solid #aaa;*/
-        /*width: 100%;*/
-        /*margin-bottom: 5px;*/
-    /*}*/
-
-    /*fieldset label {*/
-        /*display: inline-block;*/
-        /*height: 30px;*/
-        /*line-height: 30px;*/
-        /*margin-bottom: 0;*/
-    /*}*/
-
-    /*fieldset input[type="text"], fieldset select {*/
-        /*width: 80%;*/
-        /*height: 30px;*/
-        /*margin-bottom: 0;*/
-    /*}*/
-
-    /*option:hover {*/
-        /*color: #00a65a;*/
-    /*}*/
-
-    /*.hide {*/
-        /*display: none;*/
-    /*}*/
-
-    /*.mainPic {*/
-        /*width: 100%;*/
-        /*height: 200px;*/
-    /*}*/
-
-    /*.cerImg {*/
-        /*width: 30%;*/
-    /*}*/
-
-    /*input[type="file"] {*/
-        /*cursor: pointer;*/
-    /*}*/
-
-    /*#addAward, #submit, #save {*/
-        /*width: 100px;*/
-        /*height: 50px;*/
-        /*background-color: #00a65a;*/
-        /*border: none;*/
-        /*font-size: 16px;*/
-        /*color: #fff;*/
-        /*line-height: 50px;*/
-        /*border-radius: 5px;*/
-        /*margin: 20px 0;*/
-    /*}*/
-    form#project{
-        display:table;
+    * {
+        box-sizing: border-box;
     }
+    body{
+        background-color: #f6f6f8;
+    }
+    .projectContainer{
+        background-color: #fff;
+        padding:50px;
+        min-height: 900px;
+        margin: 30px 0 60px 0;
+
+    }
+
+    .item-header{
+        height:60px;
+        line-height: 60px;
+        font-size:20px;
+        margin:20px 0;
+        border-bottom: 1px dotted #eee;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-weight: bold;
+    }
+
+
+    section.content {
+        padding: 30px 50px 20px 30px;
+        border:1px solid #eee
+    }
+
+    section.content input {
+        width: 220px;
+        height: 30px;
+    }
+
+    input#projectTitle {
+        width: 500px;
+    }
+
     .tableRow{
-        display:table-row;
+        display: flex;
+        width: 100%;
+        margin: 5px
     }
-    .tableRow label,.tableRow p{
-        display:table-cell;
-        vertical-align: top;
-        padding:3px
+
+    .tableRow.btn-group{
+        justify-content: flex-end;
     }
     .tableRow label{
-        text-align: right;
+        display: inline-block;
+        width: 10%;
+        flex-shrink: 0;
+        padding-right: 5px;
+        font-size: 14px;
+        font-weight: bold;
+    }
+
+    .btn-group button {
+        width: 70px;
+        height: 40px;
+        background-color:#337e0a;
+        margin-right: 10px;
+        border:0px;
+        border-radius: 4px;
+        font-size: 16px;
+        color:#fff
+    }
+
+    .btn-group .cancel {
+        background-color: #eee;
+        color:#333;
+    }
+    .hide{
+        display: none;
+    }
+
+    .show-header {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 5px;
+    }
+    .show-header span {
+        margin-right: 5px;
+        padding:5px;
+        font-size:16px;
+    }
+    .show-content {
+        max-height:80px;
+        overflow: hidden;
+    }
+
+    .operate button {
+        margin-left: 5px;
+        padding: 5px;
+        border: 0px;
+        border-radius: 4px;
+        background-color: #eee;
+        color:#337e0a
     }
 </style>
 
@@ -102,190 +120,192 @@
 <!--========================-->
 <div class="container">
     <div class="row-fluid">
-        <form id="project">
-            <fieldset id="projectInfo">
-                <div class="tableRow">
-                    <label>项目名称</label>
-                    <p><input type="text" placeholder="请输入项目名称" id="projectTitle"></p>
+        <div class="projectContainer">
+            <div style="display: flex;justify-content: space-between">
+                <p>个人中心/上传项目</p>
+                <a>预览</a>
+            </div>
+            <div class="info item">
+                <div class="item-header">
+                    <div class="left">项目信息</div>
+                    <i class="icon-rounded icon-plus add right"></i>
                 </div>
-                <div class="tableRow">
-                    <label>项目介绍</label>
-                    <p><div id="markdown"></div></p>
+                <section class="content hide">
+                    <div class="tableRow">
+                    <label>项目名称*</label>
+                    <input type="text" placeholder="请输入项目名称" id="projectTitle" name="pname">
                 </div>
-                <div class="tableRow">
-                    <label>立项时间</label>
-                    <p><input type="date" id="projectTime"></p>
+                    <div class="tableRow">
+                    <label>项目介绍*</label>
+                    <div style="height: 800px;width: 100%;margin-bottom: 15px">
+                        <div id="markdown"></div>
+                    </div>
                 </div>
-                <div class="tableRow">
-                    <label>项目所属专业</label>
-                    <p>
-                        <select id="projectMajor">
-                            <option value="1">通信工程</option>
-                            <option value="2">信息工程</option>
-                            <option value="3">电子信息工程</option>
-                        </select>
-                    </p>
-                </div>
-                <div class="tableRow">
+                    <div class="tableRow">
                     <label>封面图片</label>
-                    <p><input type="file" id="mainPic"></p>
+                    <input type="file" id="mainPic">
                 </div>
-            </fieldset>
-            <fieldset id="projectMember">
-
-            </fieldset>
-        </form>
+                    <div class="tableRow">
+                    <label></label>
+                    <div style="width:300px;height:200px;background-color: #aaa">
+                        <img id="mainPicPreview" style="width:300px;height:200px">
+                    </div>
+                </div>
+                    <div class="tableRow">
+                    <label>立项时间*</label>
+                    <input type="date" id="projectTime" name="startTime">
+                </div>
+                    <div class="tableRow">
+                    <label>项目专业*</label>
+                    <select id="projectMajor" name="academy">
+                        <option value="1">通信工程</option>
+                        <option value="2">信息工程</option>
+                        <option value="3">电子信息工程</option>
+                    </select>
+                </div>
+                    <div class="tableRow">
+                    <label>项目类别*</label>
+                    <select id="projectCategory" name="type">
+                        <option value="1">App开发/微信小程序开发</option>
+                        <option value="2">通信/网络</option>
+                        <option value="3">软件系统</option>
+                        <option value="4">硬件系统</option>
+                        <option value="5">视频/图像</option>
+                        <option value="6">大数据/机器学习</option>
+                    </select>
+                </div>
+                    <div class="tableRow btn-group">
+                        <label></label>
+                        <button id="submitInfo">保存</button>
+                        <button class="cancel">取消</button>
+                    </div>
+                </section>
+            </div>
+            <div id="members">
+                <div class="item-header">
+                    <div class="left">成员信息</div>
+                    <i class="icon-rounded icon-plus add right"></i>
+                </div>
+                <section class="content hide">
+                    <div class="tableRow">
+                        <label>姓名</label>
+                        <input type="text" id="memberName">
+                    </div>
+                    <div class="tableRow">
+                        <label>学号</label>
+                        <input type="text" id="memberNo">
+                    </div>
+                    <div class="tableRow">
+                        <label>班级</label>
+                        <input type="text" id="memberClass">
+                    </div>
+                    <div class="tableRow">
+                        <label>年级</label>
+                        <input type="text" id="memberGrade">
+                    </div>
+                    <div class="tableRow">
+                        <label>专业</label>
+                        <input type="text" id="memberMajor">
+                    </div>
+                    <div class="tableRow">
+                        <label>学院</label>
+                        <select id="memberCollege" name="memberCollege">
+                            <option value="信息与通信工程学院">信息与通信工程学院</option>
+                            <option value="电子工程学院">电子工程学院</option>
+                            <option value="数字媒体与设计艺术学院">数字媒体与设计艺术学院</option>
+                            <option value="自动化学院">自动化学院</option>
+                            <option value="软件学院">软件学院</option>
+                            <option value="经济管理学院">经济管理学院</option>
+                            <option value="理学院">理学院</option>
+                            <option value="人文学院">人文学院</option>
+                            <option value="公共管理学院">公共管理学院</option>
+                            <option value="国际学院">国际学院</option>
+                            <option value="网络教育学院">网络教育学院</option>
+                            <option value="民族教育学院和马克思主义教学与研究中心">民族教育学院和马克思主义教学与研究中心</option>
+                        </select>
+                    </div>
+                    <div class="tableRow btn-group">
+                        <button id="submitMembers">保存</button><button class="cancel">取消</button>
+                    </div>
+                </section>
+            </div>
+            <div id="teachers">
+                <div class="item-header">
+                    <div class="left">指导老师信息</div>
+                    <i class="icon-rounded icon-plus add right"></i>
+                </div>
+                <section class="content hide">
+                    <div class="tableRow">
+                        <label>姓名</label>
+                        <input type="text" id="teacherName">
+                    </div>
+                    <div class="tableRow">
+                        <label>专业</label>
+                        <input type="text" id="teacherMajor">
+                    </div>
+                    <div class="tableRow">
+                        <label>学院</label>
+                        <select id="teacherCollege">
+                            <option value="信息与通信工程学院">信息与通信工程学院</option>
+                            <option value="电子工程学院">电子工程学院</option>
+                            <option value="数字媒体与设计艺术学院">数字媒体与设计艺术学院</option>
+                            <option value="自动化学院">自动化学院</option>
+                            <option value="软件学院">软件学院</option>
+                            <option value="经济管理学院">经济管理学院</option>
+                            <option value="理学院">理学院</option>
+                            <option value="人文学院">人文学院</option>
+                            <option value="公共管理学院">公共管理学院</option>
+                            <option value="国际学院">国际学院</option>
+                            <option value="网络教育学院">网络教育学院</option>
+                            <option value="民族教育学院和马克思主义教学与研究中心">民族教育学院和马克思主义教学与研究中心</option>
+                        </select>
+                    </div>
+                    <div class="tableRow btn-group">
+                        <button id="submitTeachers">保存</button><button class="cancel">取消</button>
+                    </div>
+                </section>
+            </div>
+            <div id="awards">
+                <div class="item-header">
+                    <div class="left">获奖信息</div>
+                    <i class="icon-rounded icon-plus add right"></i>
+                </div>
+                <section class="content hide">
+                    <div class="tableRow">
+                            <label>奖项名称</label>
+                            <input type="text" id="awardTitle">
+                        </div>
+                    <div class="tableRow">
+                            <label>获奖时间</label>
+                            <input type="date" id="awardTime">
+                        </div>
+                    <div class="tableRow">
+                            <label>奖项级别</label>
+                            <select id="awardCategory">
+                                <option value="1">国际型比赛</option>
+                                <option value="2">国家型比赛</option>
+                                <option value="3">省部型比赛</option>
+                                <option value="4">校内比赛</option>
+                            </select>
+                        </div>
+                    <div class="tableRow">
+                        <label>奖项证书</label>
+                        <input type="file" multiple id="certfile">
+                    </div>
+                    <div class="tableRow">
+                        <label></label>
+                        <div id="certPreview"></div>
+                    </div>
+                    <div class="tableRow btn-group">
+                        <button id="submitAwards">保存</button>
+                        <button class="cancel">取消</button>
+                    </div>
+                </section>
+            </div>
+        </div>
     </div>
-    <!--<div class="row-fluid">-->
-        <!--<form class="form" style="padding-top: 20px;overflow: hidden" action="##">-->
-            <!--<div class="span9">-->
-                <!--<div class="project">-->
-                    <!--<input type="text" placeholder="请输入项目名称" id="projectTitle" name="projectTitle" value=""> &lt;!&ndash;项目名称&ndash;&gt;-->
-                    <!--<div style="width: 100%;height: 600px">   &lt;!&ndash;项目详情&ndash;&gt;-->
-                        <!--<div id="markdown"></div>-->
-                    <!--</div>-->
-                <!--</div>-->
-
-                <!--<button type="button" id="addAward">添加奖项</button>-->
-                <!--<div class="award hide">-->
-                    <!--<fieldset class="awardItem">-->
-                        <!--<p>奖项名称：<input type="text" placeholder="请输入奖项名称" class="awardTitle" name="awardTitle" value=""></p>-->
-                        <!--<p>获奖时间：<input type="date" class="awardTime" type="text"></p>&lt;!&ndash;这个地方最好选择时间控件&ndash;&gt;-->
-                                                <!--&lt;!&ndash;添加指导老师&ndash;&gt;-->
-                        <!--<div class="teacher">-->
-                            <!--<p class="title">指导老师：</p>-->
-                            <!--<fieldset class="teacherset" style="width: 70%">-->
-                                <!--<p>-->
-                                    <!--<label>姓名</label>-->
-                                    <!--<input type="text" name="teacherName" class="teacherName">-->
-                                <!--</p>-->
-                                <!--<p>-->
-                                    <!--<label>专业</label>-->
-                                    <!--<input type="text" class="teacherMajor">-->
-                                <!--</p>-->
-                                <!--<p>-->
-                                    <!--<label>学院</label>-->
-                                    <!--<select class="teacherCollege" name="teacherCollege">-->
-                                        <!--<option value="信息与通信工程学院">信息与通信工程学院</option>-->
-                                        <!--<option value="电子工程学院">电子工程学院</option>-->
-                                        <!--<option value="数字媒体与设计艺术学院">数字媒体与设计艺术学院</option>-->
-                                        <!--<option value="自动化学院">自动化学院</option>-->
-                                        <!--<option value="软件学院">软件学院</option>-->
-                                        <!--<option value="经济管理学院">经济管理学院</option>-->
-                                        <!--<option value="理学院">理学院</option>-->
-                                        <!--<option value="人文学院">人文学院</option>-->
-                                        <!--<option value="公共管理学院">公共管理学院</option>-->
-                                        <!--<option value="国际学院">国际学院</option>-->
-                                        <!--<option value="网络教育学院">网络教育学院</option>-->
-                                        <!--<option value="民族教育学院和马克思主义教学与研究中心">民族教育学院和马克思主义教学与研究中心</option>-->
-                                    <!--</select>-->
-                                <!--</p>-->
-                            <!--</fieldset>-->
-                        <!--</div>-->
-                        <!--<button type="button" id="addTeacher">添加指导老师</button>-->
-                        <!--<p>奖项级别：-->
-                            <!--<select class="awardCategory">-->
-                                <!--<option>国际型比赛</option>-->
-                                <!--<option>国家型比赛</option>-->
-                                <!--<option>省部型比赛</option>-->
-                                <!--<option>校内比赛</option>-->
-                            <!--</select>-->
-                        <!--</p>-->
-
-                        <!--<p>获奖链接：<input class="awardLink" type="text"></p>-->
-
-                        <!--<div style="position: relative">-->
-                            <!--<input type="file" name="certificate" class="certificate" multiple style="opacity: 0">-->
-                            <!--<button style="position: absolute;left: 0;top: 0;z-index: -10;" type="button">上传证书/奖项图片-->
-                            <!--</button>-->
-                        <!--</div> &lt;!&ndash;一张或多张证书、奖项&ndash;&gt;-->
-                        <!--<div class="show"></div>-->
-                    <!--</fieldset>-->
-                <!--</div>-->
-            <!--</div>-->
-
-            <!--&lt;!&ndash;-->
-            <!--===============学生信息=====================&ndash;&gt;-->
-
-            <!--<div class="span3">-->
-                <!--<div style="position: relative;">-->
-                    <!--<input class="coverImg" type="file" name="coverImg" style="opacity: 0;">  &lt;!&ndash;一张封面图片&ndash;&gt;-->
-                    <!--<button style="position: absolute;left: 0;top: 0;z-index: -10" type="button">上传封面图片</button>-->
-                <!--</div>-->
-                <!--<div class="preview" style="display: block;background-color: #eee;width: 100%;height: 200px"></div>  &lt;!&ndash;封面图片预览&ndash;&gt;-->
-
-                <!--<div>-->
-                    <!--<p class="title">类别</p>-->
-                    <!--<select id="category" name="category" required>-->
-                        <!--<option value="App开发/微信小程序">App开发/微信小程序</option>-->
-                        <!--<option value="通信/网络">通信/网络</option>-->
-                        <!--<option value="软件系统">软件系统</option>-->
-                        <!--<option value="硬件系统">硬件系统</option>-->
-                        <!--<option value="视频/图像">视频/图像</option>-->
-                        <!--<option value="大数据/机器学习">大数据/机器学习</option>-->
-                    <!--</select>-->
-                <!--</div>-->
-                <!--<div>-->
-                    <!--<P class="title">立项时间</P>-->
-                    <!--<input type="date" id="projectTime">-->
-                <!--</div>-->
-                <!--<div class="member">-->
-                    <!--<p class="title">项目成员</p>-->
-                    <!--<fieldset class="memberset">-->
-                        <!--<p>-->
-                            <!--<label>姓名</label>-->
-                            <!--<input type="text" name="memberName" class="memberName">-->
-                        <!--</p>-->
-                        <!--<p>-->
-                            <!--<label>学号</label>-->
-                            <!--<input type="text" class="memberNo">-->
-                        <!--</p>-->
-                        <!--<p>-->
-                            <!--<label>班级</label>-->
-                            <!--<input type="text" class="memberClass">-->
-                        <!--</p>-->
-                        <!--<p>-->
-                            <!--<label>年级</label>-->
-                            <!--<select class="memberGrade" name="memberGrade">-->
-                                <!--<option value="大四">大四</option>-->
-                                <!--<option value="大三">大三</option>-->
-                                <!--<option value="大二">大二</option>-->
-                                <!--<option value="大一">大一</option>-->
-                            <!--</select>-->
-                        <!--</p>-->
-                        <!--<p>-->
-                            <!--<label>专业</label>-->
-                            <!--<input type="text" class="memberMajor ">-->
-                        <!--</p>-->
-                        <!--<p>-->
-                            <!--<label>学院</label>-->
-                            <!--<select class="memberCollege" name="memberCollege">-->
-                                <!--<option value="信息与通信工程学院">信息与通信工程学院</option>-->
-                                <!--<option value="电子工程学院">电子工程学院</option>-->
-                                <!--<option value="数字媒体与设计艺术学院">数字媒体与设计艺术学院</option>-->
-                                <!--<option value="自动化学院">自动化学院</option>-->
-                                <!--<option value="软件学院">软件学院</option>-->
-                                <!--<option value="经济管理学院">经济管理学院</option>-->
-                                <!--<option value="理学院">理学院</option>-->
-                                <!--<option value="人文学院">人文学院</option>-->
-                                <!--<option value="公共管理学院">公共管理学院</option>-->
-                                <!--<option value="国际学院">国际学院</option>-->
-                                <!--<option value="网络教育学院">网络教育学院</option>-->
-                                <!--<option value="民族教育学院和马克思主义教学与研究中心">民族教育学院和马克思主义教学与研究中心</option>-->
-                            <!--</select>-->
-                        <!--</p>-->
-                    <!--</fieldset>-->
-                <!--</div>-->
-                <!--<button type="button" id="addMember">添加成员</button>-->
-                <!--<div>-->
-                    <!--<button type="button" id="save" onclick="uploadProject(1)">保存</button>-->
-                    <!--<button type="button" id="submit" onclick="uploadProject(2)">提交</button>-->
-                <!--</div>-->
-
-            <!--</div>-->
-        <!--</form>-->
-    <!--</div>-->
 </div>
+
 {% endblock%}
 
 {% block js_files%}
@@ -298,71 +318,7 @@
         $("li:first").removeClass("active");
         $("li").eq(5).addClass("active");
 
-        //添加成员
-        $("#addMember").click(function () {
-            $(".member").append($(".memberset:first").clone());
-        });
-        //添加指导老师
-        $("#addTeacher").click(function () {
-            $(".teacher").append($(".teacherset:first").clone());
-        });
-
-        //添加封面图片
-        $('.coverImg').change(function () {
-            var files = this.files;
-            var result =$(".preview");
-
-            var reader = new FileReader();
-            reader.readAsDataURL(files[0]);
-            reader.onload = function (e) {
-                result.append('<img class="mainPic" src="' + this.result + '" alt="" />');
-            }
-
-            this.value = '';
-        });
-
-        //显示奖项信息
-        $("#addAward").click(function () {
-            if($(".award").hasClass('hide')){
-                $("div.award").removeClass("hide");
-            }else {
-                $(".award").append($(".awardItem:first").clone());
-            }
-
-        });
-
-
-        //上传证书奖项
-        // $('.certificate').change(function () {
-        //     var files = this.files;
-        //     var result =$(this).parents(".awardItem").find(".show");
-        //
-        //     for (var i = 0; i < files.length; i++) {
-        //         var reader = new FileReader();
-        //         reader.readAsDataURL(files[i]);
-        //         reader.onload = function (e) {
-        //             //多图预览
-        //             result.append('<img class="cerImg" src="' + this.result + '" alt="" />');
-        //         }
-        //     }
-        //     this.value = '';
-        // });
-
-        //上传证书
-        // var filearr=[];
-        var formData=new FormData()
-        $('.certificate').change(function () {
-            var files=this.files;
-            for(var i=0;i<files.length;i++) {
-                var reader=new FileReader();
-                reader.onload=function () {
-                    formData.append('picture',files[i])
-                }
-            }
-        })
-
-
-        //markdown编辑器设置
+        // markdown编辑器设置
         var testEditor;
 
         testEditor = editormd("markdown", {
@@ -375,94 +331,283 @@
             imageUploadURL: "{{url_for('common.markdown_upload')}}"
         });
 
-
-        //提交表单
-
-        uploadProject = function(status) {
-
-            //获取成员信息
-            //存储项目成员学生信息
-            var memberArr = new Array();
-            $(".memberset").each(function () {
-                var student = new Object();
-                if($(this).find("#memberName").val()) {   //有成员信息
-                    student.name = $(this).find(".memberName").val();       //成员姓名
-                    student.no=$(this).find(".memberNo").val;               //成员学号
-                    student.memberClass=$(this).find(".memberClass").val;   //成员班级
-                    student.major=$(this).find(".memberMajor ").val;        //成员专业
-                    student.grade = $(this).find(".memberGrade").val();     //成员年级
-                    student.academy = $(this).find(".memberCollege").val(); //成员学院
-                    student.type = 1;                                     //学生类型为1
-                    memberArr.push(student); //每个成员对象存入数组
+        $(".add").click(function () {
+            var flag=false;
+            $(".content").each(function () {
+                if($(this).hasClass("show")){
+                   flag=true;         //已经打开一个编辑框
                 }
             });
+            if(flag){
+                alert("当前区域正在被编辑");
+            }else{
+                var content=$(this).parent().parent().find("section.content");
+                content.removeClass("hide");
+                content.addClass("show");
+            }
+        });
 
-            //获取指导老师信息
-            //var teacherArr = new Array();
-            $(".teacherset").each(function () {
-                var teacher = new Object();
-                if($(this).find(".teacherName").val()){
-                    teacher.name = $(this).find(".teacherName").val();  //老师姓名
-                    teacher.major = $(this).find(".teacherMajor").val(); //老师专业
-                    teacher.college=$(this).find(".teacherCollege").val; //老师学院
-                    teacher.type = 0;                                    //老师类型为0
-                    memberArr.push(teacher)
+
+        //添加封面图片并预览
+        var mainImgPreview=document.getElementById("mainPicPreview");
+        var mainPicId;
+        var mainfile;
+        $("#mainPic").change(function () {
+            mainfile=this.files[0];
+            var form=new FormData();
+            form.append("pics", mainfile);
+            form.append("source", 1);
+            $.ajax({
+                url:'/api/addPic',
+                data:form,
+                type: 'post',
+                dataType: 'json',
+                contentType:false,
+                processData:false,
+                success: function (msg) {
+                    mainImgPreview.src=msg.data[0].url;
+                    mainPicId=msg.data[0].id;
+                }
+            });
+        });
+
+        //提交项目信息
+        var projectId;
+        var data={};
+        $("#submitInfo").click(function () {
+            var parent=$(this).parent().parent();
+            if($("#projectTitle").val() && testEditor.getHTML() && $("#projectTime").val() && $("#projectMajor").val() && $("#projectCategory").val()){
+                data.pname=$("#projectTitle").val();   //项目名称
+                data.content=testEditor.getHTML();     //项目介绍
+                data.src_content=testEditor.getMarkdown();
+                data.startTime=$("#projectTime").val();  //立项时间
+                data.type=$("#projectCategory").val(); //项目类别
+                data.mainPicId=mainPicId;              //封面图片id
+                data.major=$("#projectMajor").val();  //项目专业
+                //console.log(data);
+                $.ajax({
+                    url:'/api/addPro',
+                    data:JSON.stringify(data),
+                    type:'post',
+                    dataType:'json',
+                    success:function (msg) {
+                        projectId=msg.data.pid;
+                        var newPro=$("<div class='project-show' id='"+projectId+"'></div>");
+                        var header=$("<div class='show-header'></div>");
+                        newPro.append(header);
+                        var header_left=$("<h4>"+data.pname+"</h4>");
+                        header.append(header_left);
+                        var header_right=$("<div class='btns'><button id='modifyProject' class='modify'>修改</button></div>");
+                        header.append(header_right);
+                        var content=$("<div class='show-content'></div>");
+                        content.html(data.content);
+                        newPro.append(content);
+                        parent.before(newPro);
+                        parent.addClass("hide");
+                        parent.removeClass("show");
+                    }
+                })
+            }else{
+                alert("必填项不能为空")
+            }
+        });
+
+
+        //提交成员信息
+        var memberId=[];
+
+        $("#submitMembers").click(function () {
+            var item=$(this).parent().parent();
+            var member={};
+            var name=item.find("#memberName").val();
+            var number=item.find("#memberNo").val();
+            var classId=item.find("#memberClass").val();
+            var grade=item.find("#memberGrade").val();
+            var major=item.find("#memberMajor").val();
+            var academy=item.find("#memberCollege").val();
+            member.name=name;
+            member.classId=classId;
+            member.number=number;
+            member.grade=grade;
+            member.major=major;
+            member.academy=academy;
+            $.ajax({
+                url:'/api/addProMember/1/'+projectId,
+                data:JSON.stringify(member),
+                dataType:'json',
+                type:'post',
+                success:function (msg) {
+                    //console.log(msg);
+                    memberId.push(msg.data.mid);
+                    var newMember=$("<div class='project-show' id='"+msg.data.mid+"'></div>");
+                    var memHeader=$("<div class='show-header'></div>");
+                    var headerLeft=$("<div></div>");
+                    Object.keys(member).forEach(function (key) {
+                        var span=$("<span>"+member[key]+"</span>");
+                        headerLeft.append(span);
+                    });
+                    var btn=$("<div class='operate'><button class='modify modifyMember'>修改</button><button class='deleteMember'>删除</button></div>");
+                    memHeader.append(headerLeft);
+                    memHeader.append(btn);
+                    newMember.append(memHeader);
+                    item.before(newMember);
+                    item.addClass("hide");
+                    item.removeClass("show");
                 }
             })
 
-            //获取奖项信息
-            var awardArr = new Array();
-            $(".award").each(function () {
-                var award = new Object();
-                if($(this).find(".awardTitle").val()){
-                    award.title = $(this).find(".awardTitle").val();   //奖项名称
-                    award.awardTime = $(this).find(".awardTime").val(); //获奖时间
-                    award.category = $(this).find(".awardCategory").val() ; //奖项级别
-                    award.honorLink=$(this).find(".awardLink").val();   //获奖链接
+        });
 
-                    // var formData=new FormData();
-                    // for(var i=0;i<filearr.length;i++){
-                    //     formData.append('picture',filearr[i]);
-                    // }
-                    award.certPic=formData;
-                    //award.certPic = Common.getPicsSrc($(this).find(".cerImg"));
-                    awardArr.push(award);
+        //删除学生信息
+        $("#members").on("click",".deleteMember",function () {
+            var aim=$(this).parent().parent().parent();
+            var id=aim.attr("id");
+            $.ajax({
+                url:'/api/deleteProMember/'+id,
+                type:'get',
+                success:function (msg) {
+                    console.log(msg);
+                    aim.remove();
                 }
             })
-            //console.log(memberArr[1].name);
-            //所有信息
-            var data = {};
-            data.pname = $("#projectTitle").val();                      //项目标题
-            data.type = $("#category").val();                           //项目类型
-            data.content = testEditor.getHTML();                        //项目内容、富文本
-            data.src_content = testEditor.getMarkdown();                //项目内容源内容
-            data.mainPic = Common.getPicsSrc(".mainPic");                //项目封面图片。传过来的是图片的base64编码
-            data.members = memberArr;                                   //项目成员
-            //data.teachers = teacherArr;                                  //指导老师
-            data.awards = awardArr;                                     //获奖信息
-            data.status = status;
-            data.operate = 0;
-            // console.log(data.content);
-            console.log(data);
-            //console.log(data.mainPic);
-            // $.ajax({
-            //     url: "/api/uploadProject",
-            //     type: 'post',
-            //     data: JSON.stringify(data),
-            //     dataType: 'json',
-            //     success: function (data) {
-            //         alert(data.msg); //提交成功
-            //         window.location.href="{{url_for('front.user')}}"
-            //
-            //     },
-            //     error: function (data) {
-            //         console.log(data);
-            //         //alert(data.info);  //提交失败
-            //     }
-            //
-            // });
-        }
+        });
+
+        //提交指导老师信息
+        var teacherId=[];
+        $("#submitTeachers").click(function () {
+            var teacher={};
+            var teacherItem=$(this).parent().parent();
+            teacher.name=teacherItem.find("#teacherName").val();
+            teacher.major=teacherItem.find("#teacherMajor").val();
+            teacher.academy=teacherItem.find("#teacherCollege").val();
+            $.ajax({
+                url:'/api/addProMember/0/'+projectId,
+                data:JSON.stringify(teacher),
+                dataType:'json',
+                type:'post',
+                success:function (msg) {
+                    console.log(msg);
+                    teacherId.push(msg.data.mid);
+                    var newTeacher=$("<div class='project-show' id='"+msg.data.mid+"'></div>");
+                    var teacherHeader=$("<div class='show-header'></div>");
+                    var headerLeft=$("<div></div>");
+                    Object.keys(teacher).forEach(function (key) {
+                        var span=$("<span>"+teacher[key]+"</span>");
+                        headerLeft.append(span);
+                    });
+                    var btn=$("<div class='operate'><button class='modify modifyTeacher'>修改</button><button class='deleteTeacher'>删除</button></div>");
+                    teacherHeader.append(headerLeft);
+                    teacherHeader.append(btn);
+                    newTeacher.append(teacherHeader);
+                    teacherItem.before(newTeacher);
+                    teacherItem.addClass("hide");
+                    teacherItem.removeClass("show");
+                }
+            })
+        });
+
+        //删除指导老师
+        $("#teachers").on("click",".deleteTeacher",function () {
+            var aim=$(this).parent().parent().parent();
+            var id=aim.attr("id");
+            $.ajax({
+                url:'/api/deleteProTeacher/'+id,
+                type:'get',
+                success:function (msg) {
+                    console.log(msg);
+                    aim.remove();
+                }
+            })
+        });
+
+        //添加奖项证书并预览
+        var certId=[];
+        var certPreview=$("#certPreview");
+        var certfile;
+        $("#certfile").change(function () {
+            var files=this.files;
+            certfile=this.files;
+            var form=new FormData();
+            for(var i=0;i<files.length;i++){
+                form.append("pics",files[i]);
+            }
+            form.append("source", 2);
+            $.ajax({
+                url:'/api/addPic',
+                data:form,
+                type: 'post',
+                dataType: 'json',
+                contentType:false,
+                processData:false,
+                success:function (msg) {
+                    for(var i=0;i<msg.data.length;i++){
+                        var certImg=document.createElement("img");
+                        certImg.src=msg.data[i].url;
+                        certImg.width=210;
+                        certImg.height=140;
+                        certPreview.append(certImg);
+                        certId.push(msg.data[i].id)
+                    }
+                    console.log(certId)
+                }
+            })
+        });
+
+        //删除证书图片
+
+        //提交奖项
+        $("#submitAwards").click(function () {
+            var award={};
+            var awardItem=$(this).parent().parent();
+            award.title=awardItem.find("#awardTitle").val();
+            award.rank=awardItem.find("#awardCategory").val();
+            award.awardTime=awardItem.find("#awardTime").val();
+            award.certids=certId;
+            $.ajax({
+                url:'/api/addProAward/'+projectId,
+                data:JSON.stringify(award),
+                dataType:'json',
+                type:'post',
+                success:function (msg) {
+                    console.log(msg);
+                    var newAward=$("<div class='project-show' id='"+msg.data.mid+"'></div>");
+                    var awardHeader=$("<div class='show-header'></div>");
+                    var headerLeft=$("<div><span>"+award.title+"</span><span>"+award.awardTime+"</span></div>");
+                    var btn=$("<div class='operate'><button class='modify modifyAward'>修改</button><button class='deleteAward'>删除</button></div>");
+                    awardHeader.append(headerLeft);
+                    awardHeader.append(btn);
+                    newAward.append(awardHeader);
+                    awardItem.before(newAward);
+                    awardItem.addClass("hide");
+                    awardItem.removeClass("show");
+                }
+            })
+        });
+
+        //删除奖项
+        $("#awards").on("click",".deleteAward",function () {
+            var aim=$(this).parent().parent().parent();
+            var id=aim.attr("id");
+            $.ajax({
+                url:'/api/deleteProAward/'+id,
+                type:'get',
+                success:function (msg) {
+                    console.log(msg);
+                    aim.remove();
+                }
+            })
+        });
+
+        //取消编辑
+        $(".cancel").click(function () {
+            $(this).parent().parent().addClass("hide");
+            $(this).parent().parent().removeClass("show");
+        });
+
+
+
 
     })
 </script>
-{% endblock%}
+
+{% endblock %}

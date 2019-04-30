@@ -101,14 +101,17 @@ header .navbar .brand.logo {
 }
 
 /* header */
-
-.navbar .nav {
-  margin-top: 5px;
+.navbar {
+  border-top: 5px solid #94c045;
 }
 
-.navbar .nav li.active {
-  margin-top: -5px;
-}
+/*.navbar .nav {*/
+  /*margin-top: 5px;*/
+/*}*/
+
+/*.navbar .nav li.active {*/
+  /*margin-top: -5px;*/
+/*}*/
 
 .navbar .nav li.active a, .navbar .nav li.active a:hover {
   background: #f8f8f8;
@@ -139,7 +142,7 @@ header .navbar .brand.logo {
 .navbar .nav>li>a {
   float: none;
   font-size: 16px;
-  padding: 20px 15px 20px;
+  padding: 20px 35px 20px;
   color: #777777;
   text-decoration: none;
   text-shadow: none;

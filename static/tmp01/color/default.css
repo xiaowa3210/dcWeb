@@ -57,10 +57,9 @@ footer .nav-list li a:hover,footer ul.regular li a:hover  {
 }
 
 /* header */
-.navbar .nav li.active {
-	border-top:5px solid #94c045;	
-
-}
+/*.navbar .nav li.active {*/
+	/*border-top:5px solid #94c045;*/
+/*}*/
 .navbar .nav li.active a {
 	color:#94c045;	
 }
