@@ -143,3 +143,11 @@ class Files(db2.Model):
     source_id = db2.Column(db2.Integer,nullable=True)
     delete_flag = db2.Column(db2.DECIMAL(1,0),nullable=False,default=0)
     createTime = db2.Column(DateTime, nullable=False, default=datetime.now)  # 创建时间
+
+    # def __init__(self):
+    #     pass
+    # def __init__(self,name,path,source,source_id):
+    #     self.name = name
+    #     self.path = path
+    #     self.source = source
+    #     self.source_id = source_id

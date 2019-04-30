@@ -28,6 +28,7 @@ from datetime import datetime
 import os
 
 import docx
+from flask import url_for
 from sqlalchemy import desc
 
 from app.model.config import UPLOAD_PATH, UEDITOR_UPLOAD_PATH, UPLOAD_FILES_PATH, UPLOAD_PICS_PATH, UPLOAD_ZIP_PATH
@@ -460,7 +461,27 @@ class ProjectService:
     @descrition:根据PID得到项目内容
     """
     def getProjectByID(self,pid):
-        return Project.query.filter(Project.pid == pid).one()
+
+        pro = Project.query.filter(Project.pid == pid).one()
+        mainPic = db2.session.query(Files).filter(Files.source_id == pro.pid,
+                                                  Files.source == 1,
+                                                  Files.delete_flag == 0).one()
+        pro.pic = mainPic
+
+
+        awardList = []
+        awards = pro.awards
+        for a in awards:
+            certPics = db2.session.query(Files).filter(Files.source_id == a.id, Files.source == 2,
+                                                       Files.delete_flag == 0).all()
+            pics = []
+            for cp in certPics:
+                cpDict = {'id': cp.fid, 'url': url_for('common.image', name=cp.path)}
+            pics.append(cpDict)
+            a.pics = pics
+            awardList.append(a)
+        pro.awardList = awardList
+        return pro
 
 
 
@@ -491,6 +512,13 @@ class ProjectService:
             db2.session.query(Files).filter(Files.fid == mainPicId, Files.delete_flag == 0).update({
                 'source_id': project.pid
             })
+        else:
+            file = Files()
+            file.name = "默认图片"
+            file.path = "default.jpg"
+            file.source = 1
+            file.source_id = project.pid
+            db2.session.add(file)
         db2.session.commit()
         return project.pid
 
@@ -511,6 +539,26 @@ class ProjectService:
         db2.session.add(member)
         db2.session.commit()
         return member.id
+
+
+    #根据id获取成员信息
+    def getMember(self,mid):
+        member = db2.session.query(ProjectMember).filter(ProjectMember.id == mid).one()
+        db2.session.commit()
+        return member
+
+    def getaward(self,aid):
+        award = db2.session.query(ProjectAward).filter(ProjectAward.id == aid).one()
+
+        certPics = db2.session.query(Files).filter(Files.source_id == award.id,Files.source == 2, Files.delete_flag == 0).all()
+
+        pics = []
+        for cp in certPics:
+            cpDict = {'id':cp.fid,'url':url_for('common.image', name=cp.path)}
+        pics.append(cpDict)
+        award.pics = pics
+
+        return award
 
     #修改项目成员
     def modifyProMember(self,mid,data):
@@ -674,8 +722,6 @@ class ProjectService:
         font.height = height
         style.font = font
         return style
-
-
 
 
     #生成获奖信息

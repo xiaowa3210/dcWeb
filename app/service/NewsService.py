@@ -20,11 +20,11 @@ class NewsService:
     分页查询新闻
     """
     def selectByPage(self,page_index,per_page,status):
-        if int(type) < 0:
-            pagination = newExt.query.filter(newExt.deleteFlag == 0).order_by(desc(newExt.isTop,newExt.createTime)).paginate(
+        if int(status) <= 0:
+            pagination = newExt.query.filter(newExt.deleteFlag == 0).order_by(desc(newExt.isTop)).order_by(desc(newExt.publisherTime)).paginate(
                 page_index, per_page)
         else:
-            pagination = newExt.query.filter(newExt.deleteFlag == 0,newExt.status==type).order_by(newExt.createTime).paginate(page_index, per_page)
+            pagination = newExt.query.filter(newExt.deleteFlag == 0,newExt.status==status).order_by(desc(newExt.isTop)).order_by(desc(newExt.publisherTime)).paginate(page_index, per_page)
         return pagination,pagination.items
 
     """ 
