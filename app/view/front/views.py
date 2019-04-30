@@ -71,10 +71,19 @@ def getMember(mid):
 得到获奖信息
 """
 @front.route('/api/award/<int:aid>',methods=['GET'])
-def modifyPro(aid):
+def getAward(aid):
     award = projectService.getaward(aid)
     awardJson = json.dumps(award, default=award2dict)
     return json.dumps(MessageInfo.success(msg='保存成功',data=awardJson).__dict__)
+
+""" 
+修改项目接口
+"""
+@front.route('/api/modifyPro/<int:pid>',methods=['POST'])
+def modifyPro(pid):
+    data = json.loads(request.get_data(as_text=True))
+    projectService.modifyPro(pid,data)
+    return json.dumps(MessageInfo.success(msg='保存成功').__dict__)
 
 """ 
 修改成员信息
