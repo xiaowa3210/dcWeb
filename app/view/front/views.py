@@ -99,7 +99,7 @@ def modifyProAward(aid):
 """ 
 修改项目主页图片
 """
-@front.route('/api/modifyMainPic/<int:fid>',methods=['GET'])
+@front.route('/api/modifyMainPic/<int:fid>',methods=['POST'])
 def modifyMainPic(fid):
     files = request.files.getlist("pics")
     filename = projectService.modifyPic(fid,files)
@@ -385,7 +385,9 @@ def home():
                                                          endTime=endTime,
                                                          type=type,
                                                          major=major)
-    return render_template("tmp01/home.html",projects=projects,pagination=pagination)
+
+    news = newsService.selectByPage(1,8,3)
+    return render_template("tmp01/home.html",projects=projects,pagination=pagination,news = news)
 
 """
 用户中心
