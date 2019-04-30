@@ -138,3 +138,29 @@ def mapGet(map,key):
         return map[key]
     else:
         return None
+
+
+
+def member2dict(member):
+    return {
+        'id': member.id,
+        'pid':member.pid,
+        'name': member.name,
+        'academy': member.academy,
+        'grade': member.grade,
+        'type': member.type,
+        'major': member.major,
+        'number': member.number,
+        'classId': member.classId,
+    }
+
+
+
+def award2dict(award):
+    return {
+        'id': award.id,
+        'awardName':award.awardName,
+        'awardTime': award.awardTime,
+        'rank': award.rank,
+        'pics':award.pics
+    }
