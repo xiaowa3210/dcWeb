@@ -524,10 +524,18 @@ class ProjectService:
 
     #修改项目
     def modifyPro(self,pid,data):
-        db2.session.query(Project).filter(Project.pid == pid).update(data)
+        db2.session.query(Project).filter(Project.pid == pid).update({
+            'pname': data["pname"],
+            'type': data["type"],
+            'content':data['content'],
+            'src_content':data['src_content']
+        })
         db2.session.query(ProjectStatus).filter(ProjectStatus.pid == pid).update({
             'pname':data["pname"],
-            'type':data["type"]
+            'type':data["type"],
+            'pro_startTime':data['startTime'],
+            'academy':data['academy'],
+            'major':data['major']
         })
         db2.session.commit()
 
