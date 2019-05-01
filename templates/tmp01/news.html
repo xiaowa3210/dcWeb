@@ -4,11 +4,6 @@
 
 {% block static_files %}
 <style>
-
-    table.files {
-        margin-top: 30px;
-    }
-
     table.files th {
         padding:10px 10px 10px 10px;
         font-size: 16px;
@@ -109,7 +104,6 @@
 {% block js_files%}
 <script>
     $(document).ready(function () {
-
         $(".time").each(function () {
             $(this).text($(this).text().slice(0,10));
         });

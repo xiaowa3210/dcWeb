@@ -63,7 +63,48 @@
         padding:6px;
         font-size:14px
     }
+    .login-wrapper .content {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .content .avatar{
+        border-radius: 50%;
+        border:2px solid #eee;
+        width: 40%;
+        height: 40%;
+        padding:5px;
+        margin-bottom: 5px;
+    }
 
+    .content a{
+        display: inline-block;
+        width: 150px;
+        height: 40px;
+        line-height: 40px;
+        text-align: center;
+        font-size: 16px;
+        text-decoration: none;
+        background-color: #94c045;
+        color:#fff;
+        margin-bottom: 5px;
+        border-radius: 5px;
+    }
+
+    .latest-news .table td{
+        padding:4px
+    }
+    .latest-news .table a{
+        color:#333;
+        text-decoration: none;
+        display: inline-block;
+        width: 100%;
+
+    }
+    .latest-news .table a:hover {
+        color:#94c045;
+    }
 </style>
 {% endblock %}
 
@@ -81,51 +122,38 @@
                    </div>
                     <table class="table table-hover">
                         <tbody>
+                            {% for new in news %}
                             <tr>
-                                <td>测试测试的局势恶化人三十多个二杀跌</td>
-                                <td style="text-align: right">19/3/28</td>
+                                <td><a href="{{ url_for('front.new',news_id=new.nid) }}">{{new.title}}</a></td>
+                                <td style="text-align: right" class="time">{{new.publisherTime}}</td>
                             </tr>
-                            <tr>
-                                <td>测试测试的局势恶化人三十多个二杀跌</td>
-                                <td>19/3/28</td>
-                            </tr>
-                            <tr>
-                                <td>测试测试的局势恶化人三十多个二杀跌</td>
-                                <td>19/3/28</td>
-                            </tr>
-                            <tr>
-                                <td>测试测试的局势恶化人三十多个二杀跌</td>
-                                <td>19/3/28</td>
-                            </tr>
-                            <tr>
-                                <td>测试测试的局势恶化人三十多个二杀跌</td>
-                                <td>19/3/28</td>
-                            </tr>
-                            <tr>
-                                <td>测试测试的局势恶化人三十多个二杀跌</td>
-                                <td>19/3/28</td>
-                            </tr>
-                            <tr>
-                                <td>测试测试的局势恶化人三十多个二杀跌</td>
-                                <td>19/3/28</td>
-                            </tr>
-                            <tr>
-                                <td>测试测试的局势恶化人三十多个二杀跌</td>
-                                <td>19/3/28</td>
-                            </tr>
+                            {% endfor %}
                         </tbody>
                     </table>
                 </div>
                 <div class="span3 login-wrapper">
-                    <div class="title">
-                        <h3>用户登陆</h3>
-                    </div>
-                    <form class="form" onclick="return false">
-                        <input type="text" id="username" placeholder="请输入用户名">
-                        <input type="password" id="password" placeholder="请输入密码">
-                        <button type="submit" class="btn btn-color" onclick="MAIN.login()">登陆</button>
-                    </form>
-
+                    {% if session.student %}
+                        <div class="title">
+                            <h3>用户中心</h3>
+                        </div>
+                        <div class="content">
+                            <div class="avatar">
+                                <img src="/static/img/avatar.png">
+                            </div>
+                            <p>{{session.student}}</p>
+                            <a href="{{ url_for('front.user') }}">个人中心</a>
+                            <a href="{{url_for('front.stu_logout_api')}}">注销</a>
+                        </div>
+                    {% else %}
+                        <div class="title">
+                            <h3>用户登陆</h3>
+                        </div>
+                        <form class="form" onclick="return false">
+                            <input type="text" id="username" placeholder="请输入用户名">
+                            <input type="password" id="password" placeholder="请输入密码">
+                            <button type="submit" class="btn btn-color" id="login">登陆</button>
+                        </form>
+                    {% endif %}
                 </div>
             </div>
         </div>
@@ -159,7 +187,7 @@
                        <tbody>
                             <tr>
                                 <td width="50%"><i class="icon-user"></i><span>{{project.publisher}}</span></td>
-                                <td style="text-align: right" class="time"><i class="icon-calendar"></i><span>{{project.submitTime}}</span></td>
+                                <td style="text-align: right"><i class="icon-calendar"></i><span class="time">{{project.submitTime}}</span></td>
                             </tr>
                        </tbody>
                    </table>
@@ -173,13 +201,36 @@
 </div>
 {% endblock %}
 
-{% block js_files%}
+{% block js_files %}
 <script>
-    $(document).ready(function () {
-        $(".time span").each(function () {
+    $(function () {
+        //截出时间的年月日
+        $(".time").each(function () {
             $(this).text($(this).text().slice(0,10));
         });
+
+        //登陆
+        $("button#login").click(function () {
+            var data={};
+            data.username=$('#username').val();
+            data.password = $('#password').val();
+            $.ajax({
+                url:'/student/api/login',
+                data:JSON.stringify(data),
+                type:'post',
+                dataType:'json',
+                success:function (msg) {
+                    alert(msg.msg);
+                    if (msg.errorno == 0){
+                        window.location.href="{{url_for('front.home')}}"
+                    }
+                },
+                error:function (msg) {
+                    alert(msg.msg)
+                }
+            })
+        })
+
     })
 </script>
-
 {% endblock %}

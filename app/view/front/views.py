@@ -209,7 +209,7 @@ def stu_login_api():
 @front.route("/api/front/logout", methods=['GET'])
 def stu_logout_api():
     session.pop('student', None)
-    return redirect(url_for('front.stu_login'))
+    return redirect(url_for('front.home'))
 
 """ 
 学生注册接口
@@ -386,7 +386,7 @@ def home():
                                                          type=type,
                                                          major=major)
 
-    news = newsService.selectByPage(1,8,3)
+    pagination1,news = newsService.selectByPage(1,8,3)
     return render_template("tmp01/home.html",projects=projects,pagination=pagination,news = news)
 
 """

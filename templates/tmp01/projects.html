@@ -24,50 +24,80 @@
 {% endblock%}
 
 {% block body_part %}
-<section id="subintro">
+<section>
     <div class="container">
       <div class="row-fluid">
-        <!--<div class="span3">-->
-          <!--<aside>-->
-            <!--<div class="widget">-->
-              <!--<h4>类别</h4>-->
-              <!--<ul class="cat">-->
-                <!--<li><a href="#">计算机视觉</a></li>-->
-                <!--<li><a href="#">虚拟\增强现实</a></li>-->
-                <!--<li><a href="#">数据挖掘</a></li>-->
-                <!--<li><a href="#">机器学习</a></li>-->
-                <!--<li><a href="#">其他</a></li>-->
-              <!--</ul>-->
-            <!--</div>-->
-          <!--</aside>-->
-        <!--</div>-->
-
-          {% for project in projects %}
-            <div class="span3">
-               <div class="project-image">
-                   <a href="{{ url_for('front.project',pid=project.pid) }}">  <!--链接到项目的详情地址-->
-					   <img style="height: 200px;width: 100%" src="{{ url_for('common.image',name=project.pic.path) }}" alt=""> <!--封面图片-->
-                   </a>
-               </div>
-               <div class="project-title">
-                   <h5 style="margin: 5px 0px">
-                       <a href="{{ url_for('front.project',pid=project.pid) }}">{{project.pname}}</a> <!--项目标题-->
-                   </h5>
-               </div>
-               <div class="project-info">
-                   <table class="table table-condensed" >
-                       <tbody>
-                            <tr>
-                                <td width="50%"><i class="icon-user"></i><span>{{project.publisher}}</span></td>
-                                <td style="text-align: right" class="time"><i class="icon-calendar"></i><span>{{project.submitTime}}</span></td>
-                            </tr>
-                       </tbody>
-                   </table>
-               </div>
+        <div class="span3">
+          <aside>
+            <div class="widget">
+              <h4>筛选</h4>
+              <form>
+                 <div class="tableRow">
+                    <label>项目开始时间</label>
+                    <input type="date" id="startTime">
+                 </div>
+                  <div>
+                      <label>项目结束时间</label>
+                      <input type="date" id="endTime">
+                  </div>
+                  <div class="tableRow">
+                    <label>项目专业</label>
+                    <select id="projectMajor" name="academy">
+                        <option value="1">通信工程</option>
+                        <option value="2">信息工程</option>
+                        <option value="3">电子信息工程</option>
+                    </select>
+                  </div>
+                    <div class="tableRow">
+                    <label>项目类别</label>
+                    <select id="projectCategory" name="type">
+                        <option value="1">App开发/微信小程序开发</option>
+                        <option value="2">通信/网络</option>
+                        <option value="3">软件系统</option>
+                        <option value="4">硬件系统</option>
+                        <option value="5">视频/图像</option>
+                        <option value="6">大数据/机器学习</option>
+                    </select>
+                  </div>
+                  <div class="tableRow">
+                      <input type="button" id="select" value="确定">
+                  </div>
+              </form>
             </div>
-          {% endfor %}
+          </aside>
+        </div>
+        <div class="span9">
+            {% if projects %}
+            {% for project in projects %}
+              <div class="span3">
+                   <div class="project-image">
+                       <a href="{{ url_for('front.project',pid=project.pid) }}">  <!--链接到项目的详情地址-->
+                           <img style="height: 200px;width: 100%" src="{{ url_for('common.image',name=project.pic.path) }}" alt=""> <!--封面图片-->
+                       </a>
+                   </div>
+                   <div class="project-title">
+                       <h5 style="margin: 5px 0px">
+                           <a href="{{ url_for('front.project',pid=project.pid) }}">{{project.pname}}</a> <!--项目标题-->
+                       </h5>
+                   </div>
+                   <div class="project-info">
+                       <table class="table table-condensed" >
+                           <tbody>
+                                <tr>
+                                    <td width="50%"><i class="icon-user"></i><span>{{project.publisher}}</span></td>
+                                    <td style="text-align: right" class="time"><i class="icon-calendar"></i><span>{{project.submitTime}}</span></td>
+                                </tr>
+                           </tbody>
+                       </table>
+                   </div>
+                </div>
+            {% endfor %}
+            {% else %}
+            <p>未找到符合条件的项目</p>
+            {% endif%}
         </div>
       </div>
+
 
   <!--分页导航
     ==================================================================-->
@@ -124,7 +154,28 @@
         $(".time span").each(function () {
             $(this).text($(this).text().slice(0,10));
         });
+
+        //筛选
+        $("input#select").click(function () {
+            var data={};
+            data.major=$("#projectMajor").val();
+            data.startTime=$("#startTime").val();
+            data.endTime=$("#endTime").val();
+            data.type=$("#projectCategory").val();
+            $.ajax({
+                url:'/projects',
+                data:data,
+                type:'get',
+                success:function () {
+                    console.log("hhh");
+                    window.location.href="{{url_for('front.projects')}}"
+                }
+            })
+
+        })
     })
+
+
 </script>
 
 {% endblock %}
