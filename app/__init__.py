@@ -58,17 +58,17 @@ def isContain(url,urls):
         if url in u: return True
     return False
 
-#登录验证
-@app.before_request
-def before_action():
-    path = request.path
-    #拦截url中带admin的请求,做登录验证
-    if isContain(path,stu_allow_url):
-        if 'student' not in session:
-            return redirect(url_for('front.stu_login'))
-    if isContain(path,admin_allow_url):
-        if 'admin' not in session:
-            return redirect(url_for('back.login'))
+# #登录验证
+# @app.before_request
+# def before_action():
+#     path = request.path
+#     #拦截url中带admin的请求,做登录验证
+#     if isContain(path,stu_allow_url):
+#         if 'student' not in session:
+#             return redirect(url_for('front.stu_login'))
+#     if isContain(path,admin_allow_url):
+#         if 'admin' not in session:
+#             return redirect(url_for('back.login'))
 
 # # 日志系统配置
 # handler = logging.FileHandler('app.log', encoding='UTF-8')
