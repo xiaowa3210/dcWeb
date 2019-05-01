@@ -66,13 +66,50 @@ stu_allow_url = (
 
 )
 
-admin_allow_url = (
-
-)
+admin_allow_url = ['/admin/main']
 
 superadmin_allow_url = (
+'/api/admin/addNew',
+'/api/admin/uploadFile',
+'/api/admin/deleteFile',
+'/api/admin/deletePro',
+'/api/admin/undoPro',
+'/api/admin/checkoutPro',
+'/api/admin/downAwardInfo',
+'/admin/main',
+'/admin/checkproject',
+'/admin/checkProjects',
+'/admin/manageProject',
+'/admin/deleteProject',
+'/admin/editNews',
+'/admin/modifiesNews',
+'/admin/manageResource',
+'/admin/editFiles',
+'/admin/manageUser',
+'/admin/checkNewView',
 
+
+'/api/admin/addNew',
+'/api/admin/uploadFile',
+'/api/admin/deleteFile',
+'/api/admin/deletePro',
+'/api/admin/undoPro',
+'/api/admin/checkoutPro',
+'/api/admin/downAwardInfo',
+'/admin/main',
+'/admin/checkproject',
+'/admin/checkProjects',
+'/admin/manageProject',
+'/admin/deleteProject',
+'/admin/editNews',
+'/admin/modifiesNews',
+'/admin/manageResource',
+'/admin/editFiles',
+'/admin/manageUser',
+'/admin/checkNewView'
 )
+
+
 
 
 

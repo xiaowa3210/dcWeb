@@ -32,25 +32,25 @@ app.register_blueprint(back_blueprint)
 
 
 userSevice = UserService()
-#不需要拦截的url
-allow_url = [
-    "/login"
-]
-
-#管理员不允许访问的url
-disallow_url_admin = [
-
-]
-
-# 老师不允许访问的url
-disallow_url_teacher = [
-
-]
-
-# 老师不允许访问的url
-allow_url_student = [
-    '/user'
-]
+# #不需要拦截的url
+# allow_url = [
+#     "/login"
+# ]
+#
+# #管理员不允许访问的url
+# disallow_url_admin = [
+#
+# ]
+#
+# # 老师不允许访问的url
+# disallow_url_teacher = [
+#
+# ]
+#
+# # 老师不允许访问的url
+# allow_url_student = [
+#     '/user'
+# ]
 
 
 def isContain(url,urls):
@@ -58,20 +58,17 @@ def isContain(url,urls):
         if url in u: return True
     return False
 
-# #登录验证
-# @app.before_request
-# def before_action():
-#     path = request.path
-#     #拦截url中带admin的请求,做登录验证
-#     if isContain(path,stu_allow_url):
-#         if 'student' not in session:
-#             return redirect(url_for('front.stu_login'))
-#     if isContain(path,superadmin_allow_url):
-#         if 'superAdmin' not in session:
-#             return redirect(url_for('back.login'))
-#     if isContain(path,admin_allow_url):
-#         if 'admin' not in session:
-#             return redirect(url_for('back.login'))
+#登录验证
+@app.before_request
+def before_action():
+    path = request.path
+    #拦截url中带admin的请求,做登录验证
+    if isContain(path,stu_allow_url):
+        if 'student' not in session:
+            return redirect(url_for('front.stu_login'))
+    if isContain(path,admin_allow_url):
+        if 'admin' not in session:
+            return redirect(url_for('back.login'))
 
 # # 日志系统配置
 # handler = logging.FileHandler('app.log', encoding='UTF-8')

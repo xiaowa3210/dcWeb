@@ -2,33 +2,33 @@
 <html lang="en">
 
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Creative - Bootstrap 3 Responsive Admin Template">
-  <meta name="author" content="GeeksLabs">
-  <meta name="keyword" content="Creative, Dashboard, Admin, Template, Theme, Bootstrap, Responsive, Retina, Minimal">
-  <link rel="shortcut icon" href="/static/back01/img/favicon.png">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Creative - Bootstrap 3 Responsive Admin Template">
+    <meta name="author" content="GeeksLabs">
+    <meta name="keyword" content="Creative, Dashboard, Admin, Template, Theme, Bootstrap, Responsive, Retina, Minimal">
+    <link rel="shortcut icon" href="/static/back01/img/favicon.png">
 
-  <title>登录</title>
+    <title>登录</title>
 
-  <!-- Bootstrap CSS -->
-  <link href="/static/back01/css/bootstrap.min.css" rel="stylesheet">
-  <!-- bootstrap theme -->
-  <link href="/static/back01/css/bootstrap-theme.css" rel="stylesheet">
-  <!--external css-->
-  <!-- font icon -->
-  <link href="/static/back01/css/elegant-icons-style.css" rel="stylesheet" />
-  <link href="/static/back01/css/font-awesome.css" rel="stylesheet" />
-  <!-- Custom styles -->
-  <link href="/static/back01/css/style.css" rel="stylesheet">
-  <link href="/static/back01/css/style-responsive.css" rel="stylesheet" />
+    <!-- Bootstrap CSS -->
+    <link href="/static/back01/css/bootstrap.min.css" rel="stylesheet">
+    <!-- bootstrap theme -->
+    <link href="/static/back01/css/bootstrap-theme.css" rel="stylesheet">
+    <!--external css-->
+    <!-- font icon -->
+    <link href="/static/back01/css/elegant-icons-style.css" rel="stylesheet"/>
+    <link href="/static/back01/css/font-awesome.css" rel="stylesheet"/>
+    <!-- Custom styles -->
+    <link href="/static/back01/css/style.css" rel="stylesheet">
+    <link href="/static/back01/css/style-responsive.css" rel="stylesheet"/>
 
-  <script src="/static/js/jquery-2.1.0.min.js"></script>
-  <script src="/static/back01/myjs/afquery.js"></script>
-  <!-- HTML5 shim and Respond.js IE8 support of HTML5 -->
-  <!--[if lt IE 9]>
-  <script src="/static/back01/js/html5shiv.js"></script>
-  <script src="/static/back01/js/respond.min.js"></script>
+    <script src="/static/js/jquery-2.1.0.min.js"></script>
+    <script src="/static/back01/myjs/afquery.js"></script>
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 -->
+    <!--[if lt IE 9]>
+    <script src="/static/back01/js/html5shiv.js"></script>
+    <script src="/static/back01/js/respond.min.js"></script>
     <![endif]-->
 
     <!-- =======================================================
@@ -41,54 +41,59 @@
 
 <body class="login-img3-body">
 
-  <div class="container">
+<div class="container">
 
     <form class="login-form" onsubmit="return false">
-      <div class="login-wrap">
-        <p class="login-img"><i class="icon_lock_alt"></i></p>
-        <div class="input-group">
-          <span class="input-group-addon"><i class="icon_profile"></i></span>
-          <input id="username" type="text" class="form-control" placeholder="用户名" autofocus>
+        <div class="login-wrap">
+            <p class="login-img"><i class="icon_lock_alt"></i></p>
+            <div class="input-group">
+                <span class="input-group-addon"><i class="icon_profile"></i></span>
+                <input id="username" type="text" class="form-control" placeholder="用户名" autofocus>
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon"><i class="icon_key_alt"></i></span>
+                <input id="password" type="password" class="form-control" placeholder="密码">
+            </div>
+            <div class="input-group">
+                <input type="radio" name="type" value="2" checked>管理员
+                <input type="radio" name="type" value="0">超级管理员
+            </div>
+            <!--<label class="checkbox">-->
+            <!--<input type="checkbox" value="remember-me"> Remember me-->
+            <!--<span class="pull-right"> <a href="#"> Forgot Password?</a></span>-->
+            <!--</label>-->
+            <button class="btn btn-primary btn-lg btn-block" type="submit" onclick="MAIN.login()">登录</button>
         </div>
-        <div class="input-group">
-          <span class="input-group-addon"><i class="icon_key_alt"></i></span>
-          <input id="password" type="password" class="form-control" placeholder="密码">
-        </div>
-        <!--<label class="checkbox">-->
-          <!--<input type="checkbox" value="remember-me"> Remember me-->
-          <!--<span class="pull-right"> <a href="#"> Forgot Password?</a></span>-->
-        <!--</label>-->
-        <button class="btn btn-primary btn-lg btn-block" type="submit" onclick="MAIN.login()">登录</button>
-      </div>
     </form>
     <!--<div class="text-right">-->
-      <!--<div class="credits">-->
-          <!--&lt;!&ndash;-->
-            <!--All the links in the footer should remain intact.-->
-            <!--You can delete the links only if you purchased the pro version.-->
-            <!--Licensing information: https://bootstrapmade.com/license/-->
-            <!--Purchase the pro version form: https://bootstrapmade.com/buy/?theme=NiceAdmin-->
-          <!--&ndash;&gt;-->
-          <!--Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>-->
-        <!--</div>-->
+    <!--<div class="credits">-->
+    <!--&lt;!&ndash;-->
+    <!--All the links in the footer should remain intact.-->
+    <!--You can delete the links only if you purchased the pro version.-->
+    <!--Licensing information: https://bootstrapmade.com/license/-->
+    <!--Purchase the pro version form: https://bootstrapmade.com/buy/?theme=NiceAdmin-->
+    <!--&ndash;&gt;-->
+    <!--Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>-->
     <!--</div>-->
-  </div>
+    <!--</div>-->
+</div>
 
 
 </body>
 <script>
-  var MAIN = {};
-  MAIN.login = function () {
-      var req = {};
-      req.username = $('#username').val().trim();
-      req.password = $('#password').val().trim();
-      Af.rest("/api/login",req,function (data) {
-          Af.log(data)
-          alert(data.msg);
-          if (data.errorno == 0){
-              window.location.href="{{url_for('back.main')}}"
-          }
+    var MAIN = {};
+    MAIN.login = function () {
+        var req = {};
+        req.username = $('#username').val().trim();
+        req.password = $('#password').val().trim();
+        req.type = $("input[name='type']:checked").val().trim();
+        Af.rest("/api/login", req, function (data) {
+            Af.log(data)
+            alert(data.msg);
+            if (data.errorno == 0) {
+                window.location.href = "{{url_for('back.main')}}"
+            }
         })
-  }
+    }
 </script>
 </html>

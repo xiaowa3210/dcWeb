@@ -229,17 +229,16 @@ def login_api():
     data = json.loads(request.get_data(as_text=True))
     username = data['username']
     password = data['password']
-    user = userService.selectByName(username,0)
-    admin = userService.selectByName(username,0)
+    type = data['type']
+    user = userService.selectByName(username,type)
     if user:
         if password == user.password:
-            session["admin"] = user.username                        #用session保存登录状态
+            info = {'name':user.username,'type':user.type}
+            session["admin"] = info                                     #用session保存登录状态
             return json.dumps(MessageInfo.success(msg="登录成功").__dict__)
             # return redirect(url_for("back.main"))
         else:
             return json.dumps(MessageInfo.fail(msg="亲，密码错误!").__dict__)
-    elif admin:
-        pass
     else:
         return json.dumps(MessageInfo.fail(msg="亲,用户不存在").__dict__)
 
