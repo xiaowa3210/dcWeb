@@ -4,7 +4,7 @@ import json
 
 from flask import Flask, redirect, url_for, request, session, render_template
 from app.model import config
-from app.model.config import superadmin_allow_url, admin_allow_url, stu_allow_url
+from app.model.config import superadmin_allow_url, admin_allow_url, stu_allow_url, common_admin_allow_url, allow_url
 from app.model.constant import ADMIN, role_dict, TEACHER
 from app.model.entity import db2  # 数据库
 from app.service.UserServiceV2 import UserService
@@ -58,17 +58,26 @@ def isContain(url,urls):
         if url in u: return True
     return False
 
-# #登录验证
-# @app.before_request
-# def before_action():
-#     path = request.path
-#     #拦截url中带admin的请求,做登录验证
-#     if isContain(path,stu_allow_url):
-#         if 'student' not in session:
-#             return redirect(url_for('front.stu_login'))
-#     if isContain(path,admin_allow_url):
-#         if 'admin' not in session:
-#             return redirect(url_for('back.login'))
+#登录验证
+@app.before_request
+def before_action():
+    path = request.path
+    #拦截url中带admin的请求,做登录验证
+
+    if not isContain(path,allow_url):
+        if isContain(path, stu_allow_url):
+            if 'student' not in session:
+                return redirect(url_for('front.stu_login'))
+        if isContain(path, common_admin_allow_url):
+            if 'admin' not in session:
+                return redirect(url_for('back.login'))
+        if isContain(path, admin_allow_url):
+            if 'admin' not in session or session['admin']['type'] == 0:
+                return redirect(url_for('back.login'))
+        if isContain(path, superadmin_allow_url):
+            if 'admin' not in session or session['admin']['type'] == 2:
+                return redirect(url_for('back.login'))
+
 
 # # 日志系统配置
 # handler = logging.FileHandler('app.log', encoding='UTF-8')
