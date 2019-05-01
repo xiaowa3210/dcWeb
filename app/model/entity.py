@@ -62,7 +62,7 @@ class ProjectStatus(db2.Model):
     mainPic = db2.Column(db2.String(256), nullable=True)                            # 主页图片
     pro_startTime = db2.Column(DateTime, nullable=False,default=datetime.now)
     major = db2.Column(db2.Integer, nullable=False, default=1)
-
+    academy = db2.Column(db2.Integer, nullable=False, default=1)
 
     def __init__(self,pname,type,publisher,status):
         self.pname = pname
