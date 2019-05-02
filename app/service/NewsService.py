@@ -27,6 +27,19 @@ class NewsService:
             pagination = newExt.query.filter(newExt.deleteFlag == 0,newExt.status==status).order_by(desc(newExt.isTop)).order_by(desc(newExt.publisherTime)).paginate(page_index, per_page)
         return pagination,pagination.items
 
+    """
+        分页查询新闻
+        """
+
+    def selectByUsername(self, page_index, per_page,status,username):
+        if status is None or int(status) < 0:
+            pagination = newExt.query.filter(newExt.deleteFlag == 0,newExt.creater == username).order_by(
+                desc(newExt.publisherTime)).paginate(
+                page_index, per_page)
+        else:
+            pagination = newExt.query.filter(newExt.deleteFlag == 0, newExt.status == status).order_by(
+                desc(newExt.publisherTime)).paginate(page_index, per_page)
+        return pagination, pagination.items
     """ 
     根据id查询新闻具体内容
     """
