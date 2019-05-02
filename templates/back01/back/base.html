@@ -79,7 +79,7 @@
                             <span class="profile-ava">
                                 <img alt="" src="/static/back01/img/avatar1_small.jpg">
                             </span>
-                            <span class="username">{{session.admin.name}}</span>
+                        <span class="username">{{session.admin.name}}</span>
                         <b class="caret"></b>
                     </a>
                     <ul class="dropdown-menu extended logout">
@@ -115,21 +115,32 @@
                     </ul>
                 </li>
                 {% endif %}
+
                 <li class="sub-menu">
                     <a class="" href="javascript:;">
                         <i class="icon_genius"></i>
                         <span>文章管理</span>
                         <span class="menu-arrow arrow_carrot-right"></span>
                     </a>
+
+
                     <ul class="sub">
                         <!--<li><a class="" href="{{ url_for('back.manageNews') }}?type=-1">编辑</a></li>-->
-                         <li><a class="" href="{{ url_for('back.editNews') }}">添加</a></li>
-                         <li><a class="" href="">审核</a></li>
-                         <li><a class="" href="{{ url_for('back.manageNews') }}?type=-1">查看全部</a></li>
-                         <li><a class="" href="{{ url_for('back.manageNews') }}?type=0">未发布</a></li>
-                         <li><a class="" href="{{ url_for('back.manageNews') }}?type=1">已发布</a></li>
+
+                        {% if session.admin.type == 2 %}
+                            <li><a class="" href="{{ url_for('back.editNews') }}">添加</a></li>
+                            <li><a class="" href="{{ url_for('back.adminNews') }}">查看</a></li><!--查看自己的-->
+                        {% else %}
+                            <li><a class="" href="">审核</a></li>
+                            <li><a class="" href="{{ url_for('back.manageNews') }}?type=-1">查看全部</a></li>
+                            <li><a class="" href="{{ url_for('back.manageNews') }}?type=0">未发布</a></li>
+                            <li><a class="" href="{{ url_for('back.manageNews') }}?type=1">已发布</a></li>
+                        {% endif %}
                     </ul>
                 </li>
+
+
+                {% if session.admin.type == 0 %}
                 <li class="sub-menu">
                     <a href="javascript:;" class="">
                         <i class="icon_desktop"></i>
@@ -144,6 +155,9 @@
                         <li><a class="" href="{{ url_for('back.manageResource') }}?source=3">项目上传</a></li>
                     </ul>
                 </li>
+                {% endif %}
+
+                {% if session.admin.type == 0 %}
                 <li class="sub-menu">
                     <a class="" href="javascript:;">
                         <i class="icon_genius"></i>
@@ -155,6 +169,7 @@
                         <li><a class="" href="{{ url_for('back.editeProject') }}">查看</a></li>
                     </ul>
                 </li>
+                {% endif %}
             </ul>
             <!-- sidebar menu end-->
         </div>
