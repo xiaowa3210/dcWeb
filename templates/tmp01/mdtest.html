@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='mdeditor/editormd.min.css')}}">
+</head>
+<body>
+
+<div id="markdown"></div>
+
+<script src="{{ url_for('static',filename='mdeditor/editormd.js')}}"></script>
+<script>
+            //markdown编辑器设置
+        var testEditor;
+
+        testEditor = editormd("markdown", {
+            syncScrolling: "single",
+            saveHTMLToTextarea: true,
+            height: 700,
+            path: "{{url_for('static',filename='mdeditor/lib/')}}",
+            //启动本地图片上传功能
+            imageUpload: true,
+            imageFormats: ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+            imageUploadURL: "{{url_for('common.markdown_upload')}}"
+        });
+
+</script>
+</body>
+</html>

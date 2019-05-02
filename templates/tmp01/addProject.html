@@ -82,9 +82,6 @@
         background-color: #eee;
         color:#333;
     }
-    .hide{
-        display: none;
-    }
 
     .show-header {
         display: flex;
@@ -121,17 +118,68 @@
     <div class="row-fluid">
         <div class="projectContainer">
             <div style="display: flex;justify-content: space-between">
-                <p>个人中心/上传项目</p>
-                <a>预览</a>
+                <p><a href="{{url_for('front.user')}}">个人中心</a>/上传项目</p>
+                <a href="{{url_for('front.previewProject')}}">预览</a>
             </div>
             <div class="pannel">
                 <div class="info">
                 <div class="item-header">
                     <div class="left">项目信息</div>
-                    <i class="icon-rounded icon-plus add right"></i>
+                    <!--<i class="icon-rounded icon-plus add right"></i>-->
                 </div>
                 <div class="result"></div>
-                <div class="input-form"></div>
+                <div class="input-form">
+                    <!--项目信息-->
+                    <div id="info" class="content show">
+                        <div class="tableRow">
+                            <label>项目名称*</label>
+                            <input type="text" placeholder="请输入项目名称" id="projectTitle" name="pname">
+                        </div>
+                        <div class="tableRow">
+                            <label>项目介绍*</label>
+                            <div id="markdown">
+                                <textarea class="editormd-markdown-textarea" name="markdown-markdown-doc"></textarea>
+                            </div>
+                        </div>
+                        <div class="tableRow">
+                            <label>封面图片</label>
+                            <input type="file" id="mainPic">
+                        </div>
+                        <div class="tableRow">
+                            <label></label>
+                            <div style="width:300px;height:200px;background-color: #aaa">
+                                <img id="mainPicPreview" style="width:300px;height:200px">
+                            </div>
+                        </div>
+                        <div class="tableRow">
+                            <label>立项时间*</label>
+                            <input type="date" id="projectTime" name="startTime">
+                        </div>
+                        <div class="tableRow">
+                            <label>项目专业*</label>
+                            <select id="projectMajor" name="academy">
+                                <option value="1">通信工程</option>
+                                <option value="2">信息工程</option>
+                                <option value="3">电子信息工程</option>
+                            </select>
+                        </div>
+                        <div class="tableRow">
+                            <label>项目类别*</label>
+                            <select id="projectCategory" name="type">
+                                <option value="1">App开发/微信小程序开发</option>
+                                <option value="2">通信/网络</option>
+                                <option value="3">软件系统</option>
+                                <option value="4">硬件系统</option>
+                                <option value="5">视频/图像</option>
+                                <option value="6">大数据/机器学习</option>
+                            </select>
+                        </div>
+                        <div class='operate'>
+                            <button id='save-info'>保存</button>
+                            <button id='cancel'>取消</button>
+                        </div>
+                    </div>
+                </div>
             </div>
                 <div class="member">
                 <div class="item-header">
@@ -164,52 +212,6 @@
 
     <!--隐藏的各个输入框-->
 
-    <!--项目信息-->
-    <section id="info" class="content hide">
-        <div class="tableRow">
-            <label>项目名称*</label>
-            <input type="text" placeholder="请输入项目名称" id="projectTitle" name="pname">
-        </div>
-        <div class="tableRow">
-            <label>项目介绍*</label>
-            <div id="markdown">
-                <textarea class="editormd-markdown-textarea" name="markdown-markdown-doc"></textarea>
-            </div>
-        </div>
-        <div class="tableRow">
-            <label>封面图片</label>
-            <input type="file" id="mainPic">
-        </div>
-        <div class="tableRow">
-            <label></label>
-            <div style="width:300px;height:200px;background-color: #aaa">
-                <img id="mainPicPreview" style="width:300px;height:200px">
-            </div>
-        </div>
-        <div class="tableRow">
-            <label>立项时间*</label>
-            <input type="date" id="projectTime" name="startTime">
-        </div>
-        <div class="tableRow">
-            <label>项目专业*</label>
-            <select id="projectMajor" name="academy">
-                <option value="1">通信工程</option>
-                <option value="2">信息工程</option>
-                <option value="3">电子信息工程</option>
-            </select>
-        </div>
-        <div class="tableRow">
-            <label>项目类别*</label>
-            <select id="projectCategory" name="type">
-                <option value="1">App开发/微信小程序开发</option>
-                <option value="2">通信/网络</option>
-                <option value="3">软件系统</option>
-                <option value="4">硬件系统</option>
-                <option value="5">视频/图像</option>
-                <option value="6">大数据/机器学习</option>
-            </select>
-        </div>
-    </section>
     <!--学生信息-->
     <section id="member" class="content hide">
         <div class="tableRow">
@@ -372,17 +374,19 @@
         // 给动态添加的元素绑定事件使用on()
         $(".pannel").on("click","#cancel",function(){
             var aim=$(this).parent().parent().parent();
+            var section=$(this).parent().parent();
             if($(this).hasClass("confirm")){
-                if($(this).parent().parent().attr("id")=="member") {
+                if(section.attr("id")=="member") {
                     // 取消修改成员
                     aim.before(oldMember);
                     aim.remove();
                 }
-                if($(this).parent().parent().attr("id")=="info"){
-                    $(this).parent().parent().remove();
-                    aim.append(oldProject);
+                if(section.attr("id")=="info"){
+                   section.addClass("hide");
+                   section.removeClass("show");
+                    aim.prev().append(oldProject);
                 }
-                if($(this).parent().parent().attr("id")=="award"){
+                if(section.attr("id")=="award"){
                     $(this).parent().parent().remove();
                     aim.append(oldAward);
                 }
@@ -393,6 +397,9 @@
 
 
         // 保存项目信息, 过程为：
+
+        var infoSection=$("#info");
+
         // (1)提交封面图片 (2)提交项目信息
 
         //添加封面图片并预览
@@ -431,8 +438,7 @@
             var type=section.find("#projectCategory").val();  // 项目类别
             var major=section.find("#projectMajor").val(); // 项目专业
             var picId=mainPicId;  // 封面图片id
-            // var parent=$(this).parent().parent().parent(); // input-form
-            if(pname && startTime){
+            if(pname && content && startTime){
                 project.pname=pname;
                 project.content=content;
                 project.src_content=src_content;
@@ -442,7 +448,6 @@
                 project.mainPicId=picId;
                 console.log($(this));
                 if($(this).hasClass("confirm")){  // 确认修改
-                    console.log("hhh");
                     $.ajax({
                         url:'/api/modifyPro/'+projectId,
                         data:JSON.stringify(project),
@@ -450,8 +455,9 @@
                         dataType:'json',
                         success:function (msg) {
                             console.log(msg);
-                            section.empty();
-                            section.append(addCallback(projectId,project));
+                            section.addClass("hide");
+                            section.removeClass("show");
+                            section.parent().prev().append(addCallback(projectId,project));
                         }
                     })
                 }else {
@@ -464,7 +470,8 @@
                             // 提交成功后，创建展示的元素，创建修改删除按钮，插入到result中，移除输入框
                             projectId = msg.data.pid;
                             section.parent().prev().append(addCallback(projectId, project));
-                            section.remove();
+                            section.addClass("hide");
+                            section.removeClass("show");
                         }
                     })
                 }
@@ -495,21 +502,12 @@
         var oldProject;
         $(".result").on("click","#modify-project",function () {
             var pshow=$(this).parent().parent().parent();
-            var res=pshow.parent();
-            oldProject=$(this).parent().parent().parent().clone(true);
-            var newForm=$("#info").clone();
-            newForm.find("#projectTitle").val(project.pname);
-            newForm.find(".editormd-markdown-textarea").html(project.src_content);
-            newForm.find("#projectTime").val(project.startTime); // 立项时间
-            newForm.find("#projectCategory").val(project.type);  // 项目类别
-            newForm.find("#projectMajor").val(project.major);
-            newForm.find("#mainPicPreview").attr("src",mainPicUrl);
+            oldProject=pshow.clone(true);
+            infoSection.removeClass("hide");
+            infoSection.addClass("show");
+            infoSection.find("#save-info").addClass("confirm");
+            infoSection.find("#cancel").addClass("confirm");
             pshow.remove();
-            res.append(newForm);
-            newForm.removeClass("hide");
-            newForm.addClass("show");
-            var btns=$("<div class='operate'><button id='save-info' class='confirm'>修改</button><button id='cancel' class='confirm'>取消</button></div>")
-            newForm.append(btns);
         });
 
 

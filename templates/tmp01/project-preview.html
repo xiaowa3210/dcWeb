@@ -1,9 +1,9 @@
 {% extends 'tmp01/base.html' %}
 
-{% block page_name %}项目展示{% endblock %}
+{% block page_name %}项目预览{% endblock %}
 
 {% block body_part %}
-<section id="subintro">
+<section>
     <div class="container">
     <!-- Docs nav
     ================================================== -->
@@ -66,15 +66,6 @@
 {% block js_files %}
 <script>
     $(document).ready(function () {
-        //获奖链接去掉""
-        var rawLink=$(".links").text();
-        var link=rawLink.slice(1,rawLink.length-1);
-        $(".links").attr("href",link);
-        $(".links").text(link);
-
-        //更改导航栏的active
-        $("li:first").removeClass("active");
-        $("li").eq(5).addClass("active");
 
     });
 </script>
