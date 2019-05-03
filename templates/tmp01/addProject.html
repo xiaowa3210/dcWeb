@@ -205,7 +205,7 @@
                 <div class="input-form"></div>
             </div>
             </div>
-            <div><a href="{{url_for('front.user')}}" style="display: inline-block;padding:5px;font-size:14px">完成</a></div>
+            <div><a id="submit" style="display: inline-block;padding:5px;font-size:14px">提交审核</a></div>
         </div>
     </div>
 
@@ -375,7 +375,7 @@
             var aim=$(this).parent().parent().parent();
             var section=$(this).parent().parent();
             if($(this).hasClass("confirm")){
-                if(section.attr("id")=="member") {
+                if(section.attr("id")=="member" || section.attr("id")=="teacher") {
                     // 取消修改成员
                     aim.before(oldMember);
                     aim.remove();
@@ -829,6 +829,17 @@
                 }
             })
         })
+
+        // 提交审核
+        $("a#submit").click(function () {
+            $.ajax({
+                url:'/api/submitProject/'+projectId,
+                type: 'get',
+                success:function (msg) {
+                    alert(msg);
+                }
+            })
+        });
 
     })
 </script>
