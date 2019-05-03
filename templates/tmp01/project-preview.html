@@ -5,12 +5,13 @@
 {% block body_part %}
 <section>
     <div class="container">
-    <!-- Docs nav
-    ================================================== -->
-        <div class="row">
+        <div class="row-fluid">
             <div class="span9">
-                <h2>{{project.pname}}</h2>
-                <p>{{project.content|safe }}</p>
+                <div>
+                    <h2>{{project.pname}}</h2>
+                    <p>{{project.content|safe }}</p>
+                </div>
+                <div>荣获奖项</div>
             </div>
             <div class="span3">
                 <div class="project-widget">
