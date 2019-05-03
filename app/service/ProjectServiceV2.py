@@ -430,8 +430,17 @@ class ProjectService:
         }
         self.updateProStatusByPid(updateContent, pid)
 
+    """ 
+    @:param:
+    @:return:
+    @descrition:撤销项目
+    """
 
-
+    def submitPro(self, pid):
+        updateContent = {
+            'status': 2,  # 将其修改成未提交的状态
+        }
+        self.updateProStatusByPid(updateContent, pid)
 
     """ 
     @:param:operation=0代表不通过,非0代表通过。
