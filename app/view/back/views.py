@@ -421,8 +421,28 @@ def manageUser(page,count):
 """ 
 审核新闻列表
 """
-@back.route("/admin/checkNewView",methods=['GET'],defaults={'page':1,'count':10})
+@back.route("/admin/checkNewsView",methods=['GET'],defaults={'page':1,'count':10})
 @back.route("/admin/checkNewView/<int:page>/<int:count>",methods=['GET'])
 def checkNewView(page,count):
     pagination, news = newsService.selectByPage(page, count, 2)
     return render_template("back01/back/checknew.html",pagination=pagination,news=news)
+
+""" 
+审核新闻
+"""
+@back.route("/admin/newPreview",methods=['GET'])
+@back.route("/admin/newPreview/<int:nid>")
+def newPreview(nid):
+    new = newsService.selectByNid(nid)
+    return render_template("back01/back/checknew.html",new = new)
+
+""" 
+管理员(非超级管理员)管理自己新闻
+"""
+@back.route('/adminNews', methods=['GET'],defaults={'page':1,'count':10})
+@back.route('/admin/adminNews/<int:page>/<int:count>',methods=['GET'])
+def adminNews(page,count):
+    status = request.values.get("status")
+    username = session['admin']['name']
+    pagination, news = newsService.selectByUsername(page, count, status,username)
+    return render_template('back01/back/article_list.html', news=news, pagination=pagination,status = status)

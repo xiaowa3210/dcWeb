@@ -156,6 +156,13 @@ def uploadProject():
     else:
         return json.dumps(MessageInfo.success(msg='保存成功').__dict__)
 
+""" 
+项目提交审核
+"""
+@front.route('/api/submitProject/<int:pid>',methods=['get'])
+def submitProject(pid):
+    projectService.submitPro(pid)
+    return json.dumps(MessageInfo.success(msg='提交成功').__dict__)
 
 """ 
 导出获奖信息

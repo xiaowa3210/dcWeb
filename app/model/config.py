@@ -85,7 +85,8 @@ common_admin_allow_url = [
 
 admin_allow_url = [
     '/api/admin/addNew',
-    '/admin/modifiesNews'
+    '/admin/modifiesNews',
+    '/adminNews'
 ]
 
 superadmin_allow_url = [
