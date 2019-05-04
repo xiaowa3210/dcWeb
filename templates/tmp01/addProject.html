@@ -714,6 +714,7 @@
                         certIdArr.push(msg.data[i].id);
                         certUrlArr.push(msg.data[i].url);
                     }
+                    console.log(certIdArr)
                 }
             })
         });
@@ -730,6 +731,8 @@
                 success:function (msg) {
                     wrap.remove();
                     certUrlArr.splice(index,1);
+                    certIdArr.splice(index,1);
+                    console.log(certIdArr)
                     certCount--;
                 }
             })
@@ -836,7 +839,8 @@
                 url:'/api/submitProject/'+projectId,
                 type: 'get',
                 success:function (msg) {
-                    alert(msg);
+                    alert(msg.msg);
+                    window.location.href="{{url_for('front.user')}}"
                 }
             })
         });
