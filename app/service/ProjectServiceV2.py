@@ -45,7 +45,7 @@ commonService = CommonService()
 filesService = FilesService()
 def addProStatus(pname, type, status,data):
     # 添加状态信息
-    publisher = commonService.getCurrentUsername()  # todo:暂时是anonymous
+    publisher = commonService.getCurrentUsername(1)  # todo:暂时是anonymous
     proStatus = ProjectStatus(pname, type, publisher, status)
     proStatus.pro_startTime = data['startTime']
     proStatus.major = data['academy']
@@ -372,7 +372,15 @@ class ProjectService:
         sid = commonService.getCurrentUsername(1)
         pagination = ProjectStatus.query.filter(ProjectStatus.publisher == sid, ProjectStatus.delete_flag == 0) \
             .order_by(ProjectStatus.checkTime).paginate(page_index, per_page, error_out=False)
-        return pagination, pagination.items
+
+        pros = pagination.items
+        for pro in pros:
+
+            mainPic = db2.session.query(Files).filter(Files.source_id == pro.pid,
+                                                          Files.source == 1,
+                                                          Files.delete_flag == 0).one()
+            pro.pic = mainPic
+        return pagination, pros
 
 
     """ 
@@ -516,11 +524,13 @@ class ProjectService:
         # 添加状态信息
         project.status = addProStatus(pname, type, 1,data)
         db2.session.add(project)
+        db2.session.commit()
         if 'mainPicId' in data:
             mainPicId = data['mainPicId']
             db2.session.query(Files).filter(Files.fid == mainPicId, Files.delete_flag == 0).update({
                 'source_id': project.pid
             })
+            db2.session.commit()
         else:
             file = Files()
             file.name = "默认图片"
@@ -528,7 +538,7 @@ class ProjectService:
             file.source = 1
             file.source_id = project.pid
             db2.session.add(file)
-        db2.session.commit()
+            db2.session.commit()
         return project.pid
 
     #修改项目
