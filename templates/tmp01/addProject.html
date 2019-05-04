@@ -410,19 +410,35 @@
             var form=new FormData();
             form.append("pics", file);
             form.append("source", 1);  // 封面图片的source为1
-            $.ajax({
-                url:'/api/addPic',
-                data:form,
-                type: 'post',
-                dataType: 'json',
-                contentType:false,
-                processData:false,
-                success: function (msg) {
-                    mainPicUrl=msg.data[0].url;
-                    mainPicPreview.attr("src",mainPicUrl);
-                    mainPicId=msg.data[0].id;
-                }
-            });
+            if(mainPicId){    // 已经上传过，现在是修改
+                $.ajax({
+                    url:'/api/modifyMainPic/'+mainPicId,
+                    data:form,
+                    type: 'post',
+                    dataType: 'json',
+                    contentType:false,
+                    processData:false,
+                    success: function (msg) {
+                        mainPicUrl=msg.data[0].url;
+                        mainPicPreview.attr("src",mainPicUrl);
+                        mainPicId=msg.data[0].id;
+                    }
+                });
+            }else{
+                $.ajax({
+                    url:'/api/addPic',
+                    data:form,
+                    type: 'post',
+                    dataType: 'json',
+                    contentType:false,
+                    processData:false,
+                    success: function (msg) {
+                        mainPicUrl=msg.data[0].url;
+                        mainPicPreview.attr("src",mainPicUrl);
+                        mainPicId=msg.data[0].id;
+                    }
+                });
+            }
         });
 
         // 提交/修改项目信息
