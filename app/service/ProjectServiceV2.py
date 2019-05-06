@@ -397,8 +397,9 @@ class ProjectService:
     @descrition:得到学生已经上传了的项目(管理员只能对这部分项目进行管理)
     """
     def getUploadedProBypage(self,page_index,per_page):
-        condition = (ProjectStatus.status.in_([2,3,4]),ProjectStatus.delete_flag)
-        return self.getProjectsByPage(page_index,per_page,condition)
+        pagination = ProjectStatus.query.filter(ProjectStatus.status.in_([2,3,4]),ProjectStatus.delete_flag == 0).paginate(page_index, per_page, error_out=False)
+        projects = pagination.items
+        return pagination, projects
 
     """ 
     @:param:
@@ -494,7 +495,7 @@ class ProjectService:
             pics = []
             for cp in certPics:
                 cpDict = {'id': cp.fid, 'url': url_for('common.image', name=cp.path)}
-            pics.append(cpDict)
+                pics.append(cpDict)
             a.pics = pics
             awardList.append(a)
         pro.awardList = awardList
