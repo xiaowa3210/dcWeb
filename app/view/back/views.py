@@ -425,7 +425,7 @@ def manageUser(page,count):
 @back.route("/admin/checkNewView/<int:page>/<int:count>",methods=['GET'])
 def checkNewView(page,count):
     pagination, news = newsService.selectByPage(page, count, 2)
-    return render_template("back01/back/checknew.html",pagination=pagination,news=news)
+    return render_template("back01/back/checkArticles.html",pagination=pagination,news=news)
 
 """ 
 审核新闻
