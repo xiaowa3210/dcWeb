@@ -1903,6 +1903,7 @@
                 if (state.fullscreen)
                 {
                     editor.height($(window).height());
+                    codeMirror.find('.CodeMirror-gutters').css('height',$(window).height());
                 }
 
                 if (settings.toolbar && !settings.readOnly) 

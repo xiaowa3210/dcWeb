@@ -48,7 +48,7 @@ def addProStatus(pname, type, status,data):
     publisher = commonService.getCurrentUsername(1)  # todo:暂时是anonymous
     proStatus = ProjectStatus(pname, type, publisher, status)
     proStatus.pro_startTime = data['startTime']
-    proStatus.major = data['academy']
+    proStatus.major = data['major']
     if proStatus == 2:  # 如果是提交,记录提交的时间
         proStatus.submitTime = datetime.now()
     return proStatus
@@ -553,8 +553,8 @@ class ProjectService:
             'pname':data["pname"],
             'type':data["type"],
             'pro_startTime':data['startTime'],
-            'academy':data['academy'],
-            # 'major':data['major']
+            # 'academy':data['academy'],
+            'major':data['major']
         })
         db2.session.commit()
 

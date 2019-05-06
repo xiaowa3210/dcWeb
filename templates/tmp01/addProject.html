@@ -126,7 +126,8 @@
                     <div class="left">项目信息</div>
                     <!--<i class="icon-rounded icon-plus add right"></i>-->
                 </div>
-                <div class="result"></div>
+                <div class="result">
+                </div>
                 <div class="input-form">
                     <!--项目信息-->
                     <div id="info" class="content show">
@@ -137,11 +138,11 @@
                         <div class="tableRow">
                             <label>项目介绍*</label>
                             <div id="markdown">
-                                <textarea class="editormd-markdown-textarea" name="markdown-markdown-doc"></textarea>
+                                <textarea class="editormd-markdown-textarea" name="markdown-markdown-doc">### 项目名称### 项目介绍</textarea>
                             </div>
                         </div>
                         <div class="tableRow">
-                            <label>封面图片</label>
+                            <label>封面图片*</label>
                             <input type="file" id="mainPic">
                         </div>
                         <div class="tableRow">
@@ -315,9 +316,6 @@
 <script src="{{ url_for('static',filename='mdeditor/editormd.js')}}"></script>
 <script type="text/javascript">
     $(function () {
-        //更改导航栏的active
-        $("li:first").removeClass("active");
-        $("li").eq(5).addClass("active");
 
         //markdown编辑器设置
         var testEditor;
@@ -330,7 +328,8 @@
             //启动本地图片上传功能
             imageUpload: true,
             imageFormats: ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
-            imageUploadURL: "{{url_for('common.markdown_upload')}}"
+            imageUploadURL: "{{url_for('common.markdown_upload')}}",
+            watch:true
         });
 
         // 添加按钮    添加的过程为：
@@ -419,9 +418,9 @@
                     contentType:false,
                     processData:false,
                     success: function (msg) {
-                        mainPicUrl=msg.data[0].url;
+                        console.log(msg)
+                        mainPicUrl=msg.data.url;
                         mainPicPreview.attr("src",mainPicUrl);
-                        mainPicId=msg.data[0].id;
                     }
                 });
             }else{
@@ -433,6 +432,7 @@
                     contentType:false,
                     processData:false,
                     success: function (msg) {
+                        console.log(msg)
                         mainPicUrl=msg.data[0].url;
                         mainPicPreview.attr("src",mainPicUrl);
                         mainPicId=msg.data[0].id;
@@ -451,19 +451,18 @@
             var src_content=testEditor.getMarkdown();
             var startTime=section.find("#projectTime").val(); // 立项时间
             var type=section.find("#projectCategory").val();  // 项目类别
-            var academy=section.find("#projectMajor").val(); // 项目专业
+            var major=section.find("#projectMajor").val(); // 项目专业
             var picId=mainPicId;  // 封面图片id
-            if(pname && content && startTime){
+            if(pname && content && startTime && picId){
                 project.pname=pname;
                 project.content=content;
                 project.src_content=src_content;
                 project.startTime=startTime;
                 project.type=type;
-                project.academy=academy;
+                project.major=major;
                 project.mainPicId=picId;
                 console.log($(this));
                 if($(this).hasClass("confirm")){  // 确认修改
-
                     $.ajax({
                         url:'/api/modifyPro/'+projectId,
                         data:JSON.stringify(project),
@@ -760,7 +759,7 @@
         var awardId;
         $(".award").on("click","#save-award",function () {
             var awardItem=$(this).parent().parent();
-            award.title=awardItem.find("#awardTitle").val();
+            award.awardName=awardItem.find("#awardTitle").val();
             award.rank=awardItem.find("#awardCategory").val();
             award.awardTime=awardItem.find("#awardTime").val();
             award.certids=certIdArr;
@@ -798,7 +797,7 @@
         function awardCallback(award,id) {
             var newAward = $("<div class='project-show'></div>");
             var awardHeader = $("<div class='show-header'></div>");
-            var headerLeft = $("<div><span>" + award.title + "</span><span>" + award.awardTime + "</span></div>");
+            var headerLeft = $("<div><span>" + award.awardName+ "</span><span>" + award.awardTime + "</span></div>");
             var btn = $("<div class='operate'><button class='modify modify-award'>修改</button><button class='delete-award' id='"+id+"'>删除</button></div>");
             awardHeader.append(headerLeft);
             awardHeader.append(btn);
@@ -814,7 +813,7 @@
             var res=show.parent();
             oldAward=show.clone(true);
             var newForm=$("#award").clone();
-            newForm.find("#awardTitle").val(award.title);
+            newForm.find("#awardTitle").val(award.awardName);
             newForm.find("#awardCategory").val(award.rank);
             newForm.find("#awardTime").val(award.awardTime);
             var preview=newForm.find("#certPreview");
@@ -855,7 +854,7 @@
                 url:'/api/submitProject/'+projectId,
                 type: 'get',
                 success:function (msg) {
-                    alert(msg.msg);
+                    alert(msg);
                     window.location.href="{{url_for('front.user')}}"
                 }
             })
