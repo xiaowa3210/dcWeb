@@ -248,7 +248,7 @@ def login_api():
 @back.route("/api/admin/logout", methods=['GET'])
 def logout_api():
     session.pop('admin', None)
-    return redirect(url_for('back.login'))
+    return redirect(url_for('front.home'))
 
 """ 
 管理员添加用户

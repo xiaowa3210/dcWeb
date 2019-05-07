@@ -25,53 +25,55 @@
                     <p>{{project.content | safe}}</p>
                 </div>
                 <div class="col-lg-2">
-                    <h4>封面图片</h4>
-                    <img style="width: 100%;height: 200px;" src="{{url_for('common.image',name=project.mainPic)}}">
+                    <img style="width:300px;height:200px" src="{{ url_for('common.image',name=project.pic.path) }}">
                     <h4>项目类别</h4>
-                    <p>{{project.type}}</p>
-
-                <h4>项目成员</h4>
-                <table class="table">
-                    <tbody>
-                {% for member in project.members %}
-                {% if member.type==1 %}    <!--学生类型1-->
-                    <tr>
-                        <td>{{member.name}}</td>
-                        <td>{{member.academy}}</td>
-                        <td>{{member.grade}}</td>
-                    </tr>
-
-                {% endif %}
-                {% endfor %}
-                   </tbody>
-                </table>
-
-                <h4>指导老师</h4>
-                <table class="table">
-                    <tbody>
-                {% for member in project.members %}
-                {% if member.type==0 %}    <!--老师类型0-->
-
-                    <tr>
-                        <td>{{member.name}}</td>
-                        <td>{{member.brief}}</td>
-                    </tr>
-                {% endif %}
-                {% endfor %}
-                     </tbody>
-                </table>
-
-                {% for award in project.awards %}
-                    <h4>所获奖项</h4>
-                    <p>{{ award.awardName }}</p>
-                    <h4>获奖链接</h4>
-                    <a class="links" href="{{ award.honorLink }}" style="color: #666;text-decoration: none">{{award.honorLink}}</a>
-                    <h4>获奖证书</h4>
-                    {% for i in award.pics %}
-                    <img style="width: 100%;height: 200px" src="{{ url_for('common.image',name=i) }}" alt="">
+                    {% if project.type==1 %}
+                        <p>App开发/微信小程序开发</p>
+                    {% endif %}
+                    {% if project.type==2 %}
+                        <p>通信/网络</p>
+                    {% endif %}
+                    {% if project.type==3 %}
+                        <p>软件系统</p>
+                    {% endif %}
+                    {% if project.type==4 %}
+                        <p>硬件系统</p>
+                    {% endif %}
+                    {% if project.type==5 %}
+                        <p>视频/图像</p>
+                    {% endif %}
+                    {% if project.type==6 %}
+                        <p>大数据/机器学习</p>
+                    {% endif %}
+                    <h4>项目专业</h4>
+                    <p>{{project.major}}</p>
+                    <h4>立项时间</h4>
+                    <p>{{ project.startTime }}</p>
+                    <h4>项目成员</h4>
+                    {% for member in project.members %}
+                        {% if member.type==1 %}    <!--学生类型1-->
+                        <div>
+                            <p><span>{{ member.name }}|</span><span>{{ member.number  }}|</span><span>{{ member.classId }}</span></p>
+                            <p><span>{{ member.grade }}|</span><span>{{ member.major }}|</span><span>{{ member.academy }}</span></p>
+                        </div>
+                        {% endif %}
                     {% endfor %}
-                {% endfor %}
-
+                     <h4>指导老师</h4>
+                    {% for member in project.members %}
+                    {% if member.type==0 %}    <!--老师类型0-->
+                        <p><span>{{ member.name }}|</span><span>{{ member.major }}|</span><span>{{ member.academy }}</span></p>
+                    {% endif %}
+                    {% endfor %}
+                    <h4>所获奖项</h4>
+                    {% for award in project.awards %}
+                        <p><span>{{ award.awardName }}|</span><span>{{ award.awardTime }}</span></p>
+                        <p><span>{{ award.rank }}</span></p>
+                        <p>
+                            {% for i in award.pics %}
+                            <img height="200" src="{{ url_for('common.image',name=i.url) }}" alt="">
+                            {% endfor %}
+                        </p>
+                    {% endfor %}
                 </div>
             </div>
         </div>

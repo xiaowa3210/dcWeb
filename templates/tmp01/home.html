@@ -57,7 +57,7 @@
         text-align: center;
     }
 
-    .login-wrapper .form input {
+    .login-wrapper .form > input {
         margin-bottom: 10px;
         width:80%;
         padding:6px;
@@ -105,6 +105,21 @@
     .latest-news .table a:hover {
         color:#94c045;
     }
+
+    form .type {
+        display: flex;
+        justify-content: center;
+    }
+
+    form .type span {
+        display: flex;
+        align-items: center;
+        padding: 5px;
+    }
+
+    .type span input, .type span label {
+        margin:0 0 5px 3px
+    }
 </style>
 {% endblock %}
 
@@ -148,9 +163,15 @@
                         <div class="title">
                             <h3>用户登陆</h3>
                         </div>
-                        <form class="form" onclick="return false">
+
+                        <form class="form" onsubmit="return false" id="login-form">
                             <input type="text" id="username" placeholder="请输入用户名">
                             <input type="password" id="password" placeholder="请输入密码">
+                            <div class="type">
+                                <span><input type="radio" value="1" name="type" checked><label>学生</label></span>
+                                <span><input type="radio" value="2" name="type"><label>管理员</label></span>
+                                <span><input type="radio" value="0" name="type"><label>超级管理员</label></span>
+                            </div>
                             <button type="submit" class="btn btn-color" id="login">登陆</button>
                         </form>
                     {% endif %}
@@ -209,26 +230,48 @@
             $(this).text($(this).text().slice(0,10));
         });
 
-        //登陆
-        $("button#login").click(function () {
+        //学生登陆
+        $("#login").click(function () {
             var data={};
             data.username=$('#username').val();
             data.password = $('#password').val();
-            $.ajax({
-                url:'/student/api/login',
-                data:JSON.stringify(data),
-                type:'post',
-                dataType:'json',
-                success:function (msg) {
-                    alert(msg.msg);
-                    if (msg.errorno == 0){
-                        window.location.href="{{url_for('front.home')}}"
+            var type=$("input[name='type']:checked").val();
+            if(type==1){
+                $.ajax({
+                    url:'/student/api/login',
+                    data:JSON.stringify(data),
+                    type:'post',
+                    dataType:'json',
+                    success:function (msg) {
+                        alert(msg.msg);
+                        if (msg.errorno == 0){
+                            window.location.href="{{url_for('front.home')}}"
+                        }
+                    },
+                    error:function (msg) {
+                        alert(msg.msg)
                     }
-                },
-                error:function (msg) {
-                    alert(msg.msg)
-                }
-            })
+                })
+            }else {
+                console.log(type);
+                data.type=type;
+                $.ajax({
+                    url:'/api/login',
+                    data:JSON.stringify(data),
+                    type:'post',
+                    dataType:'json',
+                    success:function (msg) {
+                        alert(msg.msg);
+                        if (msg.errorno == 0){
+                            window.location.href="{{url_for('back.main')}}"
+                        }
+                    },
+                    error:function (msg) {
+                        alert(msg.msg)
+                    }
+                })
+            }
+
         })
 
     })

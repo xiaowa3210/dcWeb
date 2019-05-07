@@ -287,7 +287,7 @@ def studeletePro():
 @front.route('/student/manageProject/<int:page>/<int:count>')
 def manageProject(page,count):
     pagination,project = projectService.getProByStudentId(page,count)
-    return render_template("tmp01/user.html",pagination=pagination,project=project)
+    return render_template("tmp01/user.html", pagination=pagination, project=project)
 
 """ 
 修改项目
@@ -302,7 +302,7 @@ def modifiesProject(pid):
 """
 @front.route('/student/uploadProject')
 def uploadProjectTmp():
-    return render_template("tmp01/addProject.html")
+    return render_template("tmp01/addProject2.html")
 
 """ 
 新闻列表展示
@@ -410,7 +410,7 @@ def home():
 """
 #@front.route("/user/<user_id>")
 #def user(user_id):
-#    return render_template("tmp01/user.html") #根据学生的id获取到学生Model
+#    return render_template("tmp01/user2.html") #根据学生的id获取到学生Model
 
 """
 测试用
@@ -419,7 +419,7 @@ def home():
 @front.route("/user/<int:page>/<int:count>")
 def user(page,count):
     pagination,project = projectService.getProByStudentId(page,count)
-    return render_template("tmp01/user.html",pagination=pagination,project=project)
+    return render_template("tmp01/user.html", pagination=pagination, project=project)
 
 @front.route("/student/login")
 def stu_login():
@@ -433,4 +433,4 @@ def stu_register():
 # @front.route('/student/manageProject/<int:page>/<int:count>')
 # def manageProject(page,count):
 #     pagination,project = projectService.getProByStudentId(page,count)
-#     return render_template("tmp01/user.html",pagination=pagination,project=project)
+#     return render_template("tmp01/user2.html",pagination=pagination,project=project)

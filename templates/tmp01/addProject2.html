@@ -52,7 +52,11 @@
     .tableRow{
         display: flex;
         width: 100%;
-        margin: 5px
+        margin: 5px;
+    }
+
+    .tableRow .item {
+        flex:1;
     }
 
     .tableRow .operate{
@@ -60,7 +64,6 @@
     }
     .tableRow label{
         display: inline-block;
-        width: 10%;
         flex-shrink: 0;
         padding-right: 5px;
         font-size: 14px;
@@ -78,7 +81,7 @@
         color:#fff
     }
 
-    .operate .cancel {
+    .operate #cancel {
         background-color: #eee;
         color:#333;
     }
@@ -130,7 +133,7 @@
                 </div>
                 <div class="input-form">
                     <!--项目信息-->
-                    <div id="info" class="content show">
+                    <div id="info" class="content">
                         <div class="tableRow">
                             <label>项目名称*</label>
                             <input type="text" placeholder="请输入项目名称" id="projectTitle" name="pname">
@@ -176,7 +179,7 @@
                         </div>
                         <div class='operate'>
                             <button id='save-info'>保存</button>
-                            <button id='cancel'>取消</button>
+                            <!--<button id='cancel'>取消</button>-->
                         </div>
                     </div>
                 </div>
@@ -215,41 +218,49 @@
     <!--学生信息-->
     <section id="member" class="content hide">
         <div class="tableRow">
-            <label>姓名</label>
-            <input type="text" id="memberName">
+            <div class="item">
+                <label>姓名</label>
+                <input type="text" id="memberName">
+            </div>
+            <div class="item">
+                <label>学号</label>
+                <input type="text" id="memberNo">
+            </div>
+            <div class="item">
+                <label>班级</label>
+                <input type="text" id="memberClass">
+            </div>
         </div>
         <div class="tableRow">
-            <label>学号</label>
-            <input type="text" id="memberNo">
+            <div class="item">
+                <label>年级</label>
+                <input type="text" id="memberGrade">
+            </div>
+            <div class="item">
+                <label>专业</label>
+                <input type="text" id="memberMajor">
+            </div>
+            <div class="item">
+                <label>学院</label>
+                <select id="memberCollege" name="memberCollege">
+                    <option value="信息与通信工程学院">信息与通信工程学院</option>
+                    <option value="电子工程学院">电子工程学院</option>
+                    <option value="数字媒体与设计艺术学院">数字媒体与设计艺术学院</option>
+                    <option value="自动化学院">自动化学院</option>
+                    <option value="软件学院">软件学院</option>
+                    <option value="经济管理学院">经济管理学院</option>
+                    <option value="理学院">理学院</option>
+                    <option value="人文学院">人文学院</option>
+                    <option value="公共管理学院">公共管理学院</option>
+                    <option value="国际学院">国际学院</option>
+                    <option value="网络教育学院">网络教育学院</option>
+                    <option value="民族教育学院和马克思主义教学与研究中心">民族教育学院和马克思主义教学与研究中心</option>
+                </select>
+            </div>
         </div>
-        <div class="tableRow">
-            <label>班级</label>
-            <input type="text" id="memberClass">
-        </div>
-        <div class="tableRow">
-            <label>年级</label>
-            <input type="text" id="memberGrade">
-        </div>
-        <div class="tableRow">
-            <label>专业</label>
-            <input type="text" id="memberMajor">
-        </div>
-        <div class="tableRow">
-            <label>学院</label>
-            <select id="memberCollege" name="memberCollege">
-                <option value="信息与通信工程学院">信息与通信工程学院</option>
-                <option value="电子工程学院">电子工程学院</option>
-                <option value="数字媒体与设计艺术学院">数字媒体与设计艺术学院</option>
-                <option value="自动化学院">自动化学院</option>
-                <option value="软件学院">软件学院</option>
-                <option value="经济管理学院">经济管理学院</option>
-                <option value="理学院">理学院</option>
-                <option value="人文学院">人文学院</option>
-                <option value="公共管理学院">公共管理学院</option>
-                <option value="国际学院">国际学院</option>
-                <option value="网络教育学院">网络教育学院</option>
-                <option value="民族教育学院和马克思主义教学与研究中心">民族教育学院和马克思主义教学与研究中心</option>
-            </select>
+        <div class='operate'>
+            <button class='save-member'>保存</button>
+            <button class='cancel-member'>取消</button>
         </div>
     </section>
     <!--指导老师-->
@@ -279,6 +290,10 @@
                 <option value="民族教育学院和马克思主义教学与研究中心">民族教育学院和马克思主义教学与研究中心</option>
             </select>
         </div>
+        <div class='operate'>
+            <button class='save-teacher'>保存</button>
+            <button class='cancel-member'>取消</button>
+        </div>
     </section>
     <!--获奖信息-->
     <section id="award" class="content hide">
@@ -307,6 +322,10 @@
             <label></label>
             <div id="certPreview"></div>
         </div>
+        <div class='operate'>
+            <button class='save-award'>保存</button>
+            <button class='cancel-award'>取消</button>
+        </div>
     </section>
 </div>
 
@@ -332,67 +351,11 @@
             watch:true
         });
 
-        // 添加按钮    添加的过程为：
-        // (1)确定被添加的类别，确定插入的位置，克隆相应的输入框，然后插入到指定位置，移除hide，添加show
-        // (2)添加保存和取消按钮
 
-        $(".add").click(function () {
+        // 项目信息只有一个，默认显示，不能添加，只能保存和修改
+        // 提交项目信息，只有提交了项目信息后续才能添加项目成员
 
-            // 确定添加的类别
-            var name=$(this).parent().parent().attr("class");
-            // 确定插入的位置，即div.input-form中
-            var inputForm=$(this).parent().next().next();
-            // 克隆并插入
-            cloneInsert(name,inputForm);
-
-        });
-
-        // 克隆name对应的表单元素，插入到input-form指定的位置，移除hide,添加show
-        // 添加保存取消按钮
-        function cloneInsert(name,aim) {
-            var newForm=$("#"+name).clone(true);  //克隆
-            aim.append(newForm);  // 插入
-            newForm.removeClass("hide"); // 移除hide
-            newForm.addClass("show");  // 添加show
-            var btns=$("<div class='operate'><button id='save-"+name+"'>保存</button><button id='cancel'>取消</button></div>")
-            newForm.append(btns);  // 添加保存取消按钮
-        }
-
-
-        // 取消按钮
-        // 取消的过程为：清空input-form
-        // 给动态添加的元素绑定事件使用on()
-        $(".pannel").on("click","#cancel",function(){
-            var aim=$(this).parent().parent().parent();
-            var section=$(this).parent().parent();
-            if($(this).hasClass("confirm")){
-                if(section.attr("id")=="member" || section.attr("id")=="teacher") {
-                    // 取消修改成员
-                    aim.before(oldMember);
-                    aim.remove();
-                }
-                if(section.attr("id")=="info"){
-                   section.addClass("hide");
-                   section.removeClass("show");
-                    aim.prev().append(oldProject);
-                }
-                if(section.attr("id")=="award"){
-                    $(this).parent().parent().remove();
-                    aim.append(oldAward);
-                }
-            }else{
-                aim.empty();
-            }
-        });
-
-
-        // 保存项目信息, 过程为：
-
-        var infoSection=$("#info");
-
-        // (1)提交封面图片 (2)提交项目信息
-
-        //添加封面图片并预览
+        // 首先要上传封面图片并预览
         var mainPicId;  // 提交后返回的封面图片的id
         var mainPicUrl;
         $(".input-form").on("change","#mainPic",function () {
@@ -409,10 +372,15 @@
                     dataType: 'json',
                     contentType:false,
                     processData:false,
-                    success: function (msg) {
-                        console.log(msg)
-                        mainPicUrl=msg.data.url;
-                        mainPicPreview.attr("src",mainPicUrl);
+                    success: function (info) {
+                        // 响应成功且没有错误
+                        if(info.errorno==0){
+                            mainPicUrl=info.data.url;
+                            mainPicPreview.attr("src",mainPicUrl);
+                        }
+                    },
+                    error: function (info) {
+                        alert(info.msg);
                     }
                 });
             }else{
@@ -423,11 +391,15 @@
                     dataType: 'json',
                     contentType:false,
                     processData:false,
-                    success: function (msg) {
-                        console.log(msg)
-                        mainPicUrl=msg.data[0].url;
-                        mainPicPreview.attr("src",mainPicUrl);
-                        mainPicId=msg.data[0].id;
+                    success: function (info) {
+                        if(info.errorno==0){
+                            mainPicUrl=info.data[0].url;
+                            mainPicPreview.attr("src",mainPicUrl);
+                            mainPicId=info.data[0].id;
+                        }
+                    },
+                    error: function (info) {
+                        alert(info.msg);
                     }
                 });
             }
@@ -437,6 +409,7 @@
         var projectId;
         var project={};
         $(".pannel").on("click","#save-info",function () {
+            var _this=$(this);
             var section=$(this).parent().parent();
             var pname=section.find("#projectTitle").val();  // 项目名称
             var content=testEditor.getHTML();         // 项目介绍
@@ -453,79 +426,67 @@
                 project.type=type;
                 project.major=major;
                 project.mainPicId=picId;
-                console.log($(this));
-                if($(this).hasClass("confirm")){  // 确认修改
-                    $.ajax({
-                        url:'/api/modifyPro/'+projectId,
-                        data:JSON.stringify(project),
-                        type:'post',
-                        dataType:'json',
-                        success:function (msg) {
-                            console.log(msg);
-                            section.addClass("hide");
-                            section.removeClass("show");
-                            section.parent().prev().append(addCallback(projectId,project));
-                        }
-                    })
-                }else {
+                console.log(_this.text());
+                // 根据按钮的信息判断是保存还是修改
+                if(_this.text()=="保存"){
+                    // 发送给后端的保存接口
                     $.ajax({
                         url: '/api/addPro',
                         data: JSON.stringify(project),
                         type: 'post',
                         dataType: 'json',
-                        success: function (msg) {
-                            // 提交成功后，创建展示的元素，创建修改删除按钮，插入到result中，移除输入框
-                            projectId = msg.data.pid;
-                            section.parent().prev().append(addCallback(projectId, project));
-                            section.addClass("hide");
-                            section.removeClass("show");
+                        success: function (info) {
+                            // 正确响应后，弹出保存成功信息，保存按钮变更为修改按钮
+                            if(info.errorno==0){
+                                alert("保存成功，请继续添");
+                                projectId = info.data.pid;
+                                _this.text("修改");
+                            }
+                        },
+                        error: function(info){
+                            alert(info.msg);
+                        }
+                    });
+                };
+                if(_this.text()=="修改"){
+                    $.ajax({
+                        url:'/api/modifyPro/'+projectId,
+                        data:JSON.stringify(project),
+                        type:'post',
+                        dataType:'json',
+                        success:function (info) {
+                            // 正确响应后，弹出保存成功信息，保存按钮变更为修改按钮
+                            if(info.errorno==0){
+                                alert("修改成功");
+                            }
                         }
                     })
                 }
             }else{
                 alert("请填写必填项");
             }
-
         });
 
-        function addCallback(projectId,project){
-            var newPro=$("<div class='project-show' id='"+projectId+"'></div>");
-            var header=$("<div class='show-header'></div>");
-            newPro.append(header);
-            var header_left=$("<h4>"+project.pname+"</h4>");
-            header.append(header_left);
-            var header_right=$("<div class='operate'><button id='modify-project' class='modify'>修改</button></div>");
-            header.append(header_right);
-            var content=$("<div class='show-content'></div>");
-            content.html(project.content);
-            newPro.append(content);
-            return newPro;
-        }
 
+        // 添加按钮，可以多个添加的类别为项目成员/老师/奖项，项目信息默认只有一个
+        // 确定被添加的类别，确定插入的位置，克隆相应的输入框，然后插入到指定位置
 
-
-        // 修改项目,修改的过程为：
-        // (1)将旧的project-show克隆下来，清空project-show,克隆表单元素，设置内容，然后插入到project-show中
-        // (2)创建确认修改和取消修改按钮
-
-        var oldProject;
-        $(".result").on("click","#modify-project",function () {
-            var pshow=$(this).parent().parent().parent();
-            oldProject=pshow.clone(true);
-            infoSection.removeClass("hide");
-            infoSection.addClass("show");
-            infoSection.find("#save-info").addClass("confirm");
-            infoSection.find("#cancel").addClass("confirm");
-            pshow.remove();
+        $(".add").click(function () {
+            // 确定添加的类别(), 项目信息只有一个且默认显示
+            console.log("hhh")
+            var name=$(this).parent().parent().attr("class");
+            // 根据类名选择要克隆的表单
+            var newForm=$("#"+name).clone(true);
+            newForm.removeClass("hide");
+            // 确定插入的位置，即div.result中
+            var aim=$(this).parent().next();
+            // 插入
+            aim.append(newForm);
         });
-
 
 
         // 提交/修改成员信息
-        var memArr=[];
-        var idArr=[];
-        var count=0;
-        $(".pannel").on("click","#save-member",function () {
+        $(".pannel").on("click",".save-member",function () {
             if(!projectId){
                 alert("请先添加项目信息");
             }else {
@@ -543,108 +504,75 @@
                 member.grade = grade;
                 member.major = major;
                 member.academy = academy;
-                if ($(this).hasClass("confirm")) {  // 确定修改
+                var _this=$(this);
+                var mid;
+                if($(this).text()=="保存"){
                     $.ajax({
-                        url:'/api/modifyProMember/'+mid,
+                        url: '/api/addProMember/1/' + projectId,  // 学生是1
                         data: JSON.stringify(member),
                         dataType: 'json',
                         type: 'post',
-                        success:function (msg) {
-                            console.log(msg);
-                            count--;
-                            item.parent().before(memberCallback(member));
-                            item.parent().remove();
-                            memArr.splice(index,1,member);
+                        success: function (info) {
+                            console.log(info);
+                            if(info.errorno==0){
+                                alert("保存成功，请继续添加");
+                                mid = info.data.mid;  // 该成员的id，修改时需要
+                                _this.text("修改");
+                                _this.attr("id",mid);
+                                // 取消按钮变成删除按钮
+                                _this.next().text("删除");
+                            }
+                        },
+                        error: function (info) {
+                            alert(info.msg);
                         }
                     })
-                } else {    // 添加
+                };
+                if ($(this).text()=="修改") {  // 修改
                     $.ajax({
-                        url: '/api/addProMember/1/' + projectId,
+                        url:'/api/modifyProMember/'+_this.attr("id"),
                         data: JSON.stringify(member),
                         dataType: 'json',
                         type: 'post',
-                        success: function (msg) {
-                            //console.log(msg);
-                            idArr.push(msg.data.mid);
-                            memArr.push(member);
-                            item.parent().prev().append(memberCallback(member));
-                            item.remove();
+                        success:function (info) {
+                            if(info.errorno==0) {
+                                alert("修改成功");
+                           }
                         }
                     })
                 }
             }
         });
 
-        function memberCallback(member){
-            var newMember = $("<div class='project-show'></div>");
-            var memHeader = $("<div class='show-header'></div>");
-            var headerLeft = $("<div></div>");
-            Object.keys(member).forEach(function (key) {
-                var span = $("<span>" + member[key] + "</span>");
-                headerLeft.append(span);
-            });
-            var btn = $("<div class='operate'><button class='modify modify-member'>修改</button><button class='delete' id='" + (count++) + "'>删除</button></div>");
-            memHeader.append(headerLeft);
-            memHeader.append(btn);
-            newMember.append(memHeader);
-            return newMember;
-        }
-
-
-        // 删除成员/老师信息
-        $(".pannel").on("click",".delete",function () {
-            var mid=idArr[$(this).attr("id")];
-            var show=$(this).parent().parent().parent();
-            $.ajax({
-                url:'/api/deleteProMember/'+mid,
-                type:'get',
-                success:function () {
-                    show.remove();
-                }
-            })
-        });
-
-        // 修改学生/老师信息
-        var oldMember;
-        var mid;
-        var index;
-        $(".pannel").on("click",".modify-member",function () {
-            var show=$(this).parent().parent().parent();
-            oldMember=show.clone(true);
-            index=$(this).next().attr("id");
-            var obj=memArr[index];
-            mid=idArr[index];
-            if(show.parent().parent().hasClass("member")){
-                var newForm=$("#member").clone();
-                newForm.find("#memberName").val(obj.name);
-                newForm.find("#memberNo").val(obj.number);
-                newForm.find("#memberClass").val(obj.classId);
-                newForm.find("#memberGrade").val(obj.grade);
-                newForm.find("#memberMajor").val(obj.major);
-                newForm.find("#memberCollege").val(obj.academy);
-                var btns=$("<div class='operate'><button id='save-member' class='confirm'>修改</button><button id='cancel' class='confirm'>取消</button></div>")
+        // 取消/删除按钮
+        $(".pannel").on("click",".cancel-member",function(){
+            var aim=$(this).parent().parent();  //当前输入框
+            var mid=$(this).prev().attr("id");
+            // 取消即把当前输入框移除
+            if($(this).text()=="取消"){
+                aim.remove();
+            };
+            // 删除: (1)移除当前输入框 (2)向后端发送请求删除数据
+            if($(this).text()=="删除"){
+                $.ajax({
+                    url:'/api/deleteProMember/'+mid,
+                    type:'get',
+                    success:function (info) {
+                        if(JSON.parse(info).errorno==0){
+                            alert("删除成功");
+                            aim.remove();
+                        }
+                    }
+                })
             }
-            if(show.parent().parent().hasClass("teacher")){
-                var newForm=$("#teacher").clone();
-                newForm.find("#teacherName").val(obj.name);
-                newForm.find("#teacherMajor").val(obj.major);
-                newForm.find("#teacherCollege").val(obj.academy);
-                var btns=$("<div class='operate'><button id='save-teacher' class='confirm'>修改</button><button id='cancel' class='confirm'>取消</button></div>")
-            }
-            show.empty();
-            show.append(newForm);
-            newForm.removeClass("hide");
-            newForm.addClass("show");
-
-            newForm.append(btns);
         });
 
 
         // 提交/修改指导老师信息
-        $(".pannel").on("click","#save-teacher",function () {
-            if(!projectId){
+        $(".pannel").on("click",".save-teacher",function () {
+            if (!projectId) {
                 alert("请先添加项目信息");
-            }else {
+            } else {
                 var item = $(this).parent().parent();
                 var teacher = {};
                 var name = item.find("#teacherName").val();
@@ -653,34 +581,37 @@
                 teacher.name = name;
                 teacher.major = major;
                 teacher.academy = academy;
-                console.log(teacher);
-                console.log(mid);
-                if ($(this).hasClass("confirm")) {  // 确定修改
-                    $.ajax({
-                        url:'/api/modifyProMember/'+mid,
-                        data: JSON.stringify(teacher),
-                        dataType: 'json',
-                        type: 'post',
-                        success:function (msg) {
-                            console.log(msg);
-                            count--;
-                            item.parent().before(memberCallback(teacher));
-                            item.parent().remove();
-                            memArr.splice(index,1,teacher);
-                        }
-                    })
-                } else {    // 添加
+                var _this = $(this);
+                var tid;
+
+                if ($(this).text() == "保存") {
                     $.ajax({
                         url: '/api/addProMember/0/' + projectId,
                         data: JSON.stringify(teacher),
                         dataType: 'json',
                         type: 'post',
-                        success: function (msg) {
-                            //console.log(msg);
-                            idArr.push(msg.data.mid);
-                            memArr.push(teacher);
-                            item.parent().prev().append(memberCallback(teacher));
-                            item.remove();
+                        success: function (info) {
+                            if (info.errorno == 0) {
+                                alert("保存成功，请继续添加");
+                                tid = info.data.mid;
+                                _this.text("修改");
+                                _this.attr("id", tid);
+                                // 取消按钮变成删除按钮
+                                _this.next().text("删除");
+                            }
+                        }
+                    });
+                }
+                if ($(this).text() == "修改") {
+                    $.ajax({
+                        url: '/api/modifyProMember/' + _this.attr("id"),
+                        data: JSON.stringify(teacher),
+                        dataType: 'json',
+                        type: 'post',
+                        success: function (info) {
+                            if (info.errorno == 0) {
+                                alert("修改成功");
+                            }
                         }
                     })
                 }
@@ -691,8 +622,6 @@
 
         //添加奖项证书并预览
         var certIdArr=[];
-        var certUrlArr=[];
-        var certCount=0;
         $(".award").on("change","#certfile",function () {
             var certPreview=$(this).parent().next().find("#certPreview");
             var files=this.files;
@@ -712,133 +641,110 @@
                     console.log(msg);
                     for(var i=0;i<msg.data.length;i++){
                         var imgWrap=$("<div class='imgWrap'></div>");
-                        var certImg=$("<img id='"+msg.data[i].id+"' index='"+(certCount++)+"'>");
+                        var certImg=$("<img id='"+msg.data[i].id+"'>");
                         certImg.attr("src",msg.data[i].url);
                         var delBtn=$("<i class='icon-square icon-trash'></i>");
                         imgWrap.append(certImg);
                         imgWrap.append(delBtn);
                         certPreview.append(imgWrap);
                         certIdArr.push(msg.data[i].id);
-                        certUrlArr.push(msg.data[i].url);
                     }
-                    console.log(certIdArr)
                 }
             })
         });
 
         //删除证书图片
         $(".award").on("click",".icon-trash",function () {
-            var index=$(this).prev().attr("index");
             var id=$(this).prev().attr("id");
             var wrap=$(this).parent();
             $.ajax({
                 url:"/api/deleteCertFile/"+id,
                 type:'get',
                 dataType:'json',
-                success:function (msg) {
-                    wrap.remove();
-                    certUrlArr.splice(index,1);
-                    certIdArr.splice(index,1);
-                    console.log(certIdArr)
-                    certCount--;
+                success:function (info) {
+                    if(info.error==0){
+                        wrap.remove();
+                        certIdArr.splice(certIdArr.indexOf(id),1);
+                    }
                 }
             })
         });
 
 
-        //提交奖项
+        // 提交/修改奖项
         var award={};
         var awardId;
-        $(".award").on("click","#save-award",function () {
+        $(".award").on("click",".save-award",function () {
             var awardItem=$(this).parent().parent();
             award.awardName=awardItem.find("#awardTitle").val();
             award.rank=awardItem.find("#awardCategory").val();
             award.awardTime=awardItem.find("#awardTime").val();
             award.certids=certIdArr;
+            var _this=$(this);
             if(!projectId){
                 alert("请先添加项目信息");
             }else {
-                if ($(this).hasClass("confirm")) {  // 确定修改
+
+                if($(this).text()=="修改") {
                     $.ajax({
-                        url:'/api/modifyProAward/'+projectId,
+                        url: '/api/modifyProAward/' + _this.attr("id"),
                         data: JSON.stringify(award),
                         dataType: 'json',
                         type: 'post',
-                        success:function () {
-                            awardItem.empty();
-                            awardItem.append(awardCallback(award,awardId));
+                        success: function (info) {
+                            if (info.errorno == 0) {
+                                alert("修改成功");
+                            }
                         }
-                    })
-                }else {
+                    });
+                }
+
+                if($(this).text()=="保存"){
                     $.ajax({
                         url: '/api/addProAward/' + projectId,
                         data: JSON.stringify(award),
                         dataType: 'json',
                         type: 'post',
-                        success: function (msg) {
-                            console.log(msg);
-                            awardId=msg.data.id;
-                            awardItem.parent().prev().append(awardCallback(award,awardId));
-                            awardItem.remove();
+                        success: function (info) {
+                            if(info.errorno==0){
+                                alert("保存成功，继续添加");
+                                awardId=info.data.id;
+                                _this.text("修改");
+                                _this.attr("id",awardId);
+                                // 取消按钮变成删除按钮
+                                _this.next().text("删除");
+                            }
+                        },
+                        error: function (info) {
+                            alert(info.msg)
                         }
                     })
                 }
             }
         });
 
-        function awardCallback(award,id) {
-            var newAward = $("<div class='project-show'></div>");
-            var awardHeader = $("<div class='show-header'></div>");
-            var headerLeft = $("<div><span>" + award.awardName+ "</span><span>" + award.awardTime + "</span></div>");
-            var btn = $("<div class='operate'><button class='modify modify-award'>修改</button><button class='delete-award' id='"+id+"'>删除</button></div>");
-            awardHeader.append(headerLeft);
-            awardHeader.append(btn);
-            newAward.append(awardHeader);
-            return newAward;
-        }
-
-        // 修改奖项
-        var oldAward;
-        $(".award").on("click",".modify-award",function () {
-            console.log("hhh");
-            var show=$(this).parent().parent().parent();
-            var res=show.parent();
-            oldAward=show.clone(true);
-            var newForm=$("#award").clone();
-            newForm.find("#awardTitle").val(award.awardName);
-            newForm.find("#awardCategory").val(award.rank);
-            newForm.find("#awardTime").val(award.awardTime);
-            var preview=newForm.find("#certPreview");
-            for(var i=0;i<certUrlArr.length;i++){
-                var wrap=$("<div class='img-wrap'></div>");
-                var certImg=$("<img id='"+certIdArr[i]+"' index='"+i+"'>");
-                certImg.attr("src",certUrlArr[i]);
-                var delBtn=$("<i class='icon-square icon-trash'></i>");
-                wrap.append(certImg);
-                wrap.append(delBtn);
-                preview.append(wrap);
+        // 取消/删除按钮
+        $(".pannel").on("click",".cancel-award",function(){
+            var aim=$(this).parent().parent();  //当前输入框
+            var awardId=$(this).prev().attr("id");
+            // 取消即把当前输入框移除
+            if($(this).text()=="取消"){
+                aim.remove();
             };
-            show.remove();
-            res.append(newForm);
-            newForm.removeClass("hide");
-            newForm.addClass("show");
-            var btns=$("<div class='operate'><button id='save-award' class='confirm'>修改</button><button id='cancel' class='confirm'>取消</button></div>");
-            newForm.append(btns);
-        })
-
-        // 删除奖项
-        $(".award").on("click",".delete-award",function () {
-            var id=$(this).attr("id");
-            var show=$(this).parent().parent().parent();
-            $.ajax({
-                url:'/api/deleteProAward/'+id,
-                type:'get',
-                dataType:'json',
-                success:function (msg) {
-                    show.remove()
-                }
-            })
-        })
+            // 删除: (1)移除当前输入框 (2)向后端发送请求删除数据
+            if($(this).text()=="删除"){
+                $.ajax({
+                    url:'/api/deleteProAward/'+awardId,
+                    type:'get',
+                    success:function (info) {
+                        if(info.errorno==0){
+                            alert("删除成功");
+                            aim.remove();
+                        }
+                    }
+                })
+            }
+        });
 
         // 提交审核
         $("a#submit").click(function () {

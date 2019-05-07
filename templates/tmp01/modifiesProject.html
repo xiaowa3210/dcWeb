@@ -445,9 +445,9 @@
                    window.location.href="{{url_for("front.modifiesProject",pid=project.pid)}}"
                 }
                 if(section.attr("id")=="info"){
-                    section.addClass("hide");
                     section.removeClass("opened");
-                    window.location.href="{{url_for("front.modifiesProject",pid=project.pid)}}"
+                    section.addClass("hide");
+                    // window.location.href="{{url_for("front.modifiesProject",pid=project.pid)}}"
                 }
                 if(section.attr("id")=="award"){
                     $(this).parent().parent().remove();
