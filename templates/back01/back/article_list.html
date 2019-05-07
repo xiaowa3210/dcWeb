@@ -64,8 +64,8 @@
                                 <td>未发布</td>
                             {% elif article.status == 1%}
                                 <td>已发布</td>
-                            {% else %}
-                                <td>已发布正在编辑</td>
+                            {% elif article.status == 3 %}
+                                <td>已发布</td>
                             {% endif %}
                             <td>
                                 <div class="btn-group">
