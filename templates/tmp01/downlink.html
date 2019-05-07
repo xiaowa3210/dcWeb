@@ -46,7 +46,7 @@
             <tbody>
             {% for file in files %}
             <tr>
-                <td width="82%"> <a href="{{ url_for('common.file',name= file.path) }}">{{ file.name }}</a></td>
+                <td width="82%"> <a href="{{ url_for('common.file',name= file.name) }}">{{ file.name }}</a></td>
                 <td width="18%" style="text-align: center;" class="time">{{ file.createTime }}</td>
             </tr>
             {% endfor %}
