@@ -56,6 +56,26 @@
                                                type="text" value="{{article.title}}" required />
                                     </div>
                                 </div>
+                                  {% if article.isTop == 0 %}
+                                    <div class="form-group">
+                                        <label for="title" class="control-label col-lg-2">是否需要置顶？<span
+                                            class="required">*</span></label>
+                                    <div class="col-lg-10">
+                                    <input type="radio"  name="radio" value="置顶">置顶
+                                        <input type="radio"  name="radio" value="不置顶" checked ="checked">不置顶
+                                </div>
+                                    </div>
+                                  {% endif %}
+                                   {% if article.isTop == 1 %}
+                                    <div class="form-group">
+                                        <label for="title" class="control-label col-lg-2">是否需要置顶？<span
+                                            class="required">*</span></label>
+                                    <div class="col-lg-10">
+                                    <input type="radio"  name="radio" value="置顶" checked ="checked">置顶
+                                        <input type="radio"  name="radio" value="不置顶" >不置顶
+                                </div>
+                                    </div>
+                                  {% endif %}
                                  <div class="form-group">
                                     <label class="control-label col-lg-2">上传附件</label>
                                     <div class="col-lg-10">
