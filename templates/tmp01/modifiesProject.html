@@ -34,10 +34,10 @@
         font-weight: bold;
     }
 
-
     section.content {
         padding: 30px 50px 20px 30px;
-        border:1px solid #eee
+        border:1px solid #eee;
+        margin-bottom:5px
     }
 
     section.content input {
@@ -55,9 +55,6 @@
         margin: 5px
     }
 
-    .tableRow .operate{
-        justify-content: flex-end;
-    }
     .tableRow label{
         display: inline-block;
         width: 10%;
@@ -67,44 +64,57 @@
         font-weight: bold;
     }
 
-    .operate button {
-        width: 50px;
-        height: 30px;
-        background-color:#337e0a;
-        margin-right: 10px;
-        border:0px;
-        border-radius: 4px;
+    .lists {
+        display: flex;
+         margin-bottom: 5px
+    }
+    .lists .item {
+        flex:1
+    }
+    .lists label{
+        display: inline-block;
         font-size: 14px;
-        color:#fff
+        font-weight: bold;
+        padding-right: 15px;
     }
 
+    .operate {
+        text-align: center;
+    }
     .operate .cancel {
         background-color: #eee;
         color:#333;
     }
 
-    .show-header {
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: 5px;
-    }
-    .show-header span {
-        margin-right: 5px;
-        padding:5px;
-        font-size:16px;
-    }
-    .show-content {
-        max-height:80px;
-        overflow: hidden;
-    }
-
     .operate button {
         margin-left: 5px;
-        padding: 5px;
+        padding: 10px 20px;
         border: 0px;
         border-radius: 4px;
         background-color: #eee;
-        color:#337e0a
+        color:#337e0a;
+        font-size:16px
+    }
+    .certPreview {
+        display: flex;
+    }
+    .certPreview .imgWrap{
+        position: relative;
+    }
+    .certPreview img{
+        width: 300px;
+        height: 200px;
+    }
+
+    .imgWrap .icon-trash{
+        position: absolute;
+        left: 150px;
+        top: 100px;
+        z-index: -1;
+    }
+
+    .imgWrap:hover> .icon-trash{
+        z-index: 10;
     }
 </style>
 
@@ -136,7 +146,7 @@
                                 <label>项目介绍*</label>
                                 <div style="height: 700px;width: 100%">
                                     <div id="markdown">
-                                    <textarea style="display: none;">{{ project.src_content }}</textarea>
+                                    <textarea style="display: none;">{{ project.src_content | safe }}</textarea>
                                 </div>
                                 </div>
                             </div>
@@ -146,8 +156,8 @@
                             </div>
                             <div class="tableRow">
                                 <label></label>
-                                <div style="width:300px;height:200px;background-color: #aaa">
-                                    <img class="mainPicPreview" id="{{project.pic.fid}}" src="{{ url_for('common.image',name=project.pic.path) }}">
+                                <div>
+                                    <img style="width:300px;height:200px" class="mainPicPreview" id="{{project.pic.fid}}" src="{{ url_for('common.image',name=project.pic.path) }}">
                                 </div>
                             </div>
                             <div class="tableRow">
@@ -179,7 +189,7 @@
                         </div>
                 </div>
                 </div>
-                <div class="member">
+                <div id="member">
                     <div class="item-header">
                         <div class="left">成员信息</div>
                         <i class="icon-rounded icon-plus add right"></i>
@@ -231,7 +241,7 @@
                                 </div>
                                 <div class='operate'>
                                     <button class='save-member' id="{{member.id}}">修改</button>
-                                    <button class='cancel-member'>删除</button>
+                                    <button class='cancel'>删除</button>
                                 </div>
                             </section>
                             {% endif %}
@@ -243,6 +253,7 @@
                         <div class="left">老师信息</div>
                         <i class="icon-rounded icon-plus add right"></i>
                     </div>
+                    <div class="result">
                     {% for member in project.members %}
                         {% if member.type==0 %}
                         <section class="teacher content">
@@ -274,12 +285,13 @@
                                 </div>
                             </div>
                             <div class='operate'>
-                                <button class='save-teacher' id="{{member.id}}">保存</button>
-                                <button class='cancel-member'>取消</button>
+                                <button class='save-teacher' id="{{member.id}}">修改</button>
+                                <button class='cancel'>取消</button>
                             </div>
                         </section>
                         {% endif %}
                     {% endfor %}
+                    </div>
                 </div>
                 <div id="award">
                     <div class="item-header">
@@ -319,15 +331,15 @@
                                 </div>
                             </div>
                             <div class='operate'>
-                                <button class='save-award' id="{{award.id}}">保存</button>
-                                <button class='cancel-award'>取消</button>
+                                <button class='save-award' id="{{award.id}}">修改</button>
+                                <button class='cancel'>取消</button>
                             </div>
                         </section>
                         {% endfor %}
                     </div>
                 </div>
             </div>
-            <div><a id="submit" style="display: inline-block;padding:5px;font-size:14px">提交审核</a></div>
+            <div style="text-align: center"><button id="submit" class="btn btn-success">提交审核</button></div>
         </div>
     </div>
 
@@ -336,7 +348,7 @@
     <!--学生信息-->
     <div id="input-form">
         <section class="content hide member">
-            <div class="tableRow">
+            <div class="lists">
                 <div class="item">
                     <label>姓名</label>
                     <input type="text" class="memberName">
@@ -350,7 +362,7 @@
                     <input type="text" class="memberClass">
                 </div>
             </div>
-            <div class="tableRow">
+            <div class="lists">
                 <div class="item">
                     <label>年级</label>
                     <input type="text" class="memberGrade">
@@ -379,52 +391,55 @@
             </div>
             <div class='operate'>
                 <button class='save-member'>保存</button>
-                <button class='cancel-member'>取消</button>
+                <button class='cancel'>取消</button>
             </div>
         </section>
         <!--指导老师-->
-        <section class="teacher content hide">
-            <div class="tableRow">
-                <label>姓名</label>
-                <input type="text" class="teacherName">
-            </div>
-            <div class="tableRow">
-                <label>专业</label>
-                <input type="text" class="teacherMajor">
-            </div>
-            <div class="tableRow">
-                <label>学院</label>
-                <select class="teacherCollege">
-                    <option value="信息与通信工程学院">信息与通信工程学院</option>
-                    <option value="电子工程学院">电子工程学院</option>
-                    <option value="数字媒体与设计艺术学院">数字媒体与设计艺术学院</option>
-                    <option value="自动化学院">自动化学院</option>
-                    <option value="软件学院">软件学院</option>
-                    <option value="经济管理学院">经济管理学院</option>
-                    <option value="理学院">理学院</option>
-                    <option value="人文学院">人文学院</option>
-                    <option value="公共管理学院">公共管理学院</option>
-                    <option value="国际学院">国际学院</option>
-                    <option value="网络教育学院">网络教育学院</option>
-                    <option value="民族教育学院和马克思主义教学与研究中心">民族教育学院和马克思主义教学与研究中心</option>
-                </select>
+        <section class="content hide teacher">
+            <div class="lists">
+                <div class="item">
+                    <label>姓名</label>
+                    <input type="text" class="teacherName">
+                </div>
+                <div class="item">
+                    <label>专业</label>
+                    <input type="text" class="teacherMajor">
+                </div>
+                <div class="item">
+                    <label>学院</label>
+                    <select class="teacherCollege">
+                        <option value="信息与通信工程学院">信息与通信工程学院</option>
+                        <option value="电子工程学院">电子工程学院</option>
+                        <option value="数字媒体与设计艺术学院">数字媒体与设计艺术学院</option>
+                        <option value="自动化学院">自动化学院</option>
+                        <option value="软件学院">软件学院</option>
+                        <option value="经济管理学院">经济管理学院</option>
+                        <option value="理学院">理学院</option>
+                        <option value="人文学院">人文学院</option>
+                        <option value="公共管理学院">公共管理学院</option>
+                        <option value="国际学院">国际学院</option>
+                        <option value="网络教育学院">网络教育学院</option>
+                        <option value="民族教育学院和马克思主义教学与研究中心">民族教育学院和马克思主义教学与研究中心</option>
+                    </select>
+                </div>
             </div>
             <div class='operate'>
                 <button class='save-teacher'>保存</button>
-                <button class='cancel-member'>取消</button>
+                <button class='cancel'>取消</button>
             </div>
         </section>
         <!--获奖信息-->
         <section class="content hide award">
-            <div class="tableRow">
-                    <label>奖项名称</label>
-                    <input type="text" class="awardTitle">
-                </div>
-            <div class="tableRow">
+            <div class="lists">
+                <label>奖项名称</label>
+                <input type="text" class="awardTitle">
+            </div>
+            <div class="lists">
+                <div class="item">
                     <label>获奖时间</label>
                     <input type="date" class="awardTime">
                 </div>
-            <div class="tableRow">
+                <div class="item">
                     <label>奖项级别</label>
                     <select class="awardCategory">
                         <option value="1">国际型比赛</option>
@@ -433,17 +448,18 @@
                         <option value="4">校内比赛</option>
                     </select>
                 </div>
-            <div class="tableRow">
+            </div>
+            <div class="items">
                 <label>奖项证书</label>
                 <input type="file" multiple class="certfile">
             </div>
-            <div class="tableRow">
+            <div class="items">
                 <label></label>
                 <div class="certPreview"></div>
             </div>
             <div class='operate'>
                 <button class='save-award'>保存</button>
-                <button class='cancel-award'>取消</button>
+                <button class='cancel'>取消</button>
             </div>
         </section>
     </div>
@@ -458,7 +474,7 @@
     $(function () {
 
         //markdown编辑器设置
-        var testEditor;
+        let testEditor;
 
         testEditor = editormd("markdown", {
             syncScrolling: "single",
@@ -473,12 +489,12 @@
         });
 
         // 修改主页图片
-        var mainPicPreview=$(".mainPicPreview");
-        var mainPicId=mainPicPreview.attr("id");   // 提交后返回的封面图片的id
-        var mainPicUrl;
+        const mainPicPreview=$(".mainPicPreview");
+        const mainPicId=mainPicPreview.attr("id");   // 提交后返回的封面图片的id
+        let mainPicUrl;
         $(".result").on("change","#mainPic",function () {
-            var file = this.files[0];
-            var form = new FormData();
+            let file = this.files[0];
+            let form = new FormData();
             form.append("pics", file);
             form.append("source", 1);  // 封面图片的source为1
             form.append("source_id",mainPicId);
@@ -504,20 +520,18 @@
         })
 
         // 修改项目信息
-        var pid=$(".save-info").attr("id");
+        const pid=$(".save-info").attr("id");
 
-
-        var project={};
+        let project={};
         $("#info").on("click",".save-info",function () {
-            console.log("hh")
-            var section=$(this).parent().parent();
-            var pname=section.find("#projectTitle").val();  // 项目名称
-            var content=testEditor.getHTML();         // 项目介绍
-            var src_content=testEditor.getMarkdown();
-            var startTime=section.find("#projectTime").val(); // 立项时间
-            var type=section.find("#projectCategory").val();  // 项目类别
-            var major=section.find("#projectMajor").val(); // 项目专业
-            var picId=mainPicId;  // 封面图片id
+            let section=$(this).parent().parent();
+            let pname=section.find("#projectTitle").val();  // 项目名称
+            let content=testEditor.getHTML();         // 项目介绍
+            let src_content=testEditor.getMarkdown();
+            let startTime=section.find("#projectTime").val(); // 立项时间
+            let type=section.find("#projectCategory").val();  // 项目类别
+            let major=section.find("#projectMajor").val(); // 项目专业
+            let picId=mainPicId;  // 封面图片id
             if(pname && content && startTime && picId){
                 project.pname=pname;
                 project.content=content;
@@ -549,79 +563,77 @@
 
         $(".add").click(function () {
             // 确定添加的类别(), 项目信息只有一个且默认显示
-            var name=$(this).parent().parent().attr("id");
+            let name=$(this).parent().parent().attr("id");
+            console.log(name)
             // 根据类名选择要克隆的表单
-            var newForm=$("#input-form").find("."+name).clone(true);
+            let newForm=$("#input-form").find("."+name).clone(true);
             newForm.removeClass("hide");
             // 确定插入的位置，即div.result中
-            var aim=$(this).parent().next();
+            let aim=$(this).parent().next();
             // 插入
             aim.append(newForm);
         });
 
          // 提交/修改成员信息
-        $(".panel").on("click",".save-member",function () {
-            if(!pid){
-                alert("请先添加项目信息");
-            }else {
-                var item = $(this).parent().parent();
-                var member = {};
-                var name = item.find(".memberName").val();
-                var number = item.find(".memberNo").val();
-                var classId = item.find(".memberClass").val();
-                var grade = item.find(".memberGrade").val();
-                var major = item.find(".memberMajor").val();
-                var academy = item.find(".memberCollege").val();
-                member.name = name;
-                member.classId = classId;
-                member.number = number;
-                member.grade = grade;
-                member.major = major;
-                member.academy = academy;
-                var _this=$(this);
-                var mid;
-                if($(this).text()=="保存"){
-                    $.ajax({
-                        url: '/api/addProMember/1/' + pid,  // 学生是1
-                        data: JSON.stringify(member),
-                        dataType: 'json',
-                        type: 'post',
-                        success: function (info) {
-                            console.log(info);
-                            if(info.errorno==0){
-                                alert("保存成功，请继续添加");
-                                mid = info.data.mid;  // 该成员的id，修改时需要
-                                _this.text("修改");
-                                _this.attr("id",mid);
-                                // 取消按钮变成删除按钮
-                                _this.next().text("删除");
-                            }
-                        },
-                        error: function (info) {
-                            alert(info.msg);
+        $("#member").on("click",".save-member",function () {
+            let item = $(this).parent().parent();
+            let member = {};
+            let name = item.find(".memberName").val();
+            let number = item.find(".memberNo").val();
+            let classId = item.find(".memberClass").val();
+            let grade = item.find(".memberGrade").val();
+            let major = item.find(".memberMajor").val();
+            let academy = item.find(".memberCollege").val();
+            member.name = name;
+            member.classId = classId;
+            member.number = number;
+            member.grade = grade;
+            member.major = major;
+            member.academy = academy;
+            let _this=$(this);
+            let mid;
+            if($(this).text()=="保存"){
+                $.ajax({
+                    url: '/api/addProMember/1/' + pid,  // 学生是1
+                    data: JSON.stringify(member),
+                    dataType: 'json',
+                    type: 'post',
+                    success: function (info) {
+                        console.log(info);
+                        if(info.errorno==0){
+                            alert("保存成功，请继续添加");
+                            mid = info.data.mid;  // 该成员的id，修改时需要
+                            _this.text("修改");
+                            _this.attr("id",mid);
+                            // 取消按钮变成删除按钮
+                            _this.next().text("删除");
                         }
-                    })
-                };
-                if ($(this).text()=="修改") {  // 修改
-                    $.ajax({
-                        url:'/api/modifyProMember/'+_this.attr("id"),
-                        data: JSON.stringify(member),
-                        dataType: 'json',
-                        type: 'post',
-                        success:function (info) {
-                            if(info.errorno==0) {
-                                alert("修改成功");
-                           }
-                        }
-                    })
-                }
+                    },
+                    error: function (info) {
+                        alert(info.msg);
+                    }
+                })
+            };
+            if ($(this).text()=="修改") {  // 修改
+                $.ajax({
+                    url:'/api/modifyProMember/'+_this.attr("id"),
+                    data: JSON.stringify(member),
+                    dataType: 'json',
+                    type: 'post',
+                    success:function (info) {
+                        if(info.errorno==0) {
+                            alert("修改成功");
+                       }
+                    }
+                })
             }
+
         });
 
         // 取消/删除按钮
-        $(".panel").on("click",".cancel-member",function(){
-            var aim=$(this).parent().parent();  //当前输入框
-            var mid=$(this).prev().attr("id");
+        $("#panel").on("click",".cancel",function(){
+            let aim=$(this).parent().parent();  //当前输入框
+            let mid=$(this).prev().attr("id");
             // 取消即把当前输入框移除
             if($(this).text()=="取消"){
                 aim.remove();
@@ -643,64 +655,59 @@
 
 
         // 提交/修改指导老师信息
-        $(".panel").on("click",".save-teacher",function () {
-            if (!pid) {
-                alert("请先添加项目信息");
-            } else {
-                var item = $(this).parent().parent();
-                var teacher = {};
-                var name = item.find(".teacherName").val();
-                var major = item.find(".teacherMajor").val();
-                var academy = item.find(".teacherCollege").val();
-                teacher.name = name;
-                teacher.major = major;
-                teacher.academy = academy;
-                var _this = $(this);
-                var tid;
+        $("#teacher").on("click",".save-teacher",function () {
+            let item = $(this).parent().parent();
+            let teacher = {};
+            let name = item.find(".teacherName").val();
+            let major = item.find(".teacherMajor").val();
+            let academy = item.find(".teacherCollege").val();
+            teacher.name = name;
+            teacher.major = major;
+            teacher.academy = academy;
+            let _this = $(this);
+            let tid;
 
-                if ($(this).text() == "保存") {
-                    $.ajax({
-                        url: '/api/addProMember/0/' + pid,
-                        data: JSON.stringify(teacher),
-                        dataType: 'json',
-                        type: 'post',
-                        success: function (info) {
-                            if (info.errorno == 0) {
-                                alert("保存成功，请继续添加");
-                                tid = info.data.mid;
-                                _this.text("修改");
-                                _this.attr("id", tid);
-                                // 取消按钮变成删除按钮
-                                _this.next().text("删除");
-                            }
+            if ($(this).text() == "保存") {
+                $.ajax({
+                    url: '/api/addProMember/0/' + pid,
+                    data: JSON.stringify(teacher),
+                    dataType: 'json',
+                    type: 'post',
+                    success: function (info) {
+                        if (info.errorno == 0) {
+                            alert("保存成功，请继续添加");
+                            tid = info.data.mid;
+                            _this.text("修改");
+                            _this.attr("id", tid);
+                            // 取消按钮变成删除按钮
+                            _this.next().text("删除");
                         }
-                    });
-                }
-                if ($(this).text() == "修改") {
-                    $.ajax({
-                        url: '/api/modifyProMember/' + _this.attr("id"),
-                        data: JSON.stringify(teacher),
-                        dataType: 'json',
-                        type: 'post',
-                        success: function (info) {
-                            if (info.errorno == 0) {
-                                alert("修改成功");
-                            }
-                        }
-                    })
-                }
+                    }
+                });
             }
+            if ($(this).text() == "修改") {
+                $.ajax({
+                    url: '/api/modifyProMember/' + _this.attr("id"),
+                    data: JSON.stringify(teacher),
+                    dataType: 'json',
+                    type: 'post',
+                    success: function (info) {
+                        if (info.errorno == 0) {
+                            alert("修改成功");
+                        }
+                    }
+                })
+            }
+
         });
-
-
-
+        
         //添加奖项证书并预览
-        var certIdArr=[];
+        let certIdArr=[];
         $(".award").on("change",".certfile",function () {
-            var certPreview=$(this).parent().next().find(".certPreview");
-            var files=this.files;
-            var form=new FormData();
-            for(var i=0;i<files.length;i++){
+            let certPreview=$(this).parent().next().find(".certPreview");
+            let files=this.files;
+            let form=new FormData();
+            for(let i=0;i<files.length;i++){
                 form.append("pics",files[i]);
             }
             form.append("source", 2);
@@ -713,11 +720,11 @@
                 processData:false,
                 success:function (msg) {
                     console.log(msg);
-                    for(var i=0;i<msg.data.length;i++){
-                        var imgWrap=$("<div class='imgWrap'></div>");
-                        var certImg=$("<img id='"+msg.data[i].id+"'>");
+                    for(let i=0;i<msg.data.length;i++){
+                        let imgWrap=$("<div class='imgWrap'></div>");
+                        let certImg=$("<img id='"+msg.data[i].id+"'>");
                         certImg.attr("src",msg.data[i].url);
-                        var delBtn=$("<i class='icon-square icon-trash'></i>");
+                        let delBtn=$("<i class='icon-square icon-trash'></i>");
                         imgWrap.append(certImg);
                         imgWrap.append(delBtn);
                         certPreview.append(imgWrap);
@@ -729,8 +736,8 @@
 
         //删除证书图片
         $(".award").on("click",".icon-trash",function () {
-            var id=$(this).prev().attr("id");
-            var wrap=$(this).parent();
+            let id=$(this).prev().attr("id");
+            let wrap=$(this).parent();
             $.ajax({
                 url:"/api/deleteCertFile/"+id,
                 type:'get',
@@ -747,61 +754,57 @@
 
         // 提交/修改奖项
 
-        var awardId;
+        let awardId;
         $(".award").on("click",".save-award",function () {
-            var award={};
-            var awardItem=$(this).parent().parent();
+            let award={};
+            let awardItem=$(this).parent().parent();
             award.awardName=awardItem.find(".awardTitle").val();
             award.rank=awardItem.find(".awardCategory").val();
             award.awardTime=awardItem.find(".awardTime").val();
-            var _this=$(this);
-            if(!projectId){
-                alert("请先添加项目信息");
-            }else {
+            let _this=$(this);
 
-                if($(this).text()=="修改") {
-                    $.ajax({
-                        url: '/api/modifyProAward/' + _this.attr("id"),
-                        data: JSON.stringify(award),
-                        dataType: 'json',
-                        type: 'post',
-                        success: function (info) {
-                            if (info.errorno == 0) {
-                                alert("修改成功");
-                            }
+            if($(this).text()=="修改") {
+                $.ajax({
+                    url: '/api/modifyProAward/' + _this.attr("id"),
+                    data: JSON.stringify(award),
+                    dataType: 'json',
+                    type: 'post',
+                    success: function (info) {
+                        if (info.errorno == 0) {
+                            alert("修改成功");
                         }
-                    });
-                }
+                    }
+                });
+            }
 
-                if($(this).text()=="保存"){
-                    award.certids=certIdArr;
-                    $.ajax({
-                        url: '/api/addProAward/' + pid,
-                        data: JSON.stringify(award),
-                        dataType: 'json',
-                        type: 'post',
-                        success: function (info) {
-                            if(info.errorno==0){
-                                alert("保存成功，继续添加");
-                                awardId=info.data.id;
-                                _this.text("修改");
-                                _this.attr("id",awardId);
-                                // 取消按钮变成删除按钮
-                                _this.next().text("删除");
-                            }
-                        },
-                        error: function (info) {
-                            alert(info.msg)
+            if($(this).text()=="保存"){
+                award.certids=certIdArr;
+                $.ajax({
+                    url: '/api/addProAward/' + pid,
+                    data: JSON.stringify(award),
+                    dataType: 'json',
+                    type: 'post',
+                    success: function (info) {
+                        if(info.errorno==0){
+                            alert("保存成功，继续添加");
+                            awardId=info.data.id;
+                            _this.text("修改");
+                            _this.attr("id",awardId);
+                            // 取消按钮变成删除按钮
+                            _this.next().text("删除");
                         }
-                    })
-                }
+                    },
+                    error: function (info) {
+                        alert(info.msg)
+                    }
+                })
             }
         });
 
         // 取消/删除按钮
         $(".panel").on("click",".cancel-award",function(){
-            var aim=$(this).parent().parent();  //当前输入框
-            var awardId=$(this).prev().attr("id");
+            let aim=$(this).parent().parent();  //当前输入框
+            let awardId=$(this).prev().attr("id");
             // 取消即把当前输入框移除
             if($(this).text()=="取消"){
                 aim.remove();
@@ -823,7 +826,7 @@
         });
 
         // 提交审核
-        $("a#submit").click(function () {
+        $("#submit").click(function () {
             $.ajax({
                 url:'/api/submitProject/'+pid,
                 type: 'get',

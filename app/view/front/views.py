@@ -295,14 +295,18 @@ def manageProject(page,count):
 @front.route('/student/modifiesProject/<int:pid>')
 def modifiesProject(pid):
     project = projectService.getProjectByID(pid)
-    return render_template("tmp01/modifiesProject.html",project=project)
+    return render_template("tmp01/modifiesProject.html", project=project)
 
 """ 
 上传项目
 """
-@front.route('/student/uploadProject')
-def uploadProjectTmp():
-    return render_template("tmp01/addProject2.html")
+@front.route('/student/uploadProject',defaults={'pid':-1})
+@front.route('/student/uploadProject/<int:pid>')
+def uploadProjectTmp(pid):
+    if pid!=-1:
+        project = projectService.getProjectByID(pid)
+        return render_template("tmp01/modifiesProject.html", project=project)
+    return render_template("tmp01/addProject3.html")
 
 """ 
 新闻列表展示
