@@ -1,0 +1,300 @@
+{% extends 'tmp01/base.html' %}
+
+{% block page_name %}首页{% endblock %}
+
+{% block static_files %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='mdeditor/editormd.min.css')}}">
+
+<script src="{{url_for('static',filename='common.js')}}"></script>
+
+<style>
+    * {
+        box-sizing: border-box;
+    }
+    body{
+        background-color: #f6f6f8;
+    }
+    .projectContainer{
+        background-color: #fff;
+        padding:50px;
+        min-height: 900px;
+        margin: 0 0 60px 0;
+
+    }
+
+    .item-header{
+        height:60px;
+        line-height: 60px;
+        font-size:20px;
+        margin:20px 0;
+        border-bottom: 1px dotted #eee;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-weight: bold;
+    }
+
+    section.content input {
+        width: 220px;
+        height: 30px;
+    }
+
+    input#projectTitle {
+        width: 500px;
+    }
+
+    .tableRow{
+        display: flex;
+        width: 100%;
+        margin: 5px;
+    }
+
+    .tableRow .operate{
+        justify-content: flex-end;
+    }
+    .tableRow label{
+        display: inline-block;
+        flex-shrink: 0;
+        padding-right: 5px;
+        font-size: 14px;
+        font-weight: bold;
+        width: 10%;
+    }
+    .operate{
+        text-align: center;
+    }
+    .operate button {
+        font-size: 18px;
+        padding: 10px 15px;
+        border: 0px;
+        border-radius: 4px;
+        background-color: #eee;
+        color:#337e0a
+    }
+</style>
+
+{% endblock%}
+
+{% block body_part%}
+
+<!--项目表单-->
+<!--========================-->
+<div class="container">
+    <div class="row-fluid">
+        <div class="projectContainer">
+            <div style="display: flex;justify-content: space-between">
+                <p><a href="{{url_for('front.user')}}">个人中心</a>/上传项目</p>
+            </div>
+            <div class="panel">
+                <div class="info">
+                    <div class="item-header">
+                        <div class="left">项目信息</div>
+                    </div>
+                    <div class="result">
+                        <!--项目信息-->
+                        <div id="info" class="content">
+                            <div class="tableRow">
+                                <label>项目名称*</label>
+                                <input type="text" placeholder="请输入项目名称" id="projectTitle">
+                            </div>
+                            <div class="tableRow">
+                                <label>项目介绍*</label>
+                                <div id="markdown">
+                                    <textarea class="editormd-markdown-textarea" name="markdown-markdown-doc">### 项目名称### 项目介绍</textarea>
+                                </div>
+                            </div>
+                            <div class="tableRow">
+                                <label>封面图片*</label>
+                                <input type="file" id="mainPic">
+                            </div>
+                            <div class="tableRow">
+                                <label></label>
+                                <div style="width:300px;height:200px;background-color: #aaa">
+                                    <img id="mainPicPreview" style="width:300px;height:200px">
+                                </div>
+                            </div>
+                            <div class="tableRow">
+                                <label>立项时间*</label>
+                                <input type="date" id="projectTime">
+                            </div>
+                            <div class="tableRow">
+                                <label>项目专业*</label>
+                                <select id="projectMajor">
+                                    <option value="1">通信工程</option>
+                                    <option value="2">信息工程</option>
+                                    <option value="3">电子信息工程</option>
+                                </select>
+                            </div>
+                            <div class="tableRow">
+                                <label>项目类别*</label>
+                                <select id="projectCategory">
+                                    <option value="1">App开发/微信小程序开发</option>
+                                    <option value="2">通信/网络</option>
+                                    <option value="3">软件系统</option>
+                                    <option value="4">硬件系统</option>
+                                    <option value="5">视频/图像</option>
+                                    <option value="6">大数据/机器学习</option>
+                                </select>
+                            </div>
+                            <div class='operate'>
+                                <button id='save-info'>保存</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="member">
+                    <div class="item-header">
+                        <div class="left">成员信息</div>
+                        <i class="icon-rounded icon-plus add right"></i>
+                    </div>
+                </div>
+                <div id="teacher">
+                    <div class="item-header">
+                        <div class="left">指导老师信息</div>
+                        <i class="icon-rounded icon-plus add right"></i>
+                    </div>
+                </div>
+                <div id="award">
+                    <div class="item-header">
+                        <div class="left">获奖信息</div>
+                        <i class="icon-rounded icon-plus add right"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{% endblock%}
+
+{% block js_files%}
+<script src="{{ url_for('static',filename='mdeditor/editormd.js')}}"></script>
+<script type="text/javascript">
+    $(function () {
+
+        //markdown编辑器设置
+        var testEditor;
+
+        testEditor = editormd("markdown", {
+            syncScrolling: "single",
+            saveHTMLToTextarea: true,
+            height: 700,
+            path: "{{url_for('static',filename='mdeditor/lib/')}}",
+            //启动本地图片上传功能
+            imageUpload: true,
+            imageFormats: ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+            imageUploadURL: "{{url_for('common.markdown_upload')}}",
+            watch:true
+        });
+
+        // 项目信息只有一个，默认显示，不能添加，只能保存和修改
+        // 提交项目信息，只有提交了项目信息后续才能添加项目成员
+
+        // 首先要上传封面图片并预览
+        var mainPicId;  // 提交后返回的封面图片的id
+        var mainPicUrl;
+        $(".panel").on("change","#mainPic",function () {
+            var mainPicPreview=$(this).parent().next().find("#mainPicPreview");
+            var file=this.files[0];
+            var form=new FormData();
+            form.append("pics", file);
+            form.append("source", 1);  // 封面图片的source为1
+            if(mainPicId){    // 已经上传过，现在是修改
+                form.append("source_id",mainPicId);
+                $.ajax({
+                    url:'/api/modifyMainPic/'+mainPicId,
+                    data:form,
+                    type: 'post',
+                    dataType: 'json',
+                    contentType:false,
+                    processData:false,
+                    success: function (info) {
+                        // 响应成功且没有错误
+                        if(info.errorno==0){
+                            mainPicUrl=info.data.url;
+                            mainPicPreview.attr("src",mainPicUrl);
+                        }
+                    },
+                    error: function (info) {
+                        alert(info.msg);
+                    }
+                });
+            }else{
+                $.ajax({
+                    url:'/api/addPic',
+                    data:form,
+                    type: 'post',
+                    dataType: 'json',
+                    contentType:false,
+                    processData:false,
+                    success: function (info) {
+                        if(info.errorno==0){
+                            mainPicUrl=info.data[0].url;
+                            mainPicPreview.attr("src",mainPicUrl);
+                            mainPicId=info.data[0].id;
+                        }
+                    },
+                    error: function (info) {
+                        alert(info.msg);
+                    }
+                });
+            }
+        });
+
+        // 提交项目信息
+        var projectId;
+        var project={};
+        $(".panel").on("click","#save-info",function () {
+            var _this=$(this);
+            var section=$(this).parent().parent();
+            var pname=section.find("#projectTitle").val();  // 项目名称
+            var content=testEditor.getHTML();         // 项目介绍
+            var src_content=testEditor.getMarkdown();
+            var startTime=section.find("#projectTime").val(); // 立项时间
+            var type=section.find("#projectCategory").val();  // 项目类别
+            var major=section.find("#projectMajor").val(); // 项目专业
+            var picId=mainPicId;  // 封面图片id
+            if(pname && content && startTime && picId){
+                project.pname=pname;
+                project.content=content;
+                project.src_content=src_content;
+                project.startTime=startTime;
+                project.type=type;
+                project.major=major;
+                project.mainPicId=picId;
+                $.ajax({
+                    url: '/api/addPro',
+                    data: JSON.stringify(project),
+                    type: 'post',
+                    dataType: 'json',
+                    success: function (info) {
+                        // 正确响应后，弹出保存成功信息，保存按钮变更为修改按钮
+                        if(info.errorno==0){
+                            alert("保存成功，请继续添");
+                            projectId = info.data.pid;
+                            // _this.text("修改");
+                            window.location.href="/student/uploadProject/"+projectId
+                        }
+                    },
+                    error: function(info){
+                        alert(info.msg);
+                    }
+                });
+            } else{
+                alert("请填写必填项");
+            }
+        });
+
+
+        // 添加按钮，可以多个添加的类别为项目成员/老师/奖项，项目信息默认只有一个
+        // 确定被添加的类别，确定插入的位置，克隆相应的输入框，然后插入到指定位置
+
+        $(".add").click(function () {
+            alert("请先添加项目信息")
+        });
+
+    })
+</script>
+
+{% endblock %}
