@@ -35,7 +35,7 @@ def uploadNew():
     type = request.form.get('type')
     operate = request.form.get('operate')
     attachments = request.files.getlist("attachment")
-
+    #todo:需处理是否置顶
     if operate == '0':
         #代表添加新闻
         new = New(title, content, src_content)

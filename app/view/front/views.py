@@ -167,16 +167,16 @@ def submitProject(pid):
 """ 
 导出获奖信息
 """
-# @front.route('/api/downloadAwardInfo',methods=['GET'])
-# def downloadAwardInfo():
-#     startTime = request.args.get('startTime',default=None)
-#     endTime = request.args.get('endTime', default=None)
-#     academy = request.args.get('major', default = 0)
-#     filename = projectService.downProAwardInfo(startTime,endTime,academy)
-#
-#     return json.dumps(MessageInfo.success(msg='保存成功',data={
-#         'url': url_for('common.file', name=filename),
-#     }).__dict__)
+@front.route('/api/downloadAwardInfo',methods=['GET'])
+def downloadAwardInfo():
+    startTime = request.args.get('startTime',default=None)
+    endTime = request.args.get('endTime', default=None)
+    academy = request.args.get('major', default = 0)
+    filename = projectService.downProAwardInfo(startTime,endTime,academy)
+
+    return json.dumps(MessageInfo.success(msg='保存成功',data={
+        'url': url_for('common.zip', name=filename),
+    }).__dict__)
 
 
 """ 
@@ -259,6 +259,13 @@ def activate(token):
 学生撤销审核中的项目
 """
 @front.route('/api/student/undoPro',methods=['POST'])
+def stuUodoPro():
+    data = json.loads(request.get_data(as_text=True))
+    pid = data["pid"]
+    if pid is None:
+        return json.dumps(MessageInfo.fail(msg="pid不能为空").__dict__)
+    projectService.stuUndoPro(pid)
+    return json.dumps(MessageInfo.success(msg="撤销成功").__dict__)
 def stuUodoPro():
     data = json.loads(request.get_data(as_text=True))
     pid = data["pid"]
