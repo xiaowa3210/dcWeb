@@ -36,6 +36,7 @@ from app.model.entity import Project, ProjectMember, ProjectAward, ProjectStatus
 from app import db2
 from app.service.CommonService import CommonService
 from app.service.FileServiceV2 import FilesService
+from app.utils.ZipUtil import compress_listfiles
 from app.utils.utils import mapGet
 import xlwt
 
@@ -447,7 +448,8 @@ class ProjectService:
 
     def submitPro(self, pid):
         updateContent = {
-            'status': 2,  # 将其修改成未提交的状态
+            'status': 2,                     # 将其修改成未提交的状态
+            'submitTime':datetime.now()
         }
         self.updateProStatusByPid(updateContent, pid)
 
@@ -606,14 +608,14 @@ class ProjectService:
         award = json2ProAward(data)
         award.pid = pid
         db2.session.add(award)
+        db2.session.commit()
         certids = data['certids']
         if certids:
             for id in certids:
                 db2.session.query(Files).filter(Files.fid == id,Files.delete_flag == 0).update({
                     'source_id': award.id
                 })
-        db2.session.commit()
-        print(award.id)
+                db2.session.commit()
         return award.id
 
 
@@ -758,15 +760,15 @@ class ProjectService:
         sql = "select p.pid from dc_project_status_info AS p INNER JOIN dc_project_award AS a on p.pid = a.pid"
         where = ""
         if startTime and endTime and academy != 0:
-            where += ' where a.awardTime >= ' + str(startTime) + 'and  a.awardTime <=' + str(
-                endTime) + 'and p.academy =' + str(academy)
+            where += ' where a.awardTime >= ' + "'" +str(startTime) + "'" + ' and a.awardTime <=' + "'" + str(
+                endTime) + "'" + ' and p.academy =' + str(academy)
         elif startTime and endTime:
-            where += ' where a.awardTime >= ' + str(startTime) + 'and  a.awardTime <=' + str(endTime)
+            where += ' where a.awardTime >= ' + str(startTime) + ' and a.awardTime <=' + str(endTime)
         elif academy != 0:
             where += ' where p.major =' + str(academy)
         sql += where
+        print(sql)
         result = db2.session.execute(sql).fetchall()
-
         ids = [row['pid'] for row in result]
         print(ids)
         db2.session.commit()
@@ -799,7 +801,7 @@ class ProjectService:
 
         finalfilename = str(uuid.uuid1()).replace("-", "")+".zip"
         zippath = os.path.join(UPLOAD_ZIP_PATH,finalfilename)
-        # compress_listfiles(zippath,files)
+        compress_listfiles(zippath,files)
         return finalfilename
 
 
@@ -855,5 +857,5 @@ def packCertPic(aid):
     certpicPath = [os.path.join(UPLOAD_PICS_PATH, p.path) for p in certpic]
     filename = str(uuid.uuid1()).replace("-", "") + ".zip"
     zippath = os.path.join(UPLOAD_ZIP_PATH, filename)
-    # compress_listfiles(zippath,certpicPath)
+    compress_listfiles(zippath,certpicPath)
     return filename,zippath
