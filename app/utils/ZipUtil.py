@@ -1,7 +1,8 @@
 import os
 import shutil
 import zipfile
-from definitions import ROOT_DIR
+# from definitions import ROOT_DIR
+ROOT_DIR='D:/web/dcWeb/dcWeb/rootdir'
 
 #打包单个文件
 def compress_singlefile(zipName,filename):

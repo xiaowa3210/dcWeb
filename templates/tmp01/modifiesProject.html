@@ -128,8 +128,28 @@
     <div class="row-fluid">
         <div class="projectContainer">
             <div style="display: flex;justify-content: space-between">
-                <p><a href="{{url_for('front.user')}}">个人中心</a>/修改项目</p>
+                <p><a href="{{url_for('front.user')}}">个人中心</a></p>
+                {% if  project.status.msg %}
+                <p><button type="button" data-toggle="modal" data-target="#myModal">查看审核意见</button></p>
+                {% endif %}
             </div>
+
+            <!-- 模态框 -->
+            <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 id="myModalLabel">Modal header</h3>
+              </div>
+              <div class="modal-body">
+                <p>One fine body…</p>
+              </div>
+              <div class="modal-footer">
+                <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+                <button class="btn btn-primary">Save changes</button>
+              </div>
+            </div>
+
+
             <div id="panel">
                 <div id="info">
                     <div class="item-header">
@@ -162,11 +182,11 @@
                             </div>
                             <div class="tableRow">
                                 <label>立项时间*</label>
-                                <input type="date" id="projectTime" value="{{project.status.startTime}}">
+                                <input type="date" id="projectTime" value="{{project.status.pro_startTime}}">
                             </div>
                             <div class="tableRow">
                                 <label>项目专业*</label>
-                                <select id="projectMajor" value="{{project.status.major}}">
+                                <select id="projectMajor">
                                     <option value="1">通信工程</option>
                                     <option value="2">信息工程</option>
                                     <option value="3">电子信息工程</option>
@@ -174,7 +194,7 @@
                             </div>
                             <div class="tableRow">
                                 <label>项目类别*</label>
-                                <select id="projectCategory" value="{{project.status.type}}">
+                                <select id="projectCategory">
                                     <option value="1">App开发/微信小程序开发</option>
                                     <option value="2">通信/网络</option>
                                     <option value="3">软件系统</option>
@@ -198,7 +218,7 @@
                         {% for member in project.members %}
                             {% if member.type==1 %}
                             <section class="content member">
-                                <div class="tableRow">
+                                <div class="lists">
                                     <div class="item">
                                         <label>姓名</label>
                                         <input type="text" class="memberName" value="{{member.name}}">
@@ -212,7 +232,7 @@
                                         <input type="text" class="memberClass" value="{{member.classId}}">
                                     </div>
                                 </div>
-                                <div class="tableRow">
+                                <div class="lists">
                                     <div class="item">
                                         <label>年级</label>
                                         <input type="text" class="memberGrade" value="{{member.grade}}">
@@ -223,20 +243,21 @@
                                     </div>
                                     <div class="item">
                                         <label>学院</label>
-                                        <select class="memberCollege" name="memberCollege" value="{{member.academy}}">
-                                            <option value="信息与通信工程学院">信息与通信工程学院</option>
-                                            <option value="电子工程学院">电子工程学院</option>
-                                            <option value="数字媒体与设计艺术学院">数字媒体与设计艺术学院</option>
-                                            <option value="自动化学院">自动化学院</option>
-                                            <option value="软件学院">软件学院</option>
-                                            <option value="经济管理学院">经济管理学院</option>
-                                            <option value="理学院">理学院</option>
-                                            <option value="人文学院">人文学院</option>
-                                            <option value="公共管理学院">公共管理学院</option>
-                                            <option value="国际学院">国际学院</option>
-                                            <option value="网络教育学院">网络教育学院</option>
-                                            <option value="民族教育学院和马克思主义教学与研究中心">民族教育学院和马克思主义教学与研究中心</option>
-                                        </select>
+                                        <input type="text" class="memberAcademy" value="{{member.academy}}">
+                                        <!--<select class="memberCollege" name="memberCollege" value="{{member.academy}}">-->
+                                            <!--<option value="信息与通信工程学院">信息与通信工程学院</option>-->
+                                            <!--<option value="电子工程学院">电子工程学院</option>-->
+                                            <!--<option value="数字媒体与设计艺术学院">数字媒体与设计艺术学院</option>-->
+                                            <!--<option value="自动化学院">自动化学院</option>-->
+                                            <!--<option value="软件学院">软件学院</option>-->
+                                            <!--<option value="经济管理学院">经济管理学院</option>-->
+                                            <!--<option value="理学院">理学院</option>-->
+                                            <!--<option value="人文学院">人文学院</option>-->
+                                            <!--<option value="公共管理学院">公共管理学院</option>-->
+                                            <!--<option value="国际学院">国际学院</option>-->
+                                            <!--<option value="网络教育学院">网络教育学院</option>-->
+                                            <!--<option value="民族教育学院和马克思主义教学与研究中心">民族教育学院和马克思主义教学与研究中心</option>-->
+                                        <!--</select>-->
                                     </div>
                                 </div>
                                 <div class='operate'>
@@ -257,31 +278,32 @@
                     {% for member in project.members %}
                         {% if member.type==0 %}
                         <section class="teacher content">
-                            <div class="tableRow">
-                                <div>
+                            <div class="lists">
+                                <div class="item">
                                     <label>姓名</label>
                                     <input type="text" class="teacherName" value="{{member.name}}">
                                 </div>
-                                <div>
+                                <div class="item">
                                     <label>专业</label>
-                                    <input type="text" class="teacherMajor" value="major">
+                                    <input type="text" class="teacherMajor" value="{{member.major}}">
                                 </div>
-                                <div>
+                                <div class="item">
                                     <label>学院</label>
-                                    <select class="teacherCollege" value="{{member.academy}}">
-                                        <option value="信息与通信工程学院">信息与通信工程学院</option>
-                                        <option value="电子工程学院">电子工程学院</option>
-                                        <option value="数字媒体与设计艺术学院">数字媒体与设计艺术学院</option>
-                                        <option value="自动化学院">自动化学院</option>
-                                        <option value="软件学院">软件学院</option>
-                                        <option value="经济管理学院">经济管理学院</option>
-                                        <option value="理学院">理学院</option>
-                                        <option value="人文学院">人文学院</option>
-                                        <option value="公共管理学院">公共管理学院</option>
-                                        <option value="国际学院">国际学院</option>
-                                        <option value="网络教育学院">网络教育学院</option>
-                                        <option value="民族教育学院和马克思主义教学与研究中心">民族教育学院和马克思主义教学与研究中心</option>
-                                    </select>
+                                    <input type="text" class="teacherAcademy" value="{{member.academy}}">
+                                    <!--<select class="teacherCollege" value="{{member.academy}}">-->
+                                        <!--<option value="信息与通信工程学院">信息与通信工程学院</option>-->
+                                        <!--<option value="电子工程学院">电子工程学院</option>-->
+                                        <!--<option value="数字媒体与设计艺术学院">数字媒体与设计艺术学院</option>-->
+                                        <!--<option value="自动化学院">自动化学院</option>-->
+                                        <!--<option value="软件学院">软件学院</option>-->
+                                        <!--<option value="经济管理学院">经济管理学院</option>-->
+                                        <!--<option value="理学院">理学院</option>-->
+                                        <!--<option value="人文学院">人文学院</option>-->
+                                        <!--<option value="公共管理学院">公共管理学院</option>-->
+                                        <!--<option value="国际学院">国际学院</option>-->
+                                        <!--<option value="网络教育学院">网络教育学院</option>-->
+                                        <!--<option value="民族教育学院和马克思主义教学与研究中心">民族教育学院和马克思主义教学与研究中心</option>-->
+                                    <!--</select>-->
                                 </div>
                             </div>
                             <div class='operate'>
@@ -301,32 +323,58 @@
                     <div class="result">
                         {% for award in project.awards %}
                         <section class="content award">
-                            <div class="tableRow">
-                                    <label>奖项名称</label>
-                                    <input type="text" class="awardTitle" value="{{award.awardName}}">
-                                </div>
-                            <div class="tableRow">
+                            <div class="lists">
+                                <label>奖项名称</label>
+                                <input type="text" class="awardTitle" value="{{award.awardName}}">
+                            </div>
+                            <div class="lists">
+                                <div class="item">
                                     <label>获奖时间</label>
                                     <input type="date" class="awardTime" value="{{award.awardTime}}">
                                 </div>
-                            <div class="tableRow">
+                                <div class="item">
                                     <label>奖项级别</label>
-                                    <select class="awardCategory" value="{{award.rank}}">
-                                        <option value="1">国际型比赛</option>
+                                    <select class="awardCategory">
+                                        {% if award.rank==1 %}
+                                        <option value="1" selected>国际型比赛</option>
                                         <option value="2">国家型比赛</option>
                                         <option value="3">省部型比赛</option>
                                         <option value="4">校内比赛</option>
+                                        {% endif %}
+                                        {% if award.rank==2 %}
+                                        <option value="1">国际型比赛</option>
+                                        <option value="2" selected>国家型比赛</option>
+                                        <option value="3">省部型比赛</option>
+                                        <option value="4">校内比赛</option>
+                                        {% endif %}
+                                        {% if award.rank==3 %}
+                                        <option value="1">国际型比赛</option>
+                                        <option value="2" selected>国家型比赛</option>
+                                        <option value="3">省部型比赛</option>
+                                        <option value="4">校内比赛</option>
+                                        {% endif %}
+                                        {% if award.rank==4 %}
+                                        <option value="1">国际型比赛</option>
+                                        <option value="2">国家型比赛</option>
+                                        <option value="3">省部型比赛</option>
+                                        <option value="4" selected>校内比赛</option>
+                                        {% endif %}
                                     </select>
                                 </div>
-                            <div class="tableRow">
+                            </div>
+                            <div class="lists">
                                 <label>奖项证书</label>
                                 <input type="file" multiple class="certfile">
                             </div>
-                            <div class="tableRow">
+                            <div class="lists">
                                 <label></label>
                                 <div class="certPreview">
                                     {% for i in award.pics %}
-                                    <img src="{{ url_for('common.image',name=i.url) }}">
+                                    <div class="imgWrap">
+                                        <img src="{{ i.url }}">
+                                        <i class='icon-square icon-trash'></i>
+                                    </div>
+
                                     {% endfor %}
                                 </div>
                             </div>
@@ -373,20 +421,21 @@
                 </div>
                 <div class="item">
                     <label>学院</label>
-                    <select class="memberCollege" name="memberCollege">
-                        <option value="信息与通信工程学院">信息与通信工程学院</option>
-                        <option value="电子工程学院">电子工程学院</option>
-                        <option value="数字媒体与设计艺术学院">数字媒体与设计艺术学院</option>
-                        <option value="自动化学院">自动化学院</option>
-                        <option value="软件学院">软件学院</option>
-                        <option value="经济管理学院">经济管理学院</option>
-                        <option value="理学院">理学院</option>
-                        <option value="人文学院">人文学院</option>
-                        <option value="公共管理学院">公共管理学院</option>
-                        <option value="国际学院">国际学院</option>
-                        <option value="网络教育学院">网络教育学院</option>
-                        <option value="民族教育学院和马克思主义教学与研究中心">民族教育学院和马克思主义教学与研究中心</option>
-                    </select>
+                    <input type="text" class="memberAcademy">
+                    <!--<select class="memberCollege" name="memberCollege">-->
+                        <!--<option value="信息与通信工程学院">信息与通信工程学院</option>-->
+                        <!--<option value="电子工程学院">电子工程学院</option>-->
+                        <!--<option value="数字媒体与设计艺术学院">数字媒体与设计艺术学院</option>-->
+                        <!--<option value="自动化学院">自动化学院</option>-->
+                        <!--<option value="软件学院">软件学院</option>-->
+                        <!--<option value="经济管理学院">经济管理学院</option>-->
+                        <!--<option value="理学院">理学院</option>-->
+                        <!--<option value="人文学院">人文学院</option>-->
+                        <!--<option value="公共管理学院">公共管理学院</option>-->
+                        <!--<option value="国际学院">国际学院</option>-->
+                        <!--<option value="网络教育学院">网络教育学院</option>-->
+                        <!--<option value="民族教育学院和马克思主义教学与研究中心">民族教育学院和马克思主义教学与研究中心</option>-->
+                    <!--</select>-->
                 </div>
             </div>
             <div class='operate'>
@@ -407,20 +456,21 @@
                 </div>
                 <div class="item">
                     <label>学院</label>
-                    <select class="teacherCollege">
-                        <option value="信息与通信工程学院">信息与通信工程学院</option>
-                        <option value="电子工程学院">电子工程学院</option>
-                        <option value="数字媒体与设计艺术学院">数字媒体与设计艺术学院</option>
-                        <option value="自动化学院">自动化学院</option>
-                        <option value="软件学院">软件学院</option>
-                        <option value="经济管理学院">经济管理学院</option>
-                        <option value="理学院">理学院</option>
-                        <option value="人文学院">人文学院</option>
-                        <option value="公共管理学院">公共管理学院</option>
-                        <option value="国际学院">国际学院</option>
-                        <option value="网络教育学院">网络教育学院</option>
-                        <option value="民族教育学院和马克思主义教学与研究中心">民族教育学院和马克思主义教学与研究中心</option>
-                    </select>
+                    <input type="text" class="teacherAcademy">
+                    <!--<select class="teacherCollege">-->
+                        <!--<option value="信息与通信工程学院">信息与通信工程学院</option>-->
+                        <!--<option value="电子工程学院">电子工程学院</option>-->
+                        <!--<option value="数字媒体与设计艺术学院">数字媒体与设计艺术学院</option>-->
+                        <!--<option value="自动化学院">自动化学院</option>-->
+                        <!--<option value="软件学院">软件学院</option>-->
+                        <!--<option value="经济管理学院">经济管理学院</option>-->
+                        <!--<option value="理学院">理学院</option>-->
+                        <!--<option value="人文学院">人文学院</option>-->
+                        <!--<option value="公共管理学院">公共管理学院</option>-->
+                        <!--<option value="国际学院">国际学院</option>-->
+                        <!--<option value="网络教育学院">网络教育学院</option>-->
+                        <!--<option value="民族教育学院和马克思主义教学与研究中心">民族教育学院和马克思主义教学与研究中心</option>-->
+                    <!--</select>-->
                 </div>
             </div>
             <div class='operate'>
@@ -472,6 +522,16 @@
 <script src="{{ url_for('static',filename='mdeditor/editormd.min.js')}}"></script>
 <script type="text/javascript">
     $(function () {
+
+        // 项目专业回显
+        const majorData={{project.status.major}};
+        // $("#projectMajor").find("option")[majorData-1].attr("selected")
+       $("#projectMajor").val(majorData);
+
+        // 项目类别回显
+        const typeData={{project.type}};
+        $("#projectCategory").val(typeData);
+
 
         //markdown编辑器设置
         let testEditor;
@@ -564,7 +624,6 @@
         $(".add").click(function () {
             // 确定添加的类别(), 项目信息只有一个且默认显示
             let name=$(this).parent().parent().attr("id");
-            console.log(name)
             // 根据类名选择要克隆的表单
             let newForm=$("#input-form").find("."+name).clone(true);
             newForm.removeClass("hide");
@@ -583,7 +642,7 @@
             let classId = item.find(".memberClass").val();
             let grade = item.find(".memberGrade").val();
             let major = item.find(".memberMajor").val();
-            let academy = item.find(".memberCollege").val();
+            let academy = item.find(".memberAcademy").val();
             member.name = name;
             member.classId = classId;
             member.number = number;
@@ -660,7 +719,7 @@
             let teacher = {};
             let name = item.find(".teacherName").val();
             let major = item.find(".teacherMajor").val();
-            let academy = item.find(".teacherCollege").val();
+            let academy = item.find(".teacherAcademy").val();
             teacher.name = name;
             teacher.major = major;
             teacher.academy = academy;
@@ -764,6 +823,7 @@
             let _this=$(this);
 
             if($(this).text()=="修改") {
+                award.source_id=awardId
                 $.ajax({
                     url: '/api/modifyProAward/' + _this.attr("id"),
                     data: JSON.stringify(award),

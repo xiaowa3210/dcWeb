@@ -84,8 +84,8 @@
                        <table class="table table-condensed" >
                            <tbody>
                                 <tr>
-                                    <td width="50%"><i class="icon-user"></i><span>{{project.publisher}}</span></td>
-                                    <td style="text-align: right" class="time"><i class="icon-calendar"></i><span>{{project.submitTime}}</span></td>
+                                    <td width="50%"><i class="icon-user"></i><span>{{project.status.publisher}}</span></td>
+                                    <td style="text-align: right" class="time"><i class="icon-calendar"></i><span>{{project.status.submitTime}}</span></td>
                                 </tr>
                            </tbody>
                        </table>
@@ -163,10 +163,9 @@
             data.endTime=$("#endTime").val();
             data.type=$("#projectCategory").val();
             $.ajax({
-                url:'/projects',
-                data:data,
+                url:`/projects?major=${data.major}&startTime=${data.startTime}&endTime=${data.endTime}&type=${data.type}`,
                 type:'get',
-                success:function () {-
+                success:function () {
                     console.log("hhh");
                     window.location.href="{{url_for('front.projects')}}"
                 }

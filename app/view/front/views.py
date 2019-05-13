@@ -430,7 +430,7 @@ def home():
 @front.route("/user/<int:page>/<int:count>")
 def user(page,count):
     pagination,project = projectService.getProByStudentId(page,count)
-    return render_template("tmp01/user.html", pagination=pagination, project=project)
+    return render_template("tmp01/user2.html", pagination=pagination, project=project)
 
 @front.route("/student/login")
 def stu_login():

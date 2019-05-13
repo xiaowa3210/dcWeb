@@ -7,14 +7,14 @@
     <div class="container">
         <div class="row-fluid">
             <div style="display: flex;justify-content: space-between">
-                <p><a href="{{url_for('front.user')}}">个人中心</a>/修改项目</p>
+                <p><a href="{{url_for('front.user')}}">个人中心</a></p>
             </div>
         </div>
         <div class="row-fluid">
             <div class="span9">
                 <div>
                     <h2>{{project.pname}}</h2>
-                    <p>{{project.content|safe }}</p>
+                    <p>{{project.content }}</p>
                 </div>
                 <div>荣获奖项</div>
             </div>
@@ -40,9 +40,9 @@
                         <p>大数据/机器学习</p>
                     {% endif %}
                     <h4>项目专业</h4>
-                    <p>{{project.major}}</p>
+                    <p>{{project.status.major}}</p>
                     <h4>立项时间</h4>
-                    <p>{{ project.startTime }}</p>
+                    <p>{{ project.status.startTime }}</p>
                     <h4>项目成员</h4>
                     {% for member in project.members %}
                         {% if member.type==1 %}    <!--学生类型1-->
@@ -64,7 +64,7 @@
                         <p><span>{{ award.rank }}</span></p>
                         <p>
                             {% for i in award.pics %}
-                            <img height="200" src="{{ url_for('common.image',name=i.url) }}" alt="">
+                            <img height="200" src="{{i.url}}" alt="">
                             {% endfor %}
                         </p>
                     {% endfor %}
