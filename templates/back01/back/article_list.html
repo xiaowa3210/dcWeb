@@ -42,6 +42,7 @@
                         <tbody>
                         <tr>
                             <th></i>标题</th>
+                            <th>是否置顶</th>
                             <th>创建人</th>
                             <th>发布人</th>
                             <th>最后修改人</th>
@@ -54,16 +55,21 @@
                         {% for article in news %}
                         <tr articleId="{{article.nid}}">
                             <td width="200">{{article.title}}</td>
+                            {% if article.isTop == 1 %}
+                                <td>置顶</td>
+                            {% elif article.isTop == 0%}
+                                <td>未置顶</td>
+                                {% endif %}
                             <td>{{article.creater}}</td>
                             <td>{{article.publisher}}</td>
                             <td>{{article.modifier}}</td>
-                            <td>{{article.create_time}}</td>
-                            <td>{{article.publisherTime}}</td>
+                            <td>{{article.createTime}}</td>
+                            <td>{{article.createTime}}</td>
                             <td>{{article.modifiedTimee}}</td>
-                            {% if article.status == 0 %}
-                                <td>未发布</td>
-                            {% elif article.status == 1%}
-                                <td>已发布</td>
+                            {% if article.status == 1 %}
+                                <td>未提交</td>
+                            {% elif article.status == 2%}
+                                <td>审核中</td>
                             {% elif article.status == 3 %}
                                 <td>已发布</td>
                             {% endif %}

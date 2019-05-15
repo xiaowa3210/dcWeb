@@ -35,6 +35,11 @@ def uploadNew():
     type = request.form.get('type')
     operate = request.form.get('operate')
     attachments = request.files.getlist("attachment")
+    isTop = request.form.get('radio');
+    # if isTop=='置顶':
+    #     print("置顶")
+    # else:
+    #     print("不置顶")
     #todo:需处理是否置顶
     if operate == '0':
         #代表添加新闻
