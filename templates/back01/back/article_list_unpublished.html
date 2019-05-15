@@ -75,15 +75,17 @@
                             <td>
                                 <div class="btn-group">
                                      {% if session.admin.type == 2 %}
+                                      {% if article.status != 2 %}
                                     <button class="btn btn-success" ><a href="{{url_for('back.modifiesNews',nid=article.nid)}}">修改</a></button>
                                      {% endif %}
+                                    {% endif %}
                                     <!--<a class="btn btn-primary" href="{{url_for('back.modifiesNews',nid = article.nid)}}"><i class="icon_plus_alt2">修改</i></a>-->
                                     <!--<a class="btn btn-danger delete"  p_id="{{article.nid}}" ><i class="icon_close_alt2">删除</i></a>-->
                                       <button class="btn btn-danger delete" id="delete" p_id="{{article.nid}}">删除</button>
-                                      {% if article.status == 0 %}
+                                      {% if article.status == 1 %}
                                       <button class="btn btn-success publish"   id="publish" p_id="{{article.nid}}">发布</button>
                                 <!--<a class="btn btn-primary" href="{{url_for('back.releaseNew',nid = article.nid)}}"><i class="icon_plus_alt2">发布</i></a>-->
-                            {% elif article.status == 1%}
+                            {% elif article.status == 3%}
                                     <button class="btn btn-danger chehui"   id="chehui" p_id="{{article.nid}}">撤销</button>
                                 <!--<a class="btn btn-danger" href="{{url_for('back.undoNew',nid = article.nid)}}"><i class="icon_close_alt2">撤销</i></a>-->
                              {% endif %}
