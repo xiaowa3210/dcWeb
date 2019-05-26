@@ -312,11 +312,11 @@ def insertUser():
 """
 @back.route("/admin/checkproject/<int:pid>")
 def checkProject(pid):
-    project = projectService.getProStatusByPid(pid)
+    project = projectService.getProjectByID(pid)
     #若是未提交状态管理员就没必要查看其内容
-    if project.status == 1 or project.delete_flag == 1:
-        project = None
-    return render_template("back01/back/checkproject.html",project=project.project)
+    # if project.status == 1 or project.delete_flag == 1:
+    #     project = None
+    return render_template("back01/back/checkproject.html",project=project)
 
 """ 
 审核项目列表
