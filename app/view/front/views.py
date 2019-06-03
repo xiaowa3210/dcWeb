@@ -339,7 +339,7 @@ def new(news_id):
 @front.route('/downloadfile',defaults={'page':1,'count':10})
 @front.route('/downloadfile/<int:page>/<int:count>')
 def downloadFile(page,count):
-    pagination, files = filesService.getFilesBySource(page, count, '0')
+    pagination, files = filesService.getFilesBySource(page, count, '4')
     return render_template("tmp01/downlink.html", pagination=pagination, files=files)
 
 """ 
@@ -369,9 +369,6 @@ def projects(page,count):
 @front.route("/project/<int:pid>")
 def project(pid):
     project = projectService.getProjectByID(pid)
-    awards = project.awards
-    for a in awards:
-        a.pics = json.loads(a.certPic)
     return render_template("tmp01/projects-detail.html",project=project)
 
 
@@ -382,9 +379,6 @@ def project(pid):
 @front.route("/student/preview/project/<int:pid>")
 def previewProject(pid):
     project = projectService.getProjectByID(pid)
-    awards = project.awards
-    for a in awards:
-        a.pics = json.loads(a.certPic)
     return render_template("tmp01/project-preview.html",project=project)
 
 """ 
