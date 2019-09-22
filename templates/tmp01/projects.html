@@ -31,26 +31,39 @@
           <aside>
             <div class="widget">
               <h4>筛选</h4>
-              <form>
+              <form action="/projects" method="get">
                  <div class="tableRow">
                     <label>项目开始时间</label>
-                    <input type="date" id="startTime">
+                    <input type="date" name="startTime" id="startTime">
                  </div>
                   <div>
                       <label>项目结束时间</label>
-                      <input type="date" id="endTime">
+                      <input type="date" name="endTime" id="endTime">
+                  </div>
+                  <div class="tableRow">
+                      <label>项目来源</label>
+                      <select id="source" name="source">
+                          <option value="-1">全部</option>
+                          <option value="1">大创</option>
+                          <option value="2">雏雁</option>
+                          <option value="3">竞赛</option>
+                          <option value="4">课程</option>
+                          <option value="0">其他</option>
+                      </select>
                   </div>
                   <div class="tableRow">
                     <label>项目专业</label>
-                    <select id="projectMajor" name="academy">
+                    <select id="projectMajor" name="major">
+                        <option value="0">全部</option>
                         <option value="1">通信工程</option>
                         <option value="2">信息工程</option>
                         <option value="3">电子信息工程</option>
                     </select>
                   </div>
-                    <div class="tableRow">
+                  <div class="tableRow">
                     <label>项目类别</label>
                     <select id="projectCategory" name="type">
+                        <option value="-1">全部</option>
                         <option value="1">App开发/微信小程序开发</option>
                         <option value="2">通信/网络</option>
                         <option value="3">软件系统</option>
@@ -60,7 +73,7 @@
                     </select>
                   </div>
                   <div class="tableRow">
-                      <input type="button" id="select" value="确定">
+                      <input type="submit" id="select" value="确定">
                   </div>
               </form>
             </div>
@@ -84,8 +97,8 @@
                        <table class="table table-condensed" >
                            <tbody>
                                 <tr>
-                                    <td width="50%"><i class="icon-user"></i><span>{{project.status.publisher}}</span></td>
-                                    <td style="text-align: right" class="time"><i class="icon-calendar"></i><span>{{project.status.submitTime}}</span></td>
+                                    <td width="50%"><i class="icon-user"></i><span>{{project.publisher}}</span></td>
+                                    <td style="text-align: right" class="time"><i class="icon-calendar"></i><span>{{project.submitTime}}</span></td>
                                 </tr>
                            </tbody>
                        </table>
@@ -148,33 +161,33 @@
 </section>
 {% endblock %}
 
-{% block js_files%}
-<script>
-    $(document).ready(function () {
-        $(".time span").each(function () {
-            $(this).text($(this).text().slice(0,10));
-        });
+{#{% block js_files%}#}
+{#<script>#}
+{#    $(document).ready(function () {#}
+{#        $(".time span").each(function () {#}
+{#            $(this).text($(this).text().slice(0,10));#}
+{#        });#}
+{##}
+{#        //筛选#}
+{#        $("input#select").click(function () {#}
+{#            var data={};#}
+{#            data.major=$("#projectMajor").val();#}
+{#            data.startTime=$("#startTime").val();#}
+{#            data.endTime=$("#endTime").val();#}
+{#            data.type=$("#projectCategory").val();#}
+{#            $.ajax({#}
+{#                url:`/projects?major=${data.major}&startTime=${data.startTime}&endTime=${data.endTime}&type=${data.type}`,#}
+{#                type:'get',#}
+{#                success:function () {#}
+{#                    console.log("hhh");#}
+{#                    window.location.href="{{url_for('front.projects')}}"#}
+{#                }#}
+{#            })#}
+{##}
+{#        })#}
+{#    })#}
+{##}
+{##}
+{#</script>#}
 
-        //筛选
-        $("input#select").click(function () {
-            var data={};
-            data.major=$("#projectMajor").val();
-            data.startTime=$("#startTime").val();
-            data.endTime=$("#endTime").val();
-            data.type=$("#projectCategory").val();
-            $.ajax({
-                url:`/projects?major=${data.major}&startTime=${data.startTime}&endTime=${data.endTime}&type=${data.type}`,
-                type:'get',
-                success:function () {
-                    console.log("hhh");
-                    window.location.href="{{url_for('front.projects')}}"
-                }
-            })
-
-        })
-    })
-
-
-</script>
-
-{% endblock %}
+{#{% endblock %}#}

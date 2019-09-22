@@ -339,11 +339,11 @@ def new(news_id):
 @front.route('/downloadfile',defaults={'page':1,'count':10})
 @front.route('/downloadfile/<int:page>/<int:count>')
 def downloadFile(page,count):
-    pagination, files = filesService.getFilesBySource(page, count, '4')
+    pagination, files = filesService.getDownloadFile(page, count)
     return render_template("tmp01/downlink.html", pagination=pagination, files=files)
 
 """ 
-项目分页展示
+（查询项目）项目分页展示
 """
 @front.route("/projects",methods=['GET'],defaults={'page':1,'count':10})
 @front.route("/projects/<int:page>/<int:count>")
@@ -354,12 +354,14 @@ def projects(page,count):
     endTime = request.args.get('endTime', default=None)
     type = request.args.get('type', default=-1)
     major = request.args.get('major',default=0)
+    source = request.args.get('source',default=-1)
 
     pagination,projects = projectService.getPublishedPro(page,count,
                                                          startTime=startTime,
                                                          endTime=endTime,
                                                          type=type,
-                                                         major=major)
+                                                         major=major,
+                                                         source=source)
     return render_template("tmp01/projects.html",projects=projects,pagination=pagination)
 
 """ 
