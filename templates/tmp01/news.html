@@ -49,7 +49,7 @@
                 {% for document in documents %}
                 <tr>
                     <td width="82%"> <a href="{{ url_for('front.new',news_id=document.nid) }}">{{ document.title }}</a></td>
-                    <td width="18%" style="text-align: center;" class="time">{{ document.publisherTime }}</td>
+                    <td width="18%" style="text-align: center;">{{ document.publisherTime }}</td>
                 </tr>
                 {% endfor %}
             </tbody>

@@ -321,14 +321,17 @@ class ProjectService:
         endTime = kw['endTime']
         type = kw['type']
         major = kw['major']
+        source = kw['source']
 
         query = ProjectStatus.query.filter(ProjectStatus.status == 3,ProjectStatus.delete_flag == 0)
         if startTime and endTime:
             query = query.filter(ProjectStatus.pro_startTime >= startTime,ProjectStatus.pro_startTime <= endTime)
-        if type != -1:
+        if type != '-1':
             query = query.filter(ProjectStatus.type == type)
-        if major != 0:
+        if major != '0':
             query = query.filter(ProjectStatus.major == major)
+        if source != '-1':
+            query = query.filter(ProjectStatus.source == source)
         pagination = query.order_by(desc(ProjectStatus.pro_startTime)).paginate(page_index, count, error_out=False)
 
         pros = pagination.items
@@ -339,7 +342,6 @@ class ProjectService:
                                                           Files.delete_flag == 0).one()
             pro.pic = mainPic
         return pagination, pros
-
 
 
     """ 
@@ -522,6 +524,8 @@ class ProjectService:
         content = data["content"]
         src_content = data["src_content"]
         type = data["type"]
+
+        #todo::添加来源
         project = Project(pname, content, type)
         project.src_content = src_content
         # 添加状态信息

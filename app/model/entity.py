@@ -63,6 +63,7 @@ class ProjectStatus(db2.Model):
     pro_startTime = db2.Column(DateTime, nullable=False,default=datetime.now)
     major = db2.Column(db2.Integer, nullable=False, default=1)
     academy = db2.Column(db2.Integer, nullable=False, default=1)
+    source = db2.Column(db2.Integer, nullable=True, default=0)                      #项目来源，0代表其他，1代表大创，2雏雁，3竞赛，4代表课程
 
     def __init__(self,pname,type,publisher,status):
         self.pname = pname

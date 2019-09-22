@@ -6,6 +6,7 @@
     <div class="container">
         <article>
             <h2 style="text-align: center">{{ new.title }}</h2>
+            <div style="text-align: center"><i class="icon-calendar"></i><span class="time">发布时间：{{new.extInfo.publisherTime}}</span></div>
             <p>{{ new.content | safe}}</p>
         </article>
 
