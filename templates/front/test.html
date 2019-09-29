@@ -1,0 +1,809 @@
+{% extends 'front/base.html' %}
+
+{% block page_name %}修改项目{% endblock %}
+
+{% block static_files %}
+
+<style>
+    * {
+        box-sizing: border-box;
+    }
+    body{
+        background-color: #f6f6f8;
+    }
+    .projectContainer{
+        background-color: #fff;
+        padding:50px;
+        min-height: 900px;
+        margin: 0 0 60px 0;
+
+    }
+
+    .item-header{
+        height:60px;
+        line-height: 60px;
+        font-size:20px;
+        margin:20px 0;
+        border-bottom: 1px dotted #eee;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-weight: bold;
+    }
+
+    section.content {
+        padding: 30px 50px 20px 30px;
+        border:1px solid #eee;
+        margin-bottom:5px
+    }
+
+    section.content input {
+        width: 220px;
+        height: 30px;
+    }
+
+    input#projectTitle {
+        width: 500px;
+    }
+
+    .tableRow{
+        display: flex;
+        width: 100%;
+        margin: 5px
+    }
+
+    .tableRow label{
+        display: inline-block;
+        width: 10%;
+        flex-shrink: 0;
+        padding-right: 5px;
+        font-size: 14px;
+        font-weight: bold;
+    }
+
+    .lists {
+        display: flex;
+         margin-bottom: 5px
+    }
+    .lists .item {
+        flex:1
+    }
+    .lists label{
+        display: inline-block;
+        font-size: 14px;
+        font-weight: bold;
+        padding-right: 15px;
+    }
+
+    .operate {
+        text-align: center;
+    }
+    .operate .cancel {
+        background-color: #eee;
+        color:#333;
+    }
+
+    .operate button {
+        margin-left: 5px;
+        padding: 10px 20px;
+        border: 0px;
+        border-radius: 4px;
+        background-color: #eee;
+        color:#337e0a;
+        font-size:16px
+    }
+    .certPreview {
+        display: flex;
+    }
+    .certPreview .imgWrap{
+        position: relative;
+    }
+    .certPreview img{
+        width: 300px;
+        height: 200px;
+    }
+
+    .imgWrap .icon-trash{
+        position: absolute;
+        left: 150px;
+        top: 100px;
+        z-index: -1;
+    }
+
+    .imgWrap:hover> .icon-trash{
+        z-index: 10;
+    }
+</style>
+
+{% endblock%}
+
+{% block body_part%}
+
+<!--项目表单-->
+<!--========================-->
+<div class="container">
+    <div class="row">
+        <div class="projectContainer">
+            <div style="display: flex;justify-content: space-between">
+                <p><a href="{{url_for('front.user')}}">个人中心</a></p>
+                {% if  project.status.msg %}
+                <p><button type="button" data-toggle="modal" data-target="#myModal">查看审核意见</button></p>
+                {% endif %}
+            </div>
+
+            <!-- 模态框 -->
+            <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 id="myModalLabel">Modal header</h3>
+              </div>
+              <div class="modal-body">
+                <p>One fine body…</p>
+              </div>
+              <div class="modal-footer">
+                <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+                <button class="btn btn-primary">Save changes</button>
+              </div>
+            </div>
+
+
+            <div id="panel">
+                <div>
+                    <div class="item-header">
+                        <div class="left">项目信息</div>
+                    </div>
+                    <form id="info-form" onsubmit="return false">
+                        <!--项目信息-->
+                        <div class="content">
+                            <div class="tableRow">
+                                <label>项目名称*</label>
+                                <input type="text" placeholder="请输入项目名称" name="pname" value="{{project.pname}}">
+                            </div>
+                            <div class="tableRow">
+                                <label>项目介绍*</label>
+                                <div style="height: 700px;width: 100%">
+                                    <div id="markdown">
+                                    <textarea style="display: none;" name="src_content">{{ project.src_content | safe }}</textarea>
+                                </div>
+                                </div>
+                            </div>
+                            <div class="tableRow">
+                                <label>封面图片</label>
+                                <input type="file" id="mainPic">
+                            </div>
+                            <div class="tableRow">
+                                <label></label>
+                                <div>
+                                    <img style="width:300px;height:200px" class="mainPicPreview" id="{{project.pic.fid}}" src="{{ url_for('common.image',name=project.pic.path) }}">
+                                </div>
+                            </div>
+                            <div class="tableRow">
+                                <label>立项时间*</label>
+                                <input type="date" name="startTime" value="{{project.status.pro_startTime}}">
+                            </div>
+                            <div class="tableRow">
+                                <label>项目专业*</label>
+                                <select name="major">
+                                    <option value="1">通信工程</option>
+                                    <option value="2">信息工程</option>
+                                    <option value="3">电子信息工程</option>
+                                </select>
+                            </div>
+                            <div class="tableRow">
+                                <label>项目类别*</label>
+                                <select name="type">
+                                    <option value="1">App开发/微信小程序开发</option>
+                                    <option value="2">通信/网络</option>
+                                    <option value="3">软件系统</option>
+                                    <option value="4">硬件系统</option>
+                                    <option value="5">视频/图像</option>
+                                    <option value="6">大数据/机器学习</option>
+                                </select>
+                            </div>
+                            <div class='operate'>
+                                <button class='save-info' id="{{project.pid}}">修改</button>
+                            </div>
+                        </div>
+                </form>
+                </div>
+                <div>
+                    <div class="item-header">
+                        <div class="left">成员信息</div>
+                        <span class="glyphicon glyphicon-plus add" aria-hidden="true" id="member"></span>
+                    </div>
+                    <div class="result">
+                      {% for member in project.members %}
+                        {% if member.type==1 %}
+                          <div class=""></div>
+                        {% for member in project.members %}
+                            {% if member.type==1 %}
+                            <from class="content member" onsubmit="return false">
+                                <div class="lists">
+                                    <div class="item">
+                                        <label>姓名</label>
+                                        <input type="text" name="name" value="{{member.name}}">
+                                    </div>
+                                    <div class="item">
+                                        <label>学号</label>
+                                        <input type="text" name="number" value="{{member.number}}">
+                                    </div>
+                                    <div class="item">
+                                        <label>班级</label>
+                                        <input type="text" name="classId" value="{{member.classId}}">
+                                    </div>
+                                </div>
+                                <div class="lists">
+                                    <div class="item">
+                                        <label>年级</label>
+                                        <input type="text" name="grade" value="{{member.grade}}">
+                                    </div>
+                                    <div class="item">
+                                        <label>专业</label>
+                                        <input type="text" name="major" value="{{member.major}}">
+                                    </div>
+                                    <div class="item">
+                                        <label>学院</label>
+                                        <input type="text" name="academy" value="{{member.academy}}">
+                                    </div>
+                                </div>
+                                <div class='operate'>
+                                    <button class='save-member' id="{{member.id}}">修改</button>
+                                    <button class='cancel'>删除</button>
+                                </div>
+                            </from>
+                            {% endif %}
+                        {% endfor %}
+                  </div>
+                </div>
+                <div>
+                    <div class="item-header">
+                        <div class="left">老师信息</div>
+                        <span class="glyphicon glyphicon-plus add" aria-hidden="true" id="teacher"></span>
+                    </div>
+                    <div class="result">
+                    {% for member in project.members %}
+                        {% if member.type==0 %}
+                        <form class="content teacher" onsubmit="return false">
+                            <div class="lists">
+                                <div class="item">
+                                    <label>姓名</label>
+                                    <input type="text" name="name" value="{{member.name}}">
+                                </div>
+                                <div class="item">
+                                    <label>专业</label>
+                                    <input type="text" name="major" value="{{member.major}}">
+                                </div>
+                                <div class="item">
+                                    <label>学院</label>
+                                    <input type="text" name="academy" value="{{member.academy}}">
+                                </div>
+                            </div>
+                            <div class='operate'>
+                                <button class='save-teacher' id="{{member.id}}">修改</button>
+                                <button class='cancel'>取消</button>
+                            </div>
+                        </form>
+                        {% endif %}
+                    {% endfor %}
+                    </div>
+                </div>
+                <div>
+                    <div class="item-header">
+                        <div class="left">获奖信息</div>
+                        <span class="glyphicon glyphicon-plus add" aria-hidden="true" id="award"></span>
+                    </div>
+                    <div class="result">
+                        {% for award in project.awards %}
+                        <form class="content" onsubmit="return false">
+                            <div class="lists">
+                                <label>奖项名称</label>
+                                <input type="text" name="awardName" value="{{award.awardName}}">
+                            </div>
+                            <div class="lists">
+                                <div class="item">
+                                    <label>获奖时间</label>
+                                    <input type="date" name="awardTime" value="{{award.awardTime}}">
+                                </div>
+                                <div class="item">
+                                    <label>奖项级别</label>
+                                    <select name="rank">
+                                        {% if award.rank==1 %}
+                                        <option value="1" selected>国际型比赛</option>
+                                        <option value="2">国家型比赛</option>
+                                        <option value="3">省部型比赛</option>
+                                        <option value="4">校内比赛</option>
+                                        {% endif %}
+                                        {% if award.rank==2 %}
+                                        <option value="1">国际型比赛</option>
+                                        <option value="2" selected>国家型比赛</option>
+                                        <option value="3">省部型比赛</option>
+                                        <option value="4">校内比赛</option>
+                                        {% endif %}
+                                        {% if award.rank==3 %}
+                                        <option value="1">国际型比赛</option>
+                                        <option value="2" selected>国家型比赛</option>
+                                        <option value="3">省部型比赛</option>
+                                        <option value="4">校内比赛</option>
+                                        {% endif %}
+                                        {% if award.rank==4 %}
+                                        <option value="1">国际型比赛</option>
+                                        <option value="2">国家型比赛</option>
+                                        <option value="3">省部型比赛</option>
+                                        <option value="4" selected>校内比赛</option>
+                                        {% endif %}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="lists">
+                                <label>奖项证书</label>
+                                <input type="file" multiple class="certfile">
+                            </div>
+                            <div class="lists">
+                                <label></label>
+                                <div class="certPreview">
+                                    {% for i in award.pics %}
+                                    <div class="imgWrap">
+                                        <img src="{{ i.url }}">
+                                        <i class='icon-square icon-trash'></i>
+                                    </div>
+
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class='operate'>
+                                <button class='save-award' id="{{award.id}}">修改</button>
+                                <button class='cancel'>取消</button>
+                            </div>
+                        </form>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div style="text-align: center"><button id="submit" class="btn btn-success">提交审核</button></div>
+        </div>
+    </div>
+
+    <!--隐藏的各个输入框-->
+
+    <!--学生信息-->
+    <div id="input-form">
+        <form class="content hide member" onsubmit="return false">
+            <div class="lists">
+                <div class="item">
+                    <label>姓名</label>
+                    <input type="text" name="name">
+                </div>
+                <div class="item">
+                    <label>学号</label>
+                    <input type="text" name="number">
+                </div>
+                <div class="item">
+                    <label>班级</label>
+                    <input type="text" name="classId">
+                </div>
+            </div>
+            <div class="lists">
+                <div class="item">
+                    <label>年级</label>
+                    <input type="text" name="grade">
+                </div>
+                <div class="item">
+                    <label>专业</label>
+                    <input type="text" name="major">
+                </div>
+                <div class="item">
+                    <label>学院</label>
+                    <input type="text" name="academy">
+                </div>
+            </div>
+            <div class='operate'>
+                <button class='save-member'>保存</button>
+                <button class='cancel'>取消</button>
+            </div>
+        </form>
+        <!--指导老师-->
+        <form class="content hide teacher" onsubmit="return false">
+            <div class="lists">
+                <div class="item">
+                    <label>姓名</label>
+                    <input type="text" name="name">
+                </div>
+                <div class="item">
+                    <label>专业</label>
+                    <input type="text" name="major">
+                </div>
+                <div class="item">
+                    <label>学院</label>
+                    <input type="text" name="academy">
+                </div>
+            </div>
+            <div class='operate'>
+                <button class='save-teacher'>保存</button>
+                <button class='cancel'>取消</button>
+            </div>
+        </form>
+        <!--获奖信息-->
+        <form class="content hide award" onsubmit="return false">
+            <div class="lists">
+                <label>奖项名称</label>
+                <input type="text" name="awardName">
+            </div>
+            <div class="lists">
+                <div class="item">
+                    <label>获奖时间</label>
+                    <input type="date" name="awardTime">
+                </div>
+                <div class="item">
+                    <label>奖项级别</label>
+                    <select name="rank">
+                        <option value="1">国际型比赛</option>
+                        <option value="2">国家型比赛</option>
+                        <option value="3">省部型比赛</option>
+                        <option value="4">校内比赛</option>
+                    </select>
+                </div>
+            </div>
+            <div class="items">
+                <label>奖项证书</label>
+                <input type="file" multiple class="certfile">
+            </div>
+            <div class="items">
+                <label></label>
+                <div class="certPreview"></div>
+            </div>
+            <div class='operate'>
+                <button class='save-award'>保存</button>
+                <button class='cancel'>取消</button>
+            </div>
+        </form>
+    </div>
+
+</div>
+
+{% endblock%}
+
+{% block js_files%}
+<script src="{{ url_for('static',filename='mdeditor/editormd.min.js')}}"></script>
+<script type="text/javascript">
+    $(function () {
+
+        // 项目专业回显
+       const majorData={{project.status.major}};
+       $("#projectMajor").val(majorData);
+
+        // 项目类别回显
+        const typeData={{project.type}};
+        $("#projectCategory").val(typeData);
+
+
+        //markdown编辑器设置
+        let testEditor;
+
+        testEditor = editormd("markdown", {
+            syncScrolling: "single",
+            saveHTMLToTextarea: true,
+            height: 700,
+            // width:960,
+            path: "{{url_for('static',filename='mdeditor/lib/')}}",
+            //启动本地图片上传功能
+            imageUpload: true,
+            imageFormats: ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+            imageUploadURL: "{{url_for('common.markdown_upload')}}"
+        });
+
+        // 修改主页图片
+        const mainPicPreview=$(".mainPicPreview");
+        const mainPicId=mainPicPreview.attr("id");   // 提交后返回的封面图片的id
+        let mainPicUrl;
+        $(".result").on("change","#mainPic",function () {
+            let file = this.files[0];
+            let form = new FormData();
+            form.append("pics", file);
+            form.append("source", 1);  // 封面图片的source为1
+            form.append("source_id",mainPicId);
+            $.ajax({
+                url: '/api/modifyMainPic/' + mainPicId,
+                data: form,
+                type: 'post',
+                dataType: 'json',
+                contentType: false,
+                processData: false,
+                success: function (info) {
+                    console.log(info);
+                    // 响应成功且没有错误
+                    if (info.errorno == 0) {
+                        mainPicUrl = info.data.url;
+                        mainPicPreview.attr("src", mainPicUrl);
+                    }
+                },
+                error: function (info) {
+                    alert(info.msg);
+                }
+            });
+        });
+
+        // 修改项目信息
+        const pid=$(".save-info").attr("id");
+
+        let project={};
+        $("#info").on("click",".save-info",function () {
+            let data=$("#info-form").serializeJson();
+            data.mainPicId=mainPicId;
+            data.content=testEditor.getHTML();
+              $.ajax({
+                  url:'/api/modifyPro/'+pid,
+                  data:JSON.stringify(project),
+                  type:'post',
+                  dataType:'json',
+                  success:function (info) {
+                      if(info.errorno==0){
+                          alert("修改成功");
+                      }
+                  }
+              })
+        });
+
+        // 添加按钮，可以多个添加的类别为项目成员/老师/奖项，项目信息默认只有一个
+        // 确定被添加的类别，确定插入的位置，克隆相应的输入框，然后插入到指定位置
+
+
+        $(".add").click(function () {
+            // 确定添加的类别(), 项目信息只有一个且默认显示
+            let name=$(this).attr("id");
+            // 根据类名选择要克隆的表单
+            let newForm=$("#input-form").find("."+name).clone(true);
+            newForm.removeClass("hide");
+            // 确定插入的位置，即div.result中
+            let aim=$(this).parent().next();
+            // 插入
+            aim.append(newForm);
+        });
+
+         // 提交/修改成员信息
+        $("#panel").on("click",".save-member",function () {
+            let item = $(this).parent().parent();
+            let member = item.serializeJson();
+            console.log(member);
+            let _this=$(this);
+            let mid;
+            if($(this).text()=="保存"){
+                $.ajax({
+                    url: '/api/addProMember/1/' + pid,  // 学生是1
+                    data: JSON.stringify(member),
+                    dataType: 'json',
+                    type: 'post',
+                    success: function (info) {
+                        console.log(info);
+                        if(info.errorno==0){
+                            alert("保存成功，请继续添加");
+                            mid = info.data.mid;  // 该成员的id，修改时需要
+                            _this.text("修改");
+                            _this.attr("id",mid);
+                            // 取消按钮变成删除按钮
+                            _this.next().text("删除");
+                        }
+                    },
+                    error: function (info) {
+                        alert(info.msg);
+                    }
+                })
+            };
+            if ($(this).text()=="修改") {  // 修改
+                $.ajax({
+                    url:'/api/modifyProMember/'+_this.attr("id"),
+                    data: JSON.stringify(member),
+                    dataType: 'json',
+                    type: 'post',
+                    success:function (info) {
+                        if(info.errorno==0) {
+                            alert("修改成功");
+                       }
+                    }
+                })
+            }
+
+        });
+
+        // 取消/删除按钮
+        $("#panel").on("click",".cancel",function(){
+            let aim=$(this).parent().parent();  //当前输入框
+            let mid=$(this).prev().attr("id");
+            // 取消即把当前输入框移除
+            if($(this).text()=="取消"){
+                aim.remove();
+            };
+            // 删除: (1)移除当前输入框 (2)向后端发送请求删除数据
+            if($(this).text()=="删除"){
+                $.ajax({
+                    url:'/api/deleteProMember/'+mid,
+                    type:'get',
+                    success:function (info) {
+                        if(JSON.parse(info).errorno==0){
+                            alert("删除成功");
+                            aim.remove();
+                        }
+                    }
+                })
+            }
+        });
+
+
+        // 提交/修改指导老师信息
+        $("#panel").on("click",".save-teacher",function () {
+            let item = $(this).parent().parent();
+            let teacher = item.serializeJson();
+            let _this = $(this);
+            let tid;
+
+            if ($(this).text() == "保存") {
+                $.ajax({
+                    url: '/api/addProMember/0/' + pid,
+                    data: JSON.stringify(teacher),
+                    dataType: 'json',
+                    type: 'post',
+                    success: function (info) {
+                        if (info.errorno == 0) {
+                            alert("保存成功，请继续添加");
+                            tid = info.data.mid;
+                            _this.text("修改");
+                            _this.attr("id", tid);
+                            // 取消按钮变成删除按钮
+                            _this.next().text("删除");
+                        }
+                    }
+                });
+            }
+            if ($(this).text() == "修改") {
+                $.ajax({
+                    url: '/api/modifyProMember/' + _this.attr("id"),
+                    data: JSON.stringify(teacher),
+                    dataType: 'json',
+                    type: 'post',
+                    success: function (info) {
+                        if (info.errorno == 0) {
+                            alert("修改成功");
+                        }
+                    }
+                })
+            }
+
+        });
+
+        //添加奖项证书并预览
+        let certIdArr=[];
+        $(".award").on("change",".certfile",function () {
+            let certPreview=$(this).parent().next().find(".certPreview");
+            let files=this.files;
+            let form=new FormData();
+            for(let i=0;i<files.length;i++){
+                form.append("pics",files[i]);
+            }
+            form.append("source", 2);
+            $.ajax({
+                url:'/api/addPic',
+                data:form,
+                type: 'post',
+                dataType: 'json',
+                contentType:false,
+                processData:false,
+                success:function (msg) {
+                    console.log(msg);
+                    for(let i=0;i<msg.data.length;i++){
+                        let imgWrap=$("<div class='imgWrap'></div>");
+                        let certImg=$("<img id='"+msg.data[i].id+"'>");
+                        certImg.attr("src",msg.data[i].url);
+                        let delBtn=$("<i class='icon-square icon-trash'></i>");
+                        imgWrap.append(certImg);
+                        imgWrap.append(delBtn);
+                        certPreview.append(imgWrap);
+                        certIdArr.push(msg.data[i].id);
+                    }
+                }
+            })
+        });
+
+        //删除证书图片
+        $(".award").on("click",".icon-trash",function () {
+            let id=$(this).prev().attr("id");
+            let wrap=$(this).parent();
+            $.ajax({
+                url:"/api/deleteCertFile/"+id,
+                type:'get',
+                dataType:'json',
+                success:function (info) {
+                    if(info.errorno==0){
+                        wrap.remove();
+                        certIdArr.splice(certIdArr.indexOf(id),1);
+                    }
+                }
+            })
+        });
+
+
+        // 提交/修改奖项
+
+        let awardId;
+        $("#panel").on("click",".save-award",function () {
+            let awardItem=$(this).parent().parent();
+            let award=awardItem.serializeJson();
+            let _this=$(this);
+
+            if($(this).text()=="修改") {
+                award.source_id=awardId
+                $.ajax({
+                    url: '/api/modifyProAward/' + _this.attr("id"),
+                    data: JSON.stringify(award),
+                    dataType: 'json',
+                    type: 'post',
+                    success: function (info) {
+                        if (info.errorno == 0) {
+                            alert("修改成功");
+                        }
+                    }
+                });
+            }
+
+            if($(this).text()=="保存"){
+                award.certids=certIdArr;
+                $.ajax({
+                    url: '/api/addProAward/' + pid,
+                    data: JSON.stringify(award),
+                    dataType: 'json',
+                    type: 'post',
+                    success: function (info) {
+                        if(info.errorno==0){
+                            alert("保存成功，继续添加");
+                            awardId=info.data.id;
+                            _this.text("修改");
+                            _this.attr("id",awardId);
+                            // 取消按钮变成删除按钮
+                            _this.next().text("删除");
+                        }
+                    },
+                    error: function (info) {
+                        alert(info.msg)
+                    }
+                })
+            }
+        });
+
+        // 取消/删除按钮
+        $("#panel").on("click",".cancel-award",function(){
+            let aim=$(this).parent().parent();  //当前输入框
+            let awardId=$(this).prev().attr("id");
+            // 取消即把当前输入框移除
+            if($(this).text()=="取消"){
+                aim.remove();
+            };
+            // 删除: (1)移除当前输入框 (2)向后端发送请求删除数据
+            if($(this).text()=="删除"){
+                $.ajax({
+                    url:'/api/deleteProAward/'+awardId,
+                    type:'get',
+                    success:function (info) {
+
+                        if(JSON.parse(info).errorno==0){
+                            alert("删除成功");
+                            aim.remove();
+                        }
+                    }
+                })
+            }
+        });
+
+        // 提交审核
+        $("#submit").click(function () {
+            $.ajax({
+                url:'/api/submitProject/'+pid,
+                type: 'get',
+                success:function (info) {
+                    alert(JSON.parse(info).msg);
+                    window.location.href="{{url_for('front.user')}}"
+                }
+            })
+        });
+
+      })
+</script>
+
+{% endblock %}

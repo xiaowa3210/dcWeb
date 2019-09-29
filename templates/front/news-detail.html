@@ -1,0 +1,25 @@
+{% extends 'front/base.html' %}
+{% block page_name %}新闻公告{% endblock %}
+
+{% block body_part %}
+
+<div class="container">
+  <div class="row">
+    <div class="col-lg-12">
+      <article>
+        <h2 class="center">{{ new.title }}</h2>
+        <p>{{ new.content | safe}}</p>
+      </article>
+
+      {% if files %}
+      <label>附件</label>
+        {% for file in files %}
+          <a href="{{ url_for('common.file',name= file.path) }}">{{file.name}}</a>
+        {% endfor %}
+      {% endif %}
+    </div>
+  </div>
+
+</div>
+
+{% endblock %}
