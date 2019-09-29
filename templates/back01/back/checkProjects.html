@@ -32,6 +32,7 @@
                                 <th>项目id</th>
                                 <th>项目名称</th>
                                 <th>项目类别</th>
+                                <th>项目专业</th>
                                 <th>发布者</th>
                                 <th>提交时间</th>
                                 <th>操作</th>
@@ -39,9 +40,39 @@
                             <tbody>
                                 {% for project in projects %}
                                 <tr>
+                                    <td>{{project.type}}</td>
+                                    <td>{{project.status.major}}</td>
+
                                     <td>{{project.pid}}</td>
                                     <td>{{project.pname}}</td>
-                                    <td>{{project.type}}</td>
+                                    {% if project.type ==1 %}
+                                    <td>App开发/微信小程序开发</td>
+                                    {% endif %}
+                                    {% if project.type ==2 %}
+                                    <td>通信/网络</td>
+                                    {% endif %}
+                                    {% if project.type ==3 %}
+                                    <td>软件系统</td>
+                                    {% endif %}
+                                    {% if project.type ==4 %}
+                                    <td>硬件系统</td>
+                                    {% endif %}
+                                    {% if project.type ==5 %}
+                                    <td>视频/图像</td>
+                                    {% endif %}
+                                    {% if project.type ==6 %}
+                                    <td>大数据/机器学习</td>
+                                    {% endif %}
+
+                                    <!--{% if project.status.major ==1 %}-->
+                                    <!--<td>通信工程</td>-->
+                                    <!--{% endif %}-->
+                                    <!--{% if project.status.major ==2 %}-->
+                                    <!--<td>信息工程</td>-->
+                                    <!--{% endif %}-->
+                                    <!--{% if project.status.major ==3 %}-->
+                                    <!--<td>电子信息工程</td>-->
+                                    <!--{% endif %}-->
                                     <td>{{project.publisher}}</td>
                                     <td>{{project.submitTime}}</td>
                                     <td><button id="delete"><a href="{{url_for('back.checkProject',pid=project.pid)}}">审核</a></button></td>

@@ -302,7 +302,7 @@ def manageProject(page,count):
 @front.route('/student/modifiesProject/<int:pid>')
 def modifiesProject(pid):
     project = projectService.getProjectByID(pid)
-    return render_template("tmp01/modifiesProject.html", project=project)
+    return render_template("front/modify-project.html", project=project)
 
 """ 
 上传项目
@@ -312,8 +312,8 @@ def modifiesProject(pid):
 def uploadProjectTmp(pid):
     if pid!=-1:
         project = projectService.getProjectByID(pid)
-        return render_template("tmp01/modifiesProject.html", project=project)
-    return render_template("tmp01/addProject3.html")
+        return render_template("front/modify-project.html", project=project)
+    return render_template("front/add-project.html")
 
 """ 
 新闻列表展示
@@ -322,7 +322,7 @@ def uploadProjectTmp(pid):
 @front.route('/news/<int:page>/<int:count>')
 def news(page,count):
     pagination, news = newsService.selectByPage(page, count, 3)
-    return render_template("tmp01/news.html",pagination=pagination,documents=news)
+    return render_template("front/news.html",pagination=pagination,documents=news)
 
 """ 
 新闻内容展示
@@ -340,7 +340,7 @@ def new(news_id):
 @front.route('/downloadfile/<int:page>/<int:count>')
 def downloadFile(page,count):
     pagination, files = filesService.getFilesBySource(page, count, '0')
-    return render_template("tmp01/downlink.html", pagination=pagination, files=files)
+    return render_template("front/downlinks.html", pagination=pagination, files=files)
 
 """ 
 项目分页展示
@@ -360,7 +360,7 @@ def projects(page,count):
                                                          endTime=endTime,
                                                          type=type,
                                                          major=major)
-    return render_template("tmp01/projects.html",projects=projects,pagination=pagination)
+    return render_template("front/projects.html",projects=projects,pagination=pagination)
 
 """ 
 项目详细展示
@@ -392,7 +392,7 @@ def previewProject(pid):
 """
 @front.route("/lab")
 def lab():
-    return render_template("tmp01/lab.html")
+    return render_template("front/lab.html")
 
 @front.route("/lab/i3")
 def i3():
@@ -414,7 +414,7 @@ def home():
                                                          major=major)
 
     pagination1,news = newsService.selectByPage(1,8,3)
-    return render_template("tmp01/home.html",projects=projects,pagination=pagination,news = news)
+    return render_template("front/home.html",projects=projects,pagination=pagination,news = news)
 
 """
 用户中心
@@ -430,7 +430,7 @@ def home():
 @front.route("/user/<int:page>/<int:count>")
 def user(page,count):
     pagination,project = projectService.getProByStudentId(page,count)
-    return render_template("tmp01/user.html", pagination=pagination, project=project)
+    return render_template("front/user.html", pagination=pagination, project=project)
 
 @front.route("/student/login")
 def stu_login():
