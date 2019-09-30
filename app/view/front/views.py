@@ -352,9 +352,9 @@ def projects(page,count):
     #筛选条件
     startTime = request.args.get('startTime', default=None)
     endTime = request.args.get('endTime', default=None)
-    type = request.args.get('type', default=-1)
-    major = request.args.get('major',default=0)
-    source = request.args.get('source',default=-1)
+    type = request.args.get('type', default=-1, type=int)
+    major = request.args.get('major',default=0, type=int)
+    source = request.args.get('source',default=-1, type=int)
 
     pagination,projects = projectService.getPublishedPro(page,count,
                                                          startTime=startTime,
@@ -402,12 +402,14 @@ def home():
     # 筛选条件
     startTime = request.args.get('startTime', default=None)
     endTime = request.args.get('endTime', default=None)
-    type = request.args.get('type', default=-1)
-    major = request.args.get('major', default=0)
+    type = request.args.get('type', default=-1, type=int)
+    major = request.args.get('major', default=0, type=int)
+    source = request.args.get('source', default=-1, type=int)
     pagination,projects = projectService.getPublishedPro(1,4,startTime=startTime,
                                                          endTime=endTime,
                                                          type=type,
-                                                         major=major)
+                                                         major=major,
+                                                         source=source)
 
     pagination1,news = newsService.selectByPage(1,8,3)
     return render_template("tmp01/home.html",projects=projects,pagination=pagination,news = news)
