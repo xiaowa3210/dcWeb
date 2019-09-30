@@ -113,9 +113,21 @@
                                     <img id="mainPicPreview" style="width:300px;height:200px">
                                 </div>
                             </div>
+
+                            <br>
                             <div class="tableRow">
                                 <label>立项时间*</label>
                                 <input type="date" id="projectTime">
+                            </div>
+                            <div class="tableRow">
+                                <label>项目来源*</label>
+                                <select id="source">
+                                    <option value="1">大创项目</option>
+                                    <option value="2">雏雁项目</option>
+                                    <option value="3">竞赛项目</option>
+                                    <option value="4">课程项目</option>
+                                    <option value="0">其他</option>
+                                </select>
                             </div>
                             <div class="tableRow">
                                 <label>项目专业*</label>
@@ -254,6 +266,7 @@
             var startTime=section.find("#projectTime").val(); // 立项时间
             var type=section.find("#projectCategory").val();  // 项目类别
             var major=section.find("#projectMajor").val(); // 项目专业
+            var source = section.find("#source").val(); //项目来源
             var picId=mainPicId;  // 封面图片id
             if(pname && content && startTime && picId){
                 project.pname=pname;
@@ -263,6 +276,7 @@
                 project.type=type;
                 project.major=major;
                 project.mainPicId=picId;
+                project.source=source;
                 $.ajax({
                     url: '/api/addPro',
                     data: JSON.stringify(project),

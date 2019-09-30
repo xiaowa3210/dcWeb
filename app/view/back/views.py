@@ -35,6 +35,11 @@ def uploadNew():
     type = request.form.get('type')
     operate = request.form.get('operate')
     attachments = request.files.getlist("attachment")
+    isTop = request.form.get('radio');
+    # if isTop=='置顶':
+    #     print("置顶")
+    # else:
+    #     print("不置顶")
     #todo:需处理是否置顶
     if operate == '0':
         #代表添加新闻
@@ -307,11 +312,11 @@ def insertUser():
 """
 @back.route("/admin/checkproject/<int:pid>")
 def checkProject(pid):
-    project = projectService.getProStatusByPid(pid)
+    project = projectService.getProjectByID(pid)
     #若是未提交状态管理员就没必要查看其内容
-    if project.status == 1 or project.delete_flag == 1:
-        project = None
-    return render_template("back01/back/checkproject.html",project=project.project)
+    # if project.status == 1 or project.delete_flag == 1:
+    #     project = None
+    return render_template("back01/back/checkproject.html",project=project)
 
 """ 
 审核项目列表

@@ -42,6 +42,7 @@
                         <tbody>
                         <tr>
                             <th></i>标题</th>
+                            <th>是否置顶</th>
                             <th>创建人</th>
                             <th>发布人</th>
                             <th>最后修改人</th>
@@ -54,29 +55,38 @@
                         {% for article in news %}
                         <tr articleId="{{article.nid}}">
                             <td width="200">{{article.title}}</td>
+                              {% if article.isTop == 1 %}
+                                <td>置顶</td>
+                            {% elif article.isTop == 0%}
+                                <td>未置顶</td>
+                                {% endif %}
                             <td>{{article.creater}}</td>
                             <td>{{article.publisher}}</td>
                             <td>{{article.modifier}}</td>
                             <td>{{article.createTime}}</td>
-                            <td>{{article.publisherTime}}</td>
-                            <td>{{article.modifiedTimee}}</td>
-                            {% if article.status == 0 %}
-                                <td>未发布</td>
-                            {% elif article.status == 1%}
-                                <td>已发布</td>
-                            {% else %}
+                            <td>{{article.createTime}}</td>
+                            <td>{{article.modifiedTime}}</td>
+                            {% if article.status == 1 %}
+                                <td>未提交</td>
+                            {% elif article.status == 2%}
+                                <td>审核中</td>
+                            {% elif article.status == 3 %}
                                 <td>已发布</td>
                             {% endif %}
                             <td>
                                 <div class="btn-group">
+                                      {% if session.admin.type == 2 %}
                                     <button class="btn btn-success" ><a href="{{url_for('back.modifiesNews',nid=article.nid)}}">修改</a></button>
+                                     {% endif %}
+
+
                                     <!--<a class="btn btn-primary" href="{{url_for('back.modifiesNews',nid = article.nid)}}"><i class="icon_plus_alt2">修改</i></a>-->
                                     <!--<a class="btn btn-danger delete"  p_id="{{article.nid}}" ><i class="icon_close_alt2">删除</i></a>-->
                                       <button class="btn btn-danger delete" id="delete" p_id="{{article.nid}}">删除</button>
-                                      {% if article.status == 0 %}
+                                      {% if article.status == 1 %}
                                       <button class="btn btn-success publish"   id="publish" p_id="{{article.nid}}">发布</button>
                                 <!--<a class="btn btn-primary" href="{{url_for('back.releaseNew',nid = article.nid)}}"><i class="icon_plus_alt2">发布</i></a>-->
-                            {% elif article.status == 1%}
+                            {% elif article.status == 3%}
                                     <button class="btn btn-danger chehui"   id="chehui" p_id="{{article.nid}}">撤销</button>
                                 <!--<a class="btn btn-danger" href="{{url_for('back.undoNew',nid = article.nid)}}"><i class="icon_close_alt2">撤销</i></a>-->
                              {% endif %}
