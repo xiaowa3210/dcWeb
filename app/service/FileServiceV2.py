@@ -21,6 +21,8 @@
                   ┃┫┫  ┃┫┫
                   ┗┻┛  ┗┻┛
 """
+from sqlalchemy import desc
+
 from app import db2
 from app.model.entity import Files
 
@@ -56,8 +58,13 @@ class FilesService:
         if source == '0':#0代表查询全部的
             condition = (Files.delete_flag == 0)
             return self.getFilesByPage(page_index,per_page,condition)
-        pagination = Files.query.filter(Files.source == source,Files.delete_flag == 0).paginate(page_index, per_page, error_out=False)
-        return pagination,pagination.items
+            pagination = Files.query.filter(Files.source == source,Files.delete_flag == 0).paginate(page_index, per_page, error_out=False)
+        return pagination, pagination.items
+
+
+    def getDownloadFile(self,page_index, per_page):
+        pagination = Files.query.filter(Files.source == 1,Files.source_id == -1,Files.delete_flag == 0).order_by(desc(Files.createTime)).paginate(page_index, per_page, error_out=False)
+        return pagination, pagination.items
 
 
     def getFilesBySourceIdAndSource(self,source,sid):

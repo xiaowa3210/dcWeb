@@ -321,6 +321,7 @@ class ProjectService:
         endTime = kw['endTime']
         type = kw['type']
         major = kw['major']
+        source = kw['source']
 
         query = ProjectStatus.query.filter(ProjectStatus.status == 3,ProjectStatus.delete_flag == 0)
         if startTime and endTime:
@@ -329,6 +330,8 @@ class ProjectService:
             query = query.filter(ProjectStatus.type == type)
         if major != 0:
             query = query.filter(ProjectStatus.major == major)
+        if source != -1:
+            query = query.filter(ProjectStatus.source == source)
         pagination = query.order_by(desc(ProjectStatus.pro_startTime)).paginate(page_index, count, error_out=False)
 
         pros = pagination.items
@@ -339,7 +342,6 @@ class ProjectService:
                                                           Files.delete_flag == 0).one()
             pro.pic = mainPic
         return pagination, pros
-
 
 
     """ 
@@ -462,7 +464,7 @@ class ProjectService:
         if operation == 0:
             updateContent = {
                 'status': 4,
-                "reviewer": commonService.getCurrentUsername(0),
+                "reviewer": commonService.getCurrentUsername(),
                 "checkTime": datetime.now(),
                 "msg":'审核不通过' if msg == None or msg == '' else msg
             }
@@ -480,7 +482,7 @@ class ProjectService:
     @:return:
     @descrition:根据PID得到项目内容
     """
-    def getProjectByID(self,pid):
+    def    getProjectByID(self,pid):
 
         pro = Project.query.filter(Project.pid == pid).one()
         mainPic = db2.session.query(Files).filter(Files.source_id == pro.pid,
@@ -522,10 +524,12 @@ class ProjectService:
         content = data["content"]
         src_content = data["src_content"]
         type = data["type"]
+        source = data["source"]
         project = Project(pname, content, type)
         project.src_content = src_content
         # 添加状态信息
         project.status = addProStatus(pname, type, 1,data)
+        project.status.source = source
         db2.session.add(project)
         db2.session.commit()
         if 'mainPicId' in data:

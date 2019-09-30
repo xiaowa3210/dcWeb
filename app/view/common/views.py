@@ -122,6 +122,14 @@ def zip(name):
     response.headers["Content-Disposition"] = "attachment; filename={}".format(name.encode().decode('latin-1'))
     return response
 
+""" 
+根据文件名，下载文件
+"""
+@common.route('/hello')
+def hello():
+    return "hello"
+
+
 
 
 

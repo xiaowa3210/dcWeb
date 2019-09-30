@@ -343,7 +343,7 @@ def downloadFile(page,count):
     return render_template("front/downlinks.html", pagination=pagination, files=files)
 
 """ 
-项目分页展示
+（查询项目）项目分页展示
 """
 @front.route("/projects",methods=['GET'],defaults={'page':1,'count':10})
 @front.route("/projects/<int:page>/<int:count>")
@@ -352,8 +352,9 @@ def projects(page,count):
     #筛选条件
     startTime = request.args.get('startTime', default=None)
     endTime = request.args.get('endTime', default=None)
-    type = request.args.get('type', default=-1)
-    major = request.args.get('major',default=0)
+    type = request.args.get('type', default=-1, type=int)
+    major = request.args.get('major',default=0, type=int)
+    source = request.args.get('source',default=-1, type=int)
 
     pagination,projects = projectService.getPublishedPro(page,count,
                                                          startTime=startTime,
@@ -369,9 +370,6 @@ def projects(page,count):
 @front.route("/project/<int:pid>")
 def project(pid):
     project = projectService.getProjectByID(pid)
-    awards = project.awards
-    for a in awards:
-        a.pics = json.loads(a.certPic)
     return render_template("tmp01/projects-detail.html",project=project)
 
 
@@ -382,9 +380,6 @@ def project(pid):
 @front.route("/student/preview/project/<int:pid>")
 def previewProject(pid):
     project = projectService.getProjectByID(pid)
-    awards = project.awards
-    for a in awards:
-        a.pics = json.loads(a.certPic)
     return render_template("tmp01/project-preview.html",project=project)
 
 """ 
@@ -406,12 +401,14 @@ def home():
     # 筛选条件
     startTime = request.args.get('startTime', default=None)
     endTime = request.args.get('endTime', default=None)
-    type = request.args.get('type', default=-1)
-    major = request.args.get('major', default=0)
+    type = request.args.get('type', default=-1, type=int)
+    major = request.args.get('major', default=0, type=int)
+    source = request.args.get('source', default=-1, type=int)
     pagination,projects = projectService.getPublishedPro(1,4,startTime=startTime,
                                                          endTime=endTime,
                                                          type=type,
-                                                         major=major)
+                                                         major=major,
+                                                         source=source)
 
     pagination1,news = newsService.selectByPage(1,8,3)
     return render_template("front/home.html",projects=projects,pagination=pagination,news = news)
