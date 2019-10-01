@@ -16,8 +16,10 @@
     {% include "front/components/nav.html" %}
 
     <main>
-      {% block body_part %}
-      {% endblock %}
+      <div class="container">
+        {% block body_part %}
+        {% endblock %}
+      </div>
     </main>
 
     {# 页脚 #}
