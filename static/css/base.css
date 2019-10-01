@@ -4,6 +4,7 @@
   color: #fff;
   text-shadow: none;
 }
+
 ::selection {
   background: #94c045;
   color: #fff;
@@ -15,31 +16,35 @@ a {
   padding: 8px;
 }
 
-a,a:visited, a:hover {
+a,
+a:visited,
+a:hover {
   text-decoration: none;
 }
 
 a {
-	color: #555;
+  color: #555;
 }
 
 a:hover {
-	color:#81ab35;
+  color: #81ab35;
 }
 
-.table > tbody > tr > td {
+.table>tbody>tr>td {
   padding: 0px;
   border-top: 0px;
   border-bottom: 1px solid #ddd;
   vertical-align: middle;
 }
 
-ul,li {
+ul,
+li {
   list-style: none;
 }
 
-footer .nav-list li a:hover,footer ul.regular li a:hover  {
-	color:#81ab35;
+footer .nav-list li a:hover,
+footer ul.regular li a:hover {
+  color: #81ab35;
 }
 
 .btn-link:hover {
@@ -48,21 +53,24 @@ footer .nav-list li a:hover,footer ul.regular li a:hover  {
 
 .btn-color {
   background: #94c045;
-	border: 1px solid #94c045;
+  border: 1px solid #94c045;
   *background: #81ab35;
 }
+
 .btn-color:hover,
 .btn-color.active,
 .btn-color.disabled,
 .btn-color[disabled] {
   background: #81ab35;
 }
+
 .flex-row {
-    display: flex;
-    flex-direction: row;
-    align-items: stretch;
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
   justify-content: space-between;
 }
+
 .flex-column {
   display: flex;
   flex-direction: column;
@@ -83,6 +91,7 @@ body {
 main {
   min-height: 100%;
 }
+
 main .container {
   padding-left: 15px;
   background: #fff;
@@ -141,6 +150,7 @@ input[type="color"]:focus,
   /* IE6-9 */
 
 }
+
 main img {
   width: 100%;
   height: 200px;
@@ -151,8 +161,8 @@ main img {
 }
 
 .disabled a {
-  color:#eee;
-  cursor:pointer;
+  color: #eee;
+  cursor: pointer;
   pointer-events: none;
   background: #555;
   border: 1px solid #777;
@@ -162,29 +172,32 @@ main img {
   border: 1px solid #777;
   padding: 8px 15px
 }
+
 /* 导航条 */
 
 .navbar-default {
-    background: #fff;
-}
-.navbar-default .collapse {
-    border-top: 5px solid #94c045;
+  background: #fff;
 }
 
-.navbar .nav li.active a, .navbar .nav li.active a:hover {
+.navbar-default .collapse {
+  border-top: 5px solid #94c045;
+}
+
+.navbar .nav li.active a,
+.navbar .nav li.active a:hover {
   background: #f8f8f8;
 }
 
 .navbar .nav li.active a {
-    color: #94c045;
+  color: #94c045;
 }
 
 .navbar .nav>li>a {
-    display: inline-block;
-    font-size: 16px;
-    padding: 20px 35px 20px;
-    color: #777777;
-    font-weight: bold;
+  display: inline-block;
+  font-size: 16px;
+  padding: 20px 35px 20px;
+  color: #777777;
+  font-weight: bold;
 }
 
 /* 页脚 */
@@ -198,6 +211,11 @@ footer.footer {
   background: #3a3a3a;
 }
 
-footer h1, footer h2, footer h3, footer h4, footer h5, footer h6 {
+footer h1,
+footer h2,
+footer h3,
+footer h4,
+footer h5,
+footer h6 {
   color: #e8e8e8;
 }

@@ -1,39 +1,8 @@
 {% extends 'front/base.html' %}
 {% block page_name %}主页{% endblock %}
+
 {% block static_files %}
-<style>
-  .content-wrap {
-    padding: 20px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    margin: 10px;
-  }
-
-  .avatar{
-    border-radius: 50%;
-    border:2px solid #eee;
-    width: 50%;
-    padding:5px;
-    margin-bottom: 5px;
-  }
-
-  .avatar img {
-    height: 100%;
-  }
-
-  .avatar p {
-    font-size: 16px;
-    padding:5px;
-  }
-
-  .btn {
-    width:200px;
-    margin-bottom: 5px;
-    font-size: 16px;
-    font-weight: bold;
-  }
-</style>
-
+<link rel="stylesheet" href="/static/css/home.css">
 {% endblock %}
 
 {% block body_part %}
@@ -49,7 +18,7 @@
           <div class="content">
             <table class="table table-hover">
               <tbody>
-              {% for new in news %}
+                {% for new in news %}
                 <tr>
                   <td><a href="{{ url_for('front.new',news_id=new.nid) }}">{{new.title}}</a></td>
                   <td class="time">{{new.publisherTime}}</td>
@@ -61,31 +30,31 @@
         </div>
         <div class="col-lg-3 content-wrap">
           {% if session.student %}
-            <div class="title">
-              <h4><span class="glyphicon glyphicon-user" aria-hidden="true">用户中心</span></h4>
+          <div class="title">
+            <h4><span class="glyphicon glyphicon-user" aria-hidden="true">用户中心</span></h4>
+          </div>
+          <div class="content flex-column" style="align-items: center;">
+            <div class="avatar">
+              <img src="/static/img/avatar.png">
             </div>
-            <div class="content flex-column" style="align-items: center;">
-              <div class="avatar">
-                  <img src="/static/img/avatar.png">
-              </div>
-              <p>{{session.student}}</p>
-              <button class="btn"><a href="{{ url_for('front.user') }}">个人中心</a></button>
-              <button class="btn"><a href="{{url_for('front.stu_logout_api')}}">注销</a></button>
-            </div>
+            <p>{{session.student}}</p>
+            <button class="btn"><a href="{{ url_for('front.user') }}">个人中心</a></button>
+            <button class="btn"><a href="{{url_for('front.stu_logout_api')}}">注销</a></button>
+          </div>
           {% else %}
-            <div class="title">
-              <h4><span class="glyphicon glyphicon-user" aria-hidden="true">用户登陆</span></h4>
+          <div class="title">
+            <h4><span class="glyphicon glyphicon-user" aria-hidden="true">用户登陆</span></h4>
+          </div>
+          <form class="form flex-column" onsubmit="return false" id="login-form">
+            <input type="text" id="username" placeholder="请输入用户名">
+            <input type="password" id="password" placeholder="请输入密码">
+            <div class="type">
+              <span><input type="radio" value="1" name="type" checked><label>学生</label></span>
+              <span><input type="radio" value="2" name="type"><label>管理员</label></span>
+              <span><input type="radio" value="0" name="type"><label>超级管理员</label></span>
             </div>
-            <form class="form flex-column" onsubmit="return false" id="login-form">
-              <input type="text" id="username" placeholder="请输入用户名">
-              <input type="password" id="password" placeholder="请输入密码">
-              <div class="type">
-                  <span><input type="radio" value="1" name="type" checked><label>学生</label></span>
-                  <span><input type="radio" value="2" name="type"><label>管理员</label></span>
-                  <span><input type="radio" value="0" name="type"><label>超级管理员</label></span>
-              </div>
-              <button type="submit" class="btn btn-color" id="login">登陆</button>
-            </form>
+            <button type="submit" class="btn btn-color" id="login">登陆</button>
+          </form>
           {% endif %}
         </div>
       </div>
@@ -102,13 +71,17 @@
           {% for project in projects %}
           <div class="col-lg-3">
             <div class="project-image">
-              <a href="{{ url_for('front.project',pid=project.pid) }}">  <!--链接到项目的详情地址-->
-                <img style="height: 200px;" src="{{url_for('common.image',name=project.pic.path)}}" alt=""> <!--需要一张封面图片-->
+              <a href="{{ url_for('front.project',pid=project.pid) }}">
+                <!--链接到项目的详情地址-->
+                <img style="height: 200px;" src="{{url_for('common.image',name=project.pic.path)}}" alt="">
+                <!--需要一张封面图片-->
               </a>
             </div>
             <div class="project-title">
-              <a href="{{ url_for('front.project',pid=project.pid) }}"> <!--需要链接到项目的详情地址-->
-                <h5>{{project.pname}}</h5> <!--项目标题-->
+              <a href="{{ url_for('front.project',pid=project.pid) }}">
+                <!--需要链接到项目的详情地址-->
+                <h5>{{project.pname}}</h5>
+                <!--项目标题-->
               </a>
             </div>
             <div class="project-info">
@@ -128,56 +101,53 @@
 
 {% block js_files %}
 <script>
-    $(function () {
-        //截出时间的年月日
-        $(".time").each(function () {
-            $(this).text($(this).text().slice(0,10));
-        });
+$(function() {
+  //截出时间的年月日
+  $(".time").each(function() {
+    $(this).text($(this).text().slice(0, 10));
+  });
 
-
-        //学生登陆
-        $("#login").click(function () {
-            let data={};
-            data.username=$('#username').val();
-            data.password = $('#password').val();
-            let type=$("input[name='type']:checked").val();
-            if(type==1){
-                $.ajax({
-                    url:'/student/api/login',
-                    data:JSON.stringify(data),
-                    type:'post',
-                    dataType:'json',
-                    success:function (msg) {
-                        alert(msg.msg);
-                        if (msg.errorno == 0){
-                            window.location.href="{{url_for('front.home')}}"
-                        }
-                    },
-                    error:function (msg) {
-                        alert(msg.msg)
-                    }
-                })
-            }else {
-                data.type=type;
-                $.ajax({
-                    url:'/api/login',
-                    data:JSON.stringify(data),
-                    type:'post',
-                    dataType:'json',
-                    success:function (msg) {
-                        alert(msg.msg);
-                        if (msg.errorno == 0){
-                            window.location.href="{{url_for('back.main')}}"
-                        }
-                    },
-                    error:function (msg) {
-                        alert(msg.msg)
-                    }
-                })
-            }
-
-        })
-
-    })
+  //学生登陆
+  $("#login").click(function() {
+    let data = {};
+    data.username = $('#username').val();
+    data.password = $('#password').val();
+    let type = $("input[name='type']:checked").val();
+    if (type == 1) {
+      $.ajax({
+        url: '/student/api/login',
+        data: JSON.stringify(data),
+        type: 'post',
+        dataType: 'json',
+        success: function(msg) {
+          alert(msg.msg);
+          if (msg.errorno == 0) {
+            window.location.href = "{{url_for('front.home')}}"
+          }
+        },
+        error: function(msg) {
+          alert(msg.msg)
+        }
+      })
+    } else {
+      data.type = type;
+      $.ajax({
+        url: '/api/login',
+        data: JSON.stringify(data),
+        type: 'post',
+        dataType: 'json',
+        success: function(msg) {
+          alert(msg.msg);
+          if (msg.errorno == 0) {
+            window.location.href = "{{url_for('back.main')}}"
+          }
+        },
+        error: function(msg) {
+          alert(msg.msg)
+        }
+      })
+    }
+  })
+})
 </script>
 {% endblock %}
