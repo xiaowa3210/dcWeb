@@ -52,49 +52,92 @@ footer ul.regular li a:hover {
 }
 
 .btn-color {
+  color: #fff;
   background: #94c045;
   border: 1px solid #94c045;
-  *background: #81ab35;
 }
 
 .btn-color:hover,
 .btn-color.active,
 .btn-color.disabled,
 .btn-color[disabled] {
+  color: #fff;
   background: #81ab35;
 }
 
 .flex-row {
   display: flex;
   flex-direction: row;
-  align-items: stretch;
   justify-content: space-between;
 }
 
 .flex-column {
   display: flex;
   flex-direction: column;
-  /*align-items: center;*/
   justify-content: center;
 }
 
-html {
+html,
+body {
   height: 100%;
 }
 
 body {
   padding-top: 170px;
   background: #f4f4f4;
-  height: 100%;
 }
 
 main {
-  min-height: 100%;
+  margin: 0 auto 15px;
 }
 
 main .container {
-  padding-left: 15px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+.box-white {
+  padding: 20px 20px;
   background: #fff;
+}
+
+.table .time {
+  text-align: right;
+}
+
+.pagination li a {
+  color: #94c045;
+}
+
+.pagination .active a {
+  border-color: #94c045;
+  background: #94c045;
+}
+
+.pagination li a:hover,
+.pagination .active a:hover {
+  border-color: #94c045;
+  color: #fff;
+  background: #94c045;
+}
+
+.project-item {
+  border-radius: 4px;
+  box-shadow: 0 0 6px #ddd;
+  overflow: hidden;
+}
+
+.project-item a {
+  padding: 0;
+}
+
+.project-title,
+.project-info {
+  padding: 10px 15px;
+}
+
+.project-info .glyphicon {
+  margin-right: 5px;
 }
 
 select,
@@ -166,11 +209,6 @@ main img {
   pointer-events: none;
   background: #555;
   border: 1px solid #777;
-}
-
-.pagination li a {
-  border: 1px solid #777;
-  padding: 8px 15px
 }
 
 /* 导航条 */
