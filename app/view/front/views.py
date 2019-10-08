@@ -354,7 +354,7 @@ def projects(page,count):
     endTime = request.args.get('endTime', default=None)
     type = request.args.get('type', default=-1, type=int)
     major = request.args.get('major',default=0, type=int)
-    source = request.args.get('source',default=-1, type=int)
+    # source = request.args.get('source',default=-1, type=int)
 
     pagination,projects = projectService.getPublishedPro(page,count,
                                                          startTime=startTime,
