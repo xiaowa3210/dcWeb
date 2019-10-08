@@ -16,8 +16,10 @@
     {% include "front/components/nav.html" %}
 
     <main>
-      {% block body_part %}
-      {% endblock %}
+      <div class="container">
+        {% block body_part %}
+        {% endblock %}
+      </div>
     </main>
 
     {# 页脚 #}
@@ -26,6 +28,7 @@
     {# script #}
     <script src="/static/vendor/jquery/jquery-2.1.0.min.js"></script>
     <script src="/static/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/static/js/common.js"></script>
     <script src="/static/js/base.js"></script>
     <script src="/static/js/utils.js"></script>
     {% block js_files %}
