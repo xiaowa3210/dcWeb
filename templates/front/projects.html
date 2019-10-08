@@ -1,149 +1,91 @@
 {% extends 'front/base.html' %}
-
 {% block page_name %}项目展示{% endblock %}
-
+{% block static_files %}
+<style>
+  .box-white:last-child {
+    height: 428px;
+  }
+</style>
+{% endblock %}
 {% block body_part %}
-
-<div class="container">
-  <div class="row">
-    <div class="col-lg-3">
-      <aside>
-        <div class="widget">
-          <h4>筛选</h4>
-          <form onsubmit="return false">
-             <div class="form-group flex-column">
-                <label for="startTime">项目开始时间</label>
-                <input type="date" id="startTime">
-             </div>
-              <div class="form-group flex-column">
-                  <label>项目结束时间</label>
-                  <input type="date" id="endTime">
-              </div>
-              <div class="form-group flex-column">
-                <label>项目专业</label>
-                <select id="projectMajor" name="academy">
-                    <option value="1">通信工程</option>
-                    <option value="2">信息工程</option>
-                    <option value="3">电子信息工程</option>
-                </select>
-              </div>
-                <div class="form-group flex-column">
-                <label>项目类别</label>
-                <select id="projectCategory" name="type">
-                    <option value="1">App开发/微信小程序开发</option>
-                    <option value="2">通信/网络</option>
-                    <option value="3">软件系统</option>
-                    <option value="4">硬件系统</option>
-                    <option value="5">视频/图像</option>
-                    <option value="6">大数据/机器学习</option>
-                </select>
-              </div>
-              <div class="form-group center">
-                <button type="button" class="btn" id="select">筛选</button>
-              </div>
-          </form>
-        </div>
-      </aside>
-    </div>
-    <div class="col-lg-9">
-      {% if projects %}
+<div class="row">
+  <div class="col-md-3">
+    <aside class="box-white">
+      <div class="widget">
+        <h4>筛选</h4>
+        <form onsubmit="return false">
+          <div class="form-group flex-column">
+            <label for="startTime">项目开始时间</label>
+            <input type="date" id="startTime">
+          </div>
+          <div class="form-group flex-column">
+            <label>项目结束时间</label>
+            <input type="date" id="endTime">
+          </div>
+          <div class="form-group flex-column">
+            <label>项目专业</label>
+            <select id="projectMajor" name="academy">
+              <option value="1">通信工程</option>
+              <option value="2">信息工程</option>
+              <option value="3">电子信息工程</option>
+            </select>
+          </div>
+          <div class="form-group flex-column">
+            <label>项目类别</label>
+            <select id="projectCategory" name="type">
+              <option value="1">App开发/微信小程序开发</option>
+              <option value="2">通信/网络</option>
+              <option value="3">软件系统</option>
+              <option value="4">硬件系统</option>
+              <option value="5">视频/图像</option>
+              <option value="6">大数据/机器学习</option>
+            </select>
+          </div>
+          <div class="form-group center">
+            <button type="button" class="btn btn-color" id="select">筛选</button>
+          </div>
+        </form>
+      </div>
+    </aside>
+  </div>
+  <div class="col-md-9">
+    <div class="box-white">
+      <div class="row">
+        {% if projects %}
+        {% import 'front/components/macro.html' as macro %}
         {% for project in projects %}
-        <div class="col-lg-4">
-          <div class="project-image">
-            <a href="{{ url_for('front.project',pid=project.pid) }}">  <!--链接到项目的详情地址-->
-              <img style="height: 200px;" src="{{url_for('common.image',name=project.pic.path)}}" alt=""> <!--需要一张封面图片-->
-            </a>
-          </div>
-          <div class="project-title">
-            <a href="{{ url_for('front.project',pid=project.pid) }}"> <!--需要链接到项目的详情地址-->
-              <h5>{{project.pname}}</h5> <!--项目标题-->
-            </a>
-          </div>
-          <div class="project-info">
-            <div class="flex-row">
-              <div><i class="icon-user"></i><span>{{project.publisher}}</span></div>
-              <div><i class="icon-calendar"></i><span class="time">{{project.submitTime}}</span></div>
-            </div>
-          </div>
+        <div class="col-md-4">
+          {{ macro.projects(project) }}
         </div>
         {% endfor %}
-      {% else %}
-        <p>未找到符合条件的项目</p>
-      {% endif%}
-    </div>
-  </div>
-
-
-  <!--分页导航
-    ==================================================================-->
-  <div class="row">
-    <div class="col-lg-12 center">
-      <div class="pagination">
-        <ul class="flex-row">
-          {% if pagination.has_prev %}
-            <li class="page-item">
-              <a class="page-link" href="{{ url_for('front.projects',page = pagination.page - 1) }}">上一页</a>
-            </li>
-          {% else %}
-            <li class="page-item disabled">
-              <a class="page-link" href="#">上一页</a>
-            </li>
-          {% endif %}
-
-
-          {% for p in pagination.iter_pages() %}
-
-            {% if p == pagination.page%}
-              <li class="page-item active">
-                <a class="page-link" href="{{ url_for('front.projects', page = p) }}">{{loop.index}}</a>
-              </li>
-            {% else %}
-              <li class="page-item">
-                <a class="page-link" href="{{ url_for('front.projects', page = p) }}">{{loop.index}}</a>
-              </li>
-            {% endif %}
-          {% endfor %}
-
-          {% if pagination.has_next %}
-            <li class="page-item">
-              <a class="page-link" href="{{ url_for('front.projects',page = pagination.page + 1) }}">下一页</a>
-            </li>
-          {% else %}
-            <li class="page-item disabled">
-              <a class="page-link" href="#">下一页</a>
-            </li>
-          {% endif %}
-        </ul>
+        {% else %}
+        <p class="center">未找到符合条件的项目</p>
+        {% endif%}
+      </div>
+      <div class="row">
+        <div class="col-md-12 center">
+          {% import 'front/components/macro.html' as macro %}
+          {{ macro.pagination(pagination, 'front.projects') }}
+        </div>
       </div>
     </div>
   </div>
 </div>
-
 {% endblock %}
-
 {% block js_files%}
 <script>
-    $(document).ready(function () {
-        //筛选
-        $("#select").click(function () {
-            let data={};
-            data.major=$("#projectMajor").val();
-            data.startTime=$("#startTime").val();
-            data.endTime=$("#endTime").val();
-            data.type=$("#projectCategory").val();
-            $.ajax({
-                url:`/projects?major=${data.major}&startTime=${data.startTime}&endTime=${data.endTime}&type=${data.type}`,
-                type:'get',
-                success:function () {
-                    console.log("hhh");
-                    window.location.href="{{url_for('front.projects')}}"
-                }
-            })
-
-        })
-    })
-
-
+$(document).ready(function() {
+  //筛选
+  $("#select").click(function() {
+    let data = {};
+    data.major = $("#projectMajor").val();
+    data.startTime = $("#startTime").val();
+    data.endTime = $("#endTime").val();
+    data.type = $("#projectCategory").val();
+    // TODO add source
+    // data.source = $("#projectCategory").val();
+    location.href = `/projects?major=${data.major}&startTime=${data.startTime}&endTime=${data.endTime}&type=${data.type}`
+  })
+})
 </script>
-
 {% endblock %}
