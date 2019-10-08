@@ -59,7 +59,7 @@
         </div>
         {% endfor %}
         {% else %}
-        <p>未找到符合条件的项目</p>
+        <p class="center">未找到符合条件的项目</p>
         {% endif%}
       </div>
       <div class="row">
@@ -82,15 +82,9 @@ $(document).ready(function() {
     data.startTime = $("#startTime").val();
     data.endTime = $("#endTime").val();
     data.type = $("#projectCategory").val();
-    $.ajax({
-      url: `/projects?major=${data.major}&startTime=${data.startTime}&endTime=${data.endTime}&type=${data.type}`,
-      type: 'get',
-      success: function() {
-        console.log("hhh");
-        window.location.href = "{{url_for('front.projects')}}"
-      }
-    })
-
+    // TODO add source
+    // data.source = $("#projectCategory").val();
+    location.href = `/projects?major=${data.major}&startTime=${data.startTime}&endTime=${data.endTime}&type=${data.type}`
   })
 })
 </script>
