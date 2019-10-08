@@ -321,8 +321,7 @@ class ProjectService:
         endTime = kw['endTime']
         type = kw['type']
         major = kw['major']
-        # source = kw['source']
-        source = 1
+        source = kw['source']
 
         query = ProjectStatus.query.filter(ProjectStatus.status == 3,ProjectStatus.delete_flag == 0)
         if startTime and endTime:

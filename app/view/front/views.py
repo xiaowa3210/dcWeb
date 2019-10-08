@@ -310,10 +310,10 @@ def modifiesProject(pid):
 @front.route('/student/uploadProject',defaults={'pid':-1})
 @front.route('/student/uploadProject/<int:pid>')
 def uploadProjectTmp(pid):
+    project = []
     if pid!=-1:
         project = projectService.getProjectByID(pid)
-        return render_template("front/modify-project.html", project=project)
-    return render_template("front/add-project.html")
+    return render_template("front/edit-project.html", project=project)
 
 """
 新闻列表展示
@@ -360,7 +360,8 @@ def projects(page,count):
                                                          startTime=startTime,
                                                          endTime=endTime,
                                                          type=type,
-                                                         major=major)
+                                                         major=major,
+                                                         source=source)
     return render_template("front/projects.html",projects=projects,pagination=pagination)
 
 """
