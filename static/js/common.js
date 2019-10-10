@@ -2,7 +2,7 @@ const setMarkdown = (id) => {
   const markdown = editormd(id, {
     syncScrolling: "single",
     saveHTMLToTextarea: true,
-    height: 700,
+    height: 400,
     // width:960,
     path: "/static/vendor/mdeditor/lib/",
     //启动本地图片上传功能
