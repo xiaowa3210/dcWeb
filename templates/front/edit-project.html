@@ -107,8 +107,11 @@
 {% block body_part%}
 <div class="row">
   <div class="box-white">
+    <ol class="breadcrumb">
+      <li><a href="/user">个人中心</a></li>
+      <li class="active">上传项目</li>
+    </ol>
     <div style="display: flex;justify-content: space-between">
-      <p><a href="{{url_for('front.user')}}">个人中心</a></p>
       {% if project and project.status and project.status.msg %}
       <p><button type="button" data-toggle="modal" data-target="#checkInfo">查看审核意见</button></p>
       {% endif %}
@@ -132,7 +135,7 @@
               </div>
             </div>
             <div class="tableRow">
-              <label>封面图片</label>
+              <label>封面图片*</label>
               <input type="file" id="mainPic" accept="image/*">
               <div>
                 {% if project.pic %}
@@ -163,6 +166,16 @@
                 <option value="4" {% if project.type=="4" %}selected{% endif %}>硬件系统</option>
                 <option value="5" {% if project.type=="5" %}selected{% endif %}>视频/图像</option>
                 <option value="6" {% if project.type=="6" %}selected{% endif %}>大数据/机器学习</option>
+              </select>
+            </div>
+            <div class="tableRow">
+              <label>项目来源*</label>
+              <select name="source">
+                <option value="1" {% if project.status and project.status.source==1 %}selected{% endif %}>大创项目</option>
+                <option value="2" {% if project.status and project.status.source==2 %}selected{% endif %}>雏雁项目</option>
+                <option value="3" {% if project.status and project.status.source==3 %}selected{% endif %}>竞赛项目</option>
+                <option value="4" {% if project.status and project.status.source==4 %}selected{% endif %}>课程项目</option>
+                <option value="0" {% if project.status and project.status.source==0 %}selected{% endif %}>其他</option>
               </select>
             </div>
             <div class="operate">

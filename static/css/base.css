@@ -109,6 +109,14 @@ main .container {
   background: #fff;
 }
 
+.box-bg {
+  color: #fff;
+  background: #94c045;
+}
+.box-bg * {
+  color: #fff;
+}
+
 .table .time {
   text-align: right;
 }
