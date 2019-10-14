@@ -3,9 +3,11 @@ $(function() {
    * 导航栏高亮active
    */
   $('.nav li').find('a').each(function() {
-    if (this.href === location.href || location.search && location.href.includes(this.href)) {
+    if (this.href === location.href || location.href.includes(this.href)) {
       $(this).parent().siblings('li').removeClass('active');
-      $(this).parent().addClass('active');
+      if(!location.href.includes('student')) {
+        $(this).parent().addClass('active');
+      }
     }
   });
 
