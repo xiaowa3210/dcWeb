@@ -1,10 +1,14 @@
 {% extends 'front/base.html' %}
 {% block page_name %}新闻公告{% endblock %}
 {% block body_part %}
-<div class="box-white">
+<div class="box-white" style="min-height: 600px;">
   <div class="row">
     <div class="col-md-12">
-      <article>
+      <ol class="breadcrumb">
+        <li><a href="{{url_for('front.news')}}">新闻公告</a></li>
+        <li class="active">详情信息</li>
+      </ol>
+      <article style="padding: 15px;">
         <h2 class="center">{{ new.title }}</h2>
         <p>{{ new.content | safe}}</p>
       </article>

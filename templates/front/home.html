@@ -25,21 +25,21 @@
   padding: 5px;
   margin-bottom: 5px;
 }
-
 .avatar img {
   height: 100%;
 }
-
 .avatar p {
   font-size: 16px;
   padding: 5px;
 }
-
-.btn {
-  width: 200px;
-  margin: 0 auto;
+.btn-user {
+  margin: 10px auto;
   font-size: 16px;
 }
+.btn-user a {
+  color: #fff;
+}
+
 </style>
 {% endblock %}
 {% block body_part %}
@@ -65,8 +65,8 @@
           <img src="/static/img/avatar.png">
         </div>
         <p>{{session.student}}</p>
-        <button class="btn"><a href="{{ url_for('front.user') }}">个人中心</a></button>
-        <button class="btn"><a href="{{url_for('front.stu_logout_api')}}">注销</a></button>
+        <button class="btn btn-success btn-user"><a href="{{ url_for('front.user') }}">个人中心</a></button>
+        <button class="btn btn-danger btn-user"><a href="{{url_for('front.stu_logout_api')}}">注销用户</a></button>
       </div>
       {% else %}
       <div class="title">

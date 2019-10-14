@@ -329,7 +329,7 @@ def news(page,count):
 """
 新闻内容展示
 """
-@front.route('/new/<news_id>')
+@front.route('/news/detail/<news_id>')
 def new(news_id):
     new = newsService.selectByNid(news_id)
     files = filesService.getFilesBySourceIdAndSource(2,news_id)
@@ -369,8 +369,8 @@ def projects(page,count):
 """
 项目详细展示
 """
-@front.route("/project",methods=['GET'])
-@front.route("/project/<int:pid>")
+@front.route("/projects/detail",methods=['GET'])
+@front.route("/projects/detail/<int:pid>")
 def project(pid):
     project = projectService.getProjectByID(pid)
     return render_template("front/project-detail.html",project=project)
@@ -427,8 +427,8 @@ def home():
 """
 测试用
 """
-@front.route("/user",defaults={'page':1,'count':10})
-@front.route("/user/<int:page>/<int:count>")
+@front.route("/student",defaults={'page':1,'count':10})
+@front.route("/student/<int:page>/<int:count>")
 def user(page,count):
     pagination,project = projectService.getProByStudentId(page,count)
     return render_template("front/user.html", pagination=pagination, project=project)

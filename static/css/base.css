@@ -14,16 +14,19 @@
 a {
   display: inline-block;
   padding: 8px;
+  color: #555;
 }
 
 a,
 a:visited,
+a:active,
+a:focus,
 a:hover {
   text-decoration: none;
 }
 
-a {
-  color: #555;
+a:focus {
+  color: #000;
 }
 
 a:hover {
@@ -252,6 +255,11 @@ main img {
   padding: 20px 35px 20px;
   color: #777777;
   font-weight: bold;
+}
+
+.breadcrumb {
+  background: #fff;
+  font-size: 14px;
 }
 
 /* 页脚 */
