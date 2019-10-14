@@ -91,7 +91,7 @@
 <div class="project-item">
   <div class="project-image">
     <a href="{{ url_for('front.project', pid=project.pid) }}">
-      <img style="display: block;height: 200px;" src="{{url_for('common.image',name=project.pic.path)}}" alt="">
+      <img style="display: block;height: 200px;object-fit: cover;" src="{{url_for('common.image',name=project.pic.path)}}" alt="">
       <!-- <img src="/static/img/lab/project.jpg"> -->
     </a>
   </div>
