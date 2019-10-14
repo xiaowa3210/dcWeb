@@ -8,18 +8,18 @@
 
 # code is far away from bugs with the god animal protecting
     I love animals. They taste delicious.
-              ┏┓      ┏┓
+             ┏┓   ┏┓
             ┏┛┻━━━┛┻┓
-            ┃      ☃      ┃
-            ┃  ┳┛  ┗┳  ┃
-            ┃      ┻      ┃
-            ┗━┓      ┏━┛
-                ┃      ┗━━━┓
-                ┃  神兽保佑    ┣┓
-                ┃　永无BUG！   ┏┛
-                ┗┓┓┏━┳┓┏┛
-                  ┃┫┫  ┃┫┫
-                  ┗┻┛  ┗┻┛
+            ┃      ☃┃
+            ┃ ┳┛ ┗┳ ┃
+            ┃       ┻ ┃
+            ┗━┓     ┏━┛
+              ┃     ┗━━━┓
+              ┃ 神兽保佑  ┣┓
+              ┃ 永无BUG  ┏┛
+              ┗┓┓┏━┳┓┏┛
+               ┃┫┫ ┃┫┫
+               ┗┻┛ ┗┻┛
 """
 import json
 import uuid
@@ -482,7 +482,7 @@ class ProjectService:
     @:return:
     @descrition:根据PID得到项目内容
     """
-    def    getProjectByID(self,pid):
+    def getProjectByID(self,pid):
 
         pro = Project.query.filter(Project.pid == pid).one()
         mainPic = db2.session.query(Files).filter(Files.source_id == pro.pid,
@@ -516,6 +516,21 @@ class ProjectService:
         return ProjectStatus.query.filter(ProjectStatus.pid == pid).one()
 
 
+    # 生成project
+    def getProId(self):
+        project = Project("","","")
+        project.src_content = ""
+        project.mainPic = 'default.jpg'
+
+        # 添加状态信息
+        publisher = commonService.getCurrentUsername(1)
+        status = ProjectStatus("", "", publisher, "")
+        status.mainPic = project.mainPic
+        status.submitTime = datetime.now()
+        project.status = status
+        db2.session.add(project)
+        db2.session.commit()
+        return project
 
 
     #添加项目
@@ -524,7 +539,8 @@ class ProjectService:
         content = data["content"]
         src_content = data["src_content"]
         type = data["type"]
-        source = data["source"]
+        # source = data["source"]
+        source = 1
         project = Project(pname, content, type)
         project.src_content = src_content
         # 添加状态信息

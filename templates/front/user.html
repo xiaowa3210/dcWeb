@@ -6,124 +6,121 @@
 {% endblock %}
 {% block body_part %}
 <section>
-    <div class="row">
-      <div class="col-md-3">
-        <aside class="box-white">
-          <div class="widget">
-            <ul class="cat show">
-              <li><a href="{{url_for('front.user')}}">我的项目</a></li>
-              <li><a href="{{url_for('front.uploadProjectTmp')}}">上传项目</a></button></li>
-            </ul>
-          </div>
-        </aside>
-      </div>
-      <div class="col-md-9">
-        <div class="myProject box-white">
-          <ul id="myTab" class="nav nav-tabs">
-            <li class="active"><a href="#release" data-toggle="tab">已发布项目</a></li>
-            <li><a href="#examine" data-toggle="tab">待审核项目</a></li>
-            <li><a href="#fail" data-toggle="tab">未通过项目</a></li>
-            <li><a href="#unsubmitted" data-toggle="tab">未提交项目</a></li>
+  <div class="row">
+    <div class="col-md-3">
+      <aside class="box-white">
+        <div class="widget">
+          <ul class="cat show">
+            <li><a href="{{url_for('front.user')}}">我的项目</a></li>
+            <li><a href="{{url_for('front.uploadProjectTmp')}}">上传项目</a></button></li>
           </ul>
-          <div id="myTabContent" class="tab-content">
-            <div class="tab-pane fade in active" id="release">
-              <!--未提交1 待审核2 已发布3 未通过4-->
-              <table class="table table-hover">
-                <tbody>
-                  {% for item in project %}
-                  {% if item.status==3 %}
-                  <tr>
-                    <td><a href="{{ url_for('front.previewProject',pid=item.pid) }}">{{ item.pname }}</a></td>
-                    <td>
-                      <div class="btn-group flex-row">
-                        <span class="btn btn-color cancel" p_id="{{ projectItem.pid }}"><i class="icon-remove"></i>撤销发布</span>
-                        <span style="margin-left: 10%" class="btn btn-inverse delete" p_id="{{ item.pid }}"><i class="icon-remove"></i>删除</span>
-                      </div>
-                    </td>
-                  </tr>
-                  {% endif %}
-                  {% endfor %}
-                </tbody>
-              </table>
-            </div>
-            <div class="tab-pane fade" id="examine">
-              <table class="table table-hover">
-                <tbody>
-                  {% for item in project %}
-                  <!--未提交1 待审核2 已发布3 未通过4-->
-                  {% if item.status==2 %}
-                  <tr>
-                    <td><a href="{{ url_for('front.previewProject',pid=item.pid) }}">{{ item.pname }}</a></td>
-                    <td>
-                      <div class="btn-group flex-row">
-                        <span class="btn btn-color cancel" p_id="{{ item.pid }}"><i class="icon-remove"></i>撤销审核</span>
-                        <span style="margin-left: 10%" class="btn btn-inverse delete" p_id="{{ item.pid }}">
-                          <i class="icon-remove"></i>删除
-                        </span>
-                      </div>
-                    </td>
-                  </tr>
-                  {% endif %}
-                  {% endfor %}
-                </tbody>
-              </table>
-            </div>
-            <div class="tab-pane fade" id="fail">
-              <table class="table table-hover">
-                <tbody>
-                  {% for item in project %}
-                  <!--未提交1 待审核2 已发布3 未通过4-->
-                  {% if item.status==4 %}
-                  <tr>
-                    <td><a href="{{ url_for('front.previewProject',pid=item.pid) }}">{{ item.pname }}</a></td>
-                    <td>
-                      <div class="btn-group flex-row">
-                        <span class="btn btn-color">
-                          <a href="{{ url_for('front.modifiesProject',pid=item.pid) }}">
-                            <i class="icon-pencil"></i>编辑
-                          </a>
-                        </span>
-                        <span class="btn delete btn-reverse" p_id="{{ item.pid }}">
-                          <i class="icon-remove"></i>删除
-                        </span>
-                      </div>
-                    </td>
-                  </tr>
-                  {% endif %}
-                  {% endfor %}
-                </tbody>
-              </table>
-            </div>
-            <div class="tab-pane fade" id="unsubmitted">
-              <table class="table table-hover">
-                <tbody>
-                  {% for item in project %}
-                  <!--未提交1 待审核2 已发布3 未通过4-->
-                  {% if item.status==1 %}
-                  <tr>
-                    <td><a href="{{ url_for('front.previewProject',pid=item.pid) }}">{{ item.pname }}</a></td>
-                    <td>
-                      <div>
-                        <span class="btn btn-color">
-                          <a style="color:#fff" href="{{ url_for('front.modifiesProject',pid=item.pid) }}">
-                            <i class="icon-pencil"></i>编辑
-                          </a>
-                        </span>
-                        <span style="margin-left: 10%" class="btn delete btn-reverse" p_id="{{ item.pid }}">
-                          <i class="icon-remove"></i>删除
-                        </span>
-                      </div>
-                    </td>
-                  </tr>
-                  {% endif %}
-                  {% endfor %}
-                </tbody>
-              </table>
-            </div>
+        </div>
+      </aside>
+    </div>
+    <div class="col-md-9">
+      <div class="myProject box-white">
+        <ul id="myTab" class="nav nav-tabs">
+          <li class="active"><a href="#release" data-toggle="tab">已发布项目</a></li>
+          <li><a href="#examine" data-toggle="tab">待审核项目</a></li>
+          <li><a href="#fail" data-toggle="tab">未通过项目</a></li>
+          <li><a href="#unsubmitted" data-toggle="tab">未提交项目</a></li>
+        </ul>
+        <div id="myTabContent" class="tab-content">
+          <div class="tab-pane fade in active" id="release">
+            <!--未提交1 待审核2 已发布3 未通过4-->
+            <table class="table table-hover">
+              <tbody>
+                {% for item in project %}
+                {% if item.status==3 %}
+                <tr>
+                  <td>
+                    <a href="{{ url_for('front.previewProject',pid=item.pid) }}">{{ item.pname }}</a>
+                  </td>
+                  <td><button class="btn btn-color cancel" p_id="{{ projectItem.pid }}">撤销发布</button></td>
+                  <td>
+                    <button class="btn btn-warning btn-sm delete" p_id="{{item.pid}}">删除</button>
+                  </td>
+                </tr>
+                {% endif %}
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+          <div class="tab-pane fade" id="examine">
+            <table class="table table-hover">
+              <tbody>
+                {% for item in project %}
+                <!--未提交1 待审核2 已发布3 未通过4-->
+                {% if item.status==2 %}
+                <tr>
+                  <td>
+                    <a href="{{ url_for('front.previewProject',pid=item.pid) }}">{{ item.pname }}</a>
+                  </td>
+                  <td>
+                    <button class="btn btn-color btn-sm cancel" p_id="{{ item.pid }}">撤销审核</button>
+                  </td>
+                  <td>
+                    <button class="btn btn-warning btn-sm delete" p_id="{{item.pid}}">删除</button>
+                  </td>
+                </tr>
+                {% endif %}
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+          <div class="tab-pane fade" id="fail">
+            <table class="table table-hover">
+              <tbody>
+                {% for item in project %}
+                <!--未提交1 待审核2 已发布3 未通过4-->
+                {% if item.status==4 %}
+                <tr>
+                  <td>
+                    <a href="{{ url_for('front.previewProject',pid=item.pid) }}">{{ item.pname }}</a>
+                  </td>
+
+                  <td>
+                    <a style="color:#fff;padding:0;" href="{{ url_for('front.modifiesProject',pid=item.pid) }}">
+                      <button class="btn btn-color btn-sm">编辑</button>
+                    </a>
+                  </td>
+                  <td>
+                    <button class="btn btn-warning btn-sm delete" p_id="{{item.pid}}">删除</button>
+                  </td>
+                </tr>
+                {% endif %}
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+          <div class="tab-pane fade" id="unsubmitted">
+            <table class="table table-hover">
+              <tbody>
+                {% for item in project %}
+                <!--未提交1 待审核2 已发布3 未通过4-->
+                {% if item.status==1 %}
+                <tr>
+                  <td>
+                    <a href="{{ url_for('front.previewProject',pid=item.pid) }}">{{ item.pname }}</a>
+                  </td>
+                  <td>
+                    <a style="color:#fff;padding:0;" href="{{ url_for('front.modifiesProject',pid=item.pid) }}">
+                      <button class="btn btn-color btn-sm">编辑</button>
+                    </a>
+                  </td>
+                  <td>
+                    <button class="btn btn-warning btn-sm delete" p_id="{{item.pid}}">删除</button>
+                  </td>
+                </tr>
+                {% endif %}
+                {% endfor %}
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
     </div>
+  </div>
 </section>
 {% endblock %}
 {% block js_files%}
@@ -157,20 +154,21 @@ $(function() {
 
   //删除项目
   $(".delete").click(function() {
+    const $this = $(this)
     if (delete_confirm()) {
       let data = {};
-      data.pid = $(this).attr('p_id');
-      console.log(data.pid);
+      data.pid = $this.attr('p_id');
 
       $.ajax({
         url: '/api/student/deletePro',
-        type: 'post',
+        type: 'POST',
         data: JSON.stringify(data),
         dataType: 'json',
         success: function(data) {
           alert(data.msg);
           // window.location.href="/back01/lab"
-          window.location.href = "{{url_for('front.user')}}"
+          $this.parent().parent().parent().remove()
+          // window.location.href = "{{url_for('front.user')}}"
         },
         error: function(data) {
           alert(data.msg)
@@ -189,7 +187,6 @@ $(function() {
   }
 
   //删除项目
-
   function delete_confirm() {
     if (window.confirm('确定删除吗？')) {
       return true;

@@ -109,11 +109,11 @@
   <div class="box-white">
     <div style="display: flex;justify-content: space-between">
       <p><a href="{{url_for('front.user')}}">个人中心</a></p>
-      {% if project.status.msg %}
+      {% if project and project.status and project.status.msg %}
       <p><button type="button" data-toggle="modal" data-target="#checkInfo">查看审核意见</button></p>
       {% endif %}
     </div>
-    <div id="panel" data-pid="{{project.pid}}">
+    <div id="panel" data-pid="{{project.pid or -1}}">
       <section>
         <div class="item-header">
           <div class="left">项目信息</div>
@@ -133,24 +133,25 @@
             </div>
             <div class="tableRow">
               <label>封面图片</label>
-              <input type="file" id="mainPic">
-            </div>
-            <div class="tableRow">
-              <label></label>
+              <input type="file" id="mainPic" accept="image/*">
               <div>
-                <img style="width:300px;height:200px" class="mainPicPreview" id="{{project.pic.fid}}" src="{{ url_for('common.image',name=project.pic.path) }}">
+                {% if project.pic %}
+                <img style="width:300px;height:200px" class="mainPicPreview" data-id="{{project.pic.fid}}" src="{{ url_for('common.image',name=project.pic.path) }}">
+                {% else %}
+                <img style="width:300px;height:200px" class="mainPicPreview" data-id="" src="">
+                {% endif %}
               </div>
             </div>
             <div class="tableRow">
               <label>立项时间*</label>
-              <input type="date" name="startTime" value="{{project.status.pro_startTime}}" required>
+              <input type="date" name="startTime" value="{% if project.status and project.status.pro_startTime %}{{project.status.pro_startTime}}{% endif %}" required>
             </div>
             <div class="tableRow">
               <label>项目专业*</label>
               <select name="major">
-                <option value="1" {% if project.status.major==1 %}selected{% endif %}>通信工程</option>
-                <option value="2" {% if project.status.major==2 %}selected{% endif %}>信息工程</option>
-                <option value="3" {% if project.status.major==3 %}selected{% endif %}>电子信息工程</option>
+                <option value="1" {% if project.status and project.status.major==1 %}selected{% endif %}>通信工程</option>
+                <option value="2" {% if project.status and project.status.major==2 %}selected{% endif %}>信息工程</option>
+                <option value="3" {% if project.status and project.status.major==3 %}selected{% endif %}>电子信息工程</option>
               </select>
             </div>
             <div class="tableRow">
@@ -471,7 +472,7 @@ $(function() {
     this.pid = this.$panel.data('pid')
 
     // 提交后返回的封面图片的id
-    this.mainPicId = this.$mainPicPreview.attr('id')
+    this.mainPicId = this.$mainPicPreview.data('id')
 
     // 获奖证书
     this.certIdArr = []
@@ -520,19 +521,29 @@ $(function() {
       let form = new FormData();
       form.append("pics", file);
       form.append("source", 1); // 封面图片的source为1
-      form.append("source_id", that.mainPicId);
+      let url
+      if (that.mainPicId) {
+        form.append("source_id", that.mainPicId);
+        url = '/api/modifyMainPic/' + that.mainPicId
+      } else {
+        url = '/api/addPic'
+      }
       $.ajax({
-        url: '/api/modifyMainPic/' + that.mainPicId,
+        url: url,
         data: form,
         type: 'POST',
         contentType: false,
         processData: false,
         dataType: 'json',
         success(res) {
-          console.log(res);
           if (res.errorno === 0) {
-            that.$mainPicPreview.attr('src', res.data.url);
-            alert(res.msg)
+            if (that.mainPicId) {
+              that.$mainPicPreview.attr('src', res.data.url)
+            } else {
+              that.$mainPicPreview.attr('src', res.data[0].url)
+              that.$mainPicPreview.data('id', res.data[0].id)
+              that.mainPicId = res.data[0].id
+            }
           } else {
             alert(res.msg)
           }
@@ -641,17 +652,29 @@ $(function() {
 
   // 保存基本信息
   Project.prototype.saveInfo = function(dom) {
+    const that = this
     let data = this.$infoForm.serializeJson();
     data.mainPicId = this.mainPicId;
     data.content = this.mdEditor.getHTML();
+    let url
+    if (this.pid !== -1) {
+      url = '/api/modifyPro/' + this.pid
+    } else {
+      url = '/api/addPro'
+    }
     $.ajax({
-      url: '/api/modifyPro/' + this.pid,
+      url: url,
       data: JSON.stringify(data),
       type: 'POST',
       dataType: 'json',
       success: function(res) {
         if (res.errorno === 0) {
-          alert("修改成功")
+          alert(res.msg)
+          if (res.data.pid) {
+            that.pid = res.data.pid
+            that.$panel.data('pid', res.data.pid)
+            location.replace('/student/modifiesProject/' + res.data.pid)
+          }
         } else {
           alert(res.msg)
         }
@@ -824,7 +847,7 @@ $(function() {
       dataType: 'json',
       success: function(res) {
         alert(res.msg)
-        // window.location.href = "{{url_for('front.user')}}"
+        location.href = '/user'
       },
       error: function(xhr, status, error) {
         alert(error)

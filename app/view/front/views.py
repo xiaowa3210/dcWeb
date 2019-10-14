@@ -302,7 +302,7 @@ def manageProject(page,count):
 @front.route('/student/modifiesProject/<int:pid>')
 def modifiesProject(pid):
     project = projectService.getProjectByID(pid)
-    return render_template("front/modify-project.html", project=project)
+    return render_template("front/edit-project.html", project=project)
 
 """
 上传项目
@@ -313,6 +313,8 @@ def uploadProjectTmp(pid):
     project = []
     if pid!=-1:
         project = projectService.getProjectByID(pid)
+    # else:
+    #     project = projectService.getProId()
     return render_template("front/edit-project.html", project=project)
 
 """
@@ -354,7 +356,7 @@ def projects(page,count):
     endTime = request.args.get('endTime', default=None)
     type = request.args.get('type', default=-1, type=int)
     major = request.args.get('major',default=0, type=int)
-    # source = request.args.get('source',default=-1, type=int)
+    source = request.args.get('source',default=-1, type=int)
 
     pagination,projects = projectService.getPublishedPro(page,count,
                                                          startTime=startTime,
@@ -371,7 +373,7 @@ def projects(page,count):
 @front.route("/project/<int:pid>")
 def project(pid):
     project = projectService.getProjectByID(pid)
-    return render_template("tmp01/projects-detail.html",project=project)
+    return render_template("front/project-detail.html",project=project)
 
 
 """
@@ -381,7 +383,8 @@ def project(pid):
 @front.route("/student/preview/project/<int:pid>")
 def previewProject(pid):
     project = projectService.getProjectByID(pid)
-    return render_template("tmp01/project-preview.html",project=project)
+    # return render_template("front/project-preview.html",project=project)
+    return render_template("front/project-detail.html",project=project)
 
 """
 基地风采展示
