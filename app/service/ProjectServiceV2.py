@@ -445,7 +445,7 @@ class ProjectService:
     """
     @:param:
     @:return:
-    @descrition:撤销项目
+    @descrition:提交项目
     """
 
     def submitPro(self, pid):
@@ -539,8 +539,7 @@ class ProjectService:
         content = data["content"]
         src_content = data["src_content"]
         type = data["type"]
-        # source = data["source"]
-        source = 1
+        source = data["source"]
         project = Project(pname, content, type)
         project.src_content = src_content
         # 添加状态信息
@@ -577,7 +576,8 @@ class ProjectService:
             'type':data["type"],
             'pro_startTime':data['startTime'],
             # 'academy':data['academy'],
-            'major':data['major']
+            'major':data['major'],
+            'source':data['source']
         })
         db2.session.commit()
 
