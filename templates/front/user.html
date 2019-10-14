@@ -1,6 +1,6 @@
 {% extends 'front/base.html' %}
 {% block page_name %}用户中心{% endblock %}
-{% block static_files%}
+{% block static_files %}
 <style>
 .min-height {
   min-height: 67vh;
@@ -131,7 +131,6 @@ $(function() {
     if (cancel_confirm()) {
       let data = {};
       data.pid = $(this).attr('p_id');
-      console.log(data.pid);
 
       $.ajax({
         url: '{{ url_for("front.stuUodoPro") }}',
@@ -145,7 +144,6 @@ $(function() {
         },
         error: function(data) {
           alert(data.msg)
-
         }
       });
     }
@@ -168,7 +166,6 @@ $(function() {
         },
         error: function(data) {
           alert(data.msg)
-
         }
       });
     }

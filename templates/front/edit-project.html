@@ -33,6 +33,17 @@
         font-weight: bold;
     }
 
+    label[for='mainPic'] {
+      background: url(/static/img/upload.png) center/contain no-repeat;
+      cursor: pointer;
+    }
+
+    .mainPicPreview {
+      width: 280px;
+      height: 210px;
+      object-fit: contain;
+    }
+
     .lists {
         display: flex;
          margin-bottom: 5px
@@ -136,12 +147,13 @@
             </div>
             <div class="tableRow">
               <label>封面图片*</label>
-              <input type="file" id="mainPic" accept="image/*">
+              <label for="mainPic"></label>
+              <input type="file" id="mainPic" accept="image/*" class="hide">
               <div>
                 {% if project.pic %}
-                <img style="width:300px;height:200px" class="mainPicPreview" data-id="{{project.pic.fid}}" src="{{ url_for('common.image',name=project.pic.path) }}">
+                <img class="mainPicPreview" data-id="{{project.pic.fid}}" src="{{ url_for('common.image',name=project.pic.path) }}">
                 {% else %}
-                <img style="width:300px;height:200px" class="mainPicPreview" data-id="" src="">
+                <img class="mainPicPreview" data-id="" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==">
                 {% endif %}
               </div>
             </div>
@@ -192,7 +204,7 @@
         <div class="result">
           <table class="table table-striped text-center">
             <thead>
-              <tr>
+              <tr class="success">
                 <td>姓名</td>
                 <td>学号</td>
                 <td>班级</td>
@@ -202,7 +214,7 @@
                 <td>操作</td>
               </tr>
             </thead>
-            <tbody>
+            <tbody class="member-tbody">
               {% for member in project.members %}
               {% if member.type==1 %}
               <tr class="edit-area">
@@ -283,14 +295,14 @@
         <div class="result">
           <table class="table table-striped text-center">
             <thead>
-              <tr>
+              <tr class="success">
                 <td>姓名</td>
                 <td>专业</td>
                 <td>学院</td>
                 <td>操作</td>
               </tr>
             </thead>
-            <tbody>
+            <tbody class="teacher-tbody">
               {% for member in project.members %}
               {% if member.type==0 %}
               <tr class="edit-area">
@@ -337,6 +349,7 @@
           </form>
         </div>
       </section>
+      <!--
       <section>
         <div class="item-header flex-row">
           <div class="left">获奖信息</div>
@@ -345,7 +358,7 @@
         <div class="result">
           <table class="table table-striped text-center">
             <thead>
-              <tr>
+              <tr class="success">
                 <td>获奖名称</td>
                 <td>获奖时间</td>
                 <td>奖项级别</td>
@@ -353,7 +366,7 @@
                 <td>操作</td>
               </tr>
             </thead>
-            <tbody>
+            <tbody class="award-tbody">
               {% for award in project.awards %}
               <tr class="edit-area">
                 <td>
@@ -447,6 +460,7 @@
           </form>
         </div>
       </section>
+      -->
       <div class="center">
         <button class="btn btn-success submit">提交审核</button>
       </div>
@@ -479,7 +493,7 @@ $(function() {
   // 初始化项目信息
   Project.prototype.initConfig = function() {
     // init markdown editor
-    this.mdEditor = setMarkdown('markdown')
+    this.mdEditor = setMarkdown('markdown', `## 项目背景\n\n## 项目内容\n\n## 项目总结`)
 
     // 项目id
     this.pid = this.$panel.data('pid')
@@ -499,6 +513,9 @@ $(function() {
 
     // 绑定证书添加删除事件
     this.bindCertfile()
+
+    // 绑定修改事件
+    this.bindEdit()
 
     this.$panel.on('click', '.save-info, .save-member, .save-teacher, .save-award, .add, .cancel, .edit, .delete, .submit', function() {
       const $this = $(this)
@@ -558,11 +575,11 @@ $(function() {
               that.mainPicId = res.data[0].id
             }
           } else {
-            alert(res.msg)
+            layer.msg(res.msg)
           }
         },
         error(xhr, status, error) {
-          alert(error);
+          layer.msg(error);
         }
       });
     });
@@ -599,14 +616,19 @@ $(function() {
   // 编辑修改
   Project.prototype.edit = function($this) {
     const area = $this.parent().parent()
+    const area1 = area.find('.area1')
+    const area2 = area.find('.area2')
     if ($this.text() === '修改') {
       $this.text('保存')
-      area.find('.area1').addClass('hide')
-      area.find('.area2').removeClass('hide')
+      area1.addClass('hide')
+      area2.removeClass('hide')
+      area2.on('change', function(e) {
+        $(e.target).prev().html(e.target.value)
+      })
     } else {
       $this.text('修改')
-      area.find('.area1').removeClass('hide')
-      area.find('.area2').addClass('hide')
+      area1.removeClass('hide')
+      area2.addClass('hide')
       // 提交保存
       let data = {}
       area.find('.area2').each(function(idx, input) {
@@ -624,17 +646,23 @@ $(function() {
         dataType: 'json',
         success: function(res) {
           if (res.errorno === 0) {
-            alert("保存成功")
-            location.reload()
+            layer.msg("保存成功")
+            // setTimeout(function() {
+              // location.reload()
+            // }, 1800)
           } else {
-            alert(res.msg)
+            layer.msg(res.msg)
           }
         },
         error: function(xhr, status, error) {
-          alert(error)
+          layer.msg(error)
         }
       })
     }
+  }
+
+  Project.prototype.bindEdit = function() {
+    // $('.edit-area').find('.area2')
   }
 
   // 删除
@@ -652,13 +680,13 @@ $(function() {
       success: function(res) {
         if (+res.errorno === 0) {
           $this.parent().parent().remove()
-          alert('删除成功')
+          layer.msg('删除成功')
         } else {
-          alert(res.msg)
+          layer.msg(res.msg)
         }
       },
       error: function(xhr, status, error) {
-        alert(error)
+        layer.msg(error)
       }
     })
   }
@@ -682,26 +710,27 @@ $(function() {
       dataType: 'json',
       success: function(res) {
         if (res.errorno === 0) {
-          alert(res.msg)
+          layer.msg(res.msg)
           if (res.data.pid) {
             that.pid = res.data.pid
             that.$panel.data('pid', res.data.pid)
-            location.replace('/student/modifiesProject/' + res.data.pid)
+            setTimeout(function() {
+              location.replace('/student/modifiesProject/' + res.data.pid)
+            }, 1800)
           }
         } else {
-          alert(res.msg)
+          layer.msg(res.msg)
         }
       },
       error: function(xhr, status, error) {
-        alert(error)
+        layer.msg(error)
       }
     })
   }
 
   // 保存成员信息
-  Project.prototype.saveMember = function(dom) {
-    let member = this.$memberForm.serializeJson()
-
+  Project.prototype.saveMember = function($this) {
+    const member = this.$memberForm.serializeJson()
     $.ajax({
       url: '/api/addProMember/1/' + this.pid, // 学生是1
       data: JSON.stringify(member),
@@ -709,14 +738,47 @@ $(function() {
       dataType: 'json',
       success: function(res) {
         if (res.errorno === 0) {
-          alert("保存成功")
-          location.reload()
+          layer.msg("保存成功")
+          const html = `
+              <tr class="edit-area">
+                <td>
+                  <div class="area1">${member.name}</div>
+                  <input class="area2 hide" type="text" name="name" value="${member.name}">
+                </td>
+                <td>
+                  <div class="area1">${member.number}</div>
+                  <input class="area2 hide" type="text" name="number" value="${member.number}">
+                </td>
+                <td>
+                  <div class="area1">${member.classId}</div>
+                  <input class="area2 hide" type="text" name="classId" value="${member.classId}">
+                </td>
+                <td>
+                  <div class="area1">${member.grade}</div>
+                  <input class="area2 hide" type="text" name="grade" value="${member.grade}">
+                </td>
+                <td>
+                  <div class="area1">${member.major}</div>
+                  <input class="area2 hide" type="text" name="major" value="${member.major}">
+                </td>
+                <td>
+                  <div class="area1">${member.academy}</div>
+                  <input class="area2 hide" type="text" name="academy" value="${member.academy}">
+                </td>
+                <td class="operator">
+                  <button class="btn btn-success btn-xs edit" data-type="member" data-id="${res.data.mid}">修改</button>
+                  <button class="btn btn-danger btn-xs delete" data-type="member" data-id="${res.data.id}">删除</button>
+                </td>
+              </tr>
+          `
+          $('.member-tbody').append(html)
+          $('.member-form')[0].reset()
         } else {
-          alert(res.msg)
+          layer.msg(res.msg)
         }
       },
       error: function(xhr, status, error) {
-        alert(error)
+        layer.msg(error)
       }
     })
   }
@@ -732,14 +794,35 @@ $(function() {
       dataType: 'json',
       success: function(res) {
         if (res.errorno === 0) {
-          alert("保存成功")
-          location.reload()
+          layer.msg("保存成功")
+          const html = `
+              <tr class="edit-area">
+                <td>
+                  <div class="area1">${teacher.name}</div>
+                  <input class="area2 hide" type="text" name="name" value="${teacher.name}">
+                </td>
+                <td>
+                  <div class="area1">${teacher.major}</div>
+                  <input class="area2 hide" type="text" name="major" value="${teacher.major}">
+                </td>
+                <td>
+                  <div class="area1">${teacher.academy}</div>
+                  <input class="area2 hide" type="text" name="academy" value="${teacher.academy}">
+                </td>
+                <td class="operator">
+                  <button class="btn btn-success btn-xs edit" data-type="member" data-id="${res.data.mid}">修改</button>
+                  <button class="btn btn-danger btn-xs delete" data-type="member" data-id="${res.data.mid}">删除</button>
+                </td>
+              </tr>
+          `
+          $('.teacher-tbody').append(html)
+          $('.teacher-form')[0].reset()
         } else {
-          alert(res.msg)
+          layer.msg(res.msg)
         }
       },
       error: function(xhr, status, error) {
-        alert(error)
+        layer.msg(error)
       }
     })
   }
@@ -758,14 +841,16 @@ $(function() {
       dataType: 'json',
       success: function(res) {
         if (res.errorno === 0) {
-          alert("保存成功")
-          location.reload()
+          layer.msg("保存成功")
+          setTimeout(function() {
+            location.reload()
+          }, 1800)
         } else {
-          alert(res.msg)
+          layer.msg(res.msg)
         }
       },
       error: function(xhr, status, error) {
-        alert(error)
+        layer.msg(error)
       }
     })
     // if ($(this).text() == "修改") {
@@ -823,7 +908,7 @@ $(function() {
           that.certIdArr = arr
         },
         error: function(xhr, status, error) {
-          alert(error)
+          layer.msg(error)
         }
       })
     });
@@ -842,11 +927,11 @@ $(function() {
             const wrap = $this.parent().parent()
             wrap.remove()
           } else {
-            alert(res.msg)
+            layer.msg(res.msg)
           }
         },
         error: function(xhr, status, error) {
-          alert(error)
+          layer.msg(error)
         }
       })
     });
@@ -859,11 +944,13 @@ $(function() {
       type: 'GET',
       dataType: 'json',
       success: function(res) {
-        alert(res.msg)
-        location.href = '/user'
+        layer.msg(res.msg)
+        setTimeout(function() {
+          location.href = '/user'
+        }, 1800)
       },
       error: function(xhr, status, error) {
-        alert(error)
+        layer.msg(error)
       }
     })
   }
