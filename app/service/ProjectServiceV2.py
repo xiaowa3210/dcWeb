@@ -48,7 +48,7 @@ def addProStatus(pname, type, status,data):
     # 添加状态信息
     publisher = commonService.getCurrentUsername(1)  # todo:暂时是anonymous
     proStatus = ProjectStatus(pname, type, publisher, status)
-    proStatus.pro_startTime = data['startTime']
+    proStatus.pro_startTime = data['startTime'] + '-01'
     proStatus.major = data['major']
     if proStatus == 2:  # 如果是提交,记录提交的时间
         proStatus.submitTime = datetime.now()
