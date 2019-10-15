@@ -1,0 +1,16 @@
+{% extends "front/base.html" %}
+{% block page_name %}新闻公告{% endblock %}
+{% block body_part %}
+<div class="box-white">
+  {% import 'front/components/macro.html' as macro %}
+  {{ macro.news(documents) }}
+</div>
+<div class="box-white">
+  <div class="row">
+    <div class="col-md-12 center">
+      {% import 'front/components/macro.html' as macro %}
+      {{ macro.pagination(pagination, 'front.news') }}
+    </div>
+  </div>
+</div>
+{% endblock %}

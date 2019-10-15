@@ -1,0 +1,171 @@
+{% extends 'front/base.html' %}
+{% block page_name %}主页{% endblock %}
+{% block static_files %}
+<style>
+  .home-box {
+  height: 400px;
+}
+
+.latest-projects {
+  margin-top: 15px;
+}
+.title .glyphicon {
+  margin-right: 5px;
+}
+.form {
+  margin-top: 40px;
+}
+.form #password {
+  margin-top: 10px;
+}
+.avatar {
+  border-radius: 50%;
+  border: 2px solid #eee;
+  width: 50%;
+  padding: 5px;
+  margin-bottom: 5px;
+}
+.avatar img {
+  height: 100%;
+}
+.avatar p {
+  font-size: 16px;
+  padding: 5px;
+}
+.btn-user {
+  margin: 10px auto;
+  font-size: 16px;
+}
+.btn-user a {
+  color: #fff;
+}
+
+</style>
+{% endblock %}
+{% block body_part %}
+<div class="row">
+  <div class="col-md-9">
+    <div class="box-white home-box">
+      <div class="title flex-row">
+        <h4><span class="glyphicon glyphicon-bullhorn" aria-hidden="true"></span>最新公告</h4>
+        <a href="{{ url_for('front.news')}}">更多&gt;&gt;</a>
+      </div>
+      {% import 'front/components/macro.html' as macro %}
+      {{ macro.news(news, showHead=false) }}
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="box-white home-box">
+      {% if session.student %}
+      <div class="title">
+        <h4><span class="glyphicon glyphicon-user" aria-hidden="true"></span>用户中心</h4>
+      </div>
+      <div class="content flex-column" style="align-items: center;">
+        <div class="avatar">
+          <img src="/static/img/avatar.png">
+        </div>
+        <p>{{session.student}}</p>
+        <button class="btn btn-success btn-user"><a href="{{ url_for('front.user') }}">个人中心</a></button>
+        <button class="btn btn-danger btn-user"><a href="{{url_for('front.stu_logout_api')}}">注销用户</a></button>
+      </div>
+      {% else %}
+      <div class="title">
+        <h4><span class="glyphicon glyphicon-user" aria-hidden="true"></span>用户登陆</h4>
+      </div>
+      <form class="flex-column form" onsubmit="return false" id="login-form">
+        <input type="text" id="username" placeholder="请输入用户名">
+        <input type="password" id="password" placeholder="请输入密码">
+        <div class="type">
+          <div class="radio">
+            <label>
+              <input type="radio" name="type" value="1" checked>学生
+            </label>
+          </div>
+          <div class="radio">
+            <label>
+              <input type="radio" name="type" value="2">管理员
+            </label>
+          </div>
+          <div class="radio">
+            <label>
+              <input type="radio" name="type" value="0">超级管理员
+            </label>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-color" id="login">登 陆</button>
+      </form>
+      {% endif %}
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12 latest-projects">
+    <div class="box-white flex-column">
+      <div class="title flex-row">
+        <h4><span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>最新项目</h4>
+        <a href="{{ url_for('front.projects')}}">更多&gt;&gt;</a>
+      </div>
+      <div class="content">
+        {% import 'front/components/macro.html' as macro %}
+        {% for project in projects %}
+        <div class="col-md-3">
+          {{ macro.projects(project) }}
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+{% block js_files %}
+<script>
+$(function() {
+  //截出时间的年月日
+  $(".time").each(function() {
+    $(this).text($(this).text().slice(0, 10));
+  });
+
+  //学生登陆
+  $("#login").click(function() {
+    let data = {};
+    data.username = $('#username').val();
+    data.password = $('#password').val();
+    let type = $("input[name='type']:checked").val();
+    if (type == 1) {
+      $.ajax({
+        url: '/student/api/login',
+        data: JSON.stringify(data),
+        type: 'post',
+        dataType: 'json',
+        success: function(msg) {
+          alert(msg.msg);
+          if (msg.errorno == 0) {
+            window.location.href = "{{url_for('front.home')}}"
+          }
+        },
+        error: function(msg) {
+          alert(msg.msg)
+        }
+      })
+    } else {
+      data.type = type;
+      $.ajax({
+        url: '/api/login',
+        data: JSON.stringify(data),
+        type: 'post',
+        dataType: 'json',
+        success: function(msg) {
+          alert(msg.msg);
+          if (msg.errorno == 0) {
+            window.location.href = "{{url_for('back.main')}}"
+          }
+        },
+        error: function(msg) {
+          alert(msg.msg)
+        }
+      })
+    }
+  })
+})
+</script>
+{% endblock %}

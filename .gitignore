@@ -9,3 +9,4 @@ __pycache__/
 /files/*
 /doc/tmp
 /test.txt
+.DS_Store

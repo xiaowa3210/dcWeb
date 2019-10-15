@@ -1,0 +1,240 @@
+{% extends 'front/base.html' %}
+{% block static_files %}
+<style>
+  body{
+        background-color: #f6f6f8;
+    }
+    .projectContainer{
+        background-color: #fff;
+        padding:20px 50px;
+        min-height: 900px;
+        margin: 0 0 60px 0;
+    }
+
+    .item-header{
+        height:60px;
+        line-height: 60px;
+        font-size:20px;
+        border-bottom: 1px dotted #eee;
+        align-items: center;
+        font-weight: bold;
+    }
+
+    .content {
+        padding: 30px 50px 20px 30px;
+        border:1px solid #eee;
+        margin-bottom:5px
+    }
+
+    .tableRow{
+        display: flex;
+        width: 100%;
+        margin: 5px
+    }
+
+    .tableRow label{
+        display: inline-block;
+        width: 10%;
+        flex-shrink: 0;
+        padding-right: 5px;
+        font-size: 14px;
+        font-weight: bold;
+    }
+
+    .operate {
+        text-align: center;
+    }
+
+    .operate button {
+        margin-left: 5px;
+        padding: 5px 10px;
+        border: 0px;
+        border-radius: 4px;
+        background-color: #eee;
+        color:#337e0a;
+        font-size:16px
+    }
+
+</style>
+{% endblock%}
+{% block body_part %}
+<div class="container">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="projectContainer">
+        <div style="display: flex;justify-content: space-between">
+          <p><a href="{{url_for('front.user')}}">个人中心</a></p>
+        </div>
+        <div class="panel">
+          <div>
+            <div class="item-header">
+              <div class="left">项目信息</div>
+            </div>
+            <form id="info-form" onsubmit="return false">
+              <!--项目信息-->
+              <div class="content">
+                <div class="tableRow">
+                  <label>项目名称*</label>
+                  <input type="text" placeholder="请输入项目名称" name="pname">
+                </div>
+                <div class="tableRow">
+                  <label>项目介绍*</label>
+                  <div id="markdown">
+                    <textarea class="editormd-markdown-textarea" name="src_content">### 项目原理</textarea>
+                  </div>
+                </div>
+                <div class="tableRow">
+                  <label>封面图片*</label>
+                  <input type="file" id="mainPic">
+                </div>
+                <div class="tableRow">
+                  <label></label>
+                  <div style="width:300px;height:200px;background-color: #aaa">
+                    <img id="mainPicPreview" style="width:300px;height:200px">
+                  </div>
+                </div>
+                <div class="tableRow">
+                  <label>立项时间*</label>
+                  <input type="date" name="startTime">
+                </div>
+                <div class="tableRow">
+                  <label>项目专业*</label>
+                  <select name="major">
+                    <option value="1">通信工程</option>
+                    <option value="2">信息工程</option>
+                    <option value="3">电子信息工程</option>
+                  </select>
+                </div>
+                <div class="tableRow">
+                  <label>项目类别*</label>
+                  <select name="type">
+                    <option value="1">App开发/微信小程序开发</option>
+                    <option value="2">通信/网络</option>
+                    <option value="3">软件系统</option>
+                    <option value="4">硬件系统</option>
+                    <option value="5">视频/图像</option>
+                    <option value="6">大数据/机器学习</option>
+                  </select>
+                </div>
+                <div class='operate'>
+                  <button id='save-info'>保存</button>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div id="member">
+            <div class="item-header flex-row">
+              <div class="left">成员信息</div>
+              <span class="glyphicon glyphicon-plus add" aria-hidden="true"></span>
+            </div>
+          </div>
+          <div id="teacher">
+            <div class="item-header flex-row">
+              <div class="left">指导老师信息</div>
+              <span class="glyphicon glyphicon-plus add" aria-hidden="true"></span>
+            </div>
+          </div>
+          <div id="award">
+            <div class="item-header flex-row">
+              <div class="left">获奖信息</div>
+              <span class="glyphicon glyphicon-plus add" aria-hidden="true"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+{% block js_files %}
+<script>
+$(function() {
+  //markdown编辑器设置
+
+  const mdEditor = setMarkdown('markdown')
+
+  // 上传封面图片
+  let mainPicId; // 提交后返回的封面图片的id
+  let mainPicUrl;
+  $(".panel").on("change", "#mainPic", function() {
+    const mainPicPreview = $(this).parent().next().find("#mainPicPreview");
+    let file = this.files[0];
+    let form = new FormData();
+    form.append("pics", file);
+    form.append("source", 1); // 封面图片的source为1
+    if (mainPicId) { // 已经上传过，现在是修改
+      form.append("source_id", mainPicId);
+      $.ajax({
+        url: '/api/modifyMainPic/' + mainPicId,
+        data: form,
+        type: 'post',
+        dataType: 'json',
+        contentType: false,
+        processData: false,
+        success: function(info) {
+          // 响应成功且没有错误
+          if (info.errorno == 0) {
+            mainPicUrl = info.data.url;
+            mainPicPreview.attr("src", mainPicUrl);
+          }
+        },
+        error: function(info) {
+          alert(info.msg);
+        }
+      });
+    } else {
+      $.ajax({
+        url: '/api/addPic',
+        data: form,
+        type: 'post',
+        dataType: 'json',
+        contentType: false,
+        processData: false,
+        success: function(info) {
+          if (info.errorno == 0) {
+            mainPicUrl = info.data[0].url;
+            mainPicPreview.attr("src", mainPicUrl);
+            mainPicId = info.data[0].id;
+          }
+        },
+        error: function(info) {
+          alert(info.msg);
+        }
+      });
+    }
+  });
+
+  // 提交项目信息
+  $('#save-info').click(function() {
+    let data = $("#info-form").serializeJson();
+    data.mainPicId = mainPicId;
+    data.content = mdEditor.getHTML();
+    Object.keys(data).forEach(function(key) {
+      if (!data[key]) {
+        alert('请填写必填项')
+      }
+
+    });
+    $.ajax({
+      url: '/api/addPro',
+      data: JSON.stringify(data),
+      type: 'post',
+      dataType: 'json',
+      success: function(info) {
+        if (info.errorno == 0) {
+          alert("保存成功");
+          window.location.href = "/student/uploadProject/" + info.data.pid;
+        }
+      },
+      error: function(info) {
+        alert(info.msg);
+      }
+    });
+  });
+
+  $(".add").click(function() {
+    alert("请先添加项目信息")
+  });
+})
+</script>
+{% endblock %}
