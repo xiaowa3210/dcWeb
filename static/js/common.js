@@ -1,10 +1,9 @@
-const setMarkdown = (id, value) => {
+const setMarkdown = (id) => {
   const markdown = editormd(id, {
     syncScrolling: "single",
     saveHTMLToTextarea: true,
     height: 400,
     // width:960,
-    value: value,
     path: "/static/vendor/mdeditor/lib/",
     //启动本地图片上传功能
     imageUpload: true,

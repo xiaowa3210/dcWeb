@@ -137,12 +137,12 @@
           <div class="content">
             <div class="tableRow">
               <label>项目名称*</label>
-              <input type="text" placeholder="请输入项目名称" name="pname" value="{{project.pname}}" required>
+              <input style="width:100%;" type="text" placeholder="请输入项目名称" name="pname" value="{{project.pname}}" required>
             </div>
             <div class="tableRow">
               <label>项目介绍*</label>
               <div id="markdown">
-                <textarea style="display: none;" name="src_content">{{ project.src_content | safe }}</textarea>
+                <textarea style="display: none;" name="src_content">{{ project.src_content | safe or '## 项目简介\n\n## 项目内容\n\n## 项目结论'}}</textarea>
               </div>
             </div>
             <div class="tableRow">
@@ -159,7 +159,14 @@
             </div>
             <div class="tableRow">
               <label>立项时间*</label>
-              <input type="month" name="startTime" value="{% if project.status and project.status.pro_startTime %}{{project.status.pro_startTime}}{% endif %}" required>
+              <input type="month" name="startTime" value="" required>
+              {% if project.status and project.status.pro_startTime %}
+              <script>
+              let date = '{{project.status.pro_startTime}}'
+              date = date.substr(0, 7)
+              document.querySelector('input[name=startTime]').value = date
+              </script>
+              {% endif %}
             </div>
             <div class="tableRow">
               <label>项目专业*</label>
@@ -493,7 +500,8 @@ $(function() {
   // 初始化项目信息
   Project.prototype.initConfig = function() {
     // init markdown editor
-    this.mdEditor = setMarkdown('markdown', `### 项目背景\n\n### 项目内容\n\n### 项目总结`)
+    // this.mdEditor = setMarkdown('markdown', `### 项目背景\n\n### 项目内容\n\n### 项目总结`)
+    this.mdEditor = setMarkdown('markdown')
 
     // 项目id
     this.pid = this.$panel.data('pid')
