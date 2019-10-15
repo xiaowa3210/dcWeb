@@ -159,7 +159,7 @@
             </div>
             <div class="tableRow">
               <label>立项时间*</label>
-              <input type="date" name="startTime" value="{% if project.status and project.status.pro_startTime %}{{project.status.pro_startTime}}{% endif %}" required>
+              <input type="month" name="startTime" value="{% if project.status and project.status.pro_startTime %}{{project.status.pro_startTime}}{% endif %}" required>
             </div>
             <div class="tableRow">
               <label>项目专业*</label>
