@@ -3,14 +3,12 @@
 {% block body_part %}
 <section>
   <div class="row">
-    <ol class="breadcrumb">
-      <li><a href="{{url_for('front.user')}}">个人中心</a></li>
-      <li class="active">上传项目</li>
-    </ol>
-  </div>
-  <div class="row">
     <div class="col-md-9">
       <section class="box-white">
+        <ol class="breadcrumb">
+          <li><a href="{{url_for('front.user')}}">个人中心</a></li>
+          <li class="active">项目预览</li>
+        </ol>
         <h2>{{project.pname}}</h2>
         <hr>
         <h4>项目介绍</h4>
