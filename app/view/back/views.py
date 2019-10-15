@@ -150,7 +150,7 @@ def uploadFile():
             suffix = file.name[file.name.rfind('.'):]
             local_path = str(uuid.uuid1()).replace("-", "") + suffix
             file.path = local_path
-            file.source = 1             #代表资料下载的文件
+            file.source = 2             #代表资料下载的文件
             file.source_id = -1         #代表资料下载的文件
             f.save(os.path.join(UPLOAD_FILES_PATH,local_path))
             filesService.addFile(file)

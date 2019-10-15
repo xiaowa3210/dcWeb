@@ -574,7 +574,7 @@ class ProjectService:
         db2.session.query(ProjectStatus).filter(ProjectStatus.pid == pid).update({
             'pname':data["pname"],
             'type':data["type"],
-            'pro_startTime':data['startTime'],
+            'pro_startTime':data['startTime'] + "-01",
             # 'academy':data['academy'],
             'major':data['major'],
             'source':data['source']

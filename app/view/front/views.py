@@ -341,7 +341,7 @@ def new(news_id):
 @front.route('/downloadfile',defaults={'page':1,'count':10})
 @front.route('/downloadfile/<int:page>/<int:count>')
 def downloadFile(page,count):
-    pagination, files = filesService.getFilesBySource(page, count, '0')
+    pagination, files = filesService.getDownloadFile(page, count)
     return render_template("front/downlinks.html", pagination=pagination, files=files)
 
 """
