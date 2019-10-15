@@ -383,8 +383,8 @@ def project(pid):
 @front.route("/student/preview/project/<int:pid>")
 def previewProject(pid):
     project = projectService.getProjectByID(pid)
-    # return render_template("front/project-preview.html",project=project)
-    return render_template("front/project-detail.html",project=project)
+    return render_template("front/project-preview.html",project=project)
+    # return render_template("front/project-detail.html",project=project)
 
 """
 基地风采展示
