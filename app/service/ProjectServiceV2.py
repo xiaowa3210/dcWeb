@@ -8,18 +8,18 @@
 
 # code is far away from bugs with the god animal protecting
     I love animals. They taste delicious.
-              ┏┓      ┏┓
+             ┏┓   ┏┓
             ┏┛┻━━━┛┻┓
-            ┃      ☃      ┃
-            ┃  ┳┛  ┗┳  ┃
-            ┃      ┻      ┃
-            ┗━┓      ┏━┛
-                ┃      ┗━━━┓
-                ┃  神兽保佑    ┣┓
-                ┃　永无BUG！   ┏┛
-                ┗┓┓┏━┳┓┏┛
-                  ┃┫┫  ┃┫┫
-                  ┗┻┛  ┗┻┛
+            ┃      ☃┃
+            ┃ ┳┛ ┗┳ ┃
+            ┃       ┻ ┃
+            ┗━┓     ┏━┛
+              ┃     ┗━━━┓
+              ┃ 神兽保佑  ┣┓
+              ┃ 永无BUG  ┏┛
+              ┗┓┓┏━┳┓┏┛
+               ┃┫┫ ┃┫┫
+               ┗┻┛ ┗┻┛
 """
 import json
 import uuid
@@ -48,7 +48,7 @@ def addProStatus(pname, type, status,data):
     # 添加状态信息
     publisher = commonService.getCurrentUsername(1)  # todo:暂时是anonymous
     proStatus = ProjectStatus(pname, type, publisher, status)
-    proStatus.pro_startTime = data['startTime']
+    proStatus.pro_startTime = data['startTime'] + '-01'
     proStatus.major = data['major']
     if proStatus == 2:  # 如果是提交,记录提交的时间
         proStatus.submitTime = datetime.now()
@@ -196,7 +196,7 @@ class ProjectService:
         db2.session.commit()
         storefile(cerFile, awards[0].id, 3, 0)
 
-    """ 
+    """
     @:param:
     @:return:
     @descrition:修改项目
@@ -281,7 +281,7 @@ class ProjectService:
             picName = storeMainPic(mainPic)
 
         pass
-    """ 
+    """
     @:param:
     @:return:
     @descrition:查询项目(未分页查询)
@@ -293,7 +293,7 @@ class ProjectService:
             projects = Project.query
         return projects
 
-    """ 
+    """
     @:param:(page_index)->页数
             (per_page)->每页数量
             (condition)->查询条件
@@ -309,7 +309,7 @@ class ProjectService:
         return pagination, projects
 
 
-    """ 
+    """
     @:param:
     @:return:
     @descrition:查询已经审核通过的项目
@@ -344,7 +344,7 @@ class ProjectService:
         return pagination, pros
 
 
-    """ 
+    """
     @:param:
     @:return:
     @descrition:查询待审核的项目
@@ -354,7 +354,7 @@ class ProjectService:
         pagination = ProjectStatus.query.filter(ProjectStatus.status == 2, ProjectStatus.delete_flag == 0) \
             .order_by(ProjectStatus.checkTime).paginate(page_index, count, error_out=False)
         return pagination,pagination.items
-    """ 
+    """
     @:param:
         updateContent:更新内容
         condition:查询条件
@@ -366,7 +366,7 @@ class ProjectService:
         db2.session.commit()
 
 
-    """ 
+    """
     @:param:
     @:return:
     @descrition:根据学生ID得到，该学生上传的项目
@@ -386,7 +386,7 @@ class ProjectService:
         return pagination, pros
 
 
-    """ 
+    """
     @:param:
     @:return:
     @descrition:根据项目ID更新内容
@@ -394,7 +394,7 @@ class ProjectService:
     def updateProStatusByPid(self,updateContent,pid):
         db2.session.query(ProjectStatus).filter(ProjectStatus.pid == pid).update(updateContent)
         db2.session.commit()
-    """ 
+    """
     @:param:
     @:return:
     @descrition:得到学生已经上传了的项目(管理员只能对这部分项目进行管理)
@@ -404,7 +404,7 @@ class ProjectService:
         projects = pagination.items
         return pagination, projects
 
-    """ 
+    """
     @:param:
     @:return:
     @descrition:逻辑删除项目。
@@ -417,7 +417,7 @@ class ProjectService:
 
 
 
-    """ 
+    """
     @:param:
     @:return:
     @descrition:撤销项目
@@ -430,7 +430,7 @@ class ProjectService:
         }
         self.updateProStatusByPid(updateContent, pid)
 
-    """ 
+    """
     @:param:
     @:return:
     @descrition:撤销项目
@@ -442,10 +442,10 @@ class ProjectService:
         }
         self.updateProStatusByPid(updateContent, pid)
 
-    """ 
+    """
     @:param:
     @:return:
-    @descrition:撤销项目
+    @descrition:提交项目
     """
 
     def submitPro(self, pid):
@@ -455,7 +455,7 @@ class ProjectService:
         }
         self.updateProStatusByPid(updateContent, pid)
 
-    """ 
+    """
     @:param:operation=0代表不通过,非0代表通过。
     @:return:
     @descrition:审核项目
@@ -477,12 +477,12 @@ class ProjectService:
             }
         self.updateProStatusByPid(updateContent,pid)
 
-    """ 
+    """
     @:param:
     @:return:
     @descrition:根据PID得到项目内容
     """
-    def    getProjectByID(self,pid):
+    def getProjectByID(self,pid):
 
         pro = Project.query.filter(Project.pid == pid).one()
         mainPic = db2.session.query(Files).filter(Files.source_id == pro.pid,
@@ -507,7 +507,7 @@ class ProjectService:
 
 
 
-    """ 
+    """
     @:param:
     @:return:
     @descrition:根据pid得到项目信息
@@ -516,6 +516,21 @@ class ProjectService:
         return ProjectStatus.query.filter(ProjectStatus.pid == pid).one()
 
 
+    # 生成project
+    def getProId(self):
+        project = Project("","","")
+        project.src_content = ""
+        project.mainPic = 'default.jpg'
+
+        # 添加状态信息
+        publisher = commonService.getCurrentUsername(1)
+        status = ProjectStatus("", "", publisher, "")
+        status.mainPic = project.mainPic
+        status.submitTime = datetime.now()
+        project.status = status
+        db2.session.add(project)
+        db2.session.commit()
+        return project
 
 
     #添加项目
@@ -561,7 +576,8 @@ class ProjectService:
             'type':data["type"],
             'pro_startTime':data['startTime'],
             # 'academy':data['academy'],
-            'major':data['major']
+            'major':data['major'],
+            'source':data['source']
         })
         db2.session.commit()
 
@@ -656,7 +672,7 @@ class ProjectService:
 
         return path
 
-    """ 
+    """
     @:param:
     @:return:
     @descrition:生成获奖信息,并写入excel

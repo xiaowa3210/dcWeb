@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>{% block page_name %}{% endblock %}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  {# 样式表 #}
+  <link rel="stylesheet" href="/static/vendor/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/static/css/base.css">
+  {% block static_files %}
+  {% endblock %}
+</head>
+
+<body>
+  {% include "front/components/nav.html" %}
+  <main>
+    <div class="container">
+      {% block body_part %}
+      {% endblock %}
+    </div>
+  </main>
+  {# 页脚 #}
+  {% include "front/components/footer.html" %}
+  {# script #}
+  <script src="/static/vendor/jquery/jquery-2.1.0.min.js"></script>
+  <script src="/static/vendor/bootstrap/js/bootstrap.min.js"></script>
+  <script src="/static/vendor/layer/layer.js"></script>
+  <script src="/static/js/common.js"></script>
+  <script src="/static/js/base.js"></script>
+  <script src="/static/js/utils.js"></script>
+  {% block js_files %}
+  {% endblock %}
+</body>
+
+</html>

@@ -101,8 +101,8 @@
                        <table class="table table-condensed" >
                            <tbody>
                                 <tr>
-                                    <td width="50%"><i class="icon-user"></i><span>{{project.publisher}}</span></td>
-                                    <td style="text-align: right" class="time"><i class="icon-calendar"></i><span>{{project.submitTime}}</span></td>
+                                    <td width="50%"><i class="icon-user"></i><span>{{project.status.publisher}}</span></td>
+                                    <td style="text-align: right" class="time"><i class="icon-calendar"></i><span>{{project.status.submitTime}}</span></td>
                                 </tr>
                            </tbody>
                        </table>
@@ -165,33 +165,33 @@
 </section>
 {% endblock %}
 
-{#{% block js_files%}#}
-{#<script>#}
-{#    $(document).ready(function () {#}
-{#        $(".time span").each(function () {#}
-{#            $(this).text($(this).text().slice(0,10));#}
-{#        });#}
-{##}
-{#        //筛选#}
-{#        $("input#select").click(function () {#}
-{#            var data={};#}
-{#            data.major=$("#projectMajor").val();#}
-{#            data.startTime=$("#startTime").val();#}
-{#            data.endTime=$("#endTime").val();#}
-{#            data.type=$("#projectCategory").val();#}
-{#            $.ajax({#}
-{#                url:`/projects?major=${data.major}&startTime=${data.startTime}&endTime=${data.endTime}&type=${data.type}`,#}
-{#                type:'get',#}
-{#                success:function () {#}
-{#                    console.log("hhh");#}
-{#                    window.location.href="{{url_for('front.projects')}}"#}
-{#                }#}
-{#            })#}
-{##}
-{#        })#}
-{#    })#}
-{##}
-{##}
-{#</script>#}
+{% block js_files%}
+<script>
+    $(document).ready(function () {
+        $(".time span").each(function () {
+            $(this).text($(this).text().slice(0,10));
+        });
 
-{#{% endblock %}#}
+        //筛选
+        $("input#select").click(function () {
+            var data={};
+            data.major=$("#projectMajor").val();
+            data.startTime=$("#startTime").val();
+            data.endTime=$("#endTime").val();
+            data.type=$("#projectCategory").val();
+            $.ajax({
+                url:`/projects?major=${data.major}&startTime=${data.startTime}&endTime=${data.endTime}&type=${data.type}`,
+                type:'get',
+                success:function () {
+                    console.log("hhh");
+                    window.location.href="{{url_for('front.projects')}}"
+                }
+            })
+
+        })
+    })
+
+
+</script>
+
+{% endblock %}

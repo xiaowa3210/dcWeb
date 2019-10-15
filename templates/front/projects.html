@@ -1,0 +1,103 @@
+{% extends 'front/base.html' %}
+{% block page_name %}项目展示{% endblock %}
+{% block static_files %}
+<style>
+  .box-white:last-child {
+    min-height: 513px;
+  }
+</style>
+{% endblock %}
+{% block body_part %}
+<div class="row">
+  <div class="col-md-3">
+    <aside class="box-white">
+      <div class="widget">
+        <h4>筛选</h4>
+        <form onsubmit="return false">
+          <div class="form-group flex-column">
+            <label for="startTime">项目开始时间</label>
+            <input type="date" id="startTime">
+          </div>
+          <div class="form-group flex-column">
+            <label>项目结束时间</label>
+            <input type="date" id="endTime">
+          </div>
+          <div class="form-group flex-column">
+            <label>项目专业</label>
+            <select id="projectMajor" name="academy">
+              <option value="1">通信工程</option>
+              <option value="2">信息工程</option>
+              <option value="3">电子信息工程</option>
+            </select>
+          </div>
+          <div class="form-group flex-column">
+            <label>项目类别</label>
+            <select id="projectCategory" name="type">
+              <option value="1">App开发/微信小程序开发</option>
+              <option value="2">通信/网络</option>
+              <option value="3">软件系统</option>
+              <option value="4">硬件系统</option>
+              <option value="5">视频/图像</option>
+              <option value="6">大数据/机器学习</option>
+            </select>
+          </div>
+          <div class="form-group flex-column">
+            <label>项目来源</label>
+            <select id="projectSource" name="source">
+              <option value="1">大创项目</option>
+              <option value="2">雏雁项目</option>
+              <option value="3">竞赛项目</option>
+              <option value="4">课程项目</option>
+              <option value="0">其他</option>
+            </select>
+          </div>
+          <div class="form-group center">
+            <button type="button" class="btn btn-color" id="select">筛选</button>
+            <a href="/projects">
+              <button type="button" class="btn">重置</button>
+            </a>
+          </div>
+        </form>
+      </div>
+    </aside>
+  </div>
+  <div class="col-md-9">
+    <div class="box-white">
+      <div class="row">
+        {% if projects %}
+        {% import 'front/components/macro.html' as macro %}
+        {% for project in projects %}
+        <div class="col-md-4">
+          {{ macro.projects(project) }}
+        </div>
+        {% endfor %}
+        {% else %}
+        <p class="center">未找到符合条件的项目</p>
+        {% endif%}
+      </div>
+      <div class="row">
+        <div class="col-md-12 center">
+          {% import 'front/components/macro.html' as macro %}
+          {{ macro.pagination(pagination, 'front.projects') }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+{% block js_files%}
+<script>
+$(document).ready(function() {
+  //筛选
+  $("#select").click(function() {
+    let data = {};
+    data.major = $("#projectMajor").val();
+    data.startTime = $("#startTime").val();
+    data.endTime = $("#endTime").val();
+    data.type = $("#projectCategory").val();
+    data.source = $('#projectSource').val()
+    location.href = `/projects?major=${data.major}&startTime=${data.startTime}&endTime=${data.endTime}&type=${data.type}&source=${data.source}`
+  })
+})
+</script>
+{% endblock %}

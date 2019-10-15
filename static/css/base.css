@@ -1,0 +1,283 @@
+/* 常用样式 */
+::-moz-selection {
+  background: #94c045;
+  color: #fff;
+  text-shadow: none;
+}
+
+::selection {
+  background: #94c045;
+  color: #fff;
+  text-shadow: none;
+}
+
+a {
+  display: inline-block;
+  padding: 8px;
+  color: #555;
+}
+
+a,
+a:visited,
+a:active,
+a:focus,
+a:hover {
+  text-decoration: none;
+}
+
+a:focus {
+  color: #000;
+}
+
+a:hover {
+  color: #81ab35;
+}
+
+.no-padding>tbody>tr>td {
+  padding: 0;
+  border-top: 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.table>tbody>tr>td {
+  vertical-align: middle;
+}
+
+.table>tbody>tr>td>input {
+  width: 100%;
+}
+
+ul,
+li {
+  list-style: none;
+}
+
+footer .nav-list li a:hover,
+footer ul.regular li a:hover {
+  color: #81ab35;
+}
+
+.btn-link:hover {
+  color: #81ab35;
+}
+
+.btn-color {
+  color: #fff;
+  background: #94c045;
+  border: 1px solid #94c045;
+}
+
+.btn-color:hover,
+.btn-color.active,
+.btn-color.disabled,
+.btn-color[disabled] {
+  color: #fff;
+  background: #81ab35;
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  padding-top: 170px;
+  background: #f4f4f4;
+  font-size: 16px;
+}
+
+main {
+  margin: 0 auto 15px;
+}
+
+main .container {
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+.box-white {
+  padding: 20px 20px;
+  background: #fff;
+}
+
+.box-bg {
+  color: #fff;
+  background: #94c045;
+}
+.box-bg * {
+  color: #fff;
+}
+
+.table .time {
+  text-align: right;
+}
+
+.pagination li a {
+  color: #94c045;
+}
+
+.pagination .active a {
+  border-color: #94c045;
+  background: #94c045;
+}
+
+.pagination li a:hover,
+.pagination .active a:hover {
+  border-color: #94c045;
+  color: #fff;
+  background: #94c045;
+}
+
+.project-item {
+  border-radius: 4px;
+  box-shadow: 0 0 6px #ddd;
+  overflow: hidden;
+}
+
+.project-item a {
+  padding: 0;
+}
+
+.project-title,
+.project-info {
+  padding: 10px 15px;
+}
+
+.project-info .glyphicon {
+  margin-right: 5px;
+}
+
+select,
+textarea,
+input[type="text"],
+input[type="password"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="date"],
+input[type="month"],
+input[type="time"],
+input[type="week"],
+input[type="number"],
+input[type="email"],
+input[type="url"],
+input[type="search"],
+input[type="tel"],
+input[type="color"],
+.uneditable-input {
+  /*-webkit-appearance:none;*/
+  /*-moz-appearance: none;*/
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  border: 1px solid #aaa;
+  border-radius: 5px;
+  padding-left: 5px;
+  margin-bottom: 5px;
+  outline: none;
+  height: 30px
+}
+
+
+textarea:focus,
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="datetime"]:focus,
+input[type="datetime-local"]:focus,
+input[type="date"]:focus,
+input[type="month"]:focus,
+input[type="time"]:focus,
+input[type="week"]:focus,
+input[type="number"]:focus,
+input[type="email"]:focus,
+input[type="url"]:focus,
+input[type="search"]:focus,
+input[type="tel"]:focus,
+input[type="color"]:focus,
+.uneditable-input:focus {
+  border-color: #94c045;
+  outline: 0;
+  outline: thin dotted \9;
+  /* IE6-9 */
+
+}
+
+main img {
+  width: 100%;
+  height: 200px;
+}
+
+.center {
+  text-align: center;
+}
+
+.disabled a {
+  color: #eee;
+  cursor: pointer;
+  pointer-events: none;
+  background: #555;
+  border: 1px solid #777;
+}
+
+/* 导航条 */
+
+.navbar-default {
+  background: #fff;
+}
+
+.navbar-default .collapse {
+  border-top: 5px solid #94c045;
+}
+
+.navbar .nav li.active a,
+.navbar .nav li.active a:hover {
+  background: #f8f8f8;
+}
+
+.navbar .nav li.active a {
+  color: #94c045;
+}
+
+.navbar .nav>li>a {
+  display: inline-block;
+  font-size: 18px;
+  padding: 20px 35px 20px;
+  color: #777777;
+  font-weight: bold;
+}
+
+.breadcrumb {
+  background: #fff;
+  font-size: 14px;
+}
+
+/* 页脚 */
+footer {
+  padding-top: 30px;
+  color: #7e7e7e;
+  text-align: center;
+}
+
+footer.footer {
+  background: #3a3a3a;
+}
+
+footer h1,
+footer h2,
+footer h3,
+footer h4,
+footer h5,
+footer h6 {
+  color: #e8e8e8;
+}
