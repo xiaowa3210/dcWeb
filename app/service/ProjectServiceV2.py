@@ -110,7 +110,10 @@ def storefile(files, source, source_id, type):
             filesService.addFile(file)  # 将文件信息写入到数据库
 
 class ProjectService:
+
+
     #添加项目
+    @DeprecationWarning
     def addProject(self,data):
         operate = data['operate']
         # 项目基本信息
@@ -154,6 +157,8 @@ class ProjectService:
             db2.session.commit()
         else:
             self.modifiedProject(data)
+
+
 
 
     def addProjectV1(self,request):
@@ -533,6 +538,7 @@ class ProjectService:
         return project
 
 
+    #######################由于需求变了，上面部分函数可能废弃了######################
     #添加项目
     def addPro(self,data):
         pname = data["pname"]
@@ -672,6 +678,30 @@ class ProjectService:
 
         return path
 
+
+    def selectAwardInfo(self, startTime, endTime, rank, page_index,count):
+        #根据条件查出所有的获奖时间
+        query = ProjectAward.query
+        if startTime:
+            query = query.filter(ProjectAward.awardTime >= startTime)
+        if endTime:
+            query = query.filter(ProjectAward.awardTime <= endTime)
+        if rank != -1:
+            query = query.filter(ProjectAward.rank == rank)
+        pagination = query.order_by(desc(ProjectAward.awardTime)).paginate(page_index, count, error_out=False)
+        awards = pagination.items
+
+        #再查获奖信息对应的图片链接
+        for award in awards:
+            pics = db2.session.query(Files).filter(Files.source_id == award.id,
+                                                      Files.source == 3,
+                                                      Files.delete_flag == 0).all()
+            award.pics = pics
+        return pagination, awards
+
+
+
+##########################导出获奖信息的代码########################
     """
     @:param:
     @:return:
