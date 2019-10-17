@@ -72,7 +72,9 @@ def image(name):
 
 
 """ 
-上传图片
+上传图片，
+source代表来源。#1.代表封面图片，3:获奖证书图片。
+source_id代表来源(来源暂时有封面图片,获奖证书)，若没有就设为-1。
 """
 @common.route('/api/addPic',methods=['POST'])
 def addPic():

@@ -151,7 +151,7 @@ def uploadFile():
             local_path = str(uuid.uuid1()).replace("-", "") + suffix
             file.path = local_path
             file.source = 2             #代表资料下载的文件
-            file.source_id = -1         #代表资料下载的文件
+            file.source_id = -1         #资料没有与之关联的source_id。所以设为1
             f.save(os.path.join(UPLOAD_FILES_PATH,local_path))
             filesService.addFile(file)
         return json.dumps(MessageInfo.success(msg="上传成功").__dict__)
