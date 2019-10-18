@@ -1,4 +1,4 @@
-{% extends 'back01/back/base.html' %}
+{% extends 'back/base.html' %}
 
 {% block static_files %}
 <script type="text/javascript" src="/static/ueditor/ueditor.config.js"></script>
@@ -19,7 +19,7 @@
                 <ol class="breadcrumb">
                     <li><i class="fa fa-home"></i><a href="index.html">主页</a></li>
                     <li><i class="fa fa-table"></i>文章管理</li>
-                    <li><i class="fa fa-th-list"></i>未发布</li>
+                    <li><i class="fa fa-th-list"></i>查看全部</li>
                 </ol>
             </div>
         </div>
@@ -47,6 +47,7 @@
                             <th>发布人</th>
                             <th>最后修改人</th>
                             <th>创建时间</th>
+                            <th>发布时间</th>
                             <th>最后修改时间</th>
                             <th>发布标志</th>
                         </tr>
@@ -54,7 +55,7 @@
                         {% for article in news %}
                         <tr articleId="{{article.nid}}">
                             <td width="200">{{article.title}}</td>
-                              {% if article.isTop == 1 %}
+                            {% if article.isTop == 1 %}
                                 <td>置顶</td>
                             {% elif article.isTop == 0%}
                                 <td>未置顶</td>
@@ -63,9 +64,9 @@
                             <td>{{article.publisher}}</td>
                             <td>{{article.modifier}}</td>
                             <td>{{article.createTime}}</td>
-                             <td>{{article.createTime}}</td>
-                            <td>{{article.modifiedTime}}</td>
-                             {% if article.status == 1 %}
+                            <td>{{article.createTime}}</td>
+                            <td>{{article.modifiedTimee}}</td>
+                            {% if article.status == 1 %}
                                 <td>未提交</td>
                             {% elif article.status == 2%}
                                 <td>审核中</td>
@@ -74,18 +75,18 @@
                             {% endif %}
                             <td>
                                 <div class="btn-group">
+
                                      {% if session.admin.type == 2 %}
-                                      {% if article.status != 2 %}
+                                     {% if article.status != 2 %}
                                     <button class="btn btn-success" ><a href="{{url_for('back.modifiesNews',nid=article.nid)}}">修改</a></button>
                                      {% endif %}
                                     {% endif %}
-                                    <!--<a class="btn btn-primary" href="{{url_for('back.modifiesNews',nid = article.nid)}}"><i class="icon_plus_alt2">修改</i></a>-->
-                                    <!--<a class="btn btn-danger delete"  p_id="{{article.nid}}" ><i class="icon_close_alt2">删除</i></a>-->
+
                                       <button class="btn btn-danger delete" id="delete" p_id="{{article.nid}}">删除</button>
                                       {% if article.status == 1 %}
                                       <button class="btn btn-success publish"   id="publish" p_id="{{article.nid}}">发布</button>
                                 <!--<a class="btn btn-primary" href="{{url_for('back.releaseNew',nid = article.nid)}}"><i class="icon_plus_alt2">发布</i></a>-->
-                            {% elif article.status == 3%}
+                             {% elif article.status == 3%}
                                     <button class="btn btn-danger chehui"   id="chehui" p_id="{{article.nid}}">撤销</button>
                                 <!--<a class="btn btn-danger" href="{{url_for('back.undoNew',nid = article.nid)}}"><i class="icon_close_alt2">撤销</i></a>-->
                              {% endif %}
@@ -102,19 +103,19 @@
             <div>
                 <ul class="pagination pagination-lg">
                     {% if pagination.has_prev %}
-                        <li><a href="{{url_for('back.manageNews',page = pagination.page - 1,count=10)}}?type=0">«</a></li>
+                        <li><a href="{{url_for('back.manageNews',page = pagination.page - 1,count=10)}}?type=-1">«</a></li>
                     {% endif %}
 
                     {% for p in pagination.iter_pages() %}
                         {% if p == pagination.page%}
-                             <li class="active"><a href="{{url_for('back.manageNews',page = p,count=10)}}?type=0">{{loop.index}}</a></li>
+                             <li class="active"><a href="{{url_for('back.manageNews',page = p,count=10)}}?type=-1">{{loop.index}}</a></li>
                         {% else %}
-                            <li><a href="{{url_for('back.manageNews',page = p,count=10)}}?type=0">{{loop.index}}</a></li>
+                            <li><a href="{{url_for('back.manageNews',page = p,count=10)}}?type=-1">{{loop.index}}</a></li>
                         {% endif %}
                     {% endfor %}
 
                     {% if pagination.has_next %}
-                        <li><a href="{{url_for('back.manageNews',page = pagination.page + 1,count=10)}}?type=0">»</a></li>
+                        <li><a href="{{url_for('back.manageNews',page = pagination.page + 1,count=10)}}?type=-1">»</a></li>
                     {% endif %}
                 </ul>
             </div>
@@ -137,7 +138,7 @@
                 type:"get",
                 success: function (data) {
                     alert("删除成功"); //提交成功
-                    window.location.href="{{url_for('back.manageNews')}}?type=0"
+                    window.location.href="{{url_for('back.manageNews')}}?type=-1"
                     //window.location.href='';//跳转到个人中心
                 },
                 error: function (data) {
@@ -153,7 +154,7 @@
                 type:"get",
                 success: function (data) {
                     alert("发布成功"); //提交成功
-                    window.location.href="{{url_for('back.manageNews')}}?type=0"
+                    window.location.href="{{url_for('back.manageNews')}}?type=-1"
                     //window.location.href='';//跳转到个人中心
                 },
                 error: function (data) {
@@ -172,7 +173,7 @@
                 type:"get",
                 success: function (data) {
                     alert("撤回成功"); //提交成功
-                    window.location.href="{{url_for('back.manageNews')}}?type=0"
+                    window.location.href="{{url_for('back.manageNews')}}?type=-1"
                     //window.location.href='';//跳转到个人中心
                 },
                 error: function (data) {
