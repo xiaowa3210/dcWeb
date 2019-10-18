@@ -93,13 +93,12 @@ body {
 }
 
 body {
-  padding-top: 170px;
   background: #f4f4f4;
   font-size: 16px;
 }
 
 main {
-  margin: 0 auto 15px;
+  margin: 170px auto 15px;
 }
 
 main .container {
@@ -165,6 +164,10 @@ main .container {
 
 .project-info .glyphicon {
   margin-right: 5px;
+}
+
+.editormd-fullscreen {
+  z-index: 2000;
 }
 
 select,
