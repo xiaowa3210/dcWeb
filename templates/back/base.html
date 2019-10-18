@@ -59,18 +59,6 @@
         <a href="{{url_for('back.main')}}" class="logo">管理<span class="lite">界面</span></a>
         <!--logo end-->
 
-        <div class="nav search-row" id="top_menu">
-            <!--  search form start -->
-            <!--<ul class="nav top-menu">-->
-            <!--<li>-->
-            <!--<form class="navbar-form">-->
-            <!--<input class="form-control" placeholder="Search" type="text">-->
-            <!--</form>-->
-            <!--</li>-->
-            <!--</ul>-->
-            <!--  search form end -->
-        </div>
-
         <div class="top-nav notification-row">
             <!-- notificatoin dropdown start-->
             <ul class="nav pull-right top-menu">
@@ -85,7 +73,7 @@
                     <ul class="dropdown-menu extended logout">
                         <div class="log-arrow-up"></div>
                         <li>
-                            <a href="{{url_for('back.logout_api')}}"><i class="icon_key_alt"></i> Log Out</a>
+                            <a href="{{url_for('back.logout_api')}}"><i class="icon_key_alt"></i>注销用户</a>
                         </li>
                     </ul>
                 </li>
@@ -156,7 +144,7 @@
                     </ul>
                 </li>
                 {% endif %}
-                 {% if session.admin.type == 0 %}
+                 <!-- {% if session.admin.type == 0 %}
                  <li class="sub-menu">
                     <a class="" href="javascript:;">
                         <i class="icon_genius"></i>
@@ -169,7 +157,7 @@
                     </ul>
                 </li>
 
-                 {% endif %}
+                 {% endif %} -->
 
                 {% if session.admin.type == 0 %}
                 <li class="sub-menu">
