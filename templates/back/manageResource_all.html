@@ -1,4 +1,4 @@
-{% extends 'back01/back/base.html' %}
+{% extends 'back/base.html' %}
 
 {% block static_files %}
 
@@ -14,21 +14,21 @@
                 <ol class="breadcrumb">
                     <li><i class="fa fa-home"></i><a href="index.html">主页</a></li>
                     <li><i class="fa fa-table"></i>资料管理</li>
-                    <li><i class="fa fa-th-list"></i>查看</li>
+                    <li><i class="fa fa-th-list"></i>所有资料</li>
                 </ol>
             </div>
                   <div class="col-lg-2">
-                                        <button class="btn btn-primary" onclick="MAIN.onQuery(0)">查看全部资料</button>
-                                    </div>
-                         <div class="col-lg-2">
-                                        <button class="btn btn-primary" onclick="MAIN.onQuery(1)">管理员上传的资料</button>
-                                    </div>
-                         <div class="col-lg-2">
-                                        <button class="btn btn-primary" onclick="MAIN.onQuery(2)">新闻上传的附件</button>
-                                    </div>
-                         <div class="col-lg-2">
-                                        <button class="btn btn-primary" onclick="MAIN.onQuery(3)">项目上传的附件</button>
-                                    </div>
+                                        <!--<button class="btn btn-primary" onclick="MAIN.onQuery(0)">查看全部资料</button>-->
+                                    <!--</div>-->
+                         <!--<div class="col-lg-2">-->
+                                        <!--<button class="btn btn-primary" onclick="MAIN.onQuery(1)">管理员上传的资料</button>-->
+                                    <!--</div>-->
+                         <!--<div class="col-lg-2">-->
+                                        <!--<button class="btn btn-primary" onclick="MAIN.onQuery(2)">新闻上传的附件</button>-->
+                                    <!--</div>-->
+                         <!--<div class="col-lg-2">-->
+                                        <!--<button class="btn btn-primary" onclick="MAIN.onQuery(3)">项目上传的附件</button>-->
+                                    <!--</div>-->
         </div>
         <!-- page start-->
         <div class="row">
@@ -58,11 +58,11 @@
                                 <td>项目附件</td>
                             {% endif %}
                             <td>
-                                <div class="btn-group">
-                                       <button class="btn btn-danger delete" id="delete"  onclick="MAIN.doRemove(0)" p_id="{{file.fid}}">删除</button>
+
+                                       <button class="btn btn-danger delete" id="delete"   p_id="{{file.fid}}">删除</button>
 
                                     <!--<a class="btn btn-danger" href="{{url_for('back.deleteFile')}}?fid={{file.fid}}"><i class="icon_close_alt2">删除</i></a>-->
-                                </div>
+
                             </td>
                         </tr>
                         {% endfor %}
@@ -75,19 +75,19 @@
             <div>
                 <ul class="pagination pagination-lg">
                     {% if pagination.has_prev %}
-                        <li><a href="{{url_for('back.manageResource',page = pagination.page - 1,count = 10)}}">«</a></li>
+                        <li><a href="{{url_for('back.manageResource',page = pagination.page - 1,count = 10)}}?source=0">«</a></li>
                     {% endif %}
 
                     {% for p in pagination.iter_pages() %}
                         {% if p == pagination.page%}
-                             <li class="active"><a href="{{url_for('back.manageResource',page = p,count = 10)}}">{{loop.index}}</a></li>
+                             <li class="active"><a href="{{url_for('back.manageResource',page = p,count = 10)}}?source=0">{{loop.index}}</a></li>
                         {% else %}
-                            <li><a href="{{url_for('back.manageResource',page = p,count = 10)}}">{{loop.index}}</a></li>
+                            <li><a href="{{url_for('back.manageResource',page = p,count = 10)}}?source=0">{{loop.index}}</a></li>
                         {% endif %}
                     {% endfor %}
 
                     {% if pagination.has_next %}
-                        <li><a href="{{url_for('back.manageResource',page = pagination.page + 1,count = 10)}}">»</a></li>
+                        <li><a href="{{url_for('back.manageResource',page = pagination.page + 1,count = 10)}}?source=0">»</a></li>
                     {% endif %}
                 </ul>
             </div>
@@ -98,27 +98,8 @@
 
 {% block js_files %}
 <script>
-
-    var MAIN = {};
-
-        MAIN.onQuery = function (type) {
-        window.location.href="/admin/manageResource?source="+type;
-         <!--var req = {};-->
-         <!--req.source =type;-->
-           <!--$.ajax({-->
-                <!--url:"/admin/manageResource",-->
-                <!--type:"GET",-->
-                <!--data:{ source: type},-->
-                <!--dataType:"json",-->
-
-            <!--});-->
-
-    }
-
-
-
-    MAIN.doRemove = function (e) {
-          
+ $(function () {
+        $(".delete").click(function () {
             var data={};
             data.nid=$(this).attr("p_id");
             n = $(this).attr("p_id");
@@ -128,13 +109,21 @@
                 type:"get",
                 success: function (data) {
                     alert("删除成功"); //提交成功
-                    window.location.href="{{url_for('back.manageResource')}}?type=0"
+                    window.location.href="{{url_for('back.manageResource')}}?source=0"
                     //window.location.href='';//跳转到个人中心
                 },
                 error: function (data) {
                     alert("删除失败");  //提交失败
                 }
             });
-    }
+        });
+         })
+
+
+
+
+
+
+
 </script>
 {% endblock%}

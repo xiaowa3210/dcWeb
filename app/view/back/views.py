@@ -293,19 +293,19 @@ def deleteUser():
 """
 @back.route("/login")
 def login():
-    return render_template("back01/back/login.html")
+    return render_template("back/login.html")
 
 """ 
 后台管理主页
 """
 @back.route("/admin/main")
 def main():
-    return render_template("back01/back/main.html")
+    return render_template("back/main.html")
 
 
 @back.route("/admin/addUser")
 def insertUser():
-    return render_template("back01/back/addUser.html")
+    return render_template("back/addUser.html")
 
 """ 
 审核项目
@@ -316,7 +316,7 @@ def checkProject(pid):
     #若是未提交状态管理员就没必要查看其内容
     # if project.status == 1 or project.delete_flag == 1:
     #     project = None
-    return render_template("back01/back/checkproject.html",project=project)
+    return render_template("back/checkproject.html",project=project)
 
 """ 
 审核项目列表
@@ -325,7 +325,7 @@ def checkProject(pid):
 @back.route("/admin/checkProjects/<int:page>/<int:count>")
 def checkProjects(page,count):
     pagination,projects = projectService.getUncheckPro(page,count)
-    return render_template("back01/back/checkProjects.html",projects=projects,pagination=pagination)
+    return render_template("back/checkProjects.html",projects=projects,pagination=pagination)
 
 """ 
 管理项目
@@ -334,7 +334,7 @@ def checkProjects(page,count):
 @back.route("/admin/manageProject/<int:page>/<int:count>")
 def manageProject(page,count):
     pagination,projects = projectService.getUploadedProBypage(page,count)
-    return render_template("back01/back/manageProject.html",projects=projects,pagination=pagination)
+    return render_template("back/manageProject.html",projects=projects,pagination=pagination)
 
 """
 删除已发布项目
@@ -352,7 +352,7 @@ def editeProject(page,count):
                                                          endTime=endTime,
                                                          type=type,
                                                          major=major)
-    return render_template("back01/back/deleteProject.html",projects=projects,pagination=pagination)
+    return render_template("back/deleteProject.html",projects=projects,pagination=pagination)
 
 
 """ 
@@ -360,7 +360,7 @@ def editeProject(page,count):
 """
 @back.route("/admin/editNews")
 def editNews():
-    return render_template('back01/back/article_add.html')
+    return render_template('back/article_add.html')
 
 """ 
 新闻管理
@@ -373,11 +373,11 @@ def manageNews(page,count):
     pagination, news = newsService.selectByPage(page, count, type)
 
     if(type == '-1'):
-        return render_template('back01/back/article_list.html', news=news, pagination=pagination)
+        return render_template('back/article_list.html', news=news, pagination=pagination)
     elif (type == '0'):
-        return render_template('back01/back/article_list_unpublished.html', news=news, pagination=pagination)
+        return render_template('back/article_list_unpublished.html', news=news, pagination=pagination)
     else:
-        return render_template('back01/back/article_list_published.html', news=news, pagination=pagination)
+        return render_template('back/article_list_published.html', news=news, pagination=pagination)
 
 
 
@@ -390,7 +390,7 @@ def manageNews(page,count):
 def modifiesNews(nid):
     new = newsService.selectByNid(nid)
     files = filesService.getFilesBySourceIdAndSource(2,nid)
-    return render_template("back01/back/modifiesNews.html",article=new,files=files)
+    return render_template("back/modifiesNews.html",article=new,files=files)
 
 """ 
 资料管理
@@ -401,17 +401,17 @@ def manageResource(page,count):
     source = request.values.get("source")
     pagination,files = filesService.getFilesBySource(page,count,source)
     if(source == '0'):
-        return render_template("back01/back/manageResource_all.html",pagination=pagination,files=files)
+        return render_template("back/manageResource_all.html",pagination=pagination,files=files)
     elif (source == '1'):
-        return render_template("back01/back/manageResource_admin.html",pagination=pagination,files=files)
+        return render_template("back/manageResource_admin.html",pagination=pagination,files=files)
     elif (source == '2'):
-        return render_template("back01/back/manageResource_article.html", pagination=pagination, files=files)
+        return render_template("back/manageResource_article.html", pagination=pagination, files=files)
     else:
-        return render_template("back01/back/manageResource_project.html", pagination=pagination, files=files)
+        return render_template("back/manageResource_project.html", pagination=pagination, files=files)
 
 @back.route("/admin/editFiles")
 def editFiles():
-    return render_template('back01/back/file_add.html')
+    return render_template('back/file_add.html')
 """ 
 管理员人员管理
 """
@@ -420,7 +420,7 @@ def editFiles():
 def manageUser(page,count):
     type = request.values.get("type")
     pagination, users = userService.selectByPage(page,count,type)
-    return render_template("back01/back/manageUser.html",pagination=pagination,users=users)
+    return render_template("back/manageUser.html",pagination=pagination,users=users)
 
 
 """ 
@@ -430,7 +430,7 @@ def manageUser(page,count):
 @back.route("/admin/checkNewView/<int:page>/<int:count>",methods=['GET'])
 def checkNewView(page,count):
     pagination, news = newsService.selectByPage(page, count, 2)
-    return render_template("back01/back/checkArticles.html",pagination=pagination,news=news)
+    return render_template("back/checkArticles.html",pagination=pagination,news=news)
 
 """ 
 审核新闻
@@ -439,7 +439,7 @@ def checkNewView(page,count):
 @back.route("/admin/newPreview/<int:nid>")
 def newPreview(nid):
     new = newsService.selectByNid(nid)
-    return render_template("back01/back/checknew.html",new = new)
+    return render_template("back/checknew.html",new = new)
 
 """ 
 管理员(非超级管理员)管理自己新闻
@@ -450,4 +450,4 @@ def adminNews(page,count):
     status = request.values.get("status")
     username = session['admin']['name']
     pagination, news = newsService.selectByUsername(page, count, status,username)
-    return render_template('back01/back/article_list.html', news=news, pagination=pagination,status = status)
+    return render_template('back/article_list.html', news=news, pagination=pagination,status = status)
