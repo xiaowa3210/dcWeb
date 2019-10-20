@@ -128,23 +128,23 @@
                 </li>
 
 
-                {% if session.admin.type == 0 %}
+                <!-- {% if session.admin.type == 0 %} -->
                 <li class="sub-menu">
                     <a href="javascript:;" class="">
                         <i class="icon_desktop"></i>
-                        <span>文件管理</span>
+                        <span>资料管理</span>
                         <span class="menu-arrow arrow_carrot-right"></span>
                     </a>
                     <ul class="sub">
-                        <li><a class="" href="{{ url_for('back.editFiles') }}">添加</a></li>
-                        <li><a class="" href="{{ url_for('back.manageResource') }}?source=0">查看全部</a></li>
-                        <li><a class="" href="{{ url_for('back.manageResource') }}?source=1">管理员上传</a></li>
+                        <li><a class="" href="{{ url_for('back.editFiles') }}">上传</a></li>
+                        <li><a class="" href="{{ url_for('back.manageResource') }}?source=2">查看</a></li>
+                        <!-- <li><a class="" href="{{ url_for('back.manageResource') }}?source=1">管理员上传</a></li>
                         <li><a class="" href="{{ url_for('back.manageResource') }}?source=2">新闻上传</a></li>
-                        <li><a class="" href="{{ url_for('back.manageResource') }}?source=3">项目上传</a></li>
+                        <li><a class="" href="{{ url_for('back.manageResource') }}?source=3">项目上传</a></li> -->
                     </ul>
                 </li>
-                {% endif %}
-                {% if session.admin.type == 0 %}
+                <!-- {% endif %} -->
+                <!-- {% if session.admin.type == 0 %} -->
                 <li class="sub-menu">
                     <a class="" href="javascript:;">
                         <i class="icon_genius"></i>
@@ -157,7 +157,7 @@
                         <li><a class="" href="{{ url_for('back.manageProject') }}">查看</a></li>
                     </ul>
                 </li>
-                {% endif %}
+                <!-- {% endif %} -->
             </ul>
             <!-- sidebar menu end-->
         </div>
