@@ -106,20 +106,21 @@
                 <li class="sub-menu">
                     <a class="" href="javascript:;">
                         <i class="icon_genius"></i>
-                        <span>文章管理</span>
+                        <span>新闻管理</span>
                         <span class="menu-arrow arrow_carrot-right"></span>
                     </a>
 
 
                     <ul class="sub">
-                        <!--<li><a class="" href="{{ url_for('back.manageNews') }}?type=-1">编辑</a></li>-->
 
-                        {% if session.admin.type == 2 %}
+                        <!--<li><a class="" href="{{ url_for('back.manageNews') }}?type=-1">编辑</a></li>-->
+                        <li><a class="" href="{{ url_for('back.editNews') }}">添加新闻</a></li>
+                        <!-- {% if session.admin.type == 2 %}
                             <li><a class="" href="{{ url_for('back.editNews') }}">添加</a></li>
                             <li><a class="" href="{{ url_for('back.adminNews') }}">查看</a></li><!--查看自己的-->
-                        {% else %}
+                        {% else %} -->
                             <li><a class="" href="{{ url_for('back.checkNewView') }}">审核</a></li>
-                            <li><a class="" href="{{ url_for('back.manageNews') }}?type=-1">查看全部</a></li>
+                            <!-- <li><a class="" href="{{ url_for('back.manageNews') }}?type=-1">查看全部</a></li> -->
                             <li><a class="" href="{{ url_for('back.manageNews') }}?type=0">未发布</a></li>
                             <li><a class="" href="{{ url_for('back.manageNews') }}?type=1">已发布</a></li>
                         {% endif %}
