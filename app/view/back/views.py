@@ -35,8 +35,9 @@ def uploadNew():
     type = request.form.get('type')
     operate = request.form.get('operate')
     attachments = request.files.getlist("attachment")
-    isTop = request.form.get('radio');
-    # if isTop=='置顶':
+    isTop = request.form.get('radio')
+
+    # if isTop=='1':
     #     print("置顶")
     # else:
     #     print("不置顶")
@@ -174,8 +175,7 @@ def deleteFile():
 """
 @back.route("/api/admin/deletePro",methods=['POST'])
 def deleteProject():
-    data = json.loads(request.get_data(as_text=True))
-    pid = data["pid"]
+    pid = request.values.get('pid')
     if pid is None:
         return json.dumps(MessageInfo.fail(msg="pid不能为空").__dict__)
     projectService.deletePro(pid)
@@ -184,10 +184,9 @@ def deleteProject():
 """
 管理员撤销项目
 """
-@back.route("/api/admin/undoPro")
+@back.route("/api/admin/undoPro", methods=['POST'])
 def undoProject():
-    data = json.loads(request.get_data("as_text=True"))
-    pid = data["pid"]
+    pid = request.values.get('pid')
     if pid is None:
         return json.dumps(MessageInfo.fail(msg="pid不能为空").__dict__)
     projectService.undoPro(pid)
