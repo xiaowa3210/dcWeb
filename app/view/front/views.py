@@ -446,3 +446,17 @@ def stu_register():
 # def manageProject(page,count):
 #     pagination,project = projectService.getProByStudentId(page,count)
 #     return render_template("tmp01/user2.html",pagination=pagination,project=project)
+
+
+'''
+获取项目获奖信息
+'''
+@front.route("/selectAward",methods=['GET'],defaults={'page':1,'count':10})
+@front.route("/selectAward/<int:page>/<int:count>")
+def selectAward(page, count):
+    #筛选条件
+    startTime = request.args.get('startTime', default=None)
+    endTime = request.args.get('endTime', default=None)
+    rank = request.args.get('rank', default=-1)
+    pagination, awards = projectService.selectAwardInfo(startTime, endTime, rank, page, count)
+    return render_template("tmp01/register.html", pagination=pagination, awards=awards)
