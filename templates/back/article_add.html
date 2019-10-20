@@ -188,7 +188,7 @@
         var content = MAIN.ue.getContent();
         req.type = type;
         req.is_add = 0;
-        Af.rest("/back01/saveArticle",req,function (data) {
+        Af.rest("/back/saveArticle",req,function (data) {
             alert(data);
             $("input").val("");
         })

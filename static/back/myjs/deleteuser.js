@@ -37,7 +37,7 @@ $(function () {
        var divTag = self.parent().parent();
        var id = divTag.attr('data-id');
        $.post({
-           'url':'/back01/delete',
+           'url':'/back/delete',
            'data':{
                'id':id
            },
