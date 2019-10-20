@@ -897,7 +897,7 @@ $(function() {
       for (let i = 0; i < files.length; i++) {
         form.append('pics', files[i])
       }
-      form.append('source', 2)
+      form.append('source', 3) // 1 封面 2 资料 3 证书
 
       $.ajax({
         url: '/api/addPic',

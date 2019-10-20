@@ -83,13 +83,16 @@ stu_allow_url = [
 
 common_admin_allow_url = [
     '/admin/main',
-    '/api/admin/deleteNew'
-]
-
-admin_allow_url = [
+    '/api/admin/deleteNew',
     '/api/admin/addNew',
     '/admin/modifiesNews',
     '/adminNews'
+]
+
+admin_allow_url = [
+    # '/api/admin/addNew',
+    # '/admin/modifiesNews',
+    # '/adminNews'
 ]
 
 superadmin_allow_url = [

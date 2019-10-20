@@ -37,37 +37,50 @@
                 <tr>
                   <td>{{project.pid}}</td>
                   <td>{{project.pname}}</td>
-                  {% if project.type == "1" %}
-                  <td>App开发/微信小程序开发</td>
-                  {% endif %}
-                  {% if project.type == "2" %}
-                  <td>通信/网络</td>
-                  {% endif %}
-                  {% if project.type == "3" %}
-                  <td>软件系统</td>
-                  {% endif %}
-                  {% if project.type == "4" %}
-                  <td>硬件系统</td>
-                  {% endif %}
-                  {% if project.type == "5" %}
-                  <td>视频/图像</td>
-                  {% endif %}
-                  {% if project.type == "6" %}
-                  <td>大数据/机器学习</td>
-                  {% endif %}
-                  {% if project.status.major == 1 %}
-                  <td>通信工程</td>
-                  {% endif %}
-                  {% if project.status.major == 2 %}
-                  <td>信息工程</td>
-                  {% endif %}
-                  {% if project.status.major == 3 %}
-                  <td>电子信息工程</td>
-                  {% endif %}
-                  <td>{{project.status.source}}</td>
+                  <td>
+                    {% if project.type == "1" %}
+                    App开发/微信小程序开发
+                    {% elif project.type == "2" %}
+                    通信/网络
+                    {% elif project.type == "3" %}
+                    软件系统
+                    {% elif project.type == "4" %}
+                    硬件系统
+                    {% elif project.type == "5" %}
+                    视频/图像
+                    {% elif project.type == "6" %}
+                    大数据/机器学习
+                    {% endif %}
+                  </td>
+                  <td>
+                    {% if project.major == 1 %}
+                    通信工程
+                    {% elif project.major == 2 %}
+                    信息工程
+                    {% elif project.major == 3 %}
+                    电子信息工程
+                    {% endif %}
+                  </td>
+                  <td>
+                    {% if project.source == 1 %}
+                    大创项目
+                    {% elif project.source == 2 %}
+                    雏雁项目
+                    {% elif project.source == 3 %}
+                    竞赛项目
+                    {% elif project.source == 4 %}
+                    课程项目
+                    {% elif project.source == 0 %}
+                    其他
+                    {% endif %}
+                  </td>
                   <td>{{project.publisher}}</td>
                   <td>{{project.submitTime}}</td>
-                  <td><button class="btn btn-success"><a href="{{url_for('back.checkProject',pid=project.pid)}}">审核</a></button></td>
+                  <td>
+                    <a href="{{url_for('back.checkProject',pid=project.pid)}}">
+                      <button class="btn btn-success">审核</button>
+                    </a>
+                  </td>
                 </tr>
                 {% endfor %}
               </tbody>

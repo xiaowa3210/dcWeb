@@ -13,7 +13,6 @@
         </ol>
       </div>
     </div>
-    <!-- Form validations -->
     <div class="row">
       <div class="col-lg-12">
         <section class="panel">
@@ -30,44 +29,70 @@
                 <th>项目来源</th>
                 <th>发布者</th>
                 <th>提交时间</th>
-                <!-- <th>操作</th> -->
+                <th>当前状态</th>
+                <th>操作</th>
               </thead>
               <tbody>
                 {% for project in projects %}
                 <tr>
                   <td>{{project.pid}}</td>
                   <td>{{project.pname}}</td>
-                  {% if project.type == "1" %}
-                  <td>App开发/微信小程序开发</td>
-                  {% endif %}
-                  {% if project.type == "2" %}
-                  <td>通信/网络</td>
-                  {% endif %}
-                  {% if project.type == "3" %}
-                  <td>软件系统</td>
-                  {% endif %}
-                  {% if project.type == "4" %}
-                  <td>硬件系统</td>
-                  {% endif %}
-                  {% if project.type == "5" %}
-                  <td>视频/图像</td>
-                  {% endif %}
-                  {% if project.type == "6" %}
-                  <td>大数据/机器学习</td>
-                  {% endif %}
-                  {% if project.status.major == 1 %}
-                  <td>通信工程</td>
-                  {% endif %}
-                  {% if project.status.major == 2 %}
-                  <td>信息工程</td>
-                  {% endif %}
-                  {% if project.status.major == 3 %}
-                  <td>电子信息工程</td>
-                  {% endif %}
-                  <td>{{project.status.source}}</td>
+                  <td>
+                    {% if project.type == "1" %}
+                    App开发/微信小程序开发
+                    {% elif project.type == "2" %}
+                    通信/网络
+                    {% elif project.type == "3" %}
+                    软件系统
+                    {% elif project.type == "4" %}
+                    硬件系统
+                    {% elif project.type == "5" %}
+                    视频/图像
+                    {% elif project.type == "6" %}
+                    大数据/机器学习
+                    {% endif %}
+                  </td>
+                  <td>
+                    {% if project.major == 1 %}
+                    通信工程
+                    {% elif project.major == 2 %}
+                    信息工程
+                    {% elif project.major == 3 %}
+                    电子信息工程
+                    {% endif %}
+                  </td>
+                  <td>
+                    {% if project.source == 1 %}
+                    大创项目
+                    {% elif project.source == 2 %}
+                    雏雁项目
+                    {% elif project.source == 3 %}
+                    竞赛项目
+                    {% elif project.source == 4 %}
+                    课程项目
+                    {% elif project.source == 0 %}
+                    其他
+                    {% endif %}
+                  </td>
                   <td>{{project.publisher}}</td>
                   <td>{{project.submitTime}}</td>
-                  <!-- <td><button class="btn btn-danger" p_id="{{project.pid}}"  onclick="deleteProject()">删除</button></td> -->
+                  <td>
+                    {% if project.status == 1 %}
+                    未提交
+                    {% elif project.status == 2 %}
+                    待审核
+                    {% elif project.status == 3 %}
+                    已发布
+                    {% elif project.status == 4 %}
+                    未通过
+                    {% endif %}
+                  </td>
+                  <td>
+                    {% if project.status == 3 %}
+                    <button class="btn btn-success undo-audit" data-pid="{{project.pid}}">撤销发布</button>
+                    {% endif %}
+                    <button class="btn btn-danger delete-pro" data-pid="{{project.pid}}">删除</button>
+                  </td>
                 </tr>
                 {% endfor %}
               </tbody>
@@ -100,27 +125,56 @@
   </section>
 </section>
 {% endblock %}
-
 {% block js_files %}
 <script>
-    function deleteProject() {
-        alert('确定删除吗？');
-        var data={};
-        data.pid=$(this).attr("p_id");
-        $.ajax({
-            url:"/api/admin/deleteUser",
-            type:"post",
-            data: JSON.stringify(data),
-            dataType: 'json',
-            success: function (data) {
-                alert(data.msg); //提交成功
-                window.location.href="{{url_for('back.manageUser')}}"
-                //window.location.href='';//跳转到个人中心
-            },
-            error: function (data) {
-                alert(data.msg);  //提交失败
-            }
-        });
-    }
+$('.panel-body').on('click', '.delete-pro, .undo-audit', function() {
+  var $this = $(this)
+  $this.hasClass('delete-pro') && deleteProject($this)
+  $this.hasClass('undo-audit') && undoAudit($this)
+})
+
+function deleteProject(dom) {
+  var flag = confirm('确定删除吗？');
+  if (flag) {
+    var pid = dom.data('pid')
+    $.ajax({
+      url: "/api/admin/deletePro",
+      type: "POST",
+      data: {
+        pid: pid
+      },
+      dataType: 'json',
+      success: function(res) {
+        alert(res.msg)
+        dom.parent().parent().remove()
+      },
+      error: function(xhr, status, error) {
+        alert(error)
+      }
+    });
+  }
+}
+
+function undoAudit(dom) {
+  var flag = confirm('确定撤销发布项目吗？');
+  if (flag) {
+    var pid = dom.data('pid')
+    $.ajax({
+      url: "/api/admin/undoPro",
+      type: "POST",
+      data: {
+        pid: pid
+      },
+      dataType: 'json',
+      success: function(res) {
+        alert(res.msg)
+        location.reload()
+      },
+      error: function(xhr, status, error) {
+        alert(error)
+      }
+    });
+  }
+}
 </script>
 {% endblock %}
