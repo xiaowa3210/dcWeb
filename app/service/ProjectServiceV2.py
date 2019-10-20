@@ -691,12 +691,18 @@ class ProjectService:
         awards = pagination.items
 
         #再查获奖信息对应的图片链接
-        for award in awards:
-            pics = db2.session.query(Files).filter(Files.source_id == award.id,
-                                                      Files.source == 3,
-                                                      Files.delete_flag == 0).all()
-            award.pics = pics
-        return pagination, awards
+        awardList = []
+        for a in awards:
+            certPics = db2.session.query(Files).filter(Files.source_id == a.id,
+                                                       Files.delete_flag == 0).all()
+            pics = []
+            for cp in certPics:
+                cpDict = {'id': cp.fid, 'url': url_for('common.image', name=cp.path)}
+                pics.append(cpDict)
+            a.pics = pics
+            awardList.append(a)
+
+        return pagination, awardList
 
 
 
