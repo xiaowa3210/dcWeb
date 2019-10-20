@@ -73,6 +73,7 @@ def json2ProMember(data, type):
 # 处理获奖信息
 def json2ProAward(data):
     award = ProjectAward(data['awardName'])
+    award.awardTime = data['awardTime']
     award.rank = data['rank']
     return award
 
