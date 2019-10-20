@@ -8,7 +8,7 @@ import uuid
 from datetime import datetime
 from flask import render_template, request, make_response, send_from_directory, session, redirect, url_for
 
-from app.model.config import UPLOAD_FILES_PATH, UPLOAD_PATH, UEDITOR_UPLOAD_PATH
+from app.model.config import UPLOAD_FILES_PATH, UPLOAD_PATH, UEDITOR_UPLOAD_PATH, UPLOAD_AWARD_PATH
 from app.model.entity import Files, User, New, newExt
 from app.service.NewsService import NewsService
 from app.service.FileServiceV2 import FilesService
@@ -215,13 +215,31 @@ def checkoutProjectapi():
     projectService.checkoutPro(pid,operation,msg)
     return json.dumps(MessageInfo.success(msg="审核成功").__dict__)
 
+
+""" 
+生成获奖信息
+"""
+@back.route("/api/admin/createAwardInfo",methods=['GET'])
+def createAwardInfo():
+    #筛选条件
+    startTime = request.args.get('startTime', default=None)
+    endTime = request.args.get('endTime', default=None)
+    rank = request.args.get('rank', default=-1)
+    pagination, awards = projectService.selectAwardInfo(startTime, endTime, rank, 1, 10000)
+
+    #根据获奖信息导出文件名
+    filename = projectService.exportAwardInfo(awards)
+    response = make_response(send_from_directory(UPLOAD_AWARD_PATH, filename, as_attachment=True))
+    response.headers["Content-Disposition"] = "attachment; filename={}".format(filename.encode().decode('latin-1'))
+    return response
+
 """ 
 下载获奖信息
 """
 @back.route("/api/admin/downAwardInfo",methods=['GET'])
 def downAwardInfo():
     filename = projectService.generateAwardInfoExcel(None)
-    response = make_response(send_from_directory(UPLOAD_PATH, filename, as_attachment=True))
+    response = make_response(send_from_directory(UPLOAD_AWARD_PATH, filename, as_attachment=True))
     response.headers["Content-Disposition"] = "attachment; filename={}".format(filename.encode().decode('latin-1'))
     return response
 
