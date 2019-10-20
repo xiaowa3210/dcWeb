@@ -160,7 +160,7 @@
         });
         form.append("kws",kws.substr(0,kws.length-2))
         $.ajax({
-                url:"/back01/saveArticle",
+                url:"/back/saveArticle",
                 type:"post",
                 data:form,
                 processData:false,
@@ -180,7 +180,7 @@
         var file_id = $(e).attr('file_id');
         var req = {};
         req.file_id = file_id
-        Af.rest("/back01/deleteFile",req,function (data) {
+        Af.rest("/back/deleteFile",req,function (data) {
             $(e).parent('div:first').remove();
             alert(data)
         })
