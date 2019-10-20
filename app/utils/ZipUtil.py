@@ -2,7 +2,7 @@ import os
 import shutil
 import zipfile
 # from definitions import ROOT_DIR
-ROOT_DIR='D:/web/dcWeb/dcWeb/rootdir'
+ROOT_DIR='../../resources/pics'
 
 #打包单个文件
 def compress_singlefile(zipName,filename):
@@ -65,17 +65,21 @@ def remove(dirname,filenames):
 
 if __name__ == '__main__':
     zipName = os.path.join(ROOT_DIR, 'log.zip')
-    filename = os.path.join(ROOT_DIR,'info.log')
-    dirName = os.path.join(ROOT_DIR,'zip')
-    files={os.path.join(ROOT_DIR,'info.log'),
-           os.path.join(ROOT_DIR,'info1.log'),
-           os.path.join(ROOT_DIR, '总结.pdf'),
-           os.path.join(ROOT_DIR, '流浪地球-1.jpg'),
-           os.path.join(ROOT_DIR, '高清护眼电脑桌面壁纸.jpg')}
-    # files={'info.log','info1.log'}
-    # compress_singlefile(zipName,'info1.log')
-    # compress_files(zipName,dirName)
-    compress_listfiles(zipName,files)
-    # addfile(zipName,files)
+    files={os.path.join(ROOT_DIR,'0a5850f8762011e9a52d185680cf589a.png'),
+           os.path.join(ROOT_DIR,'0c6ed04aee4f11e9b1cfacde48001122.png'),
+           os.path.join(ROOT_DIR,'1d498c40762011e99d6a185680cf589a.png'),
+           os.path.join(ROOT_DIR,'1e5187aedc1a11e988baacde48001122.png'),
+           os.path.join(ROOT_DIR,'2aa392a2ef6311e9a924f45c89b10987.jpg'),
 
-    # copy(os.path.join(ROOT_DIR,'zip'),files)
+           os.path.join(ROOT_DIR,'20190920230723.png'),
+           os.path.join(ROOT_DIR,'20190920230811.png'),
+           os.path.join(ROOT_DIR,'20190920232213.png'),
+           os.path.join(ROOT_DIR,'20190920232228.png'),
+           os.path.join(ROOT_DIR,'20190922221359.png'),
+
+           os.path.join(ROOT_DIR,'20191015181036.png'),
+           os.path.join(ROOT_DIR,'20191015181341.png'),
+           os.path.join(ROOT_DIR,'20191015182912.png'),
+           os.path.join(ROOT_DIR,'20191015183013.png'),
+           os.path.join(ROOT_DIR,'20191015183111.png'),}
+    compress_listfiles(zipName,files)

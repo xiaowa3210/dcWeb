@@ -110,8 +110,6 @@ def storefile(files, source, source_id, type):
             filesService.addFile(file)  # 将文件信息写入到数据库
 
 class ProjectService:
-
-
     #添加项目
     @DeprecationWarning
     def addProject(self,data):
@@ -702,6 +700,23 @@ class ProjectService:
 
 
 ##########################导出获奖信息的代码########################
+    def exportAwardInfo(self, awards):
+        awardInfos = []
+        for award in  awards:
+            awardName = award.awardName
+            awardTime = award.awardTime
+            rank = award.rank
+
+            # todo::获取项目
+
+
+
+
+
+
+
+
+
     """
     @:param:
     @:return:
