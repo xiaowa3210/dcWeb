@@ -459,4 +459,4 @@ def selectAward(page, count):
     endTime = request.args.get('endTime', default=None)
     rank = request.args.get('rank', default=-1)
     pagination, awards = projectService.selectAwardInfo(startTime, endTime, rank, page, count)
-    return render_template("tmp01/register.html", pagination=pagination, awards=awards)
+    return render_template("front/awards.html", pagination=pagination, awards=awards)

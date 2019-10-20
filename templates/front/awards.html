@@ -1,0 +1,93 @@
+{% extends 'front/base.html' %}
+{% block page_name %}奖项展示{% endblock %}
+{% block static_files %}
+<style>
+  .box-white:last-child {
+    min-height: 513px;
+  }
+  .thumbnail {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 240px;
+    height: 240px;
+  }
+</style>
+{% endblock %}
+{% block body_part %}
+<div class="row">
+  <div class="col-md-3">
+    <aside class="box-white">
+      <div class="widget">
+        <h4>筛选</h4>
+        <form onsubmit="return false">
+          <div class="form-group flex-column">
+            <label for="startTime">项目开始时间</label>
+            <input type="month" id="startTime">
+          </div>
+          <div class="form-group flex-column">
+            <label>项目结束时间</label>
+            <input type="month" id="endTime">
+          </div>
+          <div class="form-group flex-column">
+            <label>项目级别</label>
+            <select id="projectRank" name="rank">
+              <option value="1">国际型比赛</option>
+              <option value="2">国家型比赛</option>
+              <option value="3">省部型比赛</option>
+              <option value="4">校内比赛</option>
+            </select>
+          </div>
+          <div class="form-group center">
+            <button type="button" class="btn btn-color" id="select">筛选</button>
+            <a href="/selectAward">
+              <button type="button" class="btn btn-danger">重置</button>
+            </a>
+          </div>
+        </form>
+      </div>
+    </aside>
+  </div>
+  <div class="col-md-9">
+    <div class="box-white">
+    </div>
+    <div class="box-white">
+      <div class="row">
+        {% if awards %}
+        {% for pro in awards %}
+        {% for pic in pro.pics %}
+        <div class="col-md-4">
+          <a href="/projects/detail/{{pro.pid}}" class="thumbnail">
+            <img src="{{pic.url}}" alt="{{pro.awardName}}">
+          </a>
+        </div>
+        {% endfor %}
+        {% endfor %}
+        {% else %}
+        <p class="center">未找到符合条件的项目</p>
+        {% endif%}
+      </div>
+      <div class="row">
+        <div class="col-md-12 text-center">
+          {% import 'front/components/macro.html' as macro %}
+          {{ macro.pagination(pagination, 'front.selectAward') }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+{% block js_files%}
+<script>
+$(document).ready(function() {
+  //筛选
+  $("#select").click(function() {
+    let data = {};
+    data.startTime = $("#startTime").val();
+    data.endTime = $("#endTime").val();
+    data.rank = $('#projectRank').val()
+    location.href = `/selectAward?startTime=${data.startTime}&endTime=${data.endTime}&rank=${data.rank}`
+  })
+})
+</script>
+{% endblock %}
