@@ -694,6 +694,7 @@ class ProjectService:
         awardList = []
         for a in awards:
             certPics = db2.session.query(Files).filter(Files.source_id == a.id,
+                                                       Files.source == 3,
                                                        Files.delete_flag == 0).all()
             pics = []
             for cp in certPics:

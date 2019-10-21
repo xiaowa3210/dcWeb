@@ -115,14 +115,14 @@ def file(name):
     return response
 
 
-""" 
-根据文件名，下载文件
-"""
-@common.route('/zip/<name>')
-def zip(name):
-    response = make_response(send_from_directory(UPLOAD_ZIP_PATH, name, as_attachment=True))
-    response.headers["Content-Disposition"] = "attachment; filename={}".format(name.encode().decode('latin-1'))
-    return response
+# """
+# 根据文件名，下载文件
+# """
+# @common.route('/zip/<name>')
+# def zip(name):
+#     response = make_response(send_from_directory(UPLOAD_ZIP_PATH, name, as_attachment=True))
+#     response.headers["Content-Disposition"] = "attachment; filename={}".format(name.encode().decode('latin-1'))
+#     return response
 
 """ 
 根据文件名，下载文件
