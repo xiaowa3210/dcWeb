@@ -81,25 +81,22 @@ stu_allow_url = [
     '/student/preview/project'
 ]
 
-common_admin_allow_url = [
+
+admin_allow_url = [
+    '/api/admin/addUser',
+    '/admin/manageUser',
+    '/api/admin/deleteUser'
+]
+
+superadmin_allow_url = [
     '/admin/main',
     '/api/admin/deleteNew',
     '/api/admin/addNew',
     '/admin/modifiesNews',
-    '/adminNews'
-]
-
-admin_allow_url = [
-    # '/api/admin/addNew',
-    # '/admin/modifiesNews',
-    # '/adminNews'
-]
-
-superadmin_allow_url = [
+    '/adminNews',
     '/admin/manageNews',
     '/admin/manageResource',
     '/admin/editFiles',
-    '/admin/manageUser',
     '/admin/checkNewView',
     '/api/admin/uploadFile',
     '/api/admin/deleteFile',
@@ -111,7 +108,8 @@ superadmin_allow_url = [
     '/admin/checkProjects',
     '/admin/manageProject',
     '/admin/deleteProject',
-    '/admin/manageResource',
     '/admin/editFiles',
-    '/admin/manageUser'
+    '/api/admin/addUser',
+    '/admin/manageUser',
+    '/api/admin/deleteUser'
 ]

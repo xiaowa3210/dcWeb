@@ -4,7 +4,11 @@ import json
 
 from flask import Flask, redirect, url_for, request, session, render_template
 from app.model import config
+<<<<<<< HEAD
 from app.model.config import superadmin_allow_url, admin_allow_url, stu_allow_url, common_admin_allow_url, allow_url
+=======
+from app.model.config import superadmin_allow_url, admin_allow_url, stu_allow_url, allow_url
+>>>>>>> 61337cbb7fc9075e6355cafc5e9328c48fe03bd3
 from app.model.constant import ADMIN, role_dict, TEACHER
 from app.model.entity import db2  # 数据库
 from app.service.UserServiceV2 import UserService
@@ -67,6 +71,7 @@ def before_action():
     if not isContain(path,allow_url):
         if isContain(path, stu_allow_url):
             if 'student' not in session:
+<<<<<<< HEAD
                 return redirect(url_for('front.stu_login'))
         if isContain(path, common_admin_allow_url):
             if 'admin' not in session:
@@ -76,6 +81,14 @@ def before_action():
                 return redirect(url_for('back.login'))
         if isContain(path, superadmin_allow_url):
             if 'admin' not in session or session['admin']['type'] == 2:
+=======
+                return redirect(url_for('front.home'))
+
+        if isContain(path, superadmin_allow_url):
+            if 'admin' not in session:
+                return redirect(url_for('back.login'))
+            if isContain(path, admin_allow_url) and session['admin']['type'] == 2:
+>>>>>>> 61337cbb7fc9075e6355cafc5e9328c48fe03bd3
                 return redirect(url_for('back.login'))
 
 

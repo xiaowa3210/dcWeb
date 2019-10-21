@@ -22,6 +22,10 @@
                ┗┻┛ ┗┻┛
 """
 import json
+<<<<<<< HEAD
+=======
+import time
+>>>>>>> 61337cbb7fc9075e6355cafc5e9328c48fe03bd3
 import uuid
 from datetime import datetime
 
@@ -31,12 +35,20 @@ import docx
 from flask import url_for
 from sqlalchemy import desc
 
+<<<<<<< HEAD
 from app.model.config import UPLOAD_PATH, UEDITOR_UPLOAD_PATH, UPLOAD_FILES_PATH, UPLOAD_PICS_PATH, UPLOAD_ZIP_PATH
+=======
+from app.model.config import UPLOAD_PATH, UEDITOR_UPLOAD_PATH, UPLOAD_FILES_PATH, UPLOAD_PICS_PATH, UPLOAD_AWARD_PATH
+>>>>>>> 61337cbb7fc9075e6355cafc5e9328c48fe03bd3
 from app.model.entity import Project, ProjectMember, ProjectAward, ProjectStatus, Files
 from app import db2
 from app.service.CommonService import CommonService
 from app.service.FileServiceV2 import FilesService
 from app.utils.ZipUtil import compress_listfiles
+<<<<<<< HEAD
+=======
+from app.utils.excel import AwardInfo, Member, createAward, write_excel
+>>>>>>> 61337cbb7fc9075e6355cafc5e9328c48fe03bd3
 from app.utils.utils import mapGet
 import xlwt
 
@@ -49,6 +61,10 @@ def addProStatus(pname, type, status,data):
     publisher = commonService.getCurrentUsername(1)  # todo:暂时是anonymous
     proStatus = ProjectStatus(pname, type, publisher, status)
     proStatus.pro_startTime = data['startTime'] + '-01'
+<<<<<<< HEAD
+=======
+    proStatus.pro_endTime = data['endTime'] + '-01'
+>>>>>>> 61337cbb7fc9075e6355cafc5e9328c48fe03bd3
     proStatus.major = data['major']
     if proStatus == 2:  # 如果是提交,记录提交的时间
         proStatus.submitTime = datetime.now()
@@ -158,8 +174,12 @@ class ProjectService:
             self.modifiedProject(data)
 
 
+<<<<<<< HEAD
 
 
+=======
+    @DeprecationWarning
+>>>>>>> 61337cbb7fc9075e6355cafc5e9328c48fe03bd3
     def addProjectV1(self,request):
         # 获取信息
         pname = request.form.get("pname")
@@ -313,6 +333,7 @@ class ProjectService:
         return pagination, projects
 
 
+<<<<<<< HEAD
     """
     @:param:
     @:return:
@@ -347,6 +368,8 @@ class ProjectService:
             pro.pic = mainPic
         return pagination, pros
 
+=======
+>>>>>>> 61337cbb7fc9075e6355cafc5e9328c48fe03bd3
 
     """
     @:param:
@@ -678,6 +701,45 @@ class ProjectService:
         return path
 
 
+<<<<<<< HEAD
+=======
+    """
+    @:param:
+    @:return:
+    @descrition:查询已经审核通过的项目
+    """
+    def getPublishedPro(self,page_index,count,**kw):
+
+        # 筛选条件
+        startTime = kw['startTime']
+        endTime = kw['endTime']
+        type = kw['type']
+        major = kw['major']
+        source = kw['source']
+
+        query = ProjectStatus.query.filter(ProjectStatus.status == 3,ProjectStatus.delete_flag == 0)
+        if startTime:
+            query = query.filter(ProjectStatus.pro_startTime >= startTime + '-01')
+        if endTime:
+            query = query.filter(ProjectStatus.pro_endTime <= endTime + '-01')
+        if type != -1:
+            query = query.filter(ProjectStatus.type == type)
+        if major != 0:
+            query = query.filter(ProjectStatus.major == major)
+        if source != -1:
+            query = query.filter(ProjectStatus.source == source)
+        pagination = query.order_by(desc(ProjectStatus.pro_startTime)).paginate(page_index, count, error_out=False)
+
+        pros = pagination.items
+        for pro in pros:
+
+            mainPic = db2.session.query(Files).filter(Files.source_id == pro.pid,
+                                                      Files.source == 1,
+                                                      Files.delete_flag == 0).one()
+            pro.pic = mainPic
+        return pagination, pros
+
+>>>>>>> 61337cbb7fc9075e6355cafc5e9328c48fe03bd3
     def selectAwardInfo(self, startTime, endTime, rank, page_index,count):
         #根据条件查出所有的获奖时间
         query = ProjectAward.query
@@ -694,6 +756,10 @@ class ProjectService:
         awardList = []
         for a in awards:
             certPics = db2.session.query(Files).filter(Files.source_id == a.id,
+<<<<<<< HEAD
+=======
+                                                       Files.source == 3,
+>>>>>>> 61337cbb7fc9075e6355cafc5e9328c48fe03bd3
                                                        Files.delete_flag == 0).all()
             pics = []
             for cp in certPics:
@@ -706,7 +772,11 @@ class ProjectService:
 
 
 
+<<<<<<< HEAD
 ##########################导出获奖信息的代码########################
+=======
+##########################导出获奖信息########################
+>>>>>>> 61337cbb7fc9075e6355cafc5e9328c48fe03bd3
     def exportAwardInfo(self, awards):
         awardInfos = []
         for award in  awards:
@@ -714,6 +784,7 @@ class ProjectService:
             awardTime = award.awardTime
             rank = award.rank
 
+<<<<<<< HEAD
             # todo::获取项目
 
 
@@ -875,9 +946,25 @@ class ProjectService:
         zippath = os.path.join(UPLOAD_ZIP_PATH,finalfilename)
         compress_listfiles(zippath,files)
         return finalfilename
+=======
+            # 获取项目
+            project = award.project
+            projectname = project.pname
+            awardInfo = AwardInfo(awardName, rank, awardTime, projectname)
+>>>>>>> 61337cbb7fc9075e6355cafc5e9328c48fe03bd3
 
 
+            # 获取项目成员
+            proMems = project.members
+            mems = []
+            for proMem in proMems:
+                memName = proMem.name
+                memNumber = proMem.Number
+                memMajor = proMem.major
+                mem = Member(memName, memNumber, memMajor)
+                mems.append(mem)
 
+<<<<<<< HEAD
 #将ProjectMember转为字符串,并且格式化
 def formateProjectMember(member):
     if member.type == 1:
@@ -905,6 +992,15 @@ def formateProjectMembers(members):
 
 # 将ProjectMember转为字符串,并且格式化
 def formateProjectAward(award):
+=======
+            awardInfo.members = mems
+            awardInfos.append(awardInfo)
+
+            filename = "获奖信息" + int(time.time()) + ".xls"
+            filepath = os.path.join(UPLOAD_AWARD_PATH, filename)
+            write_excel(awardInfos,filepath)
+            return filename
+>>>>>>> 61337cbb7fc9075e6355cafc5e9328c48fe03bd3
 
     filename,certfile = packCertPic(award.id)
     awardtext = award.awardName + "\n" + \
@@ -913,6 +1009,7 @@ def formateProjectAward(award):
                 filename
     return certfile,awardtext
 
+<<<<<<< HEAD
 # 将ProjectMember转为字符串,并且格式化
 def formateProjectAwards(awards):
     files = []
@@ -931,3 +1028,212 @@ def packCertPic(aid):
     zippath = os.path.join(UPLOAD_ZIP_PATH, filename)
     compress_listfiles(zippath,certpicPath)
     return filename,zippath
+=======
+#     """
+#     @:param:
+#     @:return:
+#     @descrition:生成获奖信息,并写入excel
+#     """
+#     def generateAwardInfoExcel(self,condition):
+#         projects = self.getProjects(condition)
+#
+#         f = xlwt.Workbook()
+#
+#         #水平居中style
+#         alignment = xlwt.Alignment()
+#         alignment.horz = xlwt.Alignment.HORZ_CENTER  # 水平居中
+#         style = xlwt.XFStyle()  # Create Style
+#         style.alignment = alignment  # Add Alignment to Style
+#
+#
+#         sheet1 = f.add_sheet('获奖信息', cell_overwrite_ok=True)
+#         #设置头的样式
+#         # 写第0行
+#         row0 = ["项目名", "获奖信息", "项目成员"]
+#
+#
+#         # sheet1.write(0,0,row0[0],self.set_style('Times New Roman', 220, True))
+#         # sheet1.write(0,1, row0[1], self.set_style('Times New Roman', 220, True))
+#         # sheet1.write(0, 3, row0[2], self.set_style('Times New Roman', 220, True))
+#         sheet1.write_merge(0, 1, 0, 0, row0[0],style)
+#         sheet1.write_merge(0, 0, 1, 2, row0[1],style)
+#         sheet1.write_merge(0, 0, 3, 6, row0[2],style)
+#
+#         #写第1行
+#         row1 = ["所获奖项", "获奖时间", "姓名","学院","年级","类型"]
+#         for i in range(0, len(row1)):
+#             sheet1.write(1, i+1, row1[i], self.set_style('Times New Roman', 220, True))
+#
+#         preX = 2
+#         nextX = 2
+#         #写入数据库中的数据
+#         for p in projects:
+#             if p.status is not None and p.status.delete_flag == 1:
+#                 continue
+#             alen = 0
+#             mlen = 0
+#             curX = preX
+#
+#             # 将获奖信息写入
+#             curY = 1
+#             awards = p.awards
+#             tmpY = curY
+#             for a in awards:
+#                 sheet1.write(curX,curY,a.awardName)#写入所获奖项
+#                 curY += 1
+#                 sheet1.write(curX,curY,"" if a.awardTime is None else str(a.awardTime)[0:10])#写入获奖时间
+#                 curX += 1
+#                 curY = tmpY
+#                 alen += 1
+#             aX = curX
+#             nextX = nextX if curX < nextX else curX
+#             #将项目成员写入
+#             curX = preX
+#             curY = 3
+#             members = p.members
+#             for m in members:
+#                 sheet1.write(curX,curY,m.name)         # 写入姓名
+#                 curY += 1
+#                 sheet1.write(curX,curY,m.academy)      # 写入学院
+#                 curY += 1
+#                 sheet1.write(curX,curY,m.grade)       # 写入年级
+#                 curY += 1
+#                 sheet1.write(curX,curY,"指导老师" if m.type == 0 else "学生")        # 写入类型
+#                 curX += 1
+#                 curY = 3
+#                 mlen += 1
+#             mX = curX
+#             nextX = nextX if curX < nextX else curX
+#             # 合并单元格
+#             sheet1.write_merge(preX, nextX - 1, 0, 0, p.pname, self.set_style('Times New Roman', 220, True))  # 写入项目名
+#             if alen > mlen:
+#                 sheet1.write_merge(mX,nextX-1,3,6)
+#                 pass
+#             elif alen < mlen:
+#                 sheet1.write_merge(aX,nextX-1,1,2)
+#                 pass
+#             preX = nextX
+#
+#
+#
+#         filename = '获奖信息'+str(uuid.uuid1()).replace("-","")+'.xls'
+#         f.save(os.path.join(UPLOAD_PATH, filename))
+#         return filename
+#
+#     # 设置表格样式
+#     def set_style(slef,name, height, bold=False):
+#         style = xlwt.XFStyle()
+#         font = xlwt.Font()
+#         font.name = name
+#         font.bold = bold
+#         font.color_index = 4
+#         font.height = height
+#         style.font = font
+#         return style
+#
+#
+#     #生成获奖信息
+#     def downProAwardInfo(self,startTime,endTime,academy):
+#         sql = "select p.pid from dc_project_status_info AS p INNER JOIN dc_project_award AS a on p.pid = a.pid"
+#         where = ""
+#         if startTime and endTime and academy != 0:
+#             where += ' where a.awardTime >= ' + "'" +str(startTime) + "'" + ' and a.awardTime <=' + "'" + str(
+#                 endTime) + "'" + ' and p.academy =' + str(academy)
+#         elif startTime and endTime:
+#             where += ' where a.awardTime >= ' + str(startTime) + ' and a.awardTime <=' + str(endTime)
+#         elif academy != 0:
+#             where += ' where p.major =' + str(academy)
+#         sql += where
+#         print(sql)
+#         result = db2.session.execute(sql).fetchall()
+#         ids = [row['pid'] for row in result]
+#         print(ids)
+#         db2.session.commit()
+#         pros = db2.session.query(Project).filter(Project.pid.in_(ids)).all()
+#
+#         files = []
+#         #创建一个word文档
+#         doc = docx.Document()
+#         table = doc.add_table(rows=1, cols=4, style='Table Grid')  # 创建带边框的表格
+#         hdr_cells = table.rows[0].cells                            # 获取第0行所有所有单元格
+#         hdr_cells[0].text = '项目名'
+#         hdr_cells[1].text = '所获奖项'
+#         hdr_cells[2].text = '指导老师'
+#         hdr_cells[3].text = '成员信息'
+#         for p in pros:
+#             cells = table.add_row().cells
+#             pnametext = p.pname
+#             fs,awardstext = formateProjectAwards(p.awards)
+#             files += fs
+#             stutext,teachertext = formateProjectMembers(p.members)
+#             cells[0].text = pnametext
+#             cells[1].text = awardstext
+#             cells[2].text = teachertext
+#             cells[3].text = stutext
+#
+#         filename = str(uuid.uuid1()).replace("-", "")+".docx"
+#         storePath = os.path.join(UPLOAD_FILES_PATH,filename)
+#         doc.save(storePath)
+#         files.append(storePath)
+#
+#         finalfilename = str(uuid.uuid1()).replace("-", "")+".zip"
+#         zippath = os.path.join(UPLOAD_ZIP_PATH,finalfilename)
+#         compress_listfiles(zippath,files)
+#         return finalfilename
+#
+#
+#
+# #将ProjectMember转为字符串,并且格式化
+# def formateProjectMember(member):
+#     if member.type == 1:
+#         str = "姓名:"+member.name+"\n" + \
+#               "学院:"+member.academy+"\n"+\
+#               "年级:"+member.grade+"\n"+ \
+#               "专业:" + member.major + "\n" + \
+#               "学号:" + member.number + "\n" + \
+#               "班级:" + member.classId + "\n" + "\n"
+#     elif member.type == 0:
+#         str = "姓名:" + member.name + "\n" + \
+#               "学院:" + member.academy + "\n" + \
+#               "专业:" + member.major + "\n" + "\n"
+#     return str
+# #将ProjectMember转为字符串,并且格式化
+# def formateProjectMembers(members):
+#     stutext = ""
+#     teachertext = ""
+#     for member in members:
+#         if member.type == 1:
+#             stutext += formateProjectMember(member)
+#         elif member.type == 0:
+#             teachertext += formateProjectMember(member)
+#     return stutext,teachertext
+#
+# # 将ProjectMember转为字符串,并且格式化
+# def formateProjectAward(award):
+#
+#     filename,certfile = packCertPic(award.id)
+#     awardtext = award.awardName + "\n" + \
+#           str(award.rank) + "\n" + \
+#           str(award.awardTime) + "\n" + \
+#                 filename
+#     return certfile,awardtext
+#
+# # 将ProjectMember转为字符串,并且格式化
+# def formateProjectAwards(awards):
+#     files = []
+#     awardtext = ""
+#     for award in awards:
+#         certfile, text = formateProjectAward(award)
+#         awardtext += text
+#         files.append(certfile)
+#     return files,awardtext
+
+# # 将获奖证书打包成一个压缩包
+# def packCertPic(aid):
+#     certpic = filesService.getFilesBySourceIdAndSource(2, aid)
+#     certpicPath = [os.path.join(UPLOAD_PICS_PATH, p.path) for p in certpic]
+#     filename = str(uuid.uuid1()).replace("-", "") + ".zip"
+#     zippath = os.path.join(UPLOAD_ZIP_PATH, filename)
+#     compress_listfiles(zippath,certpicPath)
+#     return filename,zippath
+>>>>>>> 61337cbb7fc9075e6355cafc5e9328c48fe03bd3

@@ -60,7 +60,8 @@ class ProjectStatus(db2.Model):
     msg = db2.Column(db2.TEXT, nullable=True)                                       #审核所附加的信息
     delete_flag = db2.Column(db2.DECIMAL(1, 0), nullable=False, default=0)          #删除标志
     mainPic = db2.Column(db2.String(256), nullable=True)                            # 主页图片
-    pro_startTime = db2.Column(DateTime, nullable=False,default=datetime.now)
+    pro_startTime = db2.Column(DateTime, nullable=False,default=datetime.now)       # 立项开始时间
+    pro_endTime = db2.Column(DateTime, nullable=False,default=datetime.now)         # 立项结束时间
     major = db2.Column(db2.Integer, nullable=False, default=1)
     academy = db2.Column(db2.Integer, nullable=False, default=1)
     source = db2.Column(db2.Integer, nullable=True, default=0)                      #项目来源，0代表其他，1代表大创，2雏雁，3竞赛，4代表课程
@@ -84,9 +85,12 @@ class ProjectMember(db2.Model):
     classId = db2.Column(db2.String(10), nullable=True)                             #班号
     brief = db2.Column(db2.TEXT, nullable=True)                                     #简介
 
+
     def __init__(self,name,type):
         self.name = name
         self.type = type
+
+
 #项目奖项表
 class ProjectAward(db2.Model):
     __tablename__ = 'dc_project_award'
