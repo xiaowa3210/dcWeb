@@ -59,150 +59,163 @@
     <section class="wrapper">
         <div class="row">
             <div class="col-lg-12">
-                <div class="col-lg-9" style="min-height: 800px">
-                    <h2>{{project.pname}}</h2>
-                    <p>{{project.content | safe}}</p>
-                    <h4>项目成员</h4>
-                    <table class="table table-striped">
-                        <thead>
-                            <tr class="success">
-                            <td>姓名</td>
-                            <td>学号</td>
-                            <td>班级</td>
-                            <td>年级</td>
-                            <td>专业</td>
-                            <td>学院</td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for member in project.members %}
-                            {% if member.type==1 %}
-                            <tr>
+                <ol class="breadcrumb">
+                <li><i class="fa fa-home"></i><a href="index.html">主页</a></li>
+                <li><i class="icon_document_alt"></i>项目管理</li>
+                <li><i class="fa fa-files-o"></i>审核项目</li>
+                </ol>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="col-lg-9">
+                    <div style="background:#fff;padding: 20px">
+                        <h2>{{project.pname}}</h2>
+                        <p>{{project.content | safe}}</p>
+                        <h4>项目成员</h4>
+                        <table class="table table-striped">
+                            <thead>
+                                <tr class="success">
+                                <td>姓名</td>
+                                <td>学号</td>
+                                <td>班级</td>
+                                <td>年级</td>
+                                <td>专业</td>
+                                <td>学院</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for member in project.members %}
+                                {% if member.type==1 %}
+                                <tr>
+                                    <td>{{ member.name }}</td>
+                                    <td>{{ member.number }}</td>
+                                    <td>{{ member.classId }}</td>
+                                    <td>{{ member.grade }}</td>
+                                    <td>{{ member.major }}</td>
+                                    <td>{{ member.academy }}</td>
+                                </tr>
+                                {% endif %}
+                                {% endfor %}  
+                            </tbody>
+                        </table>          
+                        <hr>
+                        <h4>指导老师</h4>
+                        <table class="table table-striped">
+                            <thead>
+                                <tr class="success">
+                                <td>姓名</td>
+                                <td>专业</td>
+                                <td>学院</td>
+                                </tr>   
+                            </thead>
+                            <tbody>
+                                {% for member in project.members %}
+                                {% if member.type==0 %}
+                                <tr>
                                 <td>{{ member.name }}</td>
-                                <td>{{ member.number }}</td>
-                                <td>{{ member.classId }}</td>
-                                <td>{{ member.grade }}</td>
                                 <td>{{ member.major }}</td>
                                 <td>{{ member.academy }}</td>
-                            </tr>
-                            {% endif %}
-                            {% endfor %}  
-                        </tbody>
-                    </table>          
-                    <hr>
-                    <h4>指导老师</h4>
-                    <table class="table table-striped">
-                        <thead>
-                            <tr class="success">
-                            <td>姓名</td>
-                            <td>专业</td>
-                            <td>学院</td>
-                            </tr>   
-                        </thead>
-                        <tbody>
-                            {% for member in project.members %}
-                            {% if member.type==0 %}
-                            <tr>
-                            <td>{{ member.name }}</td>
-                            <td>{{ member.major }}</td>
-                            <td>{{ member.academy }}</td>
-                            </tr>
-                            {% endif %}
-                            {% endfor %}  
-                        </tbody>
-                    </table>
-                    <hr>
-                    <h4>获奖信息</h4>
-                    <table class="table table-striped">
-                        <thead>
-                            <tr class="success">
-                            <td>获奖名称</td>
-                            <td>获奖时间</td>
-                            <td>奖项级别</td>
-                            <td>获奖证书</td>
-                            </tr>
-                        </thead>
-                        <tbody class="award-tbody">
-                            {% for award in project.awards %}
-                            <tr class="edit-area">
-                                <td>
-                                    <div class="area1">{{award.awardName}}</div>
-                                    <input class="area2 hide" type="text" name="name" value="{{award.awardName}}">
-                                </td>
-                                <td>
-                                    <div class="area1">{{award.awardTime}}</div>
-                                    <input class="area2 hide" type="date" name="awardTime" value="{{award.awardTime}}">
-                                </td>
-                                <td>
-                                    <div class="area1">
-                                    {% if award.rank == 1 %}
-                                    国际型比赛
-                                    {% elif award.rank == 2 %}
-                                    国家型比赛
-                                    {% elif award.rank == 3 %}
-                                    省部级比赛
-                                    {% elif award.rank == 4 %}
-                                    校内比赛
-                                    {% endif %}
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="area1 cert-preview">
-                                    {% for i in award.pics %}
-                                    <div class="imgWrap">
-                                        <img src="{{ i.url }}">
-                                        <div class="overlay">
-                                        <span class="glyphicon glyphicon-trash" aria-hidden="true" data-id="i.id"></span>
+                                </tr>
+                                {% endif %}
+                                {% endfor %}  
+                            </tbody>
+                        </table>
+                        <hr>
+                        <h4>获奖信息</h4>
+                        <table class="table table-striped">
+                            <thead>
+                                <tr class="success">
+                                <td>获奖名称</td>
+                                <td>获奖时间</td>
+                                <td>奖项级别</td>
+                                <td>获奖证书</td>
+                                </tr>
+                            </thead>
+                            <tbody class="award-tbody">
+                                {% for award in project.awards %}
+                                <tr class="edit-area">
+                                    <td>
+                                        <div class="area1">{{award.awardName}}</div>
+                                        <input class="area2 hide" type="text" name="name" value="{{award.awardName}}">
+                                    </td>
+                                    <td>
+                                        <div class="area1">{{award.awardTime}}</div>
+                                        <input class="area2 hide" type="date" name="awardTime" value="{{award.awardTime}}">
+                                    </td>
+                                    <td>
+                                        <div class="area1">
+                                        {% if award.rank == 1 %}
+                                        国际型比赛
+                                        {% elif award.rank == 2 %}
+                                        国家型比赛
+                                        {% elif award.rank == 3 %}
+                                        省部级比赛
+                                        {% elif award.rank == 4 %}
+                                        校内比赛
+                                        {% endif %}
                                         </div>
-                                    </div>
-                                    {% endfor %}
-                                    </div>
-                                    <input class="area2 hide certfile" type="file" name="certfile" multiple accept="image/*">
-                                </td>
-                            </tr>
-                            {% endfor %}
-                        </tbody>                                                                        
-                    </table>
-                    <hr>
-                    <h4>审核意见</h4>
-                    <form class="form-horizontal">
-                        <textarea class="advice" cols="80" rows="10"></textarea>
-                        <div class="form-group">
-                            <div class="col-lg-offset-2">
-                                <button type="button" class="btn btn-primary" id="pass" p_id="{{project.pid}}">审核通过</button>
-                                <button type="button" class="btn btn-danger" id="notpass" p_id="{{project.pid}}">审核不通过</button>
+                                    </td>
+                                    <td>
+                                        <div class="area1 cert-preview">
+                                        {% for i in award.pics %}
+                                        <div class="imgWrap">
+                                            <img src="{{ i.url }}">
+                                            <div class="overlay">
+                                            <span class="glyphicon glyphicon-trash" aria-hidden="true" data-id="i.id"></span>
+                                            </div>
+                                        </div>
+                                        {% endfor %}
+                                        </div>
+                                        <input class="area2 hide certfile" type="file" name="certfile" multiple accept="image/*">
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>                                                                        
+                        </table>
+                        <hr>
+                        <h4>审核意见</h4>
+                        <form class="form-horizontal">
+                            <textarea class="advice" cols="80" rows="10"></textarea>
+                            <div class="form-group">
+                                <div class="col-lg-offset-2">
+                                    <button type="button" class="btn btn-primary" id="pass" p_id="{{project.pid}}">审核通过</button>
+                                    <button type="button" class="btn btn-danger" id="notpass" p_id="{{project.pid}}">审核不通过</button>
+                                </div>
+        
                             </div>
-    
-                        </div>
-                    </form>
+                        </form>                                                             
+                    </div>
                 </div>
-                <div class="col-lg-2">
-                    <img style="width:300px;height:200px" src="{{ url_for('common.image',name=project.pic.path) }}">
-                    <h4>项目类别</h4>
-                    {% if project.type==1 %}
-                        <p>App开发/微信小程序开发</p>
-                    {% endif %}
-                    {% if project.type==2 %}
-                        <p>通信/网络</p>
-                    {% endif %}
-                    {% if project.type==3 %}
-                        <p>软件系统</p>
-                    {% endif %}
-                    {% if project.type==4 %}
-                        <p>硬件系统</p>
-                    {% endif %}
-                    {% if project.type==5 %}
-                        <p>视频/图像</p>
-                    {% endif %}
-                    {% if project.type==6 %}
-                        <p>大数据/机器学习</p>
-                    {% endif %}
-                    <h4>项目专业</h4>
-                    <p>{{project.status.major}}</p>
-                    <h4>项目来源</h4>
-                    <p>{{project.status.source}}</p>
-                    <h4>立项时间</h4>
-                    <p>{{ project.startTime }}</p>
+                <div class="col-lg-3">
+                    <div style="background: #fff;padding: 20px;">
+                        <img style="width:100%;height:200px" src="{{ url_for('common.image',name=project.pic.path) }}">
+                        <h4>项目类别</h4>
+                        {% if project.type==1 %}
+                            <p>App开发/微信小程序开发</p>
+                        {% endif %}
+                        {% if project.type==2 %}
+                            <p>通信/网络</p>
+                        {% endif %}
+                        {% if project.type==3 %}
+                            <p>软件系统</p>
+                        {% endif %}
+                        {% if project.type==4 %}
+                            <p>硬件系统</p>
+                        {% endif %}
+                        {% if project.type==5 %}
+                            <p>视频/图像</p>
+                        {% endif %}
+                        {% if project.type==6 %}
+                            <p>大数据/机器学习</p>
+                        {% endif %}
+                        <h4>项目专业</h4>
+                        <p>{{project.status.major}}</p>
+                        <h4>项目来源</h4>
+                        <p>{{project.status.source}}</p>
+                        <h4>立项时间</h4>
+                        <p>{{ project.startTime }}</p>
+                    </div>
                 </div>
             </div>
         </div>
