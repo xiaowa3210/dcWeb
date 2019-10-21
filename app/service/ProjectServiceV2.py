@@ -652,17 +652,17 @@ class ProjectService:
     def getPublishedPro(self,page_index,count,**kw):
 
         # 筛选条件
-        startTime = kw['startTime'] + '-01'
-        endTime = kw['endTime'] + '-01'
+        startTime = kw['startTime']
+        endTime = kw['endTime']
         type = kw['type']
         major = kw['major']
         source = kw['source']
 
         query = ProjectStatus.query.filter(ProjectStatus.status == 3,ProjectStatus.delete_flag == 0)
         if startTime:
-            query = query.filter(ProjectStatus.pro_startTime >= startTime)
+            query = query.filter(ProjectStatus.pro_startTime >= startTime + '-01')
         if endTime:
-            query = query.filter(ProjectStatus.pro_endTime <= endTime)
+            query = query.filter(ProjectStatus.pro_endTime <= endTime + '-01')
         if type != -1:
             query = query.filter(ProjectStatus.type == type)
         if major != 0:
