@@ -1,7 +1,6 @@
-{% extends 'back01/back/base.html' %}
+{% extends 'back/base.html' %}
 
 {% block static_files %}
-    <script src="/static/js/jquery-2.1.0.min.js"></script>
     <link rel="stylesheet" href="{{url_for('static',filename='mdeditor/editormd.min.css')}}">
     <script src="{{url_for('static',filename='mdeditor/editormd.min.js')}}"></script>
     <script src="{{url_for('static',filename='js/afquery.js')}}"></script>
@@ -19,11 +18,10 @@
     <section class="wrapper">
         <div class="row">
             <div class="col-lg-12">
-                <h3 class="page-header"><i class="fa fa-files-o"></i>添加文章</h3>
                 <ol class="breadcrumb">
                     <li><i class="fa fa-home"></i><a href="index.html">主页</a></li>
-                    <li><i class="icon_document_alt"></i>文章管理</li>
-                    <li><i class="fa fa-files-o"></i>添加文章</li>
+                    <li><i class="icon_document_alt"></i>新闻管理</li>
+                    <li><i class="fa fa-files-o"></i>添加新闻</li>
                 </ol>
             </div>
         </div>
@@ -188,7 +186,7 @@
         var content = MAIN.ue.getContent();
         req.type = type;
         req.is_add = 0;
-        Af.rest("/back01/saveArticle",req,function (data) {
+        Af.rest("/back/saveArticle",req,function (data) {
             alert(data);
             $("input").val("");
         })

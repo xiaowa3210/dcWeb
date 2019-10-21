@@ -1,4 +1,4 @@
-{% extends 'back01/back/base.html' %}
+{% extends 'back/base.html' %}
 
 {% block static_files %}
 <script type="text/javascript" src="/static/ueditor/ueditor.config.js"></script>
@@ -71,7 +71,7 @@
             <div>
                 <ul class="pagination pagination-lg">
                     {% if pagination.has_prev %}
-                        <li><a href="{{url_for('back01.manageResource',page = pagination.page - 1)}}">«</a></li>
+                        <li><a href="{{url_for('back.manageResource',page = pagination.page - 1)}}">«</a></li>
                     {% endif %}
 
                     {% for p in pagination.iter_pages() %}
@@ -115,7 +115,7 @@
                 }
             });
         });
-        
+
         $(".output").click(function () {
             $.ajax({
                 url:"/api/admin/downAwardInfo",

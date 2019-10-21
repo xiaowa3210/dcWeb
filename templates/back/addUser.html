@@ -1,0 +1,83 @@
+{% extends 'back/base.html' %}
+
+{% block static_files %}
+
+{% endblock %}
+{% block body_part %}
+<section id="main-content">
+    <section class="wrapper">
+        <div class="row">
+            <div class="col-lg-12">
+                <h3 class="page-header"><i class="fa fa-table"></i> 人员管理</h3>
+                <ol class="breadcrumb">
+                    <li><i class="fa fa-home"></i><a href="index.html">主页</a></li>
+                    <li><i class="fa fa-table"></i>人员管理</li>
+                    <li><i class="fa fa-th-list"></i>添加</li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-6">
+                <section class="panel">
+                    <header class="panel-heading">添加人员</header>
+                    <div class="panel-body">
+                        <form class="form-horizontal user-form" role="form"  onsubmit="return false">
+                            <div class="form-group">
+                                <label for="username" class="col-lg-2 control-label">用户名</label>
+                                <div class="col-lg-10">
+                                    <input class="form-control" id="username" placeholder="">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="password" class="col-lg-2 control-label">密码</label>
+                                <div class="col-lg-10">
+                                    <input type="password" class="form-control" id="password"
+                                        placeholder="" autocomplete="new-password">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-lg-10">
+                                    <label class="radio-inline">
+                                        <input type="radio" name="type" value="0" checked> 管理员
+                                    </label>
+                                    <label class="radio-inline">
+                                        <input type="radio" name="type" value="1"> 学生
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-lg-offset-2 col-lg-10">
+                                    <!-- <button type="submit" onclick="MAIN.addUser()" class="btn btn-info">添加人员</button> -->
+                                    <button type="submit" class="btn btn-info" onclick="addUser()">添加人员</button>                                
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </section>
+</section>
+{% endblock %}
+
+{% block js_files %}
+<script>
+    function  addUser() {
+        var data = {}
+        data.username = $('#username').val().trim();
+        data.password = $('#password').val().trim();
+        data.type = $("input[name='type']:checked").val().trim();
+        $.ajax({
+            url:'/api/admin/addUser',
+            type: 'post',
+            data: JSON.stringify(data),
+            dataType: 'json',
+            success: function (msg) {
+                alert(msg.msg)
+                $('.user-form')[0].reset()
+            }
+        });
+    }
+</script>
+{% endblock %}

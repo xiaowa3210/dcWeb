@@ -49,6 +49,8 @@ UPLOAD_FILES_PATH = os.path.abspath(os.path.join(UPLOAD_PATH, 'files'))  # 图�
 
 UPLOAD_AWARD_PATH = os.path.abspath(os.path.join(UPLOAD_PATH, 'award'))  # 图片上传配置
 
+UPLOAD_ZIP_PATH = os.path.abspath(os.path.join(UPLOAD_PATH, 'zip'))  # zip上传配置
+
 
 # 系统中有三种用户,学生,管理员,超级管理员,需要登录允许访问的URL
 

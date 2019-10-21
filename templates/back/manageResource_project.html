@@ -1,4 +1,4 @@
-{% extends 'back01/back/base.html' %}
+{% extends 'back/base.html' %}
 
 {% block static_files %}
 
@@ -14,10 +14,10 @@
                 <ol class="breadcrumb">
                     <li><i class="fa fa-home"></i><a href="index.html">主页</a></li>
                     <li><i class="fa fa-table"></i>资料管理</li>
-                    <li><i class="fa fa-th-list"></i>管理员上传的附件</li>
+                    <li><i class="fa fa-th-list"></i>项目上传的附件</li>
                 </ol>
             </div>
-                  <div class="col-lg-2">
+                  <!--<div class="col-lg-2">-->
                                         <!--<button class="btn btn-primary" onclick="MAIN.onQuery(0)">查看全部资料</button>-->
                                     <!--</div>-->
                          <!--<div class="col-lg-2">-->
@@ -75,19 +75,19 @@
             <div>
                 <ul class="pagination pagination-lg">
                     {% if pagination.has_prev %}
-                        <li><a href="{{url_for('back.manageResource',page = pagination.page - 1,count = 10)}}?source=1">«</a></li>
+                        <li><a href="{{url_for('back.manageResource',page = pagination.page - 1,count = 10)}}?source=3">«</a></li>
                     {% endif %}
 
                     {% for p in pagination.iter_pages() %}
                         {% if p == pagination.page%}
-                             <li class="active"><a href="{{url_for('back.manageResource',page = p,count = 10)}}?source=1">{{loop.index}}</a></li>
+                             <li class="active"><a href="{{url_for('back.manageResource',page = p,count = 10)}}?source=3">{{loop.index}}</a></li>
                         {% else %}
-                            <li><a href="{{url_for('back.manageResource',page = p,count = 10)}}?source=1">{{loop.index}}</a></li>
+                            <li><a href="{{url_for('back.manageResource',page = p,count = 10)}}?source=3">{{loop.index}}</a></li>
                         {% endif %}
                     {% endfor %}
 
                     {% if pagination.has_next %}
-                        <li><a href="{{url_for('back.manageResource',page = pagination.page + 1,count = 10)}}?source=1">»</a></li>
+                        <li><a href="{{url_for('back.manageResource',page = pagination.page + 1,count = 10)}}?source=3">»</a></li>
                     {% endif %}
                 </ul>
             </div>
@@ -98,7 +98,9 @@
 
 {% block js_files %}
 <script>
- $(function () {
+
+
+   $(function () {
         $(".delete").click(function () {
             var data={};
             data.nid=$(this).attr("p_id");
@@ -109,7 +111,7 @@
                 type:"get",
                 success: function (data) {
                     alert("删除成功"); //提交成功
-                    window.location.href="{{url_for('back.manageResource')}}?source=1"
+                    window.location.href="{{url_for('back.manageResource')}}?source=3"
                     //window.location.href='';//跳转到个人中心
                 },
                 error: function (data) {
@@ -118,7 +120,5 @@
             });
         });
          })
-
-
 </script>
 {% endblock%}

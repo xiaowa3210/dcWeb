@@ -3,116 +3,130 @@
 {% block static_files %}
 <link rel="stylesheet" href="/static/vendor/mdeditor/editormd.min.css">
 <style>
-  .item-header{
-        height:60px;
-        line-height: 60px;
-        font-size:20px;
-        border-bottom: 1px dotted #eee;
-        align-items: center;
-        font-weight: bold;
-    }
+.item-header {
+  height: 60px;
+  line-height: 60px;
+  font-size: 20px;
+  border-bottom: 1px dotted #eee;
+  align-items: center;
+  font-weight: bold;
+}
 
-    .content {
-        padding: 30px 50px 20px 30px;
-        border:1px solid #eee;
-        margin-bottom:5px
-    }
+.content {
+  padding: 30px 50px 20px 30px;
+  border: 1px solid #eee;
+  margin-bottom: 5px
+}
 
-    .tableRow{
-        display: flex;
-        width: 100%;
-        margin: 5px
-    }
+.tableRow {
+  display: flex;
+  width: 100%;
+  margin: 5px
+}
 
-    .tableRow label{
-        display: inline-block;
-        width: 10%;
-        flex-shrink: 0;
-        padding-right: 5px;
-        font-size: 14px;
-        font-weight: bold;
-    }
+.tableRow label {
+  display: inline-block;
+  width: 10%;
+  flex-shrink: 0;
+  padding-right: 5px;
+  font-size: 14px;
+  font-weight: bold;
+}
 
-    label[for='mainPic'] {
-      background: url(/static/img/upload.png) center/contain no-repeat;
-      cursor: pointer;
-    }
+label[for='mainPic'] {
+  background: url(/static/img/upload.png) center/contain no-repeat;
+  cursor: pointer;
+}
 
-    .mainPicPreview {
-      width: 280px;
-      height: 210px;
-      object-fit: contain;
-    }
+.mainPicPreview {
+  width: 280px;
+  height: 210px;
+  object-fit: contain;
+}
 
-    .lists {
-        display: flex;
-         margin-bottom: 5px
-    }
-    .lists .item {
-        flex:1
-    }
-    .lists label{
-        display: inline-block;
-        font-size: 14px;
-        font-weight: bold;
-        padding-right: 15px;
-    }
+.lists {
+  display: flex;
+  margin-bottom: 5px
+}
 
-    .table .operator {
-      width: 120px;
-    }
+.lists .item {
+  flex: 1
+}
 
-    .operate {
-        text-align: center;
-    }
-    .operate .cancel {
-        background-color: #eee;
-        color:#333;
-    }
+.lists label {
+  display: inline-block;
+  font-size: 14px;
+  font-weight: bold;
+  padding-right: 15px;
+}
 
-    .operate button {
-        margin-left: 5px;
-        padding: 5px 10px;
-        border: 0px;
-        border-radius: 4px;
-        background-color: #eee;
-        color:#337e0a;
-        font-size:14px
-    }
-    .cert-preview {
-        display: flex;
-    }
-    .cert-preview .imgWrap{
-        position: relative;
-    }
-    .cert-preview img{
-        width: 300px;
-        height: 200px;
-    }
+.table .operator {
+  width: 120px;
+}
 
-    .imgWrap .overlay{
-        position: absolute;
-        left: 0px;
-        top: 0px;
-        z-index: -1;
-        background-color: rgba(0,0,0,0.5);
-      width: 300px;
-      height: 200px;
+.operate {
+  margin-top: 10px;
+  text-align: center;
+}
 
-    }
+.operate .cancel {
+  background-color: #eee;
+  color: #333;
+}
 
-    .imgWrap .glyphicon-trash {
-      position: absolute;
-      left: 150px;
-      top: 100px;
-      color:#fff;
-    }
-    .glyphicon-trash:hover{
-      font-size: 20px;
-    }
-    .imgWrap:hover> .overlay{
-        z-index: 10;
-    }
+.operate button {
+  margin-left: 5px;
+  padding: 5px 10px;
+  border: 0px;
+  border-radius: 4px;
+  background-color: #eee;
+  color: #337e0a;
+  font-size: 14px
+}
+
+.cert-preview {
+  display: flex;
+}
+
+.cert-preview .imgWrap {
+  position: relative;
+  width: 160px;
+  height: 90px;
+  margin: 4px;
+  background: #eee;
+}
+
+.cert-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.imgWrap .overlay {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.imgWrap .glyphicon-trash {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  color: #fff;
+}
+
+.glyphicon-trash:hover {
+  font-size: 20px;
+}
+
+.imgWrap:hover>.overlay {
+  z-index: 10;
+}
 </style>
 {% endblock%}
 {% block body_part%}
@@ -162,7 +176,7 @@
               <input type="month" name="startTime" value="" required>
               {% if project.status and project.status.pro_startTime %}
               <script>
-              let date = '{{project.status.pro_startTime}}'
+                let date = '{{project.status.pro_startTime}}'
               date = date.substr(0, 7)
               document.querySelector('input[name=startTime]').value = date
               </script>
@@ -356,7 +370,6 @@
           </form>
         </div>
       </section>
-      <!--
       <section>
         <div class="item-header flex-row">
           <div class="left">获奖信息</div>
@@ -467,7 +480,6 @@
           </form>
         </div>
       </section>
-      -->
       <div class="center">
         <button class="btn btn-success submit">提交审核</button>
       </div>
@@ -500,7 +512,6 @@ $(function() {
   // 初始化项目信息
   Project.prototype.initConfig = function() {
     // init markdown editor
-    // this.mdEditor = setMarkdown('markdown', `### 项目背景\n\n### 项目内容\n\n### 项目总结`)
     this.mdEditor = setMarkdown('markdown')
 
     // 项目id
@@ -656,7 +667,7 @@ $(function() {
           if (res.errorno === 0) {
             layer.msg("保存成功")
             // setTimeout(function() {
-              // location.reload()
+            // location.reload()
             // }, 1800)
           } else {
             layer.msg(res.msg)
@@ -900,9 +911,11 @@ $(function() {
             alert(res.msg)
             return
           }
+          that.$certUpPreview.html('')
           const arr = []
           for (let i = 0, len = res.data.length; i < len; i++) {
             const { url, id } = res.data[i]
+            arr.push(id)
             const dom = `
               <div class="imgWrap">
                 <img src="${url}"/>
@@ -911,7 +924,7 @@ $(function() {
                 </div>
               </div>
             `
-            that.$certUpPreview.html(dom)
+            that.$certUpPreview.append(dom)
           }
           that.certIdArr = arr
         },
@@ -954,7 +967,7 @@ $(function() {
       success: function(res) {
         layer.msg(res.msg)
         setTimeout(function() {
-          location.href = '/user'
+          location.href = '/student'
         }, 1800)
       },
       error: function(xhr, status, error) {

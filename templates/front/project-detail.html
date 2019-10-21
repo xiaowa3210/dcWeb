@@ -1,17 +1,37 @@
 {% extends 'front/base.html' %}
 {% block page_name %}项目详情{% endblock %}
+{% block static_files %}
+<style>
+.img-wrap {
+  width: 160px;
+  height: 90px;
+  margin: 4px;
+  background: #eee;
+}
+
+.img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+</style>
+{% endblock %}
 {% block body_part %}
 <section>
   <div class="row">
     <div class="col-md-9">
       <section class="box-white">
-        <h2>{{project.pname}}</h2>
+        <ol class="breadcrumb hide">
+          <li><a href="{{url_for('front.user')}}">个人中心</a></li>
+          <li class="active">项目预览</li>
+        </ol>
+        <h1>{{project.pname}}</h1>
         <hr>
-        <h4>项目介绍</h4>
+        <h3>项目介绍</h3>
         <div style="box-shadow: 0 0 6px #ddd;border-radius: 5px;padding: 10px;">
-        {{project.content|safe }}
+          {{project.content|safe }}
         </div>
-        <h4>项目成员</h4>
+        <h3>项目成员</h3>
         <table class="table table-striped">
           <thead>
             <tr class="success">
@@ -26,20 +46,20 @@
           <tbody>
             {% for member in project.members %}
             {% if member.type==1 %}
-              <tr>
-                <td>{{ member.name }}</td>
-                <td>{{ member.number }}</td>
-                <td>{{ member.classId }}</td>
-                <td>{{ member.grade }}</td>
-                <td>{{ member.major }}</td>
-                <td>{{ member.academy }}</td>
-              </tr>
+            <tr>
+              <td>{{ member.name }}</td>
+              <td>{{ member.number }}</td>
+              <td>{{ member.classId }}</td>
+              <td>{{ member.grade }}</td>
+              <td>{{ member.major }}</td>
+              <td>{{ member.academy }}</td>
+            </tr>
             {% endif %}
-            {% endfor %}  
+            {% endfor %}
           </tbody>
-        </table>          
+        </table>
         <hr>
-        <h4>指导老师</h4>
+        <h3>指导老师</h3>
         <table class="table table-striped">
           <thead>
             <tr class="success">
@@ -57,91 +77,114 @@
               <td>{{ member.academy }}</td>
             </tr>
             {% endif %}
-            {% endfor %}  
+            {% endfor %}
+          </tbody>
+        </table>
+        <h3>所获奖项</h3>
+        <table class="table table-striped">
+          <thead>
+            <tr class="success">
+              <td>获奖名称</td>
+              <td>获奖时间</td>
+              <td>获奖级别</td>
+              <td>获奖证书</td>
+            </tr>
+          </thead>
+          <tbody>
+            {% for award in project.awards %}
+            <tr>
+              <td>{{ award.awardName }}</td>
+              <td>{{ award.awardTime }}</td>
+              <td>
+                {% if award.rank==1 %}
+                国际型比赛
+                {% endif %}
+                {% if award.rank==2 %}
+                国家型比赛
+                {% endif %}
+                {% if award.rank==3 %}
+                省部型比赛
+                {% endif %}
+                {% if award.rank==4 %}
+                校内比赛
+                {% endif %}
+              </td>
+              <td>
+                {% for i in award.pics %}
+                <div class="img-wrap">
+                  <img src="{{i.url}}">
+                </div>
+                {% endfor %}
+              </td>
+            </tr>
+            {% endfor %}
           </tbody>
         </table>
       </section>
     </div>
     <div class="col-md-3">
       <aside class="box-white">
-          <h4>项目来源</h4>
-          {% if project.status.source==1 %}
-          <p>大创项目</p>
-          {% endif %}
-          {% if project.status.type==2 %}
-          <p>雏雁项目</p>
-          {% endif %}
-          {% if project.status.type==3 %}
-          <p>竞赛项目</p>
-          {% endif %}
-          {% if project.status.type==4 %}
-          <p>课程项目</p>
-          {% endif %}
-          {% if project.status.type==0 %}
-          <p>其他</p>
-          {% endif %}
-          <hr>
-          <h4>项目类别</h4>
-          {% if project.status.type=='1' %}
-          <p>App开发/微信小程序开发</p>
-          {% endif %}
-          {% if project.status.type=='2' %}
-          <p>通信/网络</p>
-          {% endif %}
-          {% if project.status.type=='3' %}
-          <p>软件系统</p>
-          {% endif %}
-          {% if project.status.type=='4' %}
-          <p>硬件系统</p>
-          {% endif %}
-          {% if project.status.type=='5' %}
-          <p>视频/图像</p>
-          {% endif %}
-          {% if project.status.type=='6' %}
-          <p>大数据/机器学习</p>
-          {% endif %}
-          <hr>
-          <h4>项目专业</h4>
-          {% if project.status.major==1 %}
-          <p>通信工程</p>
-          {% endif %}
-          {% if project.status.major==2 %}
-          <p>信息工程</p>
-          {% endif %}
-          {% if project.status.major==3 %}
-          <p>电子信息工程</p>
-          {% endif %}
-          <hr>
-          <h4>立项时间</h4>
-          <p>{{ project.status.startTime }}</p>
+        <h3>项目来源</h3>
+        {% if project.status.source=='1' %}
+        <p>大创项目</p>
+        {% endif %}
+        {% if project.status.type=='2' %}
+        <p>雏雁项目</p>
+        {% endif %}
+        {% if project.status.type=='3' %}
+        <p>竞赛项目</p>
+        {% endif %}
+        {% if project.status.type=='4' %}
+        <p>课程项目</p>
+        {% endif %}
+        {% if project.status.type=='0' %}
+        <p>其他</p>
+        {% endif %}
+        <hr>
+        <h3>项目类别</h3>
+        {% if project.status.type=='1' %}
+        <p>App开发/微信小程序开发</p>
+        {% endif %}
+        {% if project.status.type=='2' %}
+        <p>通信/网络</p>
+        {% endif %}
+        {% if project.status.type=='3' %}
+        <p>软件系统</p>
+        {% endif %}
+        {% if project.status.type=='4' %}
+        <p>硬件系统</p>
+        {% endif %}
+        {% if project.status.type=='5' %}
+        <p>视频/图像</p>
+        {% endif %}
+        {% if project.status.type=='6' %}
+        <p>大数据/机器学习</p>
+        {% endif %}
+        <hr>
+        <h3>项目专业</h3>
+        {% if project.status.major==1 %}
+        <p>通信工程</p>
+        {% endif %}
+        {% if project.status.major==2 %}
+        <p>信息工程</p>
+        {% endif %}
+        {% if project.status.major==3 %}
+        <p>电子信息工程</p>
+        {% endif %}
+        <hr>
+        <h3>立项时间</h3>
+        <p>{{ project.status.pro_startTime or '无' }}</p>
       </aside>
     </div>
   </div>
 </section>
-       
-<!-- <hr>
-<h4>所获奖项</h4>
-{% for award in project.awards %}
-<p><span>{{ award.awardName }}|</span><span>{{ award.awardTime }}</span></p>
-<p>
-  {% if award.rank==1 %}
-  <span>国际型比赛</span>
-  {% endif %}
-  {% if award.rank==2 %}
-  <span>国家型比赛</span>
-  {% endif %}
-  {% if award.rank==3 %}
-  <span>省部型比赛</span>
-  {% endif %}
-  {% if award.rank==4 %}
-  <span>校内比赛</span>
-  {% endif %}
-</p>
-<p>
-  {% for i in award.pics %}
-  <img height="200" src="{{i.url}}" alt="">
-  {% endfor %}
-</p>
-{% endfor %} -->
-        
+{% endblock %}
+{% block js_files %}
+<script>
+  $(function() {
+    if (/student/.test(location.href)) {
+      $('.breadcrumb').removeClass('hide')
+    }
+  })
+</script>
 {% endblock %}

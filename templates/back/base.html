@@ -8,18 +8,18 @@
     <meta name="description" content="Creative - Bootstrap 3 Responsive Admin Template">
     <meta name="author" content="GeeksLabs">
     <meta name="keyword" content="Cremal">
-    <link rel="shortcut icon" href="/static/back01/img/favicon.png">
+    <link rel="shortcut icon" href="/static/back/img/favicon.png">
 
     <title>管理界面</title>
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/bootstrap.css')}}">
     <!-- bootstrap theme -->
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/bootstrap-theme3.0.0.css')}}">
+    <!-- <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/bootstrap-theme3.0.0.css')}}"> -->
     <!--external css-->
     <!-- font icon -->
 
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/elegant-icons-style.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='back/css/elegant-icons-style.css')}}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/font-awesome.min.css')}}">
 
     <!-- full calendar css-->
@@ -32,13 +32,12 @@
     <link rel="stylesheet" type="text/css"
           href="{{ url_for('static',filename='assets/jquery-easy-pie-chart/jquery.easy-pie-chart.css')}}">
     <!-- owl carousel -->
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/owl.carousel.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/owl.carousel.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='back/css/owl.carousel.css')}}">
     <!-- Custom styles -->
     <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/fullcalendar.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='back01/css/style.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='back01/css/style-responsive.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/xcharts.min.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='back/css/style.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='back/css/style-responsive.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='back/css/xcharts.min.css')}}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/jquery-ui-1.10.4.min.css')}}">
 
     {% block static_files%}{% endblock %}
@@ -59,25 +58,13 @@
         <a href="{{url_for('back.main')}}" class="logo">管理<span class="lite">界面</span></a>
         <!--logo end-->
 
-        <div class="nav search-row" id="top_menu">
-            <!--  search form start -->
-            <!--<ul class="nav top-menu">-->
-            <!--<li>-->
-            <!--<form class="navbar-form">-->
-            <!--<input class="form-control" placeholder="Search" type="text">-->
-            <!--</form>-->
-            <!--</li>-->
-            <!--</ul>-->
-            <!--  search form end -->
-        </div>
-
         <div class="top-nav notification-row">
             <!-- notificatoin dropdown start-->
             <ul class="nav pull-right top-menu">
                 <li class="dropdown">
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                             <span class="profile-ava">
-                                <img alt="" src="/static/back01/img/avatar1_small.jpg">
+                                <img alt="" src="/static/back/img/avatar1_small.jpg">
                             </span>
                         <span class="username">{{session.admin.name}}</span>
                         <b class="caret"></b>
@@ -85,7 +72,7 @@
                     <ul class="dropdown-menu extended logout">
                         <div class="log-arrow-up"></div>
                         <li>
-                            <a href="{{url_for('back.logout_api')}}"><i class="icon_key_alt"></i> Log Out</a>
+                            <a href="{{url_for('back.logout_api')}}"><i class="icon_key_alt"></i>注销用户</a>
                         </li>
                     </ul>
                 </li>
@@ -119,20 +106,21 @@
                 <li class="sub-menu">
                     <a class="" href="javascript:;">
                         <i class="icon_genius"></i>
-                        <span>文章管理</span>
+                        <span>新闻管理</span>
                         <span class="menu-arrow arrow_carrot-right"></span>
                     </a>
 
 
                     <ul class="sub">
-                        <!--<li><a class="" href="{{ url_for('back.manageNews') }}?type=-1">编辑</a></li>-->
 
-                        {% if session.admin.type == 2 %}
+                        <!--<li><a class="" href="{{ url_for('back.manageNews') }}?type=-1">编辑</a></li>-->
+                        <li><a class="" href="{{ url_for('back.editNews') }}">添加新闻</a></li>
+                        <!-- {% if session.admin.type == 2 %}
                             <li><a class="" href="{{ url_for('back.editNews') }}">添加</a></li>
                             <li><a class="" href="{{ url_for('back.adminNews') }}">查看</a></li><!--查看自己的-->
-                        {% else %}
+                        {% else %} -->
                             <li><a class="" href="{{ url_for('back.checkNewView') }}">审核</a></li>
-                            <li><a class="" href="{{ url_for('back.manageNews') }}?type=-1">查看全部</a></li>
+                            <!-- <li><a class="" href="{{ url_for('back.manageNews') }}?type=-1">查看全部</a></li> -->
                             <li><a class="" href="{{ url_for('back.manageNews') }}?type=0">未发布</a></li>
                             <li><a class="" href="{{ url_for('back.manageNews') }}?type=1">已发布</a></li>
                         {% endif %}
@@ -144,7 +132,7 @@
                 <li class="sub-menu">
                     <a href="javascript:;" class="">
                         <i class="icon_desktop"></i>
-                        <span>资料管理</span>
+                        <span>文件管理</span>
                         <span class="menu-arrow arrow_carrot-right"></span>
                     </a>
                     <ul class="sub">
@@ -156,21 +144,6 @@
                     </ul>
                 </li>
                 {% endif %}
-                 {% if session.admin.type == 0 %}
-                 <li class="sub-menu">
-                    <a class="" href="javascript:;">
-                        <i class="icon_genius"></i>
-                        <span>项目管理</span>
-                        <span class="menu-arrow arrow_carrot-right"></span>
-                    </a>
-                    <ul class="sub">
-                        <li><a class="" href="{{ url_for('front.uploadProjectTmp') }}">上传</a></li>
-                        <li><a class="" href="{{ url_for('back.manageProject') }}">查看</a></li>
-                    </ul>
-                </li>
-
-                 {% endif %}
-
                 {% if session.admin.type == 0 %}
                 <li class="sub-menu">
                     <a class="" href="javascript:;">
@@ -179,6 +152,7 @@
                         <span class="menu-arrow arrow_carrot-right"></span>
                     </a>
                     <ul class="sub">
+                        <!-- <li><a class="" href="{{ url_for('front.uploadProjectTmp') }}">上传</a></li> -->
                         <li><a class="" href="{{ url_for('back.checkProjects') }}">审核</a></li>
                         <li><a class="" href="{{ url_for('back.manageProject') }}">查看</a></li>
                     </ul>
@@ -208,7 +182,6 @@
 <script src="/static/js/bootstrap.min.js"></script>
 <!-- nice scroll -->
 <script src="/static/js/jquery.scrollTo.min.js"></script>
-<script src="/static/js/jquery.nicescroll.js" type="text/javascript"></script>
 <!-- charts scripts -->
 <script src="/static/assets/jquery-knob/js/jquery.knob.js"></script>
 <script src="/static/js/jquery.sparkline.js" type="text/javascript"></script>
@@ -243,7 +216,7 @@
 <script src="/static/js/jquery.slimscroll.min.js"></script>
 
 
-<script src="/static/back01/myjs/afquery.js"></script>
+<script src="/static/back/myjs/afquery.js"></script>
 
 <script>
     //knob
