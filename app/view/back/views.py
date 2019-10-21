@@ -467,3 +467,16 @@ def adminNews(page,count):
     username = session['admin']['name']
     pagination, news = newsService.selectByUsername(page, count, status,username)
     return render_template('back/article_list.html', news=news, pagination=pagination,status = status)
+
+'''
+获取项目获奖信息
+'''
+@back.route("/admin/getAwards",methods=['GET'],defaults={'page':1,'count':10})
+@back.route("/admin/getAwards/<int:page>/<int:count>")
+def getAwards(page, count):
+    #筛选条件
+    startTime = request.args.get('startTime', default=None)
+    endTime = request.args.get('endTime', default=None)
+    rank = request.args.get('rank', default=-1)
+    pagination, awards = projectService.selectAwardInfo(startTime, endTime, rank, page, count)
+    return render_template("back/awards_list.html", pagination=pagination, awards=awards)

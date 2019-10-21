@@ -86,7 +86,6 @@ class ProjectMember(db2.Model):
     brief = db2.Column(db2.TEXT, nullable=True)                                     #简介
 
 
-
     def __init__(self,name,type):
         self.name = name
         self.type = type

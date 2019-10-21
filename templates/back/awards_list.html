@@ -1,0 +1,87 @@
+{% extends 'back/base.html' %}
+{% block static_files %}
+{% endblock %}
+{% block body_part %}
+<section id="main-content">
+        <section class="wrapper">
+            <div class="row">
+                <div class="col-lg-12">
+                    <ol class="breadcrumb">
+                        <li><i class="fa fa-home"></i><a href="index.html">主页</a></li>
+                        <li><i class="fa fa-table"></i>奖项管理</li>
+                        <li><i class="fa fa-th-list"></i>查看</li>
+                    </ol>
+                </div>
+            </div>
+    
+            <div class="row">
+                <div class="col-lg-12">
+                    <section class="panel">
+                        <table class="table table-striped table-advance table-hover">
+                            <thead>
+                                <tr>
+                                    <th>奖项名称</th>
+                                    <th>奖项级别</th>
+                                    <th>获奖时间</th>
+                                    <th>奖项证书</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for award in awards %}
+                                <tr>
+                                    <td>{{ award.awardName }}</td>
+                                    <td>{{ award.awardTime }}</td>
+                                    <td>
+                                    {% if award.rank==1 %}
+                                    国际型比赛
+                                    {% endif %}
+                                    {% if award.rank==2 %}
+                                    国家型比赛
+                                    {% endif %}
+                                    {% if award.rank==3 %}
+                                    省部型比赛
+                                    {% endif %}
+                                    {% if award.rank==4 %}
+                                    校内比赛
+                                    {% endif %}
+                                    </td>
+                                    <td>
+                                        {% for i in award.pics %}
+                                        <div class="img-wrap">
+                                            <img src="{{i.url}}">
+                                        </div>
+                                        {% endfor %}
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </section>
+                </div>
+            </div>
+            <div class="text-center">
+                <div>
+                    <ul class="pagination pagination-lg">
+                        {% if pagination.has_prev %}
+                        <li><a href="{{url_for('back.getAwards',page = pagination.page - 1,count = 10)}}">«</a></li>
+                        {% endif %}
+    
+                        {% for p in pagination.iter_pages() %}
+                        {% if p == pagination.page%}
+                        <li class="active"><a href="{{url_for('back.getAwards',page = p,count = 10)}}">{{loop.index}}</a></li>
+                        {% else %}
+                        <li><a href="{{url_for('back.getAwards',page = p, count = 10)}}">{{loop.index}}</a></li>
+                        {% endif %}
+                        {% endfor %}
+    
+                        {% if pagination.has_next %}
+                        <li><a href="{{url_for('back.getAwards',page = pagination.page + 1,count = 10)}}">»</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </section>
+    
+    </section>
+    
+{% endblock %}
