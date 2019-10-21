@@ -85,9 +85,13 @@ class ProjectMember(db2.Model):
     classId = db2.Column(db2.String(10), nullable=True)                             #班号
     brief = db2.Column(db2.TEXT, nullable=True)                                     #简介
 
+
+
     def __init__(self,name,type):
         self.name = name
         self.type = type
+
+
 #项目奖项表
 class ProjectAward(db2.Model):
     __tablename__ = 'dc_project_award'

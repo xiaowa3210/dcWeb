@@ -9,12 +9,13 @@ class AwardInfo(object):
         self.name = name
         self.rank = rank
         self.time = time
-        self.project = project
+        self.project = project  # 项目名
 #获奖信息
 class Member(object):
-    pass
-
-
+    def __init__(self, name, number, major):
+        self.name = name
+        self.number = number
+        self.major = major
 # 设置表格样式
 
 
@@ -33,7 +34,7 @@ def set_style(name, height, bold=False):
 
 
 # 写Excel
-def write_excel(awardInfos):
+def write_excel(awardInfos, filepath):
     f = xlwt.Workbook()
     sheet1 = f.add_sheet('学生', cell_overwrite_ok=True)
     row0 = ["获奖名称", "获奖级别", "获奖时间", "获奖项目", "成员"]
@@ -88,7 +89,7 @@ def createAward():
         member = Member()
         member.name = "小明"
         member.number = "2019123456"
-        member.major = "信息与通信工程"
+        member.major = "通信专业"
         members.append(member)
     award.members = members
     return award

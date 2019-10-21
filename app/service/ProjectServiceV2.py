@@ -22,6 +22,7 @@
                ┗┻┛ ┗┻┛
 """
 import json
+import time
 import uuid
 from datetime import datetime
 
@@ -31,12 +32,13 @@ import docx
 from flask import url_for
 from sqlalchemy import desc
 
-from app.model.config import UPLOAD_PATH, UEDITOR_UPLOAD_PATH, UPLOAD_FILES_PATH, UPLOAD_PICS_PATH
+from app.model.config import UPLOAD_PATH, UEDITOR_UPLOAD_PATH, UPLOAD_FILES_PATH, UPLOAD_PICS_PATH, UPLOAD_AWARD_PATH
 from app.model.entity import Project, ProjectMember, ProjectAward, ProjectStatus, Files
 from app import db2
 from app.service.CommonService import CommonService
 from app.service.FileServiceV2 import FilesService
 from app.utils.ZipUtil import compress_listfiles
+from app.utils.excel import AwardInfo, Member, createAward, write_excel
 from app.utils.utils import mapGet
 import xlwt
 
@@ -709,7 +711,7 @@ class ProjectService:
 
 
 
-##########################导出获奖信息的代码########################
+##########################导出获奖信息########################
     def exportAwardInfo(self, awards):
         awardInfos = []
         for award in  awards:
@@ -717,14 +719,29 @@ class ProjectService:
             awardTime = award.awardTime
             rank = award.rank
 
-            # todo::获取项目
+            # 获取项目
+            project = award.project
+            projectname = project.pname
+            awardInfo = AwardInfo(awardName, rank, awardTime, projectname)
 
 
+            # 获取项目成员
+            proMems = project.members
+            mems = []
+            for proMem in proMems:
+                memName = proMem.name
+                memNumber = proMem.Number
+                memMajor = proMem.major
+                mem = Member(memName, memNumber, memMajor)
+                mems.append(mem)
 
+            awardInfo.members = mems
+            awardInfos.append(awardInfo)
 
-
-
-
+            filename = "获奖信息" + int(time.time()) + ".xls"
+            filepath = os.path.join(UPLOAD_AWARD_PATH, filename)
+            write_excel(awardInfos,filepath)
+            return filename
 
 
 #     """

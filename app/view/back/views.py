@@ -217,8 +217,8 @@ def checkoutProjectapi():
 """
 生成获奖信息
 """
-@back.route("/api/admin/createAwardInfo",methods=['GET'])
-def createAwardInfo():
+@back.route("/api/admin/exportAwardInfo",methods=['GET'])
+def exportAwardInfo():
     #筛选条件
     startTime = request.args.get('startTime', default=None)
     endTime = request.args.get('endTime', default=None)
