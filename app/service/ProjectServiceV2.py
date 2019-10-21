@@ -466,7 +466,7 @@ class ProjectService:
         awardList = []
         awards = pro.awards
         for a in awards:
-            certPics = db2.session.query(Files).filter(Files.source_id == a.id, Files.source == 2,
+            certPics = db2.session.query(Files).filter(Files.source_id == a.id,
                                                        Files.delete_flag == 0).all()
             pics = []
             for cp in certPics:
@@ -730,7 +730,7 @@ class ProjectService:
             mems = []
             for proMem in proMems:
                 memName = proMem.name
-                memNumber = proMem.Number
+                memNumber = proMem.number
                 memMajor = proMem.major
                 mem = Member(memName, memNumber, memMajor)
                 mems.append(mem)
@@ -738,7 +738,7 @@ class ProjectService:
             awardInfo.members = mems
             awardInfos.append(awardInfo)
 
-            filename = "获奖信息" + int(time.time()) + ".xls"
+            filename = "获奖信息" + str(time.time()) + ".xls"
             filepath = os.path.join(UPLOAD_AWARD_PATH, filename)
             write_excel(awardInfos,filepath)
             return filename

@@ -298,7 +298,7 @@ def manageProject(page,count):
 """
 修改项目
 """
-@front.route('/student/modifiesProject/<int:pid>')
+@front.route('/student/modifiesProject/<int:pid>',methods=['GET', 'POST'])
 def modifiesProject(pid):
     project = projectService.getProjectByID(pid)
     return render_template("front/edit-project.html", project=project)
