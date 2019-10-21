@@ -3,7 +3,7 @@
 {% block static_files %}
 <link rel="stylesheet" href="/static/vendor/mdeditor/editormd.min.css">
 <style>
-.item-header {
+  .item-header {
   height: 60px;
   line-height: 60px;
   font-size: 20px;
@@ -136,11 +136,9 @@ label[for='mainPic'] {
       <li><a href="{{url_for('front.user')}}">个人中心</a></li>
       <li class="active">上传项目</li>
     </ol>
-    <div style="display: flex;justify-content: space-between">
-      {% if project and project.status and project.status.msg %}
-      <p><button type="button" data-toggle="modal" data-target="#checkInfo">查看审核意见</button></p>
-      {% endif %}
-    </div>
+    {% if project and project.status and project.status.msg %}
+    <blockquote><span style="color: red;">审核意见：</span>{{project.status.msg}}</blockquote>
+    {% endif %}
     <div id="panel" data-pid="{{project.pid or -1}}">
       <section>
         <div class="item-header">
@@ -172,13 +170,24 @@ label[for='mainPic'] {
               </div>
             </div>
             <div class="tableRow">
-              <label>立项时间*</label>
+              <label>开始时间*</label>
               <input type="month" name="startTime" value="" required>
               {% if project.status and project.status.pro_startTime %}
               <script>
-                let date = '{{project.status.pro_startTime}}'
-              date = date.substr(0, 7)
-              document.querySelector('input[name=startTime]').value = date
+                var date = '{{project.status.pro_startTime}}'
+                date = date.substr(0, 7)
+                document.querySelector('input[name=startTime]').value = date
+              </script>
+              {% endif %}
+            </div>
+            <div class="tableRow">
+              <label>结束时间*</label>
+              <input type="month" name="endTime" value="" required>
+              {% if project.status and project.status.pro_endTime %}
+              <script>
+                var date = '{{project.status.pro_endTime}}'
+                date = date.substr(0, 7)
+                document.querySelector('input[name=endTime]').value = date
               </script>
               {% endif %}
             </div>
