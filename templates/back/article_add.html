@@ -8,9 +8,9 @@
     <div class="row">
       <div class="col-lg-12">
         <ol class="breadcrumb">
-          <li><i class="fa fa-home"></i><a href="main">主页</a></li>
-          <li><i class="icon_document_alt"></i>新闻管理</li>
-          <li><i class="fa fa-files-o"></i>添加新闻</li>
+          <li><a href="main">主页</a></li>
+          <li>新闻管理</li>
+          <li>添加新闻</li>
         </ol>
       </div>
     </div>
@@ -41,14 +41,13 @@
                     </div>
                 </div>
                 <div class="form-group">
-                  <label for="InputFile" class="control-label col-lg-1">上传附件</label>
+                  <label for="InputFile" class="control-label col-lg-1">新闻附件</label>
                   <input type="file" id="InputFile" name="attachment" multiple="multiple">
                 </div>
                 <div class="form-group">
                     <div class="col-lg-offset-2 col-lg-8">
-                        <button class="btn btn-success" onclick="save(1)">提交</button>
-                        <button class="btn btn-info" onclick="save(0)">保存</button>
-                        <button class="btn btn-default" type="button">取消</button>
+                        <button class="btn btn-success" onclick="saveNews(1)">发布</button>
+                        <button class="btn btn-info" onclick="saveNews(0)">保存</button>
                     </div>
                 </div>                
             
@@ -87,7 +86,7 @@ $(function() {
 });
 
 
-function save(type) {
+function saveNews(type) {
   var form = new FormData(document.getElementById("articleform"));
   form.append("type", type);
   form.append("content", mdEditor.getHTML());
@@ -100,7 +99,6 @@ function save(type) {
     processData: false,
     contentType: false,
     success: function(data) {
-      console.log(data)
       alert("保存成功")
     },
     error: function(xhr, status, error) {

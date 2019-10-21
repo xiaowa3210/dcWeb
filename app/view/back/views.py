@@ -35,7 +35,7 @@ def uploadNew():
     type = request.form.get('type')
     operate = request.form.get('operate')
     attachments = request.files.getlist("attachment")
-    isTop = request.form.get('radio')
+    # isTop = request.form.get('radio')
 
     # if isTop=='1':
     #     print("置顶")
