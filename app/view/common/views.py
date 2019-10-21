@@ -31,7 +31,7 @@ from datetime import datetime
 from flask import request, url_for, jsonify, Response, make_response, send_from_directory
 
 from app import MessageInfo
-from app.model.config import UPLOAD_PICS_PATH, UPLOAD_FILES_PATH, UEDITOR_UPLOAD_PATH, UPLOAD_ZIP_PATH
+from app.model.config import UPLOAD_PICS_PATH, UPLOAD_FILES_PATH, UEDITOR_UPLOAD_PATH
 from app.model.entity import Files
 from app.service.FileServiceV2 import FilesService
 from app.view.common import common

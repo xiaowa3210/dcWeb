@@ -8,7 +8,6 @@ from app.service.UserServiceV2 import UserService
 from app.service.FileServiceV2 import FilesService
 from app.service.NewsService import NewsService
 from app.service.ProjectServiceV2 import ProjectService
-from app.utils.email import send_mail
 from app.utils.utils import object2json, member2dict, award2dict
 from app.view.MessageInfo import MessageInfo
 from app.view.front import front
@@ -227,19 +226,19 @@ def stu_logout_api():
     session.pop('student', None)
     return redirect(url_for('front.home'))
 
-"""
-学生注册接口
-"""
-@front.route("/api/register",methods=['POST'])
-def stu_register_api():
-    data = json.loads(request.get_data(as_text=True))
-    username = data['username']
-    password = data['password']
-    user = User(username,password,3)                    #3代表未验证过的学生
-    userService.addUser_v1(user)
-    token = base64.b64encode(username.encode())             #用base64加密
-    send_mail(username+'@bupt.edu.cn', '账户激活', 'activate', username=username, token=token)
-    return json.dumps(MessageInfo.success(msg="请登录北邮人邮箱去验证").__dict__)
+# """
+# 学生注册接口
+# """
+# @front.route("/api/register",methods=['POST'])
+# def stu_register_api():
+#     data = json.loads(request.get_data(as_text=True))
+#     username = data['username']
+#     password = data['password']
+#     user = User(username,password,3)                    #3代表未验证过的学生
+#     userService.addUser_v1(user)
+#     token = base64.b64encode(username.encode())             #用base64加密
+#     send_mail(username+'@bupt.edu.cn', '账户激活', 'activate', username=username, token=token)
+#     return json.dumps(MessageInfo.success(msg="请登录北邮人邮箱去验证").__dict__)
 
 
 """
