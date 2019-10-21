@@ -9,14 +9,6 @@ class AwardInfo(object):
         self.name = name
         self.rank = rank
         self.time = time
-<<<<<<< HEAD
-        self.project = project
-#获奖信息
-class Member(object):
-    pass
-
-
-=======
         self.project = project  # 项目名
 #获奖信息
 class Member(object):
@@ -24,7 +16,6 @@ class Member(object):
         self.name = name
         self.number = number
         self.major = major
->>>>>>> 61337cbb7fc9075e6355cafc5e9328c48fe03bd3
 # 设置表格样式
 
 
@@ -43,11 +34,7 @@ def set_style(name, height, bold=False):
 
 
 # 写Excel
-<<<<<<< HEAD
-def write_excel(awardInfos):
-=======
 def write_excel(awardInfos, filepath):
->>>>>>> 61337cbb7fc9075e6355cafc5e9328c48fe03bd3
     f = xlwt.Workbook()
     sheet1 = f.add_sheet('学生', cell_overwrite_ok=True)
     row0 = ["获奖名称", "获奖级别", "获奖时间", "获奖项目", "成员"]
@@ -102,11 +89,7 @@ def createAward():
         member = Member()
         member.name = "小明"
         member.number = "2019123456"
-<<<<<<< HEAD
-        member.major = "信息与通信工程"
-=======
         member.major = "通信专业"
->>>>>>> 61337cbb7fc9075e6355cafc5e9328c48fe03bd3
         members.append(member)
     award.members = members
     return award

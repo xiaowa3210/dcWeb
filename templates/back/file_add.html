@@ -43,16 +43,18 @@
 </section>
 <script>
 function uploadFile(e) {
-  var form = new FormData(document.querySelector("#articleform"));
+  var form = document.querySelector("#articleform")
+  var file = new FormData(form);
 
   $.ajax({
     url: "/api/admin/uploadFile",
     type: "POST",
-    data: form,
+    data: file,
     processData: false,
     contentType: false,
     success: function(res) {
       alert(JSON.parse(res).msg)
+      form.reset()
     },
     error: function(xhr, status, error) {
       alert("上传失败");

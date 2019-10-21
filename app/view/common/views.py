@@ -31,11 +31,7 @@ from datetime import datetime
 from flask import request, url_for, jsonify, Response, make_response, send_from_directory
 
 from app import MessageInfo
-<<<<<<< HEAD
-from app.model.config import UPLOAD_PICS_PATH, UPLOAD_FILES_PATH, UEDITOR_UPLOAD_PATH, UPLOAD_ZIP_PATH
-=======
 from app.model.config import UPLOAD_PICS_PATH, UPLOAD_FILES_PATH, UEDITOR_UPLOAD_PATH
->>>>>>> 61337cbb7fc9075e6355cafc5e9328c48fe03bd3
 from app.model.entity import Files
 from app.service.FileServiceV2 import FilesService
 from app.view.common import common
@@ -119,16 +115,6 @@ def file(name):
     return response
 
 
-<<<<<<< HEAD
-""" 
-根据文件名，下载文件
-"""
-@common.route('/zip/<name>')
-def zip(name):
-    response = make_response(send_from_directory(UPLOAD_ZIP_PATH, name, as_attachment=True))
-    response.headers["Content-Disposition"] = "attachment; filename={}".format(name.encode().decode('latin-1'))
-    return response
-=======
 # """
 # 根据文件名，下载文件
 # """
@@ -137,7 +123,6 @@ def zip(name):
 #     response = make_response(send_from_directory(UPLOAD_ZIP_PATH, name, as_attachment=True))
 #     response.headers["Content-Disposition"] = "attachment; filename={}".format(name.encode().decode('latin-1'))
 #     return response
->>>>>>> 61337cbb7fc9075e6355cafc5e9328c48fe03bd3
 
 """ 
 根据文件名，下载文件
