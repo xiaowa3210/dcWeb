@@ -2,269 +2,227 @@
 <html lang="en">
 
 <head>
-    {% block head %}{% endblock %}
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Creative - Bootstrap 3 Responsive Admin Template">
-    <meta name="author" content="GeeksLabs">
-    <meta name="keyword" content="Cremal">
-    <link rel="shortcut icon" href="/static/back/img/favicon.png">
-
-    <title>管理界面</title>
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/bootstrap.css')}}">
-    <!-- bootstrap theme -->
-    <!-- <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/bootstrap-theme3.0.0.css')}}"> -->
-    <!--external css-->
-    <!-- font icon -->
-
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='back/css/elegant-icons-style.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/font-awesome.min.css')}}">
-
-    <!-- full calendar css-->
-    <link rel="stylesheet" type="text/css"
-          href="{{ url_for('static',filename='assets/fullcalendar/fullcalendar/bootstrap-fullcalendar.css')}}">
-    <link rel="stylesheet" type="text/css"
-          href="{{ url_for('static',filename='assets/fullcalendar/fullcalendar/fullcalendar.css')}}">
-
-    <!-- easy pie chart-->
-    <link rel="stylesheet" type="text/css"
-          href="{{ url_for('static',filename='assets/jquery-easy-pie-chart/jquery.easy-pie-chart.css')}}">
-    <!-- owl carousel -->
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='back/css/owl.carousel.css')}}">
-    <!-- Custom styles -->
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/fullcalendar.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='back/css/style.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='back/css/style-responsive.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='back/css/xcharts.min.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/jquery-ui-1.10.4.min.css')}}">
-
-    {% block static_files%}{% endblock %}
-
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="/static/back/img/favicon.png">
+  <title>管理界面</title>
+  {% block head %}{% endblock %}
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/bootstrap.css')}}">
+  <!-- bootstrap theme -->
+  <!-- <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/bootstrap-theme3.0.0.css')}}"> -->
+  <!--external css-->
+  <!-- font icon -->
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='back/css/elegant-icons-style.css')}}">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/font-awesome.min.css')}}">
+  <!-- full calendar css-->
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='assets/fullcalendar/fullcalendar/bootstrap-fullcalendar.css')}}">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='assets/fullcalendar/fullcalendar/fullcalendar.css')}}">
+  <!-- easy pie chart-->
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='assets/jquery-easy-pie-chart/jquery.easy-pie-chart.css')}}">
+  <!-- owl carousel -->
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='back/css/owl.carousel.css')}}">
+  <!-- Custom styles -->
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/fullcalendar.css')}}">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='back/css/style.css')}}">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='back/css/style-responsive.css')}}">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='back/css/xcharts.min.css')}}">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/jquery-ui-1.10.4.min.css')}}">
+  {% block static_files%}
+  {% endblock %}
 </head>
 
 <body>
-<!-- container section start -->
-<section id="container" class="">
-
-
+  <!-- container section start -->
+  <section id="container" class="">
     <header class="header dark-bg">
         <div class="toggle-nav">
             <div class="icon-reorder tooltips" data-original-title="Toggle Navigation" data-placement="bottom"></div>
         </div>
-
         <!--logo start-->
         <a href="{{url_for('back.main')}}" class="logo">管理<span class="lite">界面</span></a>
         <!--logo end-->
-
-        <div class="top-nav notification-row">
+        <div class="top-nav notification-row">            
             <!-- notificatoin dropdown start-->
             <ul class="nav pull-right top-menu">
                 <li class="dropdown">
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                            <span class="profile-ava">
-                                <img alt="" src="/static/back/img/avatar1_small.jpg">
-                            </span>
-                        <span class="username">{{session.admin.name}}</span>
-                        <b class="caret"></b>
+                    <span class="profile-ava">
+                        <img alt="" src="/static/back/img/avatar1_small.jpg">
+                    </span>
+                    <span class="username">{{session.admin.name}}</span>
+                    <b class="caret"></b>
                     </a>
                     <ul class="dropdown-menu extended logout">
-                        <div class="log-arrow-up"></div>
-                        <li>
-                            <a href="{{url_for('back.logout_api')}}"><i class="icon_key_alt"></i>注销用户</a>
-                        </li>
+                    <div class="log-arrow-up"></div>
+                    <li>
+                        <a href="{{url_for('back.logout_api')}}"><i class="icon_key_alt"></i>注销用户</a>
+                    </li>
                     </ul>
                 </li>
                 <!-- user login dropdown end -->
             </ul>
-            <!-- notificatoin dropdown end-->
+        <!-- notificatoin dropdown end-->
         </div>
-
     </header>
     <!--header end-->
-
     <!--sidebar start-->
     <aside>
-        <div id="sidebar" class="nav-collapse ">
-            <!-- sidebar menu start-->
-            <ul class="sidebar-menu">
-                {% if session.admin.type == 0 %}
-                <li class="sub-menu">
-                    <a href="javascript:;" class="">
-                        <i class="icon_genius"></i>
-                        <span>人员管理</span>
-                        <span class="menu-arrow arrow_carrot-right"></span>
-                    </a>
-                    <ul class="sub">
-                        <li><a class="" href="{{ url_for('back.manageUser') }}">查看</a></li>
-                        <li><a class="" href="{{ url_for('back.insertUser') }}">添加</a></li>
-                    </ul>
-                </li>
-                {% endif %}
-
-                <li class="sub-menu">
-                    <a class="" href="javascript:;">
-                        <i class="icon_genius"></i>
-                        <span>新闻管理</span>
-                        <span class="menu-arrow arrow_carrot-right"></span>
-                    </a>
-
-
-                    <ul class="sub">
-
-                        <!--<li><a class="" href="{{ url_for('back.manageNews') }}?type=-1">编辑</a></li>-->
-                        <li><a class="" href="{{ url_for('back.editNews') }}">添加新闻</a></li>
-                        <!-- {% if session.admin.type == 2 %}
-                            <li><a class="" href="{{ url_for('back.editNews') }}">添加</a></li>
-                            <li><a class="" href="{{ url_for('back.adminNews') }}">查看</a></li><!--查看自己的-->
-                        {% else %} -->
-                            <li><a class="" href="{{ url_for('back.checkNewView') }}">审核</a></li>
-                            <!-- <li><a class="" href="{{ url_for('back.manageNews') }}?type=-1">查看全部</a></li> -->
-                            <li><a class="" href="{{ url_for('back.manageNews') }}?type=0">未发布</a></li>
-                            <li><a class="" href="{{ url_for('back.manageNews') }}?type=1">已发布</a></li>
-                        {% endif %}
-                    </ul>
-                </li>
-
-
-                {% if session.admin.type == 0 %}
-                <li class="sub-menu">
-                    <a href="javascript:;" class="">
-                        <i class="icon_desktop"></i>
-                        <span>文件管理</span>
-                        <span class="menu-arrow arrow_carrot-right"></span>
-                    </a>
-                    <ul class="sub">
-                        <li><a class="" href="{{ url_for('back.editFiles') }}">添加</a></li>
-                        <li><a class="" href="{{ url_for('back.manageResource') }}?source=0">查看全部</a></li>
-                        <li><a class="" href="{{ url_for('back.manageResource') }}?source=1">管理员上传</a></li>
-                        <li><a class="" href="{{ url_for('back.manageResource') }}?source=2">新闻上传</a></li>
-                        <li><a class="" href="{{ url_for('back.manageResource') }}?source=3">项目上传</a></li>
-                    </ul>
-                </li>
-                {% endif %}
-                {% if session.admin.type == 0 %}
-                <li class="sub-menu">
-                    <a class="" href="javascript:;">
-                        <i class="icon_genius"></i>
-                        <span>项目管理</span>
-                        <span class="menu-arrow arrow_carrot-right"></span>
-                    </a>
-                    <ul class="sub">
-                        <!-- <li><a class="" href="{{ url_for('front.uploadProjectTmp') }}">上传</a></li> -->
-                        <li><a class="" href="{{ url_for('back.checkProjects') }}">审核</a></li>
-                        <li><a class="" href="{{ url_for('back.manageProject') }}">查看</a></li>
-                    </ul>
-                </li>
-                {% endif %}
-            </ul>
-            <!-- sidebar menu end-->
-        </div>
+      <div id="sidebar" class="nav-collapse ">
+        <!-- sidebar menu start-->
+        <ul class="sidebar-menu">
+            {% if session.admin.type == 0 %}
+            <li class="sub-menu">
+                <a href="javascript:;" class="">
+                <i class="icon_genius"></i>
+                <span>人员管理</span>
+                <span class="menu-arrow arrow_carrot-right"></span>
+                </a>
+                <ul class="sub">
+                <li><a class="" href="{{ url_for('back.manageUser') }}">查看</a></li>
+                <li><a class="" href="{{ url_for('back.insertUser') }}">添加</a></li>
+                </ul>
+            </li>
+            {% endif %}
+            <li class="sub-menu">
+                <a class="" href="javascript:;">
+                <i class="icon_genius"></i>
+                <span>新闻管理</span>
+                <span class="menu-arrow arrow_carrot-right"></span>
+                </a>
+                <ul class="sub">
+                <!--<li><a class="" href="{{ url_for('back.manageNews') }}?type=-1">编辑</a></li>-->
+                    <li><a class="" href="{{ url_for('back.editNews') }}">添加新闻</a></li>
+                                <!-- <li><a class="" href="{{ url_for('back.editNews') }}">添加</a></li> -->
+                                <!-- <li><a class="" href="{{ url_for('back.adminNews') }}">查看</a></li>查看自己的 -->
+                                <!-- <li><a class="" href="{{ url_for('back.checkNewView') }}">审核</a></li> -->
+                                <!-- <li><a class="" href="{{ url_for('back.manageNews') }}?type=-1">查看全部</a></li> -->
+                    <li><a class="" href="{{ url_for('back.manageNews') }}?type=0">未发布</a></li>
+                    <li><a class="" href="{{ url_for('back.manageNews') }}?type=1">已发布</a></li>
+                </ul>
+            </li>
+            <li class="sub-menu">
+                <a href="javascript:;" class="">
+                    <i class="icon_desktop"></i>
+                    <span>资料管理</span>
+                    <span class="menu-arrow arrow_carrot-right"></span>
+                </a>
+                <ul class="sub">
+                    <li><a class="" href="{{ url_for('back.editFiles') }}">上传</a></li>
+                    <li><a class="" href="{{ url_for('back.manageResource') }}?source=2">查看</a></li>
+                    <!-- <li><a class="" href="{{ url_for('back.manageResource') }}?source=1">管理员上传</a></li>
+                    <li><a class="" href="{{ url_for('back.manageResource') }}?source=2">新闻上传</a></li>
+                    <li><a class="" href="{{ url_for('back.manageResource') }}?source=3">项目上传</a></li> -->
+                </ul>
+            </li>
+            <li class="sub-menu">
+                <a class="" href="javascript:;">
+                    <i class="icon_genius"></i>
+                    <span>项目管理</span>
+                    <span class="menu-arrow arrow_carrot-right"></span>
+                </a>
+                <ul class="sub">
+                    <li><a class="" href="{{ url_for('back.checkProjects') }}">审核</a></li>
+                    <li><a class="" href="{{ url_for('back.manageProject') }}">查看</a></li>
+                </ul>
+            </li>
+        </ul>
     </aside>
     <!--sidebar end-->
-
     <!--main content start-->
     <main style="height: 900px;">
-        {% block body_part %}
-        {% endblock %}
+      {% block body_part %}
+      {% endblock %}
     </main>
     <!--main content end-->
-</section>
-<!-- container section start -->
+  </section>
+  <!-- container section start -->
+  <!-- javascripts -->
+  <script src="/static/js/jquery-2.1.0.min.js"></script>
+  <script src="/static/js/jquery-ui-1.10.4.min.js"></script>
+  <script type="text/javascript" src="/static/js/jquery-ui-1.9.2.custom.min.js"></script>
+  <!-- bootstrap -->
+  <script src="/static/js/bootstrap.min.js"></script>
+  <!-- nice scroll -->
+  <script src="/static/js/jquery.scrollTo.min.js"></script>
+  <!-- charts scripts -->
+  <script src="/static/assets/jquery-knob/js/jquery.knob.js"></script>
+  <script src="/static/js/jquery.sparkline.js" type="text/javascript"></script>
+  <script src="/static/assets/jquery-easy-pie-chart/jquery.easy-pie-chart.js"></script>
+  <script src="/static/js/owl.carousel.js"></script>
+  <!-- jQuery full calendar -->
+  <script src="/static/js/fullcalendar.min.js"></script>
+  <!-- Full Google Calendar - Calendar -->
+  <script src="/static/assets/fullcalendar/fullcalendar/fullcalendar.js"></script>
+  <!--script for this page only-->
+  <script src="/static/js/calendar-custom.js"></script>
+  <script src="/static/js/jquery.rateit.min.js"></script>
+  <!-- custom select -->
+  <script src="/static/js/jquery.customSelect.min.js"></script>
+  <script src="/static/assets/chart-master/Chart.js"></script>
+  <!--custome script for all page-->
+  <script src="/static/js/scripts.js"></script>
+  <!-- custom script for this page-->
+  <script src="/static/js/sparkline-chart.js"></script>
+  <script src="/static/js/easy-pie-chart.js"></script>
+  <script src="/static/js/jquery-jvectormap-1.2.2.min.js"></script>
+  <script src="/static/js/jquery-jvectormap-world-mill-en.js"></script>
+  <script src="/static/js/xcharts.min.js"></script>
+  <script src="/static/js/jquery.autosize.min.js"></script>
+  <script src="/static/js/jquery.placeholder.min.js"></script>
+  <script src="/static/js/gdp-data.js"></script>
+  <script src="/static/js/morris.min.js"></script>
+  <script src="/static/js/sparklines.js"></script>
+  <script src="/static/js/charts.js"></script>
+  <script src="/static/js/jquery.slimscroll.min.js"></script>
+  <script src="/static/back/myjs/afquery.js"></script>
+  <script>
+  //knob
+  $(function() {
+    $(".knob").knob({
+      'draw': function() {
+        $(this.i).val(this.cv + '%')
+      }
+    })
+  });
 
-<!-- javascripts -->
+  //carousel
+  $(document).ready(function() {
+    $("#owl-slider").owlCarousel({
+      navigation: true,
+      slideSpeed: 300,
+      paginationSpeed: 400,
+      singleItem: true
 
-<script src="/static/js/jquery-2.1.0.min.js"></script>
-<script src="/static/js/jquery-ui-1.10.4.min.js"></script>
-<script type="text/javascript" src="/static/js/jquery-ui-1.9.2.custom.min.js"></script>
-<!-- bootstrap -->
-<script src="/static/js/bootstrap.min.js"></script>
-<!-- nice scroll -->
-<script src="/static/js/jquery.scrollTo.min.js"></script>
-<!-- charts scripts -->
-<script src="/static/assets/jquery-knob/js/jquery.knob.js"></script>
-<script src="/static/js/jquery.sparkline.js" type="text/javascript"></script>
-<script src="/static/assets/jquery-easy-pie-chart/jquery.easy-pie-chart.js"></script>
-<script src="/static/js/owl.carousel.js"></script>
-<!-- jQuery full calendar -->
-
-<script src="/static/js/fullcalendar.min.js"></script>
-<!-- Full Google Calendar - Calendar -->
-<script src="/static/assets/fullcalendar/fullcalendar/fullcalendar.js"></script>
-<!--script for this page only-->
-<script src="/static/js/calendar-custom.js"></script>
-<script src="/static/js/jquery.rateit.min.js"></script>
-<!-- custom select -->
-<script src="/static/js/jquery.customSelect.min.js"></script>
-<script src="/static/assets/chart-master/Chart.js"></script>
-
-<!--custome script for all page-->
-<script src="/static/js/scripts.js"></script>
-<!-- custom script for this page-->
-<script src="/static/js/sparkline-chart.js"></script>
-<script src="/static/js/easy-pie-chart.js"></script>
-<script src="/static/js/jquery-jvectormap-1.2.2.min.js"></script>
-<script src="/static/js/jquery-jvectormap-world-mill-en.js"></script>
-<script src="/static/js/xcharts.min.js"></script>
-<script src="/static/js/jquery.autosize.min.js"></script>
-<script src="/static/js/jquery.placeholder.min.js"></script>
-<script src="/static/js/gdp-data.js"></script>
-<script src="/static/js/morris.min.js"></script>
-<script src="/static/js/sparklines.js"></script>
-<script src="/static/js/charts.js"></script>
-<script src="/static/js/jquery.slimscroll.min.js"></script>
-
-
-<script src="/static/back/myjs/afquery.js"></script>
-
-<script>
-    //knob
-    $(function () {
-        $(".knob").knob({
-            'draw': function () {
-                $(this.i).val(this.cv + '%')
-            }
-        })
     });
+  });
 
-    //carousel
-    $(document).ready(function () {
-        $("#owl-slider").owlCarousel({
-            navigation: true,
-            slideSpeed: 300,
-            paginationSpeed: 400,
-            singleItem: true
+  //custom select box
 
-        });
+  $(function() {
+    $('select.styled').customSelect();
+  });
+
+  /* ---------- Map ---------- */
+  $(function() {
+    $('#map').vectorMap({
+      map: 'world_mill_en',
+      series: {
+        regions: [{
+          values: gdpData,
+          scale: ['#000', '#000'],
+          normalizeFunction: 'polynomial'
+        }]
+      },
+      backgroundColor: '#eef3f7',
+      onLabelShow: function(e, el, code) {
+        el.html(el.html() + ' (GDP - ' + gdpData[code] + ')');
+      }
     });
-
-    //custom select box
-
-    $(function () {
-        $('select.styled').customSelect();
-    });
-
-    /* ---------- Map ---------- */
-    $(function () {
-        $('#map').vectorMap({
-            map: 'world_mill_en',
-            series: {
-                regions: [{
-                    values: gdpData,
-                    scale: ['#000', '#000'],
-                    normalizeFunction: 'polynomial'
-                }]
-            },
-            backgroundColor: '#eef3f7',
-            onLabelShow: function (e, el, code) {
-                el.html(el.html() + ' (GDP - ' + gdpData[code] + ')');
-            }
-        });
-    });
-</script>
-
-{% block js_files %}{% endblock %}
+  });
+  </script>
+  {% block js_files %}
+  {% endblock %}
 </body>
 
 </html>

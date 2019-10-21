@@ -394,7 +394,7 @@ class ProjectService:
     """
     def undoPro(self,pid):
         updateContent = {
-            'status':3,                                     #将其改成未审核态
+            'status':2, # 将其改成待审核态
             'undoer':commonService.getCurrentUsername(),
             'cancelTime':datetime.now()
         }
