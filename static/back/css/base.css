@@ -1,0 +1,7 @@
+.box-height {
+    min-height: 500px;
+}
+.table-striped>thead>tr>th,
+.table-striped>tbody>tr>td {
+    padding-left: 20px;
+}
