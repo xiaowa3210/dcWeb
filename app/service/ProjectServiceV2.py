@@ -49,6 +49,7 @@ def addProStatus(pname, type, status,data):
     publisher = commonService.getCurrentUsername(1)  # todo:暂时是anonymous
     proStatus = ProjectStatus(pname, type, publisher, status)
     proStatus.pro_startTime = data['startTime'] + '-01'
+    proStatus.pro_endTime = data['endTime'] + '-01'
     proStatus.major = data['major']
     if proStatus == 2:  # 如果是提交,记录提交的时间
         proStatus.submitTime = datetime.now()
@@ -158,8 +159,7 @@ class ProjectService:
             self.modifiedProject(data)
 
 
-
-
+    @DeprecationWarning
     def addProjectV1(self,request):
         # 获取信息
         pname = request.form.get("pname")
@@ -312,40 +312,6 @@ class ProjectService:
         projects = pagination.items
         return pagination, projects
 
-
-    """
-    @:param:
-    @:return:
-    @descrition:查询已经审核通过的项目
-    """
-    def getPublishedPro(self,page_index,count,**kw):
-
-        # 筛选条件
-        startTime = kw['startTime']
-        endTime = kw['endTime']
-        type = kw['type']
-        major = kw['major']
-        source = kw['source']
-
-        query = ProjectStatus.query.filter(ProjectStatus.status == 3,ProjectStatus.delete_flag == 0)
-        if startTime and endTime:
-            query = query.filter(ProjectStatus.pro_startTime >= startTime,ProjectStatus.pro_startTime <= endTime)
-        if type != -1:
-            query = query.filter(ProjectStatus.type == type)
-        if major != 0:
-            query = query.filter(ProjectStatus.major == major)
-        if source != -1:
-            query = query.filter(ProjectStatus.source == source)
-        pagination = query.order_by(desc(ProjectStatus.pro_startTime)).paginate(page_index, count, error_out=False)
-
-        pros = pagination.items
-        for pro in pros:
-
-            mainPic = db2.session.query(Files).filter(Files.source_id == pro.pid,
-                                                          Files.source == 1,
-                                                          Files.delete_flag == 0).one()
-            pro.pic = mainPic
-        return pagination, pros
 
 
     """
@@ -677,6 +643,42 @@ class ProjectService:
 
         return path
 
+
+    """
+    @:param:
+    @:return:
+    @descrition:查询已经审核通过的项目
+    """
+    def getPublishedPro(self,page_index,count,**kw):
+
+        # 筛选条件
+        startTime = kw['startTime'] + '-01'
+        endTime = kw['endTime'] + '-01'
+        type = kw['type']
+        major = kw['major']
+        source = kw['source']
+
+        query = ProjectStatus.query.filter(ProjectStatus.status == 3,ProjectStatus.delete_flag == 0)
+        if startTime:
+            query = query.filter(ProjectStatus.pro_startTime >= startTime)
+        if endTime:
+            query = query.filter(ProjectStatus.pro_endTime <= endTime)
+        if type != -1:
+            query = query.filter(ProjectStatus.type == type)
+        if major != 0:
+            query = query.filter(ProjectStatus.major == major)
+        if source != -1:
+            query = query.filter(ProjectStatus.source == source)
+        pagination = query.order_by(desc(ProjectStatus.pro_startTime)).paginate(page_index, count, error_out=False)
+
+        pros = pagination.items
+        for pro in pros:
+
+            mainPic = db2.session.query(Files).filter(Files.source_id == pro.pid,
+                                                      Files.source == 1,
+                                                      Files.delete_flag == 0).one()
+            pro.pic = mainPic
+        return pagination, pros
 
     def selectAwardInfo(self, startTime, endTime, rank, page_index,count):
         #根据条件查出所有的获奖时间
