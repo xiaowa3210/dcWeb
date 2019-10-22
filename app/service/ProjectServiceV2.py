@@ -44,6 +44,13 @@ import xlwt
 
 # from zip.ZipUtil import compress_listfiles
 
+rankdict = {
+    1: "国际型比赛",
+    2: "国家型比赛",
+    3: "省部级比赛",
+    4: "校内比赛"
+}
+
 commonService = CommonService()
 filesService = FilesService()
 def addProStatus(pname, type, status,data):
@@ -684,7 +691,7 @@ class ProjectService:
 
     def selectAwardInfo(self, startTime, endTime, rank, page_index,count):
         #根据条件查出所有的获奖时间
-        query = ProjectAward.query
+        query = ProjectAward.query.join(ProjectStatus, ProjectAward.pid == ProjectStatus.pid).filter(ProjectStatus.status == 3)
         if startTime:
             query = query.filter(ProjectAward.awardTime >= startTime)
         if endTime:
@@ -717,12 +724,13 @@ class ProjectService:
         for award in  awards:
             awardName = award.awardName
             awardTime = award.awardTime
-            rank = award.rank
+
+            rank = rankdict[award.rank]
 
             # 获取项目
             project = award.project
             projectname = project.pname
-            awardInfo = AwardInfo(awardName, rank, awardTime, projectname)
+            awardInfo = AwardInfo(awardName, rank, str(awardTime), projectname)
 
 
             # 获取项目成员
@@ -730,6 +738,8 @@ class ProjectService:
             mems = []
             for proMem in proMems:
                 memName = proMem.name
+                if proMems.type == 0:
+                    memName += '(指导老师)'
                 memNumber = proMem.number
                 memMajor = proMem.major
                 mem = Member(memName, memNumber, memMajor)
