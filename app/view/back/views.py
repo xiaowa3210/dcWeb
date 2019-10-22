@@ -115,7 +115,7 @@ def deteteNew(nid):
 """
 @back.route('/api/admin/releaseNew/<nid>',methods=['get'])
 def releaseNew(nid):
-    newsService.releaseOrUndoNew(nid,0)
+    newsService.releaseOrUndoNew(nid,1)
     return json.dumps(MessageInfo.success(msg="发布成功").__dict__)
 
 """
@@ -123,7 +123,7 @@ def releaseNew(nid):
 """
 @back.route('/api/admin/undoNew/<nid>',methods=['get'])
 def undoNew(nid):
-    newsService.releaseOrUndoNew(nid,1)
+    newsService.releaseOrUndoNew(nid,0)
     return json.dumps(MessageInfo.success(msg="撤销成功").__dict__)
 
 """
