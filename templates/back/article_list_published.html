@@ -30,12 +30,12 @@
             <tbody>
               {% for article in news %}
               <tr articleId="{{article.nid}}">
-                <td class="title">{{article.title}}</td>
+                <td>{{article.title}}</td>
                 <td>{{article.creater}}</td>
                 <td class="time">{{article.createTime}}</td>
                 <td>{{article.publisher}}</td>
                 <td class="time">{{article.publisherTime}}</td>
-                <td>
+                <td width="150px">
                   <div class="btn-group">
                     <button class="btn btn-success backNews" p_id="{{article.nid}}">撤销</button>
                     <button class="btn btn-danger deleteNews" p_id="{{article.nid}}">删除</button>

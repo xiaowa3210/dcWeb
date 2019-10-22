@@ -30,12 +30,12 @@
               <tbody>
               {% for article in news %}
               <tr articleId="{{article.nid}}">
-                <td class="title">{{article.title}}</td>
+                <td>{{article.title}}</td>
                 <td>{{article.creater}}</td>
                 <td class="time">{{article.createTime}}</td>
                 <td>{{article.publisher}}</td>
                 <td class="time">{{article.modifiedTime}}</td>
-                <td>
+                <td width="200px">
                   <div class="btn-group">
                     <button class="btn btn-info"><a href="{{url_for('back.modifiesNews',nid=article.nid)}}" style="color:#fff;">编辑</a></button>
                     <button class="btn btn-success publish" p_id="{{article.nid}}">发布</button>

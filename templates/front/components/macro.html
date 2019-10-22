@@ -13,7 +13,7 @@
       <tbody>
         {% for item in list %}
         <tr>
-          <td>
+          <td class="title">
             <a href="{{ url_for('front.new', news_id=item.nid) }}">{{ item.title }}</a>
           </td>
           <td class="time">{{ item.publisherTime }}</td>
@@ -37,7 +37,7 @@
       <tbody>
         {% for item in list %}
         <tr>
-          <td>
+          <td class="title">
             <a href="{{ url_for('common.file', name=item.path) }}">{{ item.name }}</a>
           </td>
           <td class="time">{{ item.createTime }}</td>

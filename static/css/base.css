@@ -107,6 +107,7 @@ main .container {
 }
 
 .box-white {
+  box-sizing: content-box;
   padding: 20px 20px;
   background: #fff;
 }
@@ -120,7 +121,16 @@ main .container {
 }
 
 .table .time {
+  /*width: 100px;*/
   text-align: right;
+  /*white-space: nowrap;*/
+}
+
+.table .title a{
+  width: 700px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .pagination li a {
