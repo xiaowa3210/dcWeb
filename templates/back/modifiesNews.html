@@ -7,11 +7,10 @@
   <section class="wrapper">
     <div class="row">
       <div class="col-lg-12">
-        <h3 class="page-header"><i class="fa fa-files-o"></i>修改文章</h3>
         <ol class="breadcrumb">
-          <li><i class="fa fa-home"></i><a href="index.html">主页</a></li>
-          <li><i class="icon_document_alt"></i>文章管理</li>
-          <li><i class="fa fa-files-o"></i>修改文章</li>
+          <li><a href="index.html">主页</a></li>
+          <li>新闻管理</li>
+          <li>编辑新闻</li>
         </ol>
       </div>
     </div>
@@ -20,65 +19,45 @@
       <div class="col-lg-12">
         <section class="panel">
           <header class="panel-heading">
-            修改文章
+            编辑新闻
           </header>
           <div class="panel-body">
             <div class="form article">
               <form id="articleform" class="form-horizontal" onsubmit="return false" action="##" method="post">
                 <div class="form-group ">
-                  <label for="title" class="control-label col-lg-2">标题<span class="required">*</span></label>
+                  <label for="title" class="control-label col-lg-1">新闻标题<span class="required">*</span></label>
                   <div class="col-lg-10">
                     <input class="form-control title" id="title" name="title" type="text" value="{{article.title}}" required />
                   </div>
                 </div>
-                {% if article.isTop == 0 %}
                 <div class="form-group">
-                  <label for="title" class="control-label col-lg-2">是否需要置顶？<span class="required">*</span></label>
-                  <div class="col-lg-10">
-                    <input type="radio" name="radio" value="置顶">置顶
-                    <input type="radio" name="radio" value="不置顶" checked="checked">不置顶
-                  </div>
+                    <label class="control-label col-lg-1">新闻内容<span class="required">*</span></label>
+                    <div class="col-lg-10">
+                      <div id="test-editormd" data-content="{{ article.content }}">
+                        <textarea class="editormd-markdown-textarea" name="test-editormd-markdown-doc">{{article.src_content}}</textarea>
+                        <!--html textarea 需要开启配置项 saveHTMLToTextarea == true -->
+                        <!--<textarea class="editormd-html-textarea" name="$id-html-code">-->
+                        <!--{{article.content}}-->
+                        <!--</textarea>-->
+                      </div>
+                    </div>
                 </div>
-                {% endif %}
-                {% if article.isTop == 1 %}
                 <div class="form-group">
-                  <label for="title" class="control-label col-lg-2">是否需要置顶？<span class="required">*</span></label>
-                  <div class="col-lg-10">
-                    <input type="radio" name="radio" value="置顶" checked="checked">置顶
-                    <input type="radio" name="radio" value="不置顶">不置顶
-                  </div>
-                </div>
-                {% endif %}
-                <div class="form-group">
-                  <label class="control-label col-lg-2">上传附件</label>
-                  <div class="col-lg-10">
+                  <label class="control-label col-lg-1">上传附件</label>
+                  <div class="col-lg-6">
                     {% for file in files%}
-                    <div class="col-lg-2" style="margin-bottom: 10px">
-                      <button class="btn btn-danger delete" id="delete" file_id="{{file.fid}}" onclick="MAIN.deletefile(this)">{{file.name}}<i class="icon_close_alt2"></i></button>
-                      <!--<a file_id="{{file.fid}}" class="btn btn-danger" onclick="MAIN.deletefile(this)">{{file.name}}<i class="icon_close_alt2"></i></a>-->
+                    <div style="display: flex;justify-content: space-between;margin-bottom: 2px;">
+                      <a href="{{ url_for('common.file', name=file.path) }}">{{file.name}}</a>
+                      <button class="btn btn-danger delete" file_id="{{file.fid}}" onclick="deleteFile(this)" style="padding: 2px;">删除</button>
                     </div>
                     {% endfor %}
-                    <div class="col-lg-12">
-                      <input type="file" id="InputFile" multiple="multiple" name="attachment">
-                    </div>
+                    <input type="file" id="InputFile" multiple="multiple" name="attachment" style="margin-top: 10px;">
                   </div>
                 </div>
-                <div style="width: auto;height: 2500px">
-                  <div id="test-editormd" data-content="{{ article.content }}">
-                    <textarea class="editormd-markdown-textarea" name="test-editormd-markdown-doc">{{article.src_content}}</textarea>
-                    <!--html textarea 需要开启配置项 saveHTMLToTextarea == true -->
-                    <!--<textarea class="editormd-html-textarea" name="$id-html-code">-->
-                    <!--{{article.content}}-->
-                    <!--</textarea>-->
-                  </div>
-                  <div class="form-group">
-                    <div class="col-lg-offset-2 col-lg-8">
-                      <button class="btn btn-primary" onclick="MAIN.onSave(0)">保存</button>
-                      <button class="btn btn-default" type="button">取消</button>
-                    </div>
-                    <div class="col-lg-2">
-                      <button class="btn btn-primary" onclick="MAIN.onSave(1)">保存并发布</button>
-                    </div>
+                <div class="form-group">
+                  <div class="col-lg-offset-2 col-lg-8">
+                    <button class="btn btn-success" onclick="saveNews(1)">发布</button>
+                    <button class="btn btn-info" onclick="saveNews(0)">保存</button>
                   </div>
                 </div>
               </form>
@@ -92,17 +71,13 @@
 {% endblock %}
 {% block js_files %}
 <script src="{{url_for('static',filename='vendor/mdeditor/editormd.min.js')}}"></script>
-<script src="{{url_for('static',filename='back/myjs/afquery.js')}}"></script>
 <script>
-var MAIN = {};
-
 //markdown编辑器设置
 var testEditor;
 $(function() {
-
   testEditor = editormd("test-editormd", {
-    width: '80%',
-    height: '50%',
+    width: '100%',
+    height: '550px',
     syncScrolling: "single",
     saveHTMLToTextarea: true,
     path: "{{url_for('static',filename='vendor/mdeditor/lib/')}}",
@@ -111,30 +86,10 @@ $(function() {
     imageFormats: ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
     imageUploadURL: "{{url_for('common.markdown_upload')}}"
   });
-
-
-
 });
-MAIN.showMdTest = function(val) {
-  $("#test-editormd").html(val);
-}
-//    MAIN.ue = UE.getEditor('editor',{
-//        serverUrl:"/resources/images"
-//    })
 
 
-MAIN.init = function() {
-
-}
-
-
-
-MAIN.addkeyword = function() {
-  var kw = $(".kw:first")
-  $(".addkeyword").before(kw.clone())
-}
-
-MAIN.onSave = function(type) {
+function saveNews(type) {
   var form = new FormData(document.getElementById("articleform"));
   form.append("type", type);
   form.append("nid", "{{article.nid}}");
@@ -143,8 +98,6 @@ MAIN.onSave = function(type) {
   form.append("src_content", testEditor.getMarkdown());
   form.append("operate", 1);
 
-
-
   $.ajax({
     url: "/api/admin/addNew",
     type: "post",
@@ -152,17 +105,21 @@ MAIN.onSave = function(type) {
     processData: false,
     contentType: false,
     success: function(data) {
-      alert("修改成功")
-      window.location.reload()
+      if(type == 1){
+        alert('发布成功')
+        window.location.href = '/admin/manageNews?type=1'
+      }else {
+        alert("保存成功")
+        window.location.href = '/admin/manageNews?type=0'
+      }
     },
     error: function(e) {
-      alert("修改失败");
+      alert("编辑失败");
     }
   });
 }
 
-
-MAIN.deletefile = function(e) {
+function deleteFile(e) {
   var n = $(e).attr("file_id");
   $.ajax({
     url: "/api/admin/deleteFile?fid=" + n,
@@ -170,7 +127,7 @@ MAIN.deletefile = function(e) {
 
     success: function(data) {
       alert("删除成功")
-      $(e).remove();
+      $(e).parent().remove();
     },
     error: function(e) {
       alert("删除失败");
