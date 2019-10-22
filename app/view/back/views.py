@@ -226,9 +226,12 @@ def exportAwardInfo():
 
     #根据获奖信息导出文件名
     filename = projectService.exportAwardInfo(awards)
-    response = make_response(send_from_directory(UPLOAD_AWARD_PATH, filename, as_attachment=True))
-    response.headers["Content-Disposition"] = "attachment; filename={}".format(filename.encode().decode('latin-1'))
-    return response
+    if filename:
+        response = make_response(send_from_directory(UPLOAD_AWARD_PATH, filename, as_attachment=True))
+        response.headers["Content-Disposition"] = "attachment; filename={}".format(filename.encode().decode('latin-1'))
+        return response
+    else:
+        return '筛选无结果，请检查筛选条件'
 
 """
 下载获奖信息

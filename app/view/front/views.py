@@ -413,7 +413,7 @@ def home():
                                                          major=major,
                                                          source=source)
 
-    pagination1,news = newsService.selectByPage(1,8,3)
+    pagination1,news = newsService.selectByPage(1,8,1)
     return render_template("front/home.html",projects=projects,pagination=pagination,news = news)
 
 """
