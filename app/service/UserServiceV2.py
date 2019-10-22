@@ -31,9 +31,11 @@ class UserService:
     添加用户
     """
     def addUser_v1(self,user):
-        db2.session.add(user)
-        db2.session.commit()
-
+        try:
+            db2.session.add(user)
+            db2.session.commit()
+        except Exception as e:
+            return user
     """
     删除用户用户
     """

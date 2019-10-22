@@ -282,7 +282,10 @@ def addUser():
 
     user = User(username,password,type)
     userService.addUser_v1(user)
-    return json.dumps(MessageInfo.success(msg="添加成功").__dict__)
+    if user.id:
+        return json.dumps(MessageInfo.success(msg="添加成功").__dict__)
+    else:
+        return json.dumps(MessageInfo.success(msg="添加失败").__dict__)
 
 
 """

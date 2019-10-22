@@ -75,9 +75,9 @@ def write_excel(awardInfos, filepath):
             s = s + 1
 
         # 合并单元格
-
-        for j in range(0, len(item)):
-            sheet1.write_merge(gs, s-1, j, j, item[j], set_style('Times New Roman', 220, True))
+        if(len(members) >= 2) :
+            for j in range(0, len(item)):
+                sheet1.write_merge(gs, s-1, j, j, item[j], set_style('Times New Roman', 220, True))
         gs = s
     f.save(filepath)
 
