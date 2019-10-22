@@ -91,7 +91,7 @@ class NewsService:
     发布或撤回新闻
     """
     def releaseOrUndoNew(self,nid,type):
-        if type == 1:
+        if type == 1:  # 1代表发布
             updateContent = {
                 'status': type,
                 'publisher': commonService.getCurrentUsername(0),

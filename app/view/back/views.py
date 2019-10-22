@@ -71,7 +71,7 @@ def uploadNew():
                 local_path = str(uuid.uuid1()).replace("-", "") + suffix
                 attachment.save(path + local_path)
                 file.path = local_path
-                file.source = 2                                 #代表新闻附件
+                file.source = 4                                 #代表新闻附件
                 file.source_id = new.nid
                 filesService.addFile(file)
 
@@ -97,7 +97,7 @@ def uploadNew():
                 local_path = str(uuid.uuid1()).replace("-", "") + suffix
                 attachment.save(path + local_path)
                 file.path = local_path
-                file.source = 2  # 代表新闻附件
+                file.source = 4  # 代表新闻附件
                 file.source_id = new.nid
                 filesService.addFile(file)
         return json.dumps(MessageInfo.success(msg="修改成功").__dict__)
@@ -405,7 +405,7 @@ def manageNews(page,count):
 @back.route("/admin/modifiesNews/<int:nid>")
 def modifiesNews(nid):
     new = newsService.selectByNid(nid)
-    files = filesService.getFilesBySourceIdAndSource(2,nid)
+    files = filesService.getFilesBySourceIdAndSource(4,nid)
     return render_template("back/modifiesNews.html",article=new,files=files)
 
 """
