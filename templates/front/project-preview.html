@@ -1,0 +1,151 @@
+{% extends 'front/base.html' %}
+{% block page_name %}项目详情{% endblock %}
+{% block body_part %}
+<section>
+  <div class="row">
+    <div class="col-md-9">
+      <section class="box-white">
+        <ol class="breadcrumb">
+          <li><a href="{{url_for('front.user')}}">个人中心</a></li>
+          <li class="active">项目预览</li>
+        </ol>
+        <h2>{{project.pname}}</h2>
+        <hr>
+        <h4>项目介绍</h4>
+        <div style="box-shadow: 0 0 6px #ddd;border-radius: 5px;padding: 10px;">
+        {{project.content|safe }}
+        </div>
+        <h4>项目成员</h4>
+        <table class="table table-striped">
+          <thead>
+            <tr class="success">
+              <td>姓名</td>
+              <td>学号</td>
+              <td>班级</td>
+              <td>年级</td>
+              <td>专业</td>
+              <td>学院</td>
+            </tr>
+          </thead>
+          <tbody>
+            {% for member in project.members %}
+            {% if member.type==1 %}
+              <tr>
+                <td>{{ member.name }}</td>
+                <td>{{ member.number }}</td>
+                <td>{{ member.classId }}</td>
+                <td>{{ member.grade }}</td>
+                <td>{{ member.major }}</td>
+                <td>{{ member.academy }}</td>
+              </tr>
+            {% endif %}
+            {% endfor %}  
+          </tbody>
+        </table>          
+        <hr>
+        <h4>指导老师</h4>
+        <table class="table table-striped">
+          <thead>
+            <tr class="success">
+              <td>姓名</td>
+              <td>专业</td>
+              <td>学院</td>
+            </tr>
+          </thead>
+          <tbody>
+            {% for member in project.members %}
+            {% if member.type==0 %}
+            <tr>
+              <td>{{ member.name }}</td>
+              <td>{{ member.major }}</td>
+              <td>{{ member.academy }}</td>
+            </tr>
+            {% endif %}
+            {% endfor %}  
+          </tbody>
+        </table>
+      </section>
+    </div>
+    <div class="col-md-3">
+      <aside class="box-white">
+          <h4>项目来源</h4>
+          {% if project.status.source==1 %}
+          <p>大创项目</p>
+          {% endif %}
+          {% if project.status.type==2 %}
+          <p>雏雁项目</p>
+          {% endif %}
+          {% if project.status.type==3 %}
+          <p>竞赛项目</p>
+          {% endif %}
+          {% if project.status.type==4 %}
+          <p>课程项目</p>
+          {% endif %}
+          {% if project.status.type==0 %}
+          <p>其他</p>
+          {% endif %}
+          <hr>
+          <h4>项目类别</h4>
+          {% if project.type=='1' %}
+          <p>App开发/微信小程序开发</p>
+          {% endif %}
+          {% if project.type=='2' %}
+          <p>通信/网络</p>
+          {% endif %}
+          {% if project.type=='3' %}
+          <p>软件系统</p>
+          {% endif %}
+          {% if project.type=='4' %}
+          <p>硬件系统</p>
+          {% endif %}
+          {% if project.type=='5' %}
+          <p>视频/图像</p>
+          {% endif %}
+          {% if project.type=='6' %}
+          <p>大数据/机器学习</p>
+          {% endif %}
+          <hr>
+          <h4>项目专业</h4>
+          {% if project.status.major==1 %}
+          <p>通信工程</p>
+          {% endif %}
+          {% if project.status.major==2 %}
+          <p>信息工程</p>
+          {% endif %}
+          {% if project.status.major==3 %}
+          <p>电子信息工程</p>
+          {% endif %}
+          <hr>
+          <h4>立项时间</h4>
+          <p>{{ project.status.startTime }}</p>
+      </aside>
+    </div>
+  </div>
+</section>
+       
+<!-- <hr>
+<h4>所获奖项</h4>
+{% for award in project.awards %}
+<p><span>{{ award.awardName }}|</span><span>{{ award.awardTime }}</span></p>
+<p>
+  {% if award.rank==1 %}
+  <span>国际型比赛</span>
+  {% endif %}
+  {% if award.rank==2 %}
+  <span>国家型比赛</span>
+  {% endif %}
+  {% if award.rank==3 %}
+  <span>省部型比赛</span>
+  {% endif %}
+  {% if award.rank==4 %}
+  <span>校内比赛</span>
+  {% endif %}
+</p>
+<p>
+  {% for i in award.pics %}
+  <img height="200" src="{{i.url}}" alt="">
+  {% endfor %}
+</p>
+{% endfor %} -->
+        
+{% endblock %}
