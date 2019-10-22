@@ -1,7 +1,7 @@
 {% extends 'back/base.html' %}
 {% block static_files %}
 <style>
-.export {
+  .filter {
   margin-bottom: 20px;
 }
 
@@ -29,9 +29,32 @@
         </ol>
       </div>
     </div>
-    <div class="row">
+    <div class="row filter">
       <div class="col-md-12">
-        <button class="btn btn-success export">导出全部</button>
+        <form class="form-inline">
+          <div class="form-group">
+            <label for="startTime">开始时间</label>
+            <input type="date" name="startTime" class="form-control" id="startTime">
+          </div>
+          <div class="form-group">
+            <label for="endTime">结束时间</label>
+            <input type="date" name="endTime" class="form-control" id="endTime">
+          </div>
+          <div class="form-group">
+            <label for="rank">获奖级别</label>
+            <select name="rank" class="form-control" id="rank">
+              <option value="1">国际型比赛</option>
+              <option value="2">国家型比赛</option>
+              <option value="3">省部型比赛</option>
+              <option value="4">校内比赛</option>
+            </select>
+          </div>
+          <div class="btn-group">
+            <button type="submit" class="btn btn-info">筛选</button>
+            <button type="reset" class="btn btn-default reset">重置</button>
+            <button type="button" class="btn btn-success export">导出</button>
+          </div>
+        </form>
       </div>
     </div>
     <div class="row">
@@ -101,18 +124,16 @@
 {% block js_files %}
 <script>
 $(function() {
+  $('.reset').on('click', function() {
+    location.href = '/admin/getAwards'
+  })
+
   $('.export').on('click', function() {
-    $.ajax({
-      url: '/api/admin/exportAwardInfo',
-      methods: 'GET',
-      dataType: 'json',
-      success: function(res) {
-        console.log(res)
-      },
-      error: function(xhr, status, error) {
-        alert(error)
-      }
-    })
+    // var iframe = document.createElement('iframe')
+    // iframe.src = '/api/admin/exportAwardInfo' + location.search
+    // iframe.style.display = 'none'
+    // document.body.append(iframe)
+    window.open('/api/admin/exportAwardInfo' + location.search)
   })
 })
 </script>
