@@ -389,10 +389,27 @@ class ProjectService:
     @descrition:逻辑删除项目。
     """
     def deletePro(self,pid):
+
+        #留一条记录
         updateContent = {
             "delete_flag":1
         }
+
+
         self.updateProStatusByPid(updateContent,pid)
+
+        session = db2.session
+        session.query(Files) \
+            .filter(Files.source_id == pid, Files.source == 1,Files.delete_flag == 0) \
+            .update({"delete_flag" : 1}) #删除主页图片
+        session.query(ProjectMember).filter(ProjectMember.pid == pid).delete()  # 删除成员
+        awards = session.query(ProjectAward).filter(ProjectAward.pid == pid).all()    # 设置获奖证书的删除标志位
+        for award in awards:
+            session.query(Files)\
+                .filter(Files.source_id == award.id,Files.source == 3,Files.delete_flag == 0)\
+                .update({"delete_flag" : 1})
+        session.query(ProjectAward).filter(ProjectAward.pid == pid).delete() #删除获奖信息
+        session.commit()
 
 
 
@@ -627,7 +644,7 @@ class ProjectService:
     #删除获奖信息
     def deleteAwardInfo(self,aid):
         sql = 'delete from dc_project_award where id=' + str(aid)
-        db2.session.query(Files).filter(Files.source == 2,Files.source_id == aid,Files.delete_flag == 0).update({
+        db2.session.query(Files).filter(Files.source == 3,Files.source_id == aid,Files.delete_flag == 0).update({
                     'delete_flag':1
                 })
         db2.session.execute(sql)

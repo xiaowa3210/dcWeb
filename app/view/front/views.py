@@ -131,6 +131,7 @@ def deleteProMember(mid):
 @front.route('/api/deleteProAward/<int:aid>',methods=['GET'])
 def deleteProAward(aid):
     projectService.deleteAwardInfo(aid)
+
     return json.dumps(MessageInfo.success(msg='删除成功').__dict__)
 
 """
