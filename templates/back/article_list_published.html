@@ -37,8 +37,8 @@
                 <td>{{article.modifiedTime}}</td>
                 <td>
                   <div class="btn-group">
-                    <button class="btn btn-danger chehui" id="chehui" p_id="{{article.nid}}">撤销</button>
-                    <button class="btn btn-danger delete" id="delete" p_id="{{article.nid}}">删除</button>
+                    <button class="btn btn-danger backNews" p_id="{{article.nid}}">撤销</button>
+                    <button class="btn btn-danger deleteNews" p_id="{{article.nid}}">删除</button>
                   </div>
                 </td>
               </tr>
@@ -72,19 +72,15 @@
 {% endblock %}
 {% block js_files %}
 <script>
-$(function() {
-  $(".delete").click(function() {
-    var data = {};
-    data.nid = $(this).attr("p_id");
-    n = $(this).attr("p_id");
-    console.log(data.pid);
+  $(".deleteNews").click(function() {
+    let n = $(this).attr('p_id');
+    let curTr = $(this).parent().parent().parent();
     $.ajax({
       url: "/api/admin/deleteNew/" + n,
       type: "get",
       success: function(data) {
         alert("删除成功"); //提交成功
-        window.location.href = "{{url_for('back.manageNews')}}?type=1"
-        //window.location.href='';//跳转到个人中心
+        curTr.remove();
       },
       error: function(data) {
         alert("删除失败"); //提交失败
@@ -92,40 +88,21 @@ $(function() {
     });
   });
 
-  $(".publish").click(function() {
-    n = $(this).attr("p_id");
-    $.ajax({
-      url: "/api/admin/releaseNew/" + n,
-      type: "get",
-      success: function(data) {
-        alert("发布成功"); //提交成功
-        window.location.href = "{{url_for('back.manageNews')}}?type=1"
-        //window.location.href='';//跳转到个人中心
-      },
-      error: function(data) {
-        alert("发布失败"); //提交失败
-      }
-    });
-  });
-
-  $(".chehui").click(function() {
-    var data = {};
-    data.nid = $(this).attr("p_id");
-    n = $(this).attr("p_id");
-    console.log(data.pid);
+  $(".backNews").click(function() {
+    let n = $(this).attr('p_id');
+    let curTr = $(this).parent().parent().parent();
     $.ajax({
       url: "/api/admin/undoNew/" + n,
       type: "get",
       success: function(data) {
         alert("撤回成功"); //提交成功
-        window.location.href = "{{url_for('back.manageNews')}}?type=1"
-        //window.location.href='';//跳转到个人中心
+        curTr.remove();
+        // window.location.href = "{{url_for('back.manageNews')}}?type=1"
       },
       error: function(data) {
         alert("撤回失败"); //提交失败
       }
     });
   });
-})
 </script>
 {% endblock %}
