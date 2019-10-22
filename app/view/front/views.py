@@ -331,7 +331,7 @@ def news(page,count):
 @front.route('/news/detail/<news_id>')
 def new(news_id):
     new = newsService.selectByNid(news_id)
-    files = filesService.getFilesBySourceIdAndSource(2,news_id)
+    files = filesService.getFilesBySourceIdAndSource(4,news_id)
     return render_template("front/news-detail.html",new=new,files=files)
 
 """

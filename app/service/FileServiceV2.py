@@ -63,7 +63,7 @@ class FilesService:
 
 
     def getDownloadFile(self,page_index, per_page):
-        pagination = Files.query.filter(Files.source == 2,Files.source_id == -1,Files.delete_flag == 0).order_by(desc(Files.createTime)).paginate(page_index, per_page, error_out=False)
+        pagination = Files.query.filter(Files.source.in_([2,4]),Files.delete_flag == 0).order_by(desc(Files.createTime)).paginate(page_index, per_page, error_out=False)
         return pagination, pagination.items
 
 
