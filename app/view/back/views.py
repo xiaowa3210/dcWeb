@@ -354,10 +354,7 @@ def manageProject(page,count):
     pagination,projects = projectService.getUploadedProBypage(page,count)
     return render_template("back/manageProject.html",projects=projects,pagination=pagination)
 
-"""
-删除已发布项目
-pagination,projects = projectService.getPublishedPro(page,count)
-"""
+
 @back.route("/admin/deleteProject",defaults={'page':1,'count':10})
 @back.route("/admin/deleteProject/<int:page>/<int:count>")
 def editeProject(page,count):

@@ -3,7 +3,7 @@ from datetime import datetime
 from sqlalchemy import desc
 
 from app import db2
-from app.model.entity import New, newExt
+from app.model.entity import New, newExt, Files
 from app.service.CommonService import CommonService
 
 commonService = CommonService()
@@ -109,8 +109,13 @@ class NewsService:
     删除新闻
     """
     def deleteNew(self,nid):
+        session = db2.session
+        session.query(Files).filter(Files.source == 4,Files.source_id == nid,Files.delete_flag == 0).update({
+            'delete_flag':1
+        })
         updateContent = {
             'deleteFlag': 1
         }
-        self.updateNewStatusByNid(updateContent, nid)
+        session.query(newExt).filter(newExt.nid == nid).update(updateContent)
+        session.commit()
 
