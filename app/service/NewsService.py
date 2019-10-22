@@ -94,7 +94,7 @@ class NewsService:
         if type == 1:
             updateContent = {
                 'status': type,
-                'publisher': commonService.getCurrentUsername(),
+                'publisher': commonService.getCurrentUsername(0),
                 'publisherTime': datetime.now()
             }
         else:

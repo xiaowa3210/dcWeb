@@ -372,7 +372,7 @@ class ProjectService:
     @descrition:得到学生已经上传了的项目(管理员只能对这部分项目进行管理)
     """
     def getUploadedProBypage(self,page_index,per_page):
-        pagination = ProjectStatus.query.filter(ProjectStatus.status.in_([2,3,4]),ProjectStatus.delete_flag == 0).paginate(page_index, per_page, error_out=False)
+        pagination = ProjectStatus.query.filter(ProjectStatus.status == 3 ,ProjectStatus.delete_flag == 0).paginate(page_index, per_page, error_out=False)
         projects = pagination.items
         return pagination, projects
 
@@ -520,7 +520,7 @@ class ProjectService:
         project.status.source = source
         db2.session.add(project)
         db2.session.commit()
-        if 'mainPicId' in data:
+        if data['mainPicId']:
             mainPicId = data['mainPicId']
             db2.session.query(Files).filter(Files.fid == mainPicId, Files.delete_flag == 0).update({
                 'source_id': project.pid
@@ -529,7 +529,7 @@ class ProjectService:
         else:
             file = Files()
             file.name = "默认图片"
-            file.path = "default.jpg"
+            file.path = "default.png"
             file.source = 1
             file.source_id = project.pid
             db2.session.add(file)
