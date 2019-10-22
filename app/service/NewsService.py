@@ -20,7 +20,7 @@ class NewsService:
     分页查询新闻
     """
     def selectByPage(self,page_index,per_page,status):
-        if int(status) <= 0:
+        if int(status) < 0:
             pagination = newExt.query.filter(newExt.deleteFlag == 0).order_by(desc(newExt.isTop)).order_by(desc(newExt.publisherTime)).paginate(
                 page_index, per_page)
         else:

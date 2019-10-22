@@ -322,7 +322,7 @@ def uploadProjectTmp(pid):
 @front.route('/news', methods=['GET'],defaults={'page':1,'count':10})
 @front.route('/news/<int:page>/<int:count>')
 def news(page,count):
-    pagination, news = newsService.selectByPage(page, count, 3)
+    pagination, news = newsService.selectByPage(page, count, 0)
     return render_template("front/news.html",pagination=pagination,documents=news)
 
 """

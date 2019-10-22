@@ -116,7 +116,7 @@ def deteteNew(nid):
 """
 @back.route('/api/admin/releaseNew/<nid>',methods=['get'])
 def releaseNew(nid):
-    newsService.releaseOrUndoNew(nid,1)
+    newsService.releaseOrUndoNew(nid,0)
     return json.dumps(MessageInfo.success(msg="发布成功").__dict__)
 
 """
@@ -124,7 +124,7 @@ def releaseNew(nid):
 """
 @back.route('/api/admin/undoNew/<nid>',methods=['get'])
 def undoNew(nid):
-    newsService.releaseOrUndoNew(nid,0)
+    newsService.releaseOrUndoNew(nid,1)
     return json.dumps(MessageInfo.success(msg="撤销成功").__dict__)
 
 """
@@ -388,11 +388,12 @@ def manageNews(page,count):
     type = request.values.get("type")
     pagination, news = newsService.selectByPage(page, count, type)
 
+    # 已经发布是status=0， 未发布status=1
     if(type == '-1'):
         return render_template('back/article_list.html', news=news, pagination=pagination)
     elif (type == '0'):
         return render_template('back/article_list_unpublished.html', news=news, pagination=pagination)
-    else:
+    elif(type == '1'):
         return render_template('back/article_list_published.html', news=news, pagination=pagination)
 
 
