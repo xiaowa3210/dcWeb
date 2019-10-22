@@ -31,14 +31,14 @@
                   </div>
                 </div>
                 <div class="form-group">
-                    <label for="content" class="control-label col-lg-1">新闻内容<span class="required">*</span></label>
-                    <div class="col-lg-10">
-                        <div id="test-editormd">
-                            <!--<textarea class="editormd-markdown-textarea" name="$id-markdown-doc"></textarea>-->
-                            <!-- html textarea 需要开启配置项 saveHTMLToTextarea == true -->
-                            <!--<textarea class="editormd-html-textarea" name="$id-html-code"></textarea>-->
-                        </div>
+                  <label for="content" class="control-label col-lg-1">新闻内容<span class="required">*</span></label>
+                  <div class="col-lg-10">
+                    <div id="test-editormd">
+                      <!--<textarea class="editormd-markdown-textarea" name="$id-markdown-doc"></textarea>-->
+                      <!-- html textarea 需要开启配置项 saveHTMLToTextarea == true -->
+                      <!--<textarea class="editormd-html-textarea" name="$id-html-code"></textarea>-->
                     </div>
+                  </div>
                 </div>
                 <div class="form-group">
                   <label for="InputFile" class="control-label col-lg-1">新闻附件</label>
@@ -50,11 +50,6 @@
                         <button class="btn btn-info" onclick="saveNews(0)">保存</button>
                     </div>
                 </div>                
-            
-                <!--<div style="width: auto;height: 10px">-->
-                <!--<div id="show">-->
-                <!--</div>-->
-                <!--</div>-->
               </form>
             </div>
           </div>
@@ -99,14 +94,14 @@ function saveNews(type) {
     processData: false,
     contentType: false,
     success: function(data) {
-        if(type == 1){
-            alert('发布成功')
-            window.location.href = '/admin/manageNews?type=1'
-        }else {
-            alert("保存成功")
-            window.location.href = '/admin/manageNews?type=0'
-        }
-        
+      if (type == 1) {
+        alert('发布成功')
+        window.location.href = '/admin/manageNews?type=1'
+      } else {
+        alert("保存成功")
+        window.location.href = '/admin/manageNews?type=0'
+      }
+
     },
     error: function(xhr, status, error) {
       alert("保存失败")

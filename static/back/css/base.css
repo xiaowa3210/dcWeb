@@ -1,7 +1,18 @@
 .box-height {
-    min-height: 500px;
+  min-height: 500px;
 }
+
 .table-striped>thead>tr>th,
 .table-striped>tbody>tr>td {
-    padding-left: 20px;
+  padding-left: 20px;
+}
+
+.title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.time {
+  white-space: nowrap;
 }

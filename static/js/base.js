@@ -17,19 +17,4 @@ $(function() {
   $(".time").each(function() {
     $(this).text($(this).text().slice(0, 10));
   });
-
-  /**
-   * markdown设置
-   */
-  // editormd("markdown", {
-  //   syncScrolling: "single",
-  //   saveHTMLToTextarea: true,
-  //   height: 700,
-  //   // width:960,
-  //   path: "{{url_for('static',filename='mdeditor/lib/')}}",
-  //   //启动本地图片上传功能
-  //   imageUpload: true,
-  //   imageFormats: ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
-  //   imageUploadURL: "{{url_for('common.markdown_upload')}}"
-  // });
 });
