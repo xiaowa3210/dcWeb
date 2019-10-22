@@ -79,7 +79,7 @@ def write_excel(awardInfos, filepath):
         for j in range(0, len(item)):
             sheet1.write_merge(gs, s-1, j, j, item[j], set_style('Times New Roman', 220, True))
         gs = s
-    f.save(os.path.join('../../resources/test.xls'))
+    f.save(filepath)
 
 
 def createAward():
