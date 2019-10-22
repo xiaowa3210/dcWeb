@@ -72,8 +72,8 @@
             <tbody>
               {% for award in awards %}
               <tr>
-                <td>{{ award.awardName }}</td>
-                <td>{{ award.awardTime }}</td>
+                <td class="title">{{ award.awardName }}</td>
+                <td class="time">{{ award.awardTime }}</td>
                 <td>
                   {% if award.rank==1 %}
                   国际型比赛
@@ -129,10 +129,6 @@ $(function() {
   })
 
   $('.export').on('click', function() {
-    // var iframe = document.createElement('iframe')
-    // iframe.src = '/api/admin/exportAwardInfo' + location.search
-    // iframe.style.display = 'none'
-    // document.body.append(iframe)
     window.open('/api/admin/exportAwardInfo' + location.search)
   })
 })

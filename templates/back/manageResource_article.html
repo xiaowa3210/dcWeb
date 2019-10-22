@@ -32,8 +32,8 @@
                         <tbody>
                         {% for file in files %}
                         <tr >
-                            <td><a href="{{ url_for('common.file', name=file.path) }}">{{file.name}}</a></td>
-                            <td>{{file.createTime}}</td>
+                            <td class="title"><a href="{{ url_for('common.file', name=file.path) }}">{{file.name}}</a></td>
+                            <td class="time">{{file.createTime}}</td>
                             <td>
                                 <button class="btn btn-danger deleteFile"  p_id="{{file.fid}}">删除</button>
                             </td>

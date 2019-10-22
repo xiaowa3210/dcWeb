@@ -5,3 +5,8 @@
 .table-striped>tbody>tr>td {
     padding-left: 20px;
 }
+.title {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

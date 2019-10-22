@@ -32,7 +32,7 @@
               {% for project in projects %}
               <tr>
                 <td>{{project.pid}}</td>
-                <td>{{project.pname}}</td>
+                <td class="title">{{project.pname}}</td>
                 <td>
                   {% if project.type == "1" %}
                   App开发/微信小程序开发
@@ -71,7 +71,7 @@
                   {% endif %}
                 </td>
                 <td>{{project.publisher}}</td>
-                <td>{{project.submitTime}}</td>
+                <td class="time">{{project.submitTime}}</td>
                 <td>
                   <a href="{{url_for('back.checkProject',pid=project.pid)}}">
                     <button class="btn btn-success">审核</button>

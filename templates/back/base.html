@@ -100,9 +100,6 @@
                 <ul class="sub">
                     <li><a class="" href="{{ url_for('back.editFiles') }}">上传</a></li>
                     <li><a class="" href="{{ url_for('back.manageResource') }}?source=2">查看</a></li>
-                    <!-- <li><a class="" href="{{ url_for('back.manageResource') }}?source=1">管理员上传</a></li>
-                    <li><a class="" href="{{ url_for('back.manageResource') }}?source=2">新闻上传</a></li>
-                    <li><a class="" href="{{ url_for('back.manageResource') }}?source=3">项目上传</a></li> -->
                 </ul>
             </li>
             <li class="sub-menu">
@@ -162,6 +159,7 @@
   <script src="/static/assets/chart-master/Chart.js"></script>
   <!--custome script for all page-->
   <script src="/static/js/scripts.js"></script>
+  <script src="/static/js/base.js"></script>
   <!-- custom script for this page-->
   <!-- <script src="/static/js/sparkline-chart.js"></script> -->
   <!-- <script src="/static/js/easy-pie-chart.js"></script> -->
@@ -176,51 +174,6 @@
   <script src="/static/js/charts.js"></script>
   <script src="/static/js/jquery.slimscroll.min.js"></script>
   <script src="/static/back/myjs/afquery.js"></script> -->
-  <!-- <script>
-  //knob
-  $(function() {
-    $(".knob").knob({
-      'draw': function() {
-        $(this.i).val(this.cv + '%')
-      }
-    })
-  });
-
-  //carousel
-  $(document).ready(function() {
-    $("#owl-slider").owlCarousel({
-      navigation: true,
-      slideSpeed: 300,
-      paginationSpeed: 400,
-      singleItem: true
-
-    });
-  });
-
-  //custom select box
-
-  $(function() {
-    $('select.styled').customSelect();
-  });
-
-  /* ---------- Map ---------- */
-  $(function() {
-    $('#map').vectorMap({
-      map: 'world_mill_en',
-      series: {
-        regions: [{
-          values: gdpData,
-          scale: ['#000', '#000'],
-          normalizeFunction: 'polynomial'
-        }]
-      },
-      backgroundColor: '#eef3f7',
-      onLabelShow: function(e, el, code) {
-        el.html(el.html() + ' (GDP - ' + gdpData[code] + ')');
-      }
-    });
-  });
-  </script> -->
   {% block js_files %}
   {% endblock %}
 </body>
