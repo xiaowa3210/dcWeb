@@ -40,13 +40,13 @@ class NewsService:
             pagination = newExt.query.filter(newExt.deleteFlag == 0, newExt.status == status).order_by(
                 desc(newExt.publisherTime)).paginate(page_index, per_page)
         return pagination, pagination.items
-    """ 
+    """
     根据id查询新闻具体内容
     """
     def selectByNid(self,nid):
         return db2.session.query(New).filter(New.nid == nid).one()
 
-    """ 
+    """
     修改新闻
     """
     def updatenew(self,new,status):
@@ -59,12 +59,12 @@ class NewsService:
         result.extInfo.modifier = commonService.getCurrentUsername(0)
         result.extInfo.modifiedTime = datetime.now()
         if status == '1':
-            result.extInfo.status = int(status)+1
+            result.extInfo.status = int(status)
             result.extInfo.publisher = commonService.getCurrentUsername(0)
             result.extInfo.publisherTime = datetime.now()
         db2.session.commit()
 
-    """ 
+    """
     @:param:
         updateContent:更新内容
         condition:查询条件
@@ -76,7 +76,7 @@ class NewsService:
         db2.session.query(newExt).filter(condition).update(updateContent)
         db2.session.commit()
 
-    """ 
+    """
     @:param:
     @:return:
     @descrition:根据新闻ID更新新闻状态信息
@@ -87,7 +87,7 @@ class NewsService:
         db2.session.commit()
 
 
-    """ 
+    """
     发布或撤回新闻
     """
     def releaseOrUndoNew(self,nid,type):
@@ -105,7 +105,7 @@ class NewsService:
         self.updateNewStatusByNid(updateContent,nid)
 
 
-    """ 
+    """
     删除新闻
     """
     def deleteNew(self,nid):
