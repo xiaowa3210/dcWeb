@@ -125,19 +125,19 @@
     <div class="col-md-3">
       <aside class="box-white">
         <h3>项目来源</h3>
-        {% if project.status.source=='1' %}
+        {% if project.status.source==1 %}
         <p>大创项目</p>
         {% endif %}
-        {% if project.status.type=='2' %}
+        {% if project.status.source==2 %}
         <p>雏雁项目</p>
         {% endif %}
-        {% if project.status.type=='3' %}
+        {% if project.status.source==3 %}
         <p>竞赛项目</p>
         {% endif %}
-        {% if project.status.type=='4' %}
+        {% if project.status.source==4 %}
         <p>课程项目</p>
         {% endif %}
-        {% if project.status.type=='0' %}
+        {% if project.status.source==0 %}
         <p>其他</p>
         {% endif %}
         <hr>
@@ -172,7 +172,7 @@
         <p>电子信息工程</p>
         {% endif %}
         <hr>
-        <h3>立项时间</h3>
+        <h3>项目时间</h3>
         <p>{{ project.status.pro_startTime or '无' }} - {{ project.status.pro_endTime or '无' }}</p>
       </aside>
     </div>

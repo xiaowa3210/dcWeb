@@ -46,8 +46,8 @@
                 </div>
                 <div class="form-group">
                     <div class="col-lg-offset-2 col-lg-8">
-                        <button class="btn btn-success" onclick="saveNews(1)">发布</button>
-                        <button class="btn btn-info" onclick="saveNews(0)">保存</button>
+                        <button class="btn btn-success" onclick="saveNews(0)">发布</button>
+                        <button class="btn btn-info" onclick="saveNews(1)">保存</button>
                     </div>
                 </div>                
             
@@ -99,7 +99,14 @@ function saveNews(type) {
     processData: false,
     contentType: false,
     success: function(data) {
-      alert("保存成功")
+        if(type == 0){
+            alert('发布成功')
+            window.location.href = '/admin/manageNews?type=1'
+        }else {
+            alert("保存成功")
+            window.location.href = '/admin/manageNews?type=0'
+        }
+        
     },
     error: function(xhr, status, error) {
       alert("保存失败")
