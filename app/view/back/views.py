@@ -50,8 +50,8 @@ def uploadNew():
         extraInfo.creater = commonService.getCurrentUsername(0)
         extraInfo.modifiedTime = datetime.now()
         extraInfo.modifier = commonService.getCurrentUsername(0)
-        extraInfo.status = 1
-        if type == '0':#代表发布新闻
+        extraInfo.status = type
+        if type == '1':#代表发布新闻
             extraInfo.publisher = commonService.getCurrentUsername(0)
             extraInfo.publisherTime = datetime.now()
         new.extInfo = extraInfo
