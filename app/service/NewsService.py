@@ -54,12 +54,11 @@ class NewsService:
         result.title = new.title
         result.content = new.content
         result.src_content = new.src_content
-        result.extInfo.status = int(status)+1
+        result.extInfo.status = int(status)
         result.extInfo.title = new.title
         result.extInfo.modifier = commonService.getCurrentUsername(0)
         result.extInfo.modifiedTime = datetime.now()
-        if status == '1':
-            result.extInfo.status = int(status)
+        if status == '1': # 发布新闻
             result.extInfo.publisher = commonService.getCurrentUsername(0)
             result.extInfo.publisherTime = datetime.now()
         db2.session.commit()
