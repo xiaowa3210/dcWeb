@@ -4,20 +4,20 @@ import os
 
 basedir = os.path.abspath(os.path.dirname(__file__))  # 当前文件的绝对路径
 
-# 测试环境
-HOST = "47.93.236.82"
-PORT = "3306"
-DB = "dcwebdb"
-USER = "root"
-PASS = "hubiao"
-
-# 正式环境
-#
-# HOST = "47.107.103.134"
+# # 测试环境
+# HOST = "47.93.236.82"
 # PORT = "3306"
 # DB = "dcwebdb"
 # USER = "root"
-# PASS = "Cc!12345"
+# PASS = "hubiao"
+
+# 正式环境
+#
+HOST = "10.3.244.72"
+PORT = "3306"
+DB = "dcwebdb"
+USER = "root"
+PASS = "dachuang"
 
 # 邮件服务器配置
 MAIL_SERVER = 'mail.163.com',

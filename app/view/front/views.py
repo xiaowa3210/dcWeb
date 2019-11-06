@@ -3,7 +3,6 @@
 import base64
 import json
 from flask import request, render_template, session, redirect, url_for
-from app.model.entity import User
 from app.service.UserServiceV2 import UserService
 from app.service.FileServiceV2 import FilesService
 from app.service.NewsService import NewsService
@@ -459,3 +458,15 @@ def selectAward(page, count):
     rank = request.args.get('rank', default=-1)
     pagination, awards = projectService.selectAwardInfo(startTime, endTime, rank, page, count)
     return render_template("front/awards.html", pagination=pagination, awards=awards)
+
+'''
+单独上传奖项信息
+'''
+@front.route("/addAward",methods=['POST'])
+@front.route("/addAward/")
+def addAwardInfo():
+    data = json.loads(request.get_data(as_text=True))
+    projectService.addAward(data)
+    # todo::
+    return render_template("front/awards.html")
+

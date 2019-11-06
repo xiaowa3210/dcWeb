@@ -732,9 +732,6 @@ class ProjectService:
             awardList.append(a)
 
         return pagination, awardList
-
-
-
 ##########################导出获奖信息########################
     def exportAwardInfo(self, awards):
         awardInfos = []
