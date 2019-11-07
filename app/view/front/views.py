@@ -462,11 +462,10 @@ def selectAward(page, count):
 '''
 单独上传奖项信息
 '''
-@front.route("/addAward",methods=['POST'])
-@front.route("/addAward/")
+@front.route("/api/addAward",methods=['POST'])
+@front.route("/api/addAward/")
 def addAwardInfo():
     data = json.loads(request.get_data(as_text=True))
     projectService.addAward(data)
-    # todo::
-    return render_template("front/awards.html")
+    return json.dumps(MessageInfo.success(msg='添加成功',data={}).__dict__)
 

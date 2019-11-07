@@ -732,6 +732,60 @@ class ProjectService:
             awardList.append(a)
 
         return pagination, awardList
+
+
+    '''
+    单独添加获奖信息
+    '''
+    def addAward(self,awardInfo):
+        awardName = awardInfo['awardName']
+        awardTime = awardInfo['awardTime']
+        rank = awardInfo['rank']
+        members = awardInfo['member']
+        certids = awardInfo['certids']
+        # 项目
+        project = Project("无名项目" + str(time.time()), "", -1)
+
+        # publisher = commonService.getCurrentUsername(1)
+        # 项目状态
+        projectStatus = ProjectStatus(project.pname, -1, "xxxxx", 6)
+
+
+        # 项目成员
+        projectMembers = []
+        for member in members:
+            memberType = member['type']
+            projectMember = ProjectMember(member['name'], memberType)
+            projectMember.academy = member['academy']
+            if memberType == 1:
+                projectMember.major = member['major']
+                projectMember.grade = member['grade']
+                projectMember.number = member['number']
+                projectMember.classId = member['classId']
+            projectMembers.append(projectMember)
+
+        # 获奖信息
+        projectAward = ProjectAward(awardName)
+        projectAward.awardTime = awardTime
+        projectAward.rank = rank
+
+        project.status = projectStatus
+        project.members = projectMembers
+        project.awards = [projectAward]
+
+        db2.session.add(project)
+
+        db2.session.commit()
+
+        aid = projectAward.id
+
+        if certids:
+            for id in certids:
+                db2.session.query(Files).filter(Files.fid == id,Files.delete_flag == 0).update({
+                    'source_id': aid
+                })
+                db2.session.commit()
+
 ##########################导出获奖信息########################
     def exportAwardInfo(self, awards):
         awardInfos = []
