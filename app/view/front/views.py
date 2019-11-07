@@ -317,6 +317,19 @@ def uploadProjectTmp(pid):
     return render_template("front/edit-project.html", project=project)
 
 """
+上传奖项
+"""
+@front.route('/student/uploadAward',defaults={'pid':-1})
+@front.route('/student/uploadAward/<int:pid>')
+def uploadAwardTmp(pid):
+    award = []
+    # if pid!=-1:
+    #     project = projectService.getProjectByID(pid)
+    # else:
+    #     project = projectService.getProId()
+    return render_template("front/edit-award.html", award=award)
+
+"""
 新闻列表展示
 """
 @front.route('/news', methods=['GET'],defaults={'page':1,'count':10})
