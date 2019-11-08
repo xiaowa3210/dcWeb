@@ -1,5 +1,5 @@
 {% extends 'front/base.html' %}
-{% block page_name %}编辑项目{% endblock %}
+{% block page_name %}编辑奖项{% endblock %}
 {% block static_files %}
 <link rel="stylesheet" href="/static/vendor/mdeditor/editormd.min.css">
 <style>
@@ -134,319 +134,15 @@ label[for='mainPic'] {
   <div class="box-white">
     <ol class="breadcrumb">
       <li><a href="{{url_for('front.user')}}">个人中心</a></li>
-      <li class="active">上传项目</li>
+      <li class="active">上传奖项</li>
     </ol>
-    {% if project and project.status and project.status.msg %}
-    <blockquote><span style="color: red;">审核意见：</span>{{project.status.msg}}</blockquote>
-    {% endif %}
-    <div id="panel" data-pid="{{project.pid or -1}}">
-      <section>
-        <div class="item-header">
-          <div class="left">项目信息</div>
-        </div>
-        <form id="info-form" class="info-form" onsubmit="return false">
-          <!--项目信息-->
-          <div class="content">
-            <div class="tableRow">
-              <label>项目名称*</label>
-              <input style="width:100%;" type="text" placeholder="请输入项目名称" name="pname" value="{{project.pname}}" required>
-            </div>
-            <div class="tableRow">
-              <label>项目介绍*</label>
-              <div id="markdown">
-                <textarea style="display: none;" name="src_content">{{ project.src_content | safe or '## 项目简介\n\n## 项目内容\n\n## 项目结论'}}</textarea>
-              </div>
-            </div>
-            <div class="tableRow">
-              <label>封面图片*</label>
-              <label for="mainPic"></label>
-              <input type="file" id="mainPic" accept="image/*" class="hide">
-              <div>
-                {% if project.pic %}
-                <img class="mainPicPreview" data-id="{{project.pic.fid}}" src="{{ url_for('common.image',name=project.pic.path) }}">
-                {% else %}
-                <img class="mainPicPreview" data-id="" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==">
-                {% endif %}
-              </div>
-            </div>
-            <div class="tableRow">
-              <label>开始时间*</label>
-              <input type="month" name="startTime" value="" required>
-              {% if project.status and project.status.pro_startTime %}
-              <script>
-                var date = '{{project.status.pro_startTime}}'
-                date = date.substr(0, 7)
-                document.querySelector('input[name=startTime]').value = date
-              </script>
-              {% endif %}
-            </div>
-            <div class="tableRow">
-              <label>结束时间*</label>
-              <input type="month" name="endTime" value="" required>
-              {% if project.status and project.status.pro_endTime %}
-              <script>
-                var date = '{{project.status.pro_endTime}}'
-                date = date.substr(0, 7)
-                document.querySelector('input[name=endTime]').value = date
-              </script>
-              {% endif %}
-            </div>
-            <div class="tableRow">
-              <label>项目专业*</label>
-              <select name="major">
-                <option value="1" {% if project.status and project.status.major==1 %}selected{% endif %}>通信工程</option>
-                <option value="2" {% if project.status and project.status.major==2 %}selected{% endif %}>信息工程</option>
-                <option value="3" {% if project.status and project.status.major==3 %}selected{% endif %}>电子信息工程</option>
-              </select>
-            </div>
-            <div class="tableRow">
-              <label>项目类别*</label>
-              <select name="type">
-                <option value="1" {% if project.type=="1" %}selected{% endif %}>App开发/微信小程序开发</option>
-                <option value="2" {% if project.type=="2" %}selected{% endif %}>通信/网络</option>
-                <option value="3" {% if project.type=="3" %}selected{% endif %}>软件系统</option>
-                <option value="4" {% if project.type=="4" %}selected{% endif %}>硬件系统</option>
-                <option value="5" {% if project.type=="5" %}selected{% endif %}>视频/图像</option>
-                <option value="6" {% if project.type=="6" %}selected{% endif %}>大数据/机器学习</option>
-              </select>
-            </div>
-            <div class="tableRow">
-              <label>项目来源*</label>
-              <select name="source">
-                <option value="1" {% if project.status and project.status.source==1 %}selected{% endif %}>大创项目</option>
-                <option value="2" {% if project.status and project.status.source==2 %}selected{% endif %}>雏雁项目</option>
-                <option value="3" {% if project.status and project.status.source==3 %}selected{% endif %}>竞赛项目</option>
-                <option value="4" {% if project.status and project.status.source==4 %}selected{% endif %}>课程项目</option>
-                <option value="0" {% if project.status and project.status.source==0 %}selected{% endif %}>其他</option>
-              </select>
-            </div>
-            <div class="operate">
-              <button class="save-info">保存</button>
-            </div>
-          </div>
-        </form>
-      </section>
-      <section>
-        <div class="item-header flex-row">
-          <div class="left">项目成员</div>
-          <span class="glyphicon glyphicon-plus add member-add" aria-hidden="true" data-form="member-form"></span>
-        </div>
-        <div class="result">
-          <table class="table table-striped text-center">
-            <thead>
-              <tr class="success">
-                <td>姓名</td>
-                <td>学号</td>
-                <td>班级</td>
-                <td>年级</td>
-                <td>专业</td>
-                <td>学院</td>
-                <td>操作</td>
-              </tr>
-            </thead>
-            <tbody class="member-tbody">
-              {% for member in project.members %}
-              {% if member.type==1 %}
-              <tr class="edit-area">
-                <td>
-                  <div class="area1">{{member.name}}</div>
-                  <input class="area2 hide" type="text" name="name" value="{{member.name}}">
-                </td>
-                <td>
-                  <div class="area1">{{member.number}}</div>
-                  <input class="area2 hide" type="text" name="number" value="{{member.number}}">
-                </td>
-                <td>
-                  <div class="area1">{{member.classId}}</div>
-                  <input class="area2 hide" type="text" name="classId" value="{{member.classId}}">
-                </td>
-                <td>
-                  <div class="area1">{{member.grade}}</div>
-                  <input class="area2 hide" type="text" name="grade" value="{{member.grade}}">
-                </td>
-                <td>
-                  <div class="area1">{{member.major}}</div>
-                  <input class="area2 hide" type="text" name="major" value="{{member.major}}">
-                </td>
-                <td>
-                  <div class="area1">{{member.academy}}</div>
-                  <input class="area2 hide" type="text" name="academy" value="{{member.academy}}">
-                </td>
-                <td class="operator">
-                  <button class="btn btn-success btn-xs edit" data-type="member" data-id="{{member.id}}">修改</button>
-                  <button class="btn btn-danger btn-xs delete" data-type="member" data-id="{{member.id}}">删除</button>
-                </td>
-              </tr>
-              {% endif %}
-              {% endfor %}
-            </tbody>
-          </table>
-          <form class="content member-form hide" onsubmit="return false">
-            <div class="lists">
-              <div class="item">
-                <label>姓名</label>
-                <input type="text" name="name">
-              </div>
-              <div class="item">
-                <label>学号</label>
-                <input type="text" name="number">
-              </div>
-              <div class="item">
-                <label>班级</label>
-                <input type="text" name="classId">
-              </div>
-            </div>
-            <div class="lists">
-              <div class="item">
-                <label>年级</label>
-                <input type="text" name="grade">
-              </div>
-              <div class="item">
-                <label>专业</label>
-                <input type="text" name="major">
-              </div>
-              <div class="item">
-                <label>学院</label>
-                <input type="text" name="academy">
-              </div>
-            </div>
-            <div class="operate">
-              <button class="save-member">保存</button>
-              <button class="cancel" data-trigger="member-add">取消</button>
-            </div>
-          </form>
-        </div>
-      </section>
-      <section>
-        <div class="item-header flex-row">
-          <div class="left">指导老师</div>
-          <span class="glyphicon glyphicon-plus add teacher-add" aria-hidden="true" data-form="teacher-form"></span>
-        </div>
-        <div class="result">
-          <table class="table table-striped text-center">
-            <thead>
-              <tr class="success">
-                <td>姓名</td>
-                <td>专业</td>
-                <td>学院</td>
-                <td>操作</td>
-              </tr>
-            </thead>
-            <tbody class="teacher-tbody">
-              {% for member in project.members %}
-              {% if member.type==0 %}
-              <tr class="edit-area">
-                <td>
-                  <div class="area1">{{member.name}}</div>
-                  <input class="area2 hide" type="text" name="name" value="{{member.name}}">
-                </td>
-                <td>
-                  <div class="area1">{{member.major}}</div>
-                  <input class="area2 hide" type="text" name="major" value="{{member.major}}">
-                </td>
-                <td>
-                  <div class="area1">{{member.academy}}</div>
-                  <input class="area2 hide" type="text" name="academy" value="{{member.academy}}">
-                </td>
-                <td class="operator">
-                  <button class="btn btn-success btn-xs edit" data-type="member" data-id="{{member.id}}">修改</button>
-                  <button class="btn btn-danger btn-xs delete" data-type="member" data-id="{{member.id}}">删除</button>
-                </td>
-              </tr>
-              {% endif %}
-              {% endfor %}
-            </tbody>
-          </table>
-          <form class="content hide teacher-form" onsubmit="return false">
-            <div class="lists">
-              <div class="item">
-                <label>姓名</label>
-                <input type="text" name="name">
-              </div>
-              <div class="item">
-                <label>专业</label>
-                <input type="text" name="major">
-              </div>
-              <div class="item">
-                <label>学院</label>
-                <input type="text" name="academy">
-              </div>
-            </div>
-            <div class="operate">
-              <button class="save-teacher">保存</button>
-              <button class="cancel" data-trigger="teacher-add">取消</button>
-            </div>
-          </form>
-        </div>
-      </section>
+    <div id="panel" data-pid="{{award.pid or -1}}">
       <section>
         <div class="item-header flex-row">
           <div class="left">获奖信息</div>
-          <span class="glyphicon glyphicon-plus add award-add" aria-hidden="true" data-form="award-form"></span>
         </div>
         <div class="result">
-          <table class="table table-striped text-center">
-            <thead>
-              <tr class="success">
-                <td>获奖名称</td>
-                <td>获奖时间</td>
-                <td>奖项级别</td>
-                <td>获奖证书</td>
-                <td>操作</td>
-              </tr>
-            </thead>
-            <tbody class="award-tbody">
-              {% for award in project.awards %}
-              <tr class="edit-area">
-                <td>
-                  <div class="area1">{{award.awardName}}</div>
-                  <input class="area2 hide" type="text" name="name" value="{{award.awardName}}">
-                </td>
-                <td>
-                  <div class="area1">{{award.awardTime}}</div>
-                  <input class="area2 hide" type="date" name="awardTime" value="{{award.awardTime}}">
-                </td>
-                <td>
-                  <div class="area1">
-                    {% if award.rank == 1 %}
-                    国际型比赛
-                    {% elif award.rank == 2 %}
-                    国家型比赛
-                    {% elif award.rank == 3 %}
-                    省部级比赛
-                    {% elif award.rank == 4 %}
-                    校内比赛
-                    {% endif %}
-                  </div>
-                  <select class="area2 hide" name="rank">
-                    <option value="1" {% if award.rank==1%}selected{% endif %}>国际型比赛</option>
-                    <option value="2" {% if award.rank==2%}selected{% endif %}>国家型比赛</option>
-                    <option value="3" {% if award.rank==3%}selected{% endif %}>省部型比赛</option>
-                    <option value="4" {% if award.rank==4%}selected{% endif %}>校内比赛</option>
-                  </select>
-                </td>
-                <td>
-                  <div class="area1 cert-preview">
-                    {% for i in award.pics %}
-                    <div class="imgWrap">
-                      <img src="{{ i.url }}">
-                      <div class="overlay">
-                        <span class="glyphicon glyphicon-trash" aria-hidden="true" data-id="i.id"></span>
-                      </div>
-                    </div>
-                    {% endfor %}
-                  </div>
-                  <input class="area2 hide certfile" type="file" name="certfile" multiple accept="image/*">
-                </td>
-                <td class="operator">
-                  <button class="btn btn-success btn-xs edit" data-type="award" data-id="{{award.id}}">修改</button>
-                  <button class="btn btn-danger btn-xs delete" data-type="award" data-id="{{award.id}}">删除</button>
-                </td>
-              </tr>
-              {% endfor %}
-            </tbody>
-          </table>
-          <form class="form-horizontal content hide award-form" onsubmit="return false">
+          <form class="form-horizontal content award-form" onsubmit="return false">
             <div class="row">
               <div class="col-md-6">
                 <div class="form-group">
@@ -482,15 +178,79 @@ label[for='mainPic'] {
                 <div class="cert-preview cert-up-preview"></div>
               </div>
             </div>
-            <div class="row operate">
-              <button class="save-award">保存</button>
-              <button class="cancel" data-trigger="award-add">取消</button>
+          </form>
+        </div>
+      </section>
+      <section>
+        <div class="item-header flex-row">
+          <div class="left">奖项成员</div>
+          <span class="glyphicon glyphicon-plus add member-add" aria-hidden="true" data-form="member-form"></span>
+        </div>
+        <div class="result">
+          <form class="content member-form" onsubmit="return false">
+            <div class="lists">
+              <div class="item">
+                <label>姓名</label>
+                <input type="text" name="name">
+              </div>
+              <div class="item">
+                <label>学号</label>
+                <input type="text" name="number">
+              </div>
+              <div class="item">
+                <label>班级</label>
+                <input type="text" name="classId">
+              </div>
+            </div>
+            <div class="lists">
+              <div class="item">
+                <label>年级</label>
+                <input type="text" name="grade">
+              </div>
+              <div class="item">
+                <label>专业</label>
+                <input type="text" name="major">
+              </div>
+              <div class="item">
+                <label>学院</label>
+                <input type="text" name="academy">
+              </div>
+            </div>
+            <div class="operate">
+              <button class="cancel" data-form="member">取消</button>
+            </div>
+          </form>
+        </div>
+      </section>
+      <section>
+        <div class="item-header flex-row">
+          <div class="left">指导老师</div>
+          <span class="glyphicon glyphicon-plus add teacher-add" aria-hidden="true" data-form="teacher-form"></span>
+        </div>
+        <div class="result">
+          <form class="content teacher-form" onsubmit="return false">
+            <div class="lists">
+              <div class="item">
+                <label>姓名</label>
+                <input type="text" name="name">
+              </div>
+              <div class="item">
+                <label>专业</label>
+                <input type="text" name="major">
+              </div>
+              <div class="item">
+                <label>学院</label>
+                <input type="text" name="academy">
+              </div>
+            </div>
+            <div class="operate">
+              <button class="cancel" data-form="teacher">取消</button>
             </div>
           </form>
         </div>
       </section>
       <div class="center">
-        <button class="btn btn-success submit">提交审核</button>
+        <button class="btn btn-success submit">提交</button>
       </div>
     </div>
   </div>
@@ -518,12 +278,12 @@ $(function() {
     this.$certUpPreview = $('.cert-up-preview')
   }
 
-  // 初始化项目信息
+  // 初始化奖项信息
   Project.prototype.initConfig = function() {
     // init markdown editor
-    this.mdEditor = setMarkdown('markdown')
+    // this.mdEditor = setMarkdown('markdown')
 
-    // 项目id
+    // 奖项id
     this.pid = this.$panel.data('pid')
 
     // 提交后返回的封面图片的id
@@ -566,7 +326,7 @@ $(function() {
       // 删除条目
       $this.hasClass('delete') && that.delete($this)
 
-      // 提交项目
+      // 提交奖项
       $this.hasClass('submit') && that.submit($this)
     })
   }
@@ -613,32 +373,24 @@ $(function() {
     });
   }
 
-  // 添加按钮，可以多个添加的类别为项目成员/老师/奖项，项目信息默认只有一个
+  // 添加按钮，可以多个添加的类别为奖项成员/老师/奖项，奖项信息默认只有一个
   Project.prototype.add = function($this) {
     const className = $this.data('form')
     if (!className) {
       return
     }
-    const $form = $('.' + className)
-    $form.toggleClass('hide')
-
-    // icon style
-    if ($this.hasClass('glyphicon-plus')) {
-      $this.removeClass('glyphicon-plus')
-      $this.addClass('glyphicon-minus')
-    } else {
-      $this.removeClass('glyphicon-minus')
-      $this.addClass('glyphicon-plus')
-    }
+    const $form = $('.' + className).eq(0)
+    const dupNode = $form.clone()
+    $form.parent().append(dupNode)
   }
 
   // 添加后取消按钮
   Project.prototype.cancel = function($this) {
-    const trigger = $this.data('trigger')
-    if (!trigger) {
-      return
+    const name = $this.data('form')
+    const form = $(`.${name}-form`)
+    if (form.length > 1) {
+      $this.parent().parent().remove()
     }
-    $('.' + trigger).click()
   }
 
   // 编辑修改
@@ -969,9 +721,28 @@ $(function() {
 
   // 提交审核
   Project.prototype.submit = function() {
+    let award = this.$awardForm.serializeJson()
+    award.certids = this.certIdArr
+    award.member = []
+    let memberForm = $('.member-form')
+    let teacherForm = $('.teacher-form')
+
+    for (let i = 0; i < memberForm.length; i++) {
+      let f = memberForm.eq(i).serializeJson()
+      f.type = 1
+      award.member.push(f)
+    }
+
+    for (let i = 0; i < teacherForm.length; i++) {
+      let f = teacherForm.eq(i).serializeJson()
+      f.type = 2
+      award.member.push(f)
+    }
+
     $.ajax({
-      url: '/api/submitProject/' + this.pid,
-      type: 'GET',
+      url: '/api/addAward',
+      type: 'POST',
+      data: JSON.stringify(award),
       dataType: 'json',
       success: function(res) {
         layer.msg(res.msg)
