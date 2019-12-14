@@ -706,14 +706,14 @@ class ProjectService:
             pro.pic = mainPic
         return pagination, pros
 
-    def selectAwardInfo(self, startTime, endTime, rank, page_index,count):
+    def selectAwardInfo(self, startTime, endTime, rank, page_index,count, status=[3,5]):
         #根据条件查出所有的获奖时间
-        query = ProjectAward.query.join(ProjectStatus, ProjectAward.pid == ProjectStatus.pid).filter(ProjectStatus.status == 3)
+        query = ProjectAward.query.join(ProjectStatus, ProjectAward.pid == ProjectStatus.pid).filter(ProjectStatus.status.in_(status))
         if startTime:
             query = query.filter(ProjectAward.awardTime >= startTime)
         if endTime:
             query = query.filter(ProjectAward.awardTime <= endTime)
-        if rank != -1:
+        if rank and int(rank) != -1:
             query = query.filter(ProjectAward.rank == rank)
         pagination = query.order_by(desc(ProjectAward.awardTime)).paginate(page_index, count, error_out=False)
         awards = pagination.items
@@ -806,7 +806,7 @@ class ProjectService:
             mems = []
             for proMem in proMems:
                 memName = proMem.name
-                if proMems.type == 0:
+                if proMem.type == 0:
                     memName += '(指导老师)'
                 memNumber = proMem.number
                 memMajor = proMem.major
@@ -816,10 +816,22 @@ class ProjectService:
             awardInfo.members = mems
             awardInfos.append(awardInfo)
 
-            filename = "获奖信息" + str(time.time()) + ".xls"
-            filepath = os.path.join(UPLOAD_AWARD_PATH, filename)
-            write_excel(awardInfos,filepath)
-            return filename
+        filename = "获奖信息" + str(time.time()) + ".xls"
+        filepath = os.path.join(UPLOAD_AWARD_PATH, filename)
+        write_excel(awardInfos,filepath)
+        return filename
+
+    def checkAward(self, aid, op):
+        # 得到获奖信息
+        award = db2.session.query(ProjectAward).filter(ProjectAward.id == aid).one()
+        # 获得获奖信息关联的项目
+        pro = award.project
+        if op == 0:#删除奖项
+            self.deletePro(pro.pid)
+        elif op == 1:#修改状态
+            proStatus = pro.status
+            proStatus.status = 5
+            db2.session.commit()
 
 #     """
 #     @:param:

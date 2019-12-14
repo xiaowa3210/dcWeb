@@ -483,3 +483,30 @@ def getAwards(page, count):
     rank = request.args.get('rank', default=-1)
     pagination, awards = projectService.selectAwardInfo(startTime, endTime, rank, page, count)
     return render_template("back/awards_list.html", pagination=pagination, awards=awards)
+
+
+"""
+审核奖项接口
+op:1代表添加，0删除
+aid:代表奖项Id
+"""
+@back.route('/api/admin/checkAward/<int:aid>/<int:op>',methods=['get'])
+def checkAward(aid,op):
+    projectService.checkAward(aid, op)
+    return json.dumps(MessageInfo.success(msg="操作完成").__dict__)
+
+
+"""
+审核奖项页面
+op:1代表添加，0删除
+aid:代表奖项Id
+"""
+@back.route("/admin/checkAward",methods=['GET'],defaults={'page':1,'count':10})
+@back.route("/admin/checkAward/<int:page>/<int:count>")
+def checkAwardPage(page, count):
+    #筛选条件
+    startTime = request.args.get('startTime', default=None)
+    endTime = request.args.get('endTime', default=None)
+    rank = request.args.get('rank', default=-1)
+    pagination, awards = projectService.selectAwardInfo(startTime, endTime, rank, page, count, [6])
+    return render_template("back/awards_check.html", pagination=pagination, awards=awards)

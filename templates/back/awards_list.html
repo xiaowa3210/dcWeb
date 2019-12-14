@@ -43,6 +43,7 @@
           <div class="form-group">
             <label for="rank">获奖级别</label>
             <select name="rank" class="form-control" id="rank">
+                <option value="-1">全部</option>
               <option value="1">国际型比赛</option>
               <option value="2">国家型比赛</option>
               <option value="3">省部型比赛</option>
@@ -129,7 +130,13 @@ $(function() {
   })
 
   $('.export').on('click', function() {
-    window.open('/api/admin/exportAwardInfo' + location.search)
+      startTime = $('#startTime').val()
+      endTime = $('#endTime').val()
+      rank = $('#rank').val()
+      console.log('/api/admin/exportAwardInfo' + "?" + 'startTime='
+          + startTime + '&' + 'endTime=' + endTime + '&' + 'rank=' + rank)
+    window.open('/api/admin/exportAwardInfo' + "?" + 'startTime='
+        + startTime + '&' + 'endTime=' + endTime + '&' + 'rank=' + rank)
   })
 })
 </script>
