@@ -498,8 +498,6 @@ def checkAward(aid,op):
 
 """
 审核奖项页面
-op:1代表添加，0删除
-aid:代表奖项Id
 """
 @back.route("/admin/checkAward",methods=['GET'],defaults={'page':1,'count':10})
 @back.route("/admin/checkAward/<int:page>/<int:count>")

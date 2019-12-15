@@ -37,7 +37,7 @@
         <!--logo start-->
         <a href="{{url_for('back.main')}}" class="logo">管理<span class="lite">界面</span></a>
         <!--logo end-->
-        <div class="top-nav notification-row">            
+        <div class="top-nav notification-row">
             <!-- notificatoin dropdown start-->
             <ul class="nav pull-right top-menu">
                 <li class="dropdown">
@@ -120,6 +120,7 @@
                     <span class="menu-arrow arrow_carrot-right"></span>
                 </a>
                 <ul class="sub">
+                    <li><a class="" href="{{ url_for('back.checkAwardPage') }}">审核</a></li>
                     <li><a class="" href="{{ url_for('back.getAwards') }}">查看</a></li>
                 </ul>
             </li>
