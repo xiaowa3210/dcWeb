@@ -38,7 +38,7 @@ python-editor==1.0.3
 requests==2.22.0
 six==1.11.0
 SQLAlchemy==1.2.10
-urllib3==1.25.5
+urllib3==1.25.8
 users==1.0.dev0
 virtualenv==16.7.7
 Werkzeug==0.14.1
